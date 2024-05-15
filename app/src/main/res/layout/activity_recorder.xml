@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:gravity="center"
-            android:text="버튼을 클릭하고 문장을 2번 따라 읽어줘."
+            android:text="마지막으로 따뜻한 말을 건네보자."
             android:textSize="15dp" />
 
     </LinearLayout>
