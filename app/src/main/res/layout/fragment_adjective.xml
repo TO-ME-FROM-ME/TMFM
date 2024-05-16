@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/solid_stroke"
-                android:text="감동적인"
+                android:text="든든한"
                 android:layout_marginRight="10dp" />
 
             <Button
@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/solid_stroke"
-                android:text="감동적인"
+                android:text="자랑스러운"
                 android:layout_marginRight="10dp" />
 
             <Button
@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/solid_stroke"
-                android:text="감동적인"
+                android:text="홀가분한"
                 android:layout_marginRight="10dp" />
 
             <Button
@@ -61,7 +61,47 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/solid_stroke"
-                android:text="감동적인"
+                android:text="깜짝 놀란"
+                android:layout_marginRight="10dp" />
+
+            <Button
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/solid_stroke"
+                android:text="혼란스러운"
+                android:layout_marginRight="10dp" />
+
+            <Button
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/solid_stroke"
+                android:text="짜증나는"
+                android:layout_marginRight="10dp" />
+
+            <Button
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/solid_stroke"
+                android:text="싸늘한"
+                android:layout_marginRight="10dp" />
+
+            <Button
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/solid_stroke"
+                android:text="막막한"
+                android:layout_marginRight="10dp" />
+
+            <Button
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/solid_stroke"
+                android:text="안타까운"
                 android:layout_marginRight="10dp" />
 
         </LinearLayout>
@@ -77,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/solid_stroke"
-                android:text="감동적인"
+                android:text="감사한"
                 android:layout_marginRight="10dp" />
 
             <Button
@@ -85,7 +125,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/solid_stroke"
-                android:text="감동적인"
+                android:text="만족스러운"
                 android:layout_marginRight="10dp" />
 
             <Button
@@ -93,7 +133,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/solid_stroke"
-                android:text="감동적인"
+                android:text="자신있는"
                 android:layout_marginRight="10dp" />
 
             <Button
@@ -101,7 +141,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/solid_stroke"
-                android:text="감동적인"
+                android:text="활기찬"
                 android:layout_marginRight="10dp" />
 
             <Button
@@ -109,23 +149,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/solid_stroke"
-                android:text="감동적인"
-                android:layout_marginRight="10dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp">
-
-            <Button
-                android:layout_width="0px"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/solid_stroke"
-                android:text="감동적인"
+                android:text="당황한"
                 android:layout_marginRight="10dp" />
 
             <Button
@@ -133,7 +157,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/solid_stroke"
-                android:text="감동적인"
+                android:text="답답한"
                 android:layout_marginRight="10dp" />
 
             <Button
@@ -141,7 +165,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/solid_stroke"
-                android:text="감동적인"
+                android:text="귀찮은"
                 android:layout_marginRight="10dp" />
 
             <Button
@@ -149,7 +173,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/solid_stroke"
-                android:text="감동적인"
+                android:text="지루한"
                 android:layout_marginRight="10dp" />
 
             <Button
@@ -157,7 +181,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/solid_stroke"
-                android:text="감동적인"
+                android:text="미안한"
+                android:layout_marginRight="10dp" />
+
+            <Button
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/solid_stroke"
+                android:text="외로운"
                 android:layout_marginRight="10dp" />
 
         </LinearLayout>
@@ -173,7 +205,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/solid_stroke"
-                android:text="감동적인"
+                android:text="기대되는"
                 android:layout_marginRight="10dp" />
 
             <Button
@@ -181,7 +213,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/solid_stroke"
-                android:text="감동적인"
+                android:text="사랑스러운"
                 android:layout_marginRight="10dp" />
 
             <Button
@@ -189,7 +221,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/solid_stroke"
-                android:text="감동적인"
+                android:text="재미있는"
                 android:layout_marginRight="10dp" />
 
             <Button
@@ -197,7 +229,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/solid_stroke"
-                android:text="감동적인"
+                android:text="황홀한"
                 android:layout_marginRight="10dp" />
 
             <Button
@@ -205,7 +237,47 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/solid_stroke"
-                android:text="감동적인"
+                android:text="두려운"
+                android:layout_marginRight="10dp" />
+
+            <Button
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/solid_stroke"
+                android:text="미운"
+                android:layout_marginRight="10dp" />
+
+            <Button
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/solid_stroke"
+                android:text="무관심한"
+                android:layout_marginRight="10dp" />
+
+            <Button
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/solid_stroke"
+                android:text="피곤한"
+                android:layout_marginRight="10dp" />
+
+            <Button
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/solid_stroke"
+                android:text="서운한"
+                android:layout_marginRight="10dp" />
+
+            <Button
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/solid_stroke"
+                android:text="우울한"
                 android:layout_marginRight="10dp" />
 
         </LinearLayout>
@@ -221,7 +293,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/solid_stroke"
-                android:text="감동적인"
+                android:text="기쁜"
                 android:layout_marginRight="10dp" />
 
             <Button
@@ -229,7 +301,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/solid_stroke"
-                android:text="감동적인"
+                android:text="신나는"
                 android:layout_marginRight="10dp" />
 
             <Button
@@ -237,7 +309,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/solid_stroke"
-                android:text="감동적인"
+                android:text="편안한"
                 android:layout_marginRight="10dp" />
 
             <Button
@@ -245,7 +317,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/solid_stroke"
-                android:text="감동적인"
+                android:text="걱정스러운"
                 android:layout_marginRight="10dp" />
 
             <Button
@@ -253,7 +325,135 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/solid_stroke"
-                android:text="감동적인"
+                android:text="무서운"
+                android:layout_marginRight="10dp" />
+
+            <Button
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/solid_stroke"
+                android:text="분한"
+                android:layout_marginRight="10dp" />
+
+            <Button
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/solid_stroke"
+                android:text="부끄러운"
+                android:layout_marginRight="10dp" />
+
+            <Button
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/solid_stroke"
+                android:text="괴로운"
+                android:layout_marginRight="10dp" />
+
+            <Button
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/solid_stroke"
+                android:text="슬픈"
+                android:layout_marginRight="10dp" />
+
+            <Button
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/solid_stroke"
+                android:text="좌절한"
+                android:layout_marginRight="10dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+            <Button
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/solid_stroke"
+                android:text="놀라운"
+                android:layout_marginRight="10dp" />
+
+            <Button
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/solid_stroke"
+                android:text="열중한"
+                android:layout_marginRight="10dp" />
+
+            <Button
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/solid_stroke"
+                android:text="평화로운"
+                android:layout_marginRight="10dp" />
+
+            <Button
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/solid_stroke"
+                android:text="긴장한"
+                android:layout_marginRight="10dp" />
+
+            <Button
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/solid_stroke"
+                android:text="불안한"
+                android:layout_marginRight="10dp" />
+
+            <Button
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/solid_stroke"
+                android:text="억울한"
+                android:layout_marginRight="10dp" />
+
+            <Button
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/solid_stroke"
+                android:text="부러운"
+                android:layout_marginRight="10dp" />
+
+            <Button
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/solid_stroke"
+                android:text="그리운"
+                android:layout_marginRight="10dp" />
+
+            <Button
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/solid_stroke"
+                android:text="실망스러운"
+                android:layout_marginRight="10dp" />
+
+            <Button
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/solid_stroke"
+                android:text="후회스러운"
                 android:layout_marginRight="10dp" />
 
         </LinearLayout>
