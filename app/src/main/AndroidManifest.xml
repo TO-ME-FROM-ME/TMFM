@@ -16,7 +16,7 @@
         android:theme="@style/Theme.TO_ME_FROM_ME"
         tools:targetApi="31">
         <activity
-            android:name=".CategoryActivity"
+            android:name=".LetterActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,6 +26,7 @@
         </activity>
         <activity android:name=".RecorderFragment"/>
         <activity android:name=".MainActivity"/>
+        <activity android:name=".CategoryActivity"/>
     </application>
 
 </manifest>

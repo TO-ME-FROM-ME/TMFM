@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".CategoryFragment"
-    android:background="@drawable/white_round_top_border"
+    android:background="@drawable/round_corner_top"
     android:padding="20dp">
 
     <TextView
