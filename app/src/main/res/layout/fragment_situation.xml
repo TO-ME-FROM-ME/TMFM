@@ -16,7 +16,8 @@
         android:layout_weight="1"
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
-        android:textSize="18dp"
+        android:textSize="20dp"
+        android:fontFamily="@font/font_gangwon"
         android:background="@drawable/solid_stroke"
         android:padding="15dp"
         android:hint="비밀 보장! 안심하고 작성해줘"/>
