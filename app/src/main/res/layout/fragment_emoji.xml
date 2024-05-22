@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="300dp"
+    android:layout_height="wrap_content"
     tools:context=".CategoryFragment"
     android:gravity="center"
     android:background="@drawable/round_corner_top"
@@ -36,54 +36,44 @@
         android:padding="5dp"
         android:gravity="center">
 
-        <Button
+        <ImageButton
             android:id="@+id/excited_btn"
-            android:layout_width="0px"
+            android:layout_width="30px"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/excited"
-            android:background="@drawable/solid_stroke"
-            android:layout_marginRight="10dp" />
+            android:background="@drawable/excited" />
 
-        <Button
+        <ImageButton
             android:id="@+id/happy_btn"
-            android:layout_width="0px"
+            android:layout_width="30px"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/happy"
-            android:background="@drawable/solid_stroke"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"/>
+            android:background="@drawable/happy"
+            android:layout_marginLeft="10dp"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/normal_btn"
-            android:layout_width="0px"
+            android:layout_width="30px"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/normal"
-            android:background="@drawable/solid_stroke"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"/>
+            android:background="@drawable/normal"
+            android:layout_marginLeft="10dp"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/upset_btn"
-            android:layout_width="0px"
+            android:layout_width="30px"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/upset"
-            android:background="@drawable/solid_stroke"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"/>
+            android:background="@drawable/upset"
+            android:layout_marginLeft="10dp"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/angry_btn"
-            android:layout_width="0px"
+            android:layout_width="30px"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/angry"
-            android:background="@drawable/solid_stroke"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"/>
+            android:background="@drawable/angry"
+            android:layout_marginLeft="10dp"/>
     </LinearLayout>
 
     <Button
