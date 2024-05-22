@@ -104,7 +104,9 @@
             android:layout_height="wrap_content"
             android:background="@drawable/solid_no_stroke"
             android:elevation="20dp"
+            android:gravity="center"
             android:text="시작"/>
+
     </LinearLayout>
 
 
