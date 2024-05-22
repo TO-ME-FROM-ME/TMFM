@@ -11,11 +11,11 @@ class CategoryActivity : AppCompatActivity() {
         setContentView(R.layout.activity_question)
 
 
-//        val fragmentManager = supportFragmentManager
-//        val transaction = fragmentManager.beginTransaction()
-//        val bottomSheetFragment = CategoryFragment()
-//        transaction.add(bottomSheetFragment, "CategoryFragment")
-//        transaction.commit()
+        val fragmentManager = supportFragmentManager
+        val transaction = fragmentManager.beginTransaction()
+        val bottomSheetFragment = CategoryFragment()
+        transaction.add(bottomSheetFragment, "CategoryFragment")
+        transaction.commit()
 
         if (savedInstanceState==null){
             supportFragmentManager.commit {
