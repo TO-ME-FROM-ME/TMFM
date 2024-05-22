@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+
     >
 
     <LinearLayout
@@ -129,10 +130,12 @@
         android:id="@+id/start_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:background="@drawable/solid_no_stroke"
-        android:layout_marginBottom="24dp"
-        android:text="시작"
-        android:textSize="15dp"/>
+        android:elevation="20dp"
+        android:layout_margin="10dp"
+        android:text="시작" />
+
 
     <View
         android:layout_width="match_parent"
