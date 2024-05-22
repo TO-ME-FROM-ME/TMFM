@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -74,18 +73,25 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp">
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/solid_stroke"
-                android:text="두려운" />
+
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
                     android:background="@drawable/solid_stroke"
-                    android:text="불안한" />
+                    android:text="두려운"
+                    android:layout_marginRight="10dp"
+                    android:paddingHorizontal="10dp"
+                    android:gravity="center"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/solid_stroke"
+                    android:text="불안한"
+                    android:layout_marginRight="10dp"
+                    android:paddingHorizontal="10dp"
+                    android:gravity="center"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

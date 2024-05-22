@@ -1,28 +1,25 @@
 package com.example.to_me_from_me
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.media.MediaRecorder
+import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.fragment.app.Fragment
-import java.io.File
-import android.Manifest
-import android.content.pm.PackageManager
-import android.graphics.Color
-import android.os.Build
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import java.io.File
 import java.io.IOException
 
-class RecorderFragment : Fragment() {
+class RecorderActivity : AppCompatActivity() {
 
-    private var mediaRecorder: MediaRecorder? =null
+    private var mediaRecorder: MediaRecorder? = null
     private lateinit var outputFile: File
     private var isRecording: Boolean = false
 
@@ -31,19 +28,15 @@ class RecorderFragment : Fragment() {
         private const val RECORD_AUDIO_PERMISSION_REQUEST_CODE = 101
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_recorder)
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_recorder, container, false)
-
-        val startBtn :Button = view.findViewById(R.id.start_btn)
-        val countLayout : LinearLayout = view.findViewById(R.id.count_ll)
-        val textTv : TextView =view.findViewById(R.id.text_tv)
-        val oneTv : TextView= view.findViewById(R.id.one_tv)
-        val twoTv : TextView= view.findViewById(R.id.two_tv)
+        val startBtn: Button = findViewById(R.id.start_btn)
+        val countLayout: LinearLayout = findViewById(R.id.count_ll)
+        val textTv: TextView = findViewById(R.id.text_tv)
+        val oneTv: TextView = findViewById(R.id.one_tv)
+        val twoTv: TextView = findViewById(R.id.two_tv)
 
         // 화면 초기화
         countLayout.visibility = View.GONE
@@ -55,46 +48,51 @@ class RecorderFragment : Fragment() {
         // 녹음기능
         requestPermissionLauncher = registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
-        ){ permissions ->
-            if(permissions[Manifest.permission.RECORD_AUDIO] ==true &&
-                (permissions[Manifest.permission.WRITE_EXTERNAL_STORAGE] == true || Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)){
+        ) { permissions ->
+            if (permissions[Manifest.permission.RECORD_AUDIO] == true &&
+                (permissions[Manifest.permission.WRITE_EXTERNAL_STORAGE] == true || Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+            ) {
                 startRecording()
-            } else{
-                Toast.makeText(context,"녹음 권한이 거부되었습니다.", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "녹음 권한이 거부되었습니다.", Toast.LENGTH_SHORT).show()
             }
         }
-
-
 
         // '시작'클릭 시 count레이아웃 보이기
         // 시작 -> 다음으로 변경
         startBtn.setOnClickListener {
-            if(isRecording){
+            if (isRecording) {
                 stopRecording()
-                startBtn.text = "확인"
-                textTv.text="좋아! 마지막으로 외쳐봐!"
-                twoTv.setBackgroundResource(R.drawable.oval_shape_g)
-            } else{
-                if(ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED){
+            } else {
+                if (ContextCompat.checkSelfPermission(
+                        this,
+                        Manifest.permission.RECORD_AUDIO
+                    ) != PackageManager.PERMISSION_GRANTED
+                ) {
                     requestPermissionLauncher.launch(arrayOf(Manifest.permission.RECORD_AUDIO))
-                } else{
-                    if(startBtn.text=="시작"){
+                } else {
+                    if (startBtn.text == "시작") {
                         startRecording()
                         countLayout.visibility = View.VISIBLE
                         startBtn.text = "다음"
                         textTv.text = "잘하고 있어! 더 크게 외쳐봐!"
                         oneTv.setBackgroundResource(R.drawable.oval_shape_g)
-                    } else if(startBtn.text=="다음"){
+                    } else if (startBtn.text == "다음") {
+                        startRecording()
                         startBtn.text = "확인"
-                        textTv.text="좋아! 마지막으로 외쳐봐!"
+                        textTv.text = "좋아! 마지막으로 외쳐봐!"
                         twoTv.setBackgroundResource(R.drawable.oval_shape_g)
+                        startBtn.setOnClickListener{
+                            val fragmentManager = supportFragmentManager
+                            val transaction = fragmentManager.beginTransaction()
+                            val bottomSheetFragment = SendFragment()
+                            transaction.add(bottomSheetFragment, "SendFragment")
+                            transaction.commit()
+                        }
                     }
-
                 }
             }
         }
-
-        return view
     }
 
     private fun stopRecording() {
@@ -103,14 +101,13 @@ class RecorderFragment : Fragment() {
             release()
         }
         mediaRecorder = null
-        isRecording =false
-        Toast.makeText(context, "Recording stopped", Toast.LENGTH_SHORT).show()
+        isRecording = false
+        Toast.makeText(this, "Recording stopped", Toast.LENGTH_SHORT).show()
     }
 
     private fun startRecording() {
         mediaRecorder = MediaRecorder()
-        outputFile = File(requireContext().externalCacheDir!!.absolutePath + "/audiorecordtest.3gp")
-
+        outputFile = File(externalCacheDir!!.absolutePath + "/audiorecordtest.3gp")
 
         mediaRecorder?.apply {
             setAudioSource(MediaRecorder.AudioSource.MIC)
@@ -121,14 +118,11 @@ class RecorderFragment : Fragment() {
                 prepare()
                 start()
                 isRecording = true
-                Toast.makeText(context, "녹음이 시작되었습니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@RecorderActivity, "녹음이 시작되었습니다.", Toast.LENGTH_SHORT).show()
             } catch (e: IOException) {
-                Toast.makeText(context, "녹음에 실패했습니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@RecorderActivity, "녹음에 실패했습니다.", Toast.LENGTH_SHORT).show()
                 e.printStackTrace()
             }
         }
-
     }
-
-
 }

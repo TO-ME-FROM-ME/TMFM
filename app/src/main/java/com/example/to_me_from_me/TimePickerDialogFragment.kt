@@ -67,4 +67,10 @@ class TimePickerDialogFragment : DialogFragment() {
         super.onResume()
         dialog?.window?.setBackgroundDrawableResource(R.drawable.round_corner_all) // 배경으로 round_corner.xml 설정
     }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return super.onCreateDialog(savedInstanceState).apply {
+            setTitle("몇 시에 받고 싶어?")
+        }
+    }
 }

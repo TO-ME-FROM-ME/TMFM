@@ -17,10 +17,10 @@ class CategoryActivity : AppCompatActivity() {
         transaction.add(bottomSheetFragment, "CategoryFragment")
         transaction.commit()
 
-        if (savedInstanceState==null){
-            supportFragmentManager.commit {
-                add(R.id.fragment_container_view, RecorderFragment())
-            }
-        }
+//        if (savedInstanceState==null){
+//            supportFragmentManager.commit {
+//                add(R.id.fragment_container_view, RecorderActivity())
+//            }
+//        }
     }
 }
