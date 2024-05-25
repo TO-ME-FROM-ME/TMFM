@@ -1,11 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.TO_ME_FROM_ME" parent="Theme.AppCompat.Light">
+    <style name="Base.Theme.TO_ME_FROM_ME" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <item name="windowNoTitle">true</item>
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-
-
         <item name="android:textViewStyle">@style/customTextViewFontStyle</item>
         <item name="android:buttonStyle">@style/customButtonFontStyle</item>
         <item name="android:editTextStyle">@style/customEditTextFontStyle</item>
@@ -13,9 +11,10 @@
         <item name="android:checkboxStyle">@style/customCheckboxFontStyle</item>
 
     </style>
+
     <style name="Theme.TO_ME_FROM_ME" parent="Base.Theme.TO_ME_FROM_ME" />
 
-<!--    BottomSheet 배경색상-->
+    <!--    BottomSheet 배경색상-->
     <style name="TransparentBottomSheetDialogTheme" parent="Theme.AppCompat.Light">
         <item name="android:background">@android:color/transparent</item>
         <item name="android:colorBackground">@android:color/transparent</item>

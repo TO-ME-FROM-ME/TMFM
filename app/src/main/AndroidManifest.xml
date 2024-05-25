@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
 
     <application
         android:allowBackup="true"
@@ -16,17 +16,20 @@
         android:theme="@style/Theme.TO_ME_FROM_ME"
         tools:targetApi="31">
         <activity
-            android:name=".RecorderActivity"
-            android:exported="true">
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@style/Theme.TO_ME_FROM_ME"
+            android:theme="@style/Theme.TO_ME_FROM_ME">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LetterActivity"/>
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".EmojiActivity"/>
+        <activity android:name=".LetterActivity" />
+        <activity android:name=".WriteLetterActivity"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".RecorderActivity" />
+        <activity android:name=".EmojiActivity" />
     </application>
 
 </manifest>

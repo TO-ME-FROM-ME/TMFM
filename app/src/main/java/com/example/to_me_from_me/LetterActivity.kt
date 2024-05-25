@@ -1,5 +1,6 @@
 package com.example.to_me_from_me
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.CalendarView
@@ -25,6 +26,12 @@ class LetterActivity : AppCompatActivity() {
         reservBtn.setOnClickListener {
             val dialogFragment = CalendarDialogFragment()
             dialogFragment.show(supportFragmentManager, "CalendarDialogFragment")
+        }
+
+        sendBtn.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish() // 현재 액티비티를 종료,  뒤로가기 버튼을 눌렀을 때 다시 돌아오지 않도록 함
         }
     }
 
