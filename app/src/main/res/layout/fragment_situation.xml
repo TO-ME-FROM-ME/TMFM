@@ -68,7 +68,7 @@
                 android:layout_width="350dp"
                 android:layout_height="70dp"
                 android:layout_weight="1"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="0dp"
                 android:layout_gravity="center"
                 android:textSize="20dp"
                 android:fontFamily="@font/font_gangwon"
