@@ -1,90 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".SituationFragment"
-    android:gravity="center"
-    android:background="@drawable/round_corner_top"
-    android:padding="20dp">
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="30dp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="그때 기분은 어땠어?"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:gravity="center"/>
-
-    <View
-    android:layout_width="match_parent"
-    android:layout_height="30dp" />
+    android:layout_height="match_parent"
+    android:background="#F6F3F8"
+    tools:context=".SituationFragment">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp"
-        android:padding="5dp"
+        android:orientation="vertical"
         android:gravity="center">
 
-        <ImageButton
-            android:id="@+id/excited_btn"
-            android:layout_width="30px"
+        <ImageView
+            android:id="@+id/image_view"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/excited" />
+            android:layout_margin="50dp"
+            android:src="@drawable/ic_rec" />
 
-        <ImageButton
-            android:id="@+id/happy_btn"
-            android:layout_width="30px"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/happy"
-            android:layout_marginLeft="10dp"/>
-
-        <ImageButton
-            android:id="@+id/normal_btn"
-            android:layout_width="30px"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/normal"
-            android:layout_marginLeft="10dp"/>
-
-        <ImageButton
-            android:id="@+id/upset_btn"
-            android:layout_width="30px"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/upset"
-            android:layout_marginLeft="10dp"/>
-
-        <ImageButton
-            android:id="@+id/angry_btn"
-            android:layout_width="30px"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/angry"
-            android:layout_marginLeft="10dp"/>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/next_btn"
+
+
+    <!-- 바텀시트 -->
+    <LinearLayout
+        android:id="@+id/bottom_sheet"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:gravity="center"
-        android:background="@drawable/solid_no_stroke"
-        android:elevation="20dp"
-        android:text="다음" />
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/round_corner_top"
+        android:padding="20dp">
 
 
-</LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="그때 기분은 어땠어?"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:gravity="center"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+
+        <FrameLayout
+            android:id="@+id/frame_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:id="@+id/excited_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/excited" />
+
+                <ImageView
+                    android:id="@+id/happy_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/happy" />
+
+                <ImageView
+                    android:id="@+id/normal_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/normal" />
+
+                <ImageView
+                    android:id="@+id/upset_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/upset" />
+
+                <ImageView
+                    android:id="@+id/angry_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/angry" />
+
+
+            </LinearLayout>
+        </FrameLayout>
+
+
+        <Button
+            android:id="@+id/next_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:background="@drawable/solid_no_stroke"
+            android:elevation="20dp"
+            android:text="다음"/>
+    </LinearLayout>
+
+</RelativeLayout >
