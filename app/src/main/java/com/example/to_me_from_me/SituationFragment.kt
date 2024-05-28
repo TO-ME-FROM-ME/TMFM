@@ -15,6 +15,7 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.whenCreated
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -24,6 +25,7 @@ class SituationFragment : BottomSheetDialogFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_situation, container, false)
         val writeEditText = view.findViewById<EditText>(R.id.write_et)
+        val charCountTextView = view.findViewById<TextView>(R.id.char_count_tv)
         val layout = view.findViewById<LinearLayout>(R.id.custom_toast_container)
 
 
@@ -60,8 +62,22 @@ class SituationFragment : BottomSheetDialogFragment() {
 
 
 
+        // 실시간 글자 수
+        writeEditText.addTextChangedListener(object  : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+            override fun afterTextChanged(s: Editable?) {
+                val charCount = s?.length ?: 0
+                charCountTextView.text = "$charCount"
+            }
+        })
+
+
         return view
     }
+
 
     private fun showToast(layout: View, writeEditText: EditText) {
         val toastLayout = LayoutInflater.from(requireContext()).inflate(R.layout.toast, null, false)

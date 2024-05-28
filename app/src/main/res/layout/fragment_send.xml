@@ -48,8 +48,9 @@
             android:id="@+id/next_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:background="@drawable/solid_no_stroke"
-            android:elevation="20dp"
+            android:elevation="10dp"
             android:text="다음"/>
 
     </LinearLayout>

@@ -76,6 +76,37 @@
                 android:padding="15dp"
                 android:maxLength="30"
                 android:hint="비밀 보장! 안심하고 작성해줘"/>
+
+
+            <LinearLayout
+                android:layout_width="350dp"
+                android:layout_height="70dp"
+                android:orientation="vertical">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
+            <LinearLayout
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="end">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="(" />
+                <TextView
+                    android:id="@+id/char_count_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:text="/30)" />
+            </LinearLayout>
+
+            </LinearLayout>
         </FrameLayout>
 
 
@@ -84,6 +115,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
+            android:layout_marginBottom="5dp"
             android:gravity="center"
             android:background="@drawable/solid_no_stroke"
             android:elevation="20dp"
