@@ -74,9 +74,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
         android:text="2. 그때 스스로에게 어떤 말을 했어?"
-        android:textSize="20dp"
+        android:textSize="18dp"
         android:textStyle="bold"/>
 
     <View

@@ -73,11 +73,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:text="3. 소중한 존재 우리 동생이 같은 상황에
-                         있다고 가정하고, 응원하는 마음을
-                         담아 공감의 말을 적어봐. 💌"
-            android:textSize="20dp"
+            android:text="3. 소중한 존재 우리 동생이 같은 상황에 처해\n    있다고 가정하고, 응원하는 마음을 담아\n    공감의 말을 적어봐. 💌"
+            android:textSize="18dp"
             android:textStyle="bold"/>
 
         <View
@@ -98,7 +95,7 @@
             <EditText
                 android:id="@+id/write_et"
                 android:layout_width="350dp"
-                android:layout_height="250dp"
+                android:layout_height="200dp"
                 android:layout_weight="1"
                 android:layout_marginTop="0dp"
                 android:layout_gravity="center"
@@ -113,12 +110,12 @@
 
             <LinearLayout
                 android:layout_width="350dp"
-                android:layout_height="250dp"
-                android:orientation="vertical"
+                android:layout_height="200dp"
+                android:orientation="vertical"ㄹ
                 android:layout_gravity="center">
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="210dp" />
+                    android:layout_height="160dp" />
                 <LinearLayout
                     android:layout_width="350dp"
                     android:layout_height="wrap_content"
