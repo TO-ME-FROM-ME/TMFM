@@ -75,7 +75,6 @@
                     android:id="@+id/happy_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
                     android:background="@drawable/happy"
                     android:clickable="true"
                     android:focusable="true"/>
@@ -84,7 +83,6 @@
                     android:id="@+id/normal_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
                     android:background="@drawable/normal"
                     android:clickable="true"
                     android:focusable="true"/>
@@ -93,7 +91,6 @@
                     android:id="@+id/upset_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
                     android:background="@drawable/upset"
                     android:clickable="true"
                     android:focusable="true"/>
@@ -102,7 +99,6 @@
                     android:id="@+id/angry_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
                     android:background="@drawable/angry"
                     android:clickable="true"
                     android:focusable="true"/>
