@@ -18,7 +18,11 @@ class AdjectiveFragment : BottomSheetDialogFragment() {
 
         val nextButton = view.findViewById<Button>(R.id.next_btn)
         nextButton.setOnClickListener {
-
+            val nextFragment = Q1Fragment()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, nextFragment)
+                .addToBackStack(null)
+                .commit()
         }
         return view
     }

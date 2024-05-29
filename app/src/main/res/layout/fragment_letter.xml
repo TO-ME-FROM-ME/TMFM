@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F6F3F8"
-    tools:context=".Q2Fragment">
+    tools:context=".LetterFragment">
 
 
     <LinearLayout
@@ -62,46 +62,62 @@
         </LinearLayout>
     </LinearLayout>
 
-<LinearLayout
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:background="@drawable/round_corner_top"
-    android:padding="20dp">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
-        android:text="2. 그때 스스로에게 어떤 말을 했어?"
-        android:textSize="20dp"
-        android:textStyle="bold"/>
-
-    <EditText
-        android:layout_width="350dp"
-        android:layout_height="300dp"
-        android:layout_weight="1"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        android:gravity="top"
-        android:textSize="20dp"
-        android:fontFamily="@font/font_gangwon"
-        android:background="@drawable/solid_stroke"
-        android:padding="15dp"
-        android:hint="두려운, 불안한 감정을 느낄 때 스스로에게 어떤 말을 했는지 생각나는 대로 적어줘." />
-
-    <Button
-        android:id="@+id/next_btn"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:gravity="center"
-        android:background="@drawable/solid_no_stroke"
-        android:elevation="20dp"
-        android:text="다음" />
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/round_corner_top"
+        android:padding="20dp">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:layout_weight="1"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:gravity="top"
+            android:text="사랑하는 우리동생에게~~~~"
+            android:textSize="20dp"
+            android:fontFamily="@font/font_gangwon"
+            android:background="@drawable/solid_stroke"
+            android:padding="15dp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+            <Button
+                android:id="@+id/reserve_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="예약하기"
+                android:textSize="20dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="10dp"
+                android:gravity="center"
+                android:elevation="10dp"
+                android:background="@drawable/solid_no_stroke"/>
+            <Button
+                android:id="@+id/send_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="보내기"
+                android:textSize="20dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:gravity="center"
+                android:elevation="10dp"
+                android:background="@drawable/solid_no_stroke"/>
+
+        </LinearLayout>
 
     </LinearLayout>
+
+
 </RelativeLayout>

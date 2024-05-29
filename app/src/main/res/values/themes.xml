@@ -19,4 +19,13 @@
         <item name="android:colorBackground">@android:color/transparent</item>
     </style>
 
+
+    <!-- BottomSheet 배경을 불투명한 검정색으로, 내용은 투명하게 설정 -->
+    <style name="TransparentBottomSheetDialogTheme2" parent="Theme.AppCompat.Light">
+        <!-- 배경은 검정색으로 설정 -->
+        <item name="android:background">@android:color/transparent</item>
+        <!-- 내용은 투명하게 설정 -->
+        <item name="android:colorBackground">#E6000000</item>
+    </style>
+
 </resources>
