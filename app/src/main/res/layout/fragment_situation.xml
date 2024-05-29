@@ -7,6 +7,12 @@
     tools:context=".SituationFragment">
 
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="android:layout_gravity=&quot;center&quot;" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,7 +39,6 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/round_corner_top"
         android:padding="20dp">
-
 
         <View
             android:layout_width="match_parent"
@@ -81,7 +86,8 @@
             <LinearLayout
                 android:layout_width="350dp"
                 android:layout_height="70dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_gravity="center">
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="30dp" />
@@ -91,10 +97,6 @@
                 android:orientation="horizontal"
                 android:gravity="end">
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="(" />
-                <TextView
                     android:id="@+id/char_count_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -103,7 +105,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
-                    android:text="/30)" />
+                    android:text="/30" />
             </LinearLayout>
 
             </LinearLayout>
