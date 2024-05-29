@@ -16,21 +16,25 @@
         android:theme="@style/Theme.TO_ME_FROM_ME"
         tools:targetApi="31">
         <activity
+            android:name=".MypageActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@style/Theme.TO_ME_FROM_ME"
             android:theme="@style/Theme.TO_ME_FROM_ME">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LetterActivity" />
-
-        <activity android:name=".WriteLetterActivity"
-            android:windowSoftInputMode="adjustResize"/>
-
-        <activity android:name=".RecorderActivity" />
+        <activity android:name=".StatisticalReportActivity" />
+        <activity
+            android:name=".WriteLetterActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".MailboxActivity" />
+        <activity android:name=".ProfileActivity" />
     </application>
 
 </manifest>

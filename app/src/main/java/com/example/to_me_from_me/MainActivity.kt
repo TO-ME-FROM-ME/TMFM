@@ -44,16 +44,16 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         when (item.itemId) {
             R.id.mail -> {
                 selectedFragment = FirstFragment()
-                Log.d("MainActivity", " mail 클릭 ")
+                Log.d("MainActivity", " write letter 클릭 ")
             }
             R.id.data -> {
-                val intent = Intent(this, RecorderActivity::class.java)
+                val intent = Intent(this, StatisticalReportActivity::class.java)
                 startActivity(intent)
-                Log.d("MainActivity", " data 클릭 ")
+                Log.d("MainActivity", " Statistical report 클릭 ")
                 return true
             }
             R.id.profile -> {
-                val intent = Intent(this, RecorderActivity::class.java)
+                val intent = Intent(this, ProfileActivity::class.java)
                 startActivity(intent)
                 Log.d("MainActivity", " profile 클릭 ")
                 return true
