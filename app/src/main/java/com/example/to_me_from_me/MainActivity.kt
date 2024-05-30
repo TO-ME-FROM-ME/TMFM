@@ -37,6 +37,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         bottomNavigation.itemIconTintList = colorStateList
         bottomNavigation.itemTextColor = colorStateList
 
+
+        // 선택된 날짜나 시간에 따라 이미지 설정
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

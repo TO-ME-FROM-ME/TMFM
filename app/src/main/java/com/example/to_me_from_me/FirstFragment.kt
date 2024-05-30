@@ -11,9 +11,12 @@ import androidx.fragment.app.Fragment
 
 class FirstFragment : Fragment() {
 
+    private lateinit var mailBoxImageView: ImageView
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_first, container, false)
 
+        mailBoxImageView = view.findViewById(R.id.mail_box_iv)
 
         val writeIv = view.findViewById<ImageView>(R.id.write_iv)
         writeIv.setOnClickListener {
@@ -23,6 +26,11 @@ class FirstFragment : Fragment() {
 
         }
         return view
+    }
+
+    // 이미지 변경 메서드
+    fun setMailBoxImage(imageResId: Int) {
+        mailBoxImageView.setImageResource(imageResId)
     }
 
 }

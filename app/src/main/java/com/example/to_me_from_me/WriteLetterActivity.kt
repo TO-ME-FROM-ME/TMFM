@@ -1,10 +1,9 @@
 package com.example.to_me_from_me
 
-import android.content.Intent
+
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 class WriteLetterActivity : AppCompatActivity() {
 

@@ -16,9 +16,6 @@
         android:theme="@style/Theme.TO_ME_FROM_ME"
         tools:targetApi="31">
         <activity
-            android:name=".MypageActivity"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@style/Theme.TO_ME_FROM_ME"
