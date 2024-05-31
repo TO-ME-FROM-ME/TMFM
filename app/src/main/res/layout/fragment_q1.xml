@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:background="#F6F3F8"
     tools:context=".Q1Fragment"
-    android:id="@+id/background">
+    android:id="@+id/background"
+    android:onClick="hideKeyboard">
 
 
     <LinearLayout
@@ -77,6 +78,10 @@
         android:background="@drawable/round_corner_top"
         android:padding="20dp">
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -87,7 +92,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="50dp" />
+            android:layout_height="30dp" />
 
         <FrameLayout
             android:id="@+id/frame_layout"
@@ -103,7 +108,7 @@
             <EditText
                 android:id="@+id/write_et"
                 android:layout_width="350dp"
-                android:layout_height="250dp"
+                android:layout_height="300dp"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:gravity="top"
@@ -142,7 +147,6 @@
 
             </LinearLayout>
         </FrameLayout>
-
 
 
         <Button
