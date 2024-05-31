@@ -57,8 +57,6 @@ class Q1Fragment : BottomSheetDialogFragment() {
             }
         }
 
-
-
         // 실시간 글자 수
         writeEditText.addTextChangedListener(object  : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -71,7 +69,6 @@ class Q1Fragment : BottomSheetDialogFragment() {
             }
         })
 
-
         return view
     }
 
@@ -82,7 +79,7 @@ class Q1Fragment : BottomSheetDialogFragment() {
         val location = IntArray(2)
         writeEditText.getLocationOnScreen(location)
         layout.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
-        val yOffset = location[1] - writeEditText.height - toastLayout.measuredHeight
+        val yOffset = location[1] - 200 - toastLayout.measuredHeight
 
 
         toast.setGravity(Gravity.TOP or Gravity.END, location[0], yOffset)
