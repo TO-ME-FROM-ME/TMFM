@@ -28,10 +28,6 @@ class FirstFragment : Fragment() {
         return view
     }
 
-    // 이미지 변경 메서드
-    fun setMailBoxImage(imageResId: Int) {
-        mailBoxImageView.setImageResource(imageResId)
-    }
 
 }
 

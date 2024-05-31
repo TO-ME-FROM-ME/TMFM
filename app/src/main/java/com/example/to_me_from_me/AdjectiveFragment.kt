@@ -1,6 +1,5 @@
 package com.example.to_me_from_me
 
-import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +9,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class AdjectiveFragment : BottomSheetDialogFragment(), AdjectiveButtonAdapter.OnButtonClickListener  {
+class AdjectiveFragment : BottomSheetDialogFragment(), AdjectiveButtonAdapter.OnButtonClickListener {
 
     private lateinit var recyclerViews: List<RecyclerView>
+    private var selectedCount = 0
+    private val maxSelection = 2
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_adjective, container, false)
@@ -28,8 +29,8 @@ class AdjectiveFragment : BottomSheetDialogFragment(), AdjectiveButtonAdapter.On
 
         recyclerViews.forEachIndexed { index, recyclerView ->
             recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            // 리스너 설정
-            val adapter = AdjectiveButtonAdapter(getButtonDataList(index))
+            // 어댑터 설정
+            val adapter = AdjectiveButtonAdapter(requireContext(), getButtonDataList(index), ::getSelectedCount, ::onSelectionChanged)
             adapter.setOnButtonClickListener(this)
             recyclerView.adapter = adapter
         }
@@ -46,9 +47,22 @@ class AdjectiveFragment : BottomSheetDialogFragment(), AdjectiveButtonAdapter.On
     }
 
     override fun onButtonClick(position: Int, recyclerViewIndex: Int) {
-        // 클릭된 버튼의 위치를 해당하는 리사이클러뷰에만 알리도록함
+        // 클릭된 버튼의 위치를 해당하는 리사이클러뷰에만 알리도록 함
         recyclerViews[recyclerViewIndex].adapter?.notifyItemChanged(position)
     }
+
+    private fun getSelectedCount(): Int {
+        return selectedCount
+    }
+
+    private fun onSelectionChanged(isSelected: Boolean) {
+        if (isSelected) {
+            selectedCount++
+        } else {
+            selectedCount--
+        }
+    }
+
     private fun getButtonDataList(index: Int): List<ButtonData> {
         return when(index) {
             0 -> buttonDataList1()
@@ -85,11 +99,10 @@ class AdjectiveFragment : BottomSheetDialogFragment(), AdjectiveButtonAdapter.On
             ButtonData("답답한"),
             ButtonData("귀찮은"),
             ButtonData("지루한"),
-            ButtonData("미안함"),
-            ButtonData("외루운")
+            ButtonData("미안한"),
+            ButtonData("외로운")
         )
     }
-
 
     private fun buttonDataList3(): List<ButtonData> {
         return listOf(
@@ -135,6 +148,4 @@ class AdjectiveFragment : BottomSheetDialogFragment(), AdjectiveButtonAdapter.On
             ButtonData("후회스러운")
         )
     }
-
 }
-
