@@ -54,12 +54,24 @@ class TimePickerDialogFragment : DialogFragment() {
             Toast.makeText(requireContext(), "선택된 시간: $selectedTime", Toast.LENGTH_SHORT).show()
 
             // 다음 액티비티에 전달할 Intent 생성
-            val intent = Intent(requireContext(), MainActivity::class.java)
-            intent.putExtra("selectedTime", selectedTime)
-            intent.putExtra("selectedDate", selectedDate)
-            startActivity(intent)
+//            val intent = Intent(requireContext(), MainActivity::class.java)
+//            intent.putExtra("selectedTime", selectedTime)
+//            intent.putExtra("selectedDate", selectedDate)
+//            startActivity(intent)
+
+            val nextFragment = RecorderFragment()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, nextFragment)
+                .addToBackStack(null)
+                .commit()
 
             dismiss()
+        }
+
+        val cancelButton: Button = view.findViewById(R.id.cancel_btn)
+        cancelButton.setOnClickListener {
+            // 취소 버튼 클릭 시 동작
+            dismiss() // 다이얼로그 닫기
         }
     }
 

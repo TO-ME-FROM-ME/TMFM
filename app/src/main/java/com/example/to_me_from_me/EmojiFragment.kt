@@ -14,6 +14,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 class EmojiFragment : BottomSheetDialogFragment() {
 
     private var activeButton: ImageView? = null
+    private var isImageSelected = false // 이미지가 선택되었는지 여부를 저장하는 변수
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_emoji, container, false)
 
@@ -36,11 +37,15 @@ class EmojiFragment : BottomSheetDialogFragment() {
 
         val nextButton = view.findViewById<Button>(R.id.next_btn)
         nextButton.setOnClickListener {
-            val nextFragment = AdjectiveFragment()
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, nextFragment)
-                .addToBackStack(null)
-                .commit()
+            if (isImageSelected) { // 이미지가 선택된 경우에만 다음 단계로 이동
+                val nextFragment = AdjectiveFragment()
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, nextFragment)
+                    .addToBackStack(null)
+                    .commit()
+            } else {
+                //Toast.makeText(requireContext(), "이미지를 선택해주세요.", Toast.LENGTH_SHORT).show()
+            }
         }
         return view
     }
@@ -54,6 +59,7 @@ class EmojiFragment : BottomSheetDialogFragment() {
         }
         button.setBackgroundResource(activeDrawable)
         activeButton = button
+        isImageSelected = true
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

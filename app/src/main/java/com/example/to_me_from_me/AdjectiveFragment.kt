@@ -14,6 +14,7 @@ class AdjectiveFragment : BottomSheetDialogFragment(), AdjectiveButtonAdapter.On
     private lateinit var recyclerViews: List<RecyclerView>
     private var selectedCount = 0
     private val maxSelection = 2
+    private var isAdjectiveSelected = false // 감정 형용사가 선택되었는지 여부를 저장하는 변수
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_adjective, container, false)
@@ -37,11 +38,15 @@ class AdjectiveFragment : BottomSheetDialogFragment(), AdjectiveButtonAdapter.On
 
         val nextButton = view.findViewById<Button>(R.id.next_btn)
         nextButton.setOnClickListener {
-            val nextFragment = Q1Fragment()
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, nextFragment)
-                .addToBackStack(null)
-                .commit()
+            if (isAdjectiveSelected) { // 감정 형용사가 선택된 경우에만 다음 버튼을 클릭할 수 있도록 제한
+                val nextFragment = Q1Fragment()
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, nextFragment)
+                    .addToBackStack(null)
+                    .commit()
+            } else {
+
+            }
         }
         return view
     }
@@ -61,6 +66,8 @@ class AdjectiveFragment : BottomSheetDialogFragment(), AdjectiveButtonAdapter.On
         } else {
             selectedCount--
         }
+        // 선택된 감정 형용사의 수에 따라 다음 버튼의 활성화 상태를 업데이트
+        isAdjectiveSelected = selectedCount > 0
     }
 
     private fun getButtonDataList(index: Int): List<ButtonData> {

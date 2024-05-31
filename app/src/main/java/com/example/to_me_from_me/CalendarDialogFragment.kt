@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.CalendarView
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import java.util.Calendar
 
 class CalendarDialogFragment : DialogFragment() {
 
@@ -26,6 +27,13 @@ class CalendarDialogFragment : DialogFragment() {
         val calendarView: CalendarView = view.findViewById(R.id.calendarView)
         val okButton: Button = view.findViewById(R.id.ok_btn)
 
+        // 현재 날짜 가져오기
+        val calendar = Calendar.getInstance()
+        val currentTimeInMillis = calendar.timeInMillis
+
+        // 현재 날짜 이후만 선택 가능하도록 설정
+        calendarView.minDate = currentTimeInMillis
+
 
         calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             selectedDate = "$year-${month + 1}-$dayOfMonth"
@@ -37,8 +45,6 @@ class CalendarDialogFragment : DialogFragment() {
             selectedDate?.let {
                 Toast.makeText(requireContext(), "선택된 날짜: $it", Toast.LENGTH_SHORT).show()
                 // 시간 설정 다이얼로그 표시
-                //TimePickerDialogFragment().show(parentFragmentManager, "timePicker")
-
                 val timePickerDialogFragment = TimePickerDialogFragment.newInstance(it)
                 timePickerDialogFragment.show(parentFragmentManager, "timePicker")
 
@@ -47,6 +53,13 @@ class CalendarDialogFragment : DialogFragment() {
                 Toast.makeText(requireContext(), "날짜를 먼저 선택하세요.", Toast.LENGTH_SHORT).show()
             }
         }
+
+        val cancelButton: Button = view.findViewById(R.id.cancel_btn)
+        cancelButton.setOnClickListener {
+            // 취소 버튼 클릭 시 동작
+            dismiss() // 다이얼로그 닫기
+        }
+
 
     }
 
