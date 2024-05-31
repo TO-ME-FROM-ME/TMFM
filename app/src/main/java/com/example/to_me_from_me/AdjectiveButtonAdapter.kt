@@ -1,19 +1,26 @@
 package com.example.to_me_from_me
 
 import android.content.Context
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
+import com.google.android.material.snackbar.Snackbar
 import androidx.recyclerview.widget.RecyclerView
 
 class AdjectiveButtonAdapter(
     private val context: Context,
+    private val recyclerViews: List<RecyclerView>,
     private val buttonDataList: List<ButtonData>,
     private val selectedCountProvider: () -> Int, // 현재 선택된 버튼의 수를 반환
     private val onSelectionChanged: (Boolean) -> Unit // 선택 상태가 변경될 때 호출되어 selectedCount를 업데이트
 ) : RecyclerView.Adapter<AdjectiveButtonAdapter.ButtonViewHolder>() {
+
 
     // 리스너 선언
     private var listener: OnButtonClickListener? = null
@@ -28,6 +35,7 @@ class AdjectiveButtonAdapter(
         return ButtonViewHolder(view)
     }
 
+
     override fun onBindViewHolder(holder: ButtonViewHolder, position: Int) {
         val buttonData = buttonDataList[position]
         holder.bind(buttonData)
@@ -40,9 +48,10 @@ class AdjectiveButtonAdapter(
         fun onButtonClick(position: Int, recyclerViewIndex: Int)
     }
 
+
     inner class ButtonViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val button: Button = itemView.findViewById(R.id.button)
-
+        val custom_toast_container = itemView.findViewById<LinearLayout>(R.id.custom_toast_container)
         fun bind(buttonData: ButtonData) {
             button.text = buttonData.buttonText
             button.isSelected = buttonData.isSelected
@@ -63,8 +72,24 @@ class AdjectiveButtonAdapter(
                         onSelectionChanged(true)
                         updateButtonColor(true)
                     } else {
-                        // 선택된 버튼의 개수가 제한을 초과한 경우 토스트 메시지 표시
-                        Toast.makeText(context, "최대 2개의 감정을 선택할 수 있습니다.", Toast.LENGTH_SHORT).show()
+                        // recyclerView1 위에 custom 토스트 메시지 출력
+                        if (adapterPosition < recyclerViews[0].adapter?.itemCount ?: 0) {
+                            val toastLayout = LayoutInflater.from(context).inflate(R.layout.toast_long, null, false)
+                            val toast = Toast(context)
+                            val location = IntArray(2)
+                            val customToastContainer = itemView.rootView.findViewById<View>(R.id.recyclerView1)
+
+
+                            customToastContainer.getLocationOnScreen(location)
+                            toastLayout.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+                            val yOffset = location[1] - customToastContainer.height - toastLayout.measuredHeight
+
+                            toast.view = toastLayout
+                            toast.duration = Toast.LENGTH_SHORT
+                            toast.setGravity(Gravity.TOP or Gravity.END, 0, yOffset)
+                            toast.show()
+                        }
+
                     }
                     // 버튼의 선택 상태가 변경되었음을 어댑터에 알림
                     notifyItemChanged(currentPosition)

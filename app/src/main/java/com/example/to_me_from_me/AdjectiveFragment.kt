@@ -1,10 +1,15 @@
 package com.example.to_me_from_me
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -16,8 +21,12 @@ class AdjectiveFragment : BottomSheetDialogFragment(), AdjectiveButtonAdapter.On
     private val maxSelection = 2
     private var isAdjectiveSelected = false // 감정 형용사가 선택되었는지 여부를 저장하는 변수
 
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_adjective, container, false)
+
+        val layout = view.findViewById<LinearLayout>(R.id.custom_toast_container)
+
 
         // RecyclerView 설정
         recyclerViews = listOf(
@@ -28,10 +37,10 @@ class AdjectiveFragment : BottomSheetDialogFragment(), AdjectiveButtonAdapter.On
             view.findViewById<RecyclerView>(R.id.recyclerView5)
         )
 
+
         recyclerViews.forEachIndexed { index, recyclerView ->
             recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            // 어댑터 설정
-            val adapter = AdjectiveButtonAdapter(requireContext(), getButtonDataList(index), ::getSelectedCount, ::onSelectionChanged)
+            val adapter = AdjectiveButtonAdapter(requireContext(), recyclerViews, getButtonDataList(index), ::getSelectedCount, ::onSelectionChanged) // 수정된 부분: requireContext() 및 recyclerViews 추가
             adapter.setOnButtonClickListener(this)
             recyclerView.adapter = adapter
         }
@@ -50,6 +59,7 @@ class AdjectiveFragment : BottomSheetDialogFragment(), AdjectiveButtonAdapter.On
         }
         return view
     }
+
 
     override fun onButtonClick(position: Int, recyclerViewIndex: Int) {
         // 클릭된 버튼의 위치를 해당하는 리사이클러뷰에만 알리도록 함
