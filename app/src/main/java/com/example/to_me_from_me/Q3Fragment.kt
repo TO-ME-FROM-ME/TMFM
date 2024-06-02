@@ -1,6 +1,7 @@
 package com.example.to_me_from_me
 
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -21,6 +22,9 @@ class Q3Fragment : BottomSheetDialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_q3, container, false)
+
+        val q1TextValue = arguments?.getString("q1TextValue")
+        val q2TextValue = arguments?.getString("q2TextValue")
 
         val writeEditText = view.findViewById<EditText>(R.id.write_et)
         val charCountTextView = view.findViewById<TextView>(R.id.char_count_tv)
@@ -46,18 +50,24 @@ class Q3Fragment : BottomSheetDialogFragment() {
                 }
 
                 else -> {
-
                     // 다음 Fragment화면으로 이동
-                    val nextFragment = LetterFragment()
+                    val q3TextValue = writeEditText.text.toString()
+
+                    val combinedTextValue = "$q1TextValue $q2TextValue $q3TextValue"
+
+                    val nextFragment = LetterFragment().apply {
+                        arguments = Bundle().apply {
+                            putString("combinedTextValue", combinedTextValue)
+                        }
+                    }
+
                     parentFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container, nextFragment)
                         .addToBackStack(null)
                         .commit()
                 }
-
             }
         }
-
 
 
         // 실시간 글자 수

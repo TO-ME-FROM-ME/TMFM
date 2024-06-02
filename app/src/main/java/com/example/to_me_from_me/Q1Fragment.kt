@@ -1,6 +1,8 @@
 package com.example.to_me_from_me
 
+import android.app.Activity
 import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,6 +10,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
@@ -29,6 +32,7 @@ class Q1Fragment : BottomSheetDialogFragment() {
         val nextButton = view.findViewById<Button>(R.id.next_btn)
         nextButton.setOnClickListener {
 
+            val q1textValue = writeEditText.text.toString()
             val textLength = writeEditText.text.length
             val toastLayout = LayoutInflater.from(requireContext()).inflate(R.layout.toast, layout, false)
             val toastTv = toastLayout.findViewById<TextView>(R.id.toast_tv)
@@ -48,6 +52,11 @@ class Q1Fragment : BottomSheetDialogFragment() {
 
                     // 다음 Fragment화면으로 이동
                     val nextFragment = Q2Fragment()
+
+                    val bundle = Bundle()
+                    bundle.putString("textValue", q1textValue)
+                    nextFragment.arguments = bundle
+
                     parentFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container, nextFragment)
                         .addToBackStack(null)
@@ -92,6 +101,11 @@ class Q1Fragment : BottomSheetDialogFragment() {
         return BottomSheetDialog(requireActivity(), R.style.TransparentBottomSheetDialogTheme).apply {
             setTitle("1. 왜 두려운, 불안한 감정을 느꼈어?")
         }
+    }
+
+    fun hideKeyboard(activity: Activity){
+        val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(activity.window.decorView.applicationWindowToken, 0)
     }
 
 }

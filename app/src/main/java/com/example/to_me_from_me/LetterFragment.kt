@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -17,6 +19,10 @@ class LetterFragment : BottomSheetDialogFragment() {
 
         val reservBtn = view.findViewById<Button>(R.id.reserve_btn)
         val sendBtn = view.findViewById<Button>(R.id.send_btn)
+        val textView = view.findViewById<TextView>(R.id.letter_tv)
+        val combinedTextValue = arguments?.getString("combinedTextValue")
+
+        textView.text = combinedTextValue
 
 
         reservBtn.setOnClickListener {

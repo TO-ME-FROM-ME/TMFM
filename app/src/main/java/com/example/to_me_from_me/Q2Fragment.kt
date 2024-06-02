@@ -22,6 +22,8 @@ class Q2Fragment : BottomSheetDialogFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_q2, container, false)
 
+        val q1TextValue = arguments?.getString("textValue")
+
         val writeEditText = view.findViewById<EditText>(R.id.write_et)
         val charCountTextView = view.findViewById<TextView>(R.id.char_count_tv)
         val layout = view.findViewById<LinearLayout>(R.id.custom_toast_container)
@@ -49,12 +51,19 @@ class Q2Fragment : BottomSheetDialogFragment() {
 
                     // 다음 Fragment화면으로 이동
                     val nextFragment = Q3Fragment()
+
+                    val q2TextValue = writeEditText.text.toString()
+
+                    val bundle = Bundle()
+                    bundle.putString("q1TextValue", q1TextValue)
+                    bundle.putString("q2TextValue", q2TextValue)
+                    nextFragment.arguments = bundle
+
                     parentFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container, nextFragment)
                         .addToBackStack(null)
                         .commit()
                 }
-
             }
         }
 
