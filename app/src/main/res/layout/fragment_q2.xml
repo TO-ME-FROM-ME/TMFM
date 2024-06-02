@@ -72,15 +72,15 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="30dp" />
+        android:layout_height="0dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:text="2. 그때 스스로에게 어떤 말을 했어?"
-        android:textSize="18dp"
-        android:textStyle="bold"/>
+        android:text="💌 그때 스스로에게 어떤 말을 했어?"
+        android:fontFamily="@font/bnotosans"
+        android:textSize="20dp"
+        android:textColor="@color/dark" />
 
     <View
         android:layout_width="match_parent"
@@ -108,7 +108,7 @@
             android:gravity="top"
             android:textSize="20dp"
             android:fontFamily="@font/font_gangwon"
-            android:background="@drawable/solid_stroke"
+            android:background="@drawable/solid_stroke_q"
             android:padding="15dp"
             android:maxLength="150"
             android:hint="두려운, 불안한 감정을 느낄 때 스스로에게 어떤 말을 했는지 생각나는 대로 적어줘."/>
@@ -116,12 +116,12 @@
 
         <LinearLayout
             android:layout_width="350dp"
-            android:layout_height="250dp"
+            android:layout_height="300dp"
             android:orientation="vertical"
             android:layout_gravity="center">
             <View
                 android:layout_width="match_parent"
-                android:layout_height="210dp" />
+                android:layout_height="270dp" />
             <LinearLayout
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
@@ -131,11 +131,13 @@
                     android:id="@+id/char_count_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_gangwon"
                     android:text="0" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/font_gangwon"
                     android:text="/150" />
             </LinearLayout>
 
@@ -145,12 +147,15 @@
     <Button
         android:id="@+id/next_btn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="55dp"
         android:layout_marginTop="50dp"
+        android:layout_marginBottom="5dp"
         android:gravity="center"
-        android:background="@drawable/solid_no_stroke"
-        android:elevation="20dp"
-        android:text="다음" />
+        android:background="@drawable/solid_no_gray"
+        android:elevation="2dp"
+        android:textSize="17sp"
+        android:textColor="@color/white"
+        android:text="다음"/>
 
 
     </LinearLayout>

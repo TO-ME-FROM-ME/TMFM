@@ -80,13 +80,13 @@
             android:text="사랑하는 우리동생에게~~~~"
             android:textSize="20dp"
             android:fontFamily="@font/font_gangwon"
-            android:background="@drawable/solid_stroke"
+            android:background="@drawable/solid_stroke_q"
             android:padding="15dp" />
 
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
             android:orientation="horizontal"
             android:layout_marginTop="20dp">
 
@@ -100,8 +100,9 @@
                 android:layout_gravity="center"
                 android:layout_marginEnd="10dp"
                 android:gravity="center"
-                android:elevation="10dp"
-                android:background="@drawable/solid_no_stroke"/>
+                android:elevation="3dp"
+                android:fontFamily="@font/notosans"
+                android:background="@drawable/solid_stroke_q"/>
             <Button
                 android:id="@+id/send_btn"
                 android:layout_width="match_parent"
@@ -109,11 +110,13 @@
                 android:layout_weight="1"
                 android:text="보내기"
                 android:textSize="20dp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/notosans"
                 android:layout_gravity="center"
                 android:layout_marginStart="10dp"
                 android:gravity="center"
-                android:elevation="10dp"
-                android:background="@drawable/solid_no_stroke"/>
+                android:elevation="3dp"
+                android:background="@drawable/ok_btn_main"/>
 
         </LinearLayout>
 

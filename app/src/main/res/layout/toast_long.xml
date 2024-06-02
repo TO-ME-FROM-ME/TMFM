@@ -14,7 +14,8 @@
         android:id="@+id/toast_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="11dp"
+        android:textSize="14dp"
         android:layout_marginTop="13dp"
         android:textColor="@color/white"
         android:text="최대 2개까지 선택할 수 있어!"/>

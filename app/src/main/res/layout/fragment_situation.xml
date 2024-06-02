@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F6F3F8"
+    android:background="@drawable/ic_bg"
     tools:context=".SituationFragment">
 
     <LinearLayout
@@ -13,10 +13,10 @@
         android:gravity="center">
         <ImageView
             android:id="@+id/image_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="50dp"
-            android:src="@drawable/ic_rec" />
+            android:layout_width="300dp"
+            android:layout_height="400dp"
+            android:gravity="center"
+            android:src="@drawable/ic_w" />
     </LinearLayout>
 
 
@@ -33,20 +33,21 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="30dp" />
+            android:layout_height="0dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="오늘 무슨 일이 있었어?"
-            android:textSize="18dp"
+            android:fontFamily="@font/notosans"
+            android:textSize="24dp"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:gravity="center"/>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="30dp" />
+            android:layout_height="20dp" />
 
         <FrameLayout
             android:id="@+id/frame_layout"
@@ -61,17 +62,17 @@
 
             <EditText
                 android:id="@+id/write_et"
-                android:layout_width="350dp"
-                android:layout_height="70dp"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
                 android:layout_weight="1"
-                android:layout_marginTop="0dp"
                 android:layout_gravity="center"
                 android:textSize="20dp"
                 android:fontFamily="@font/font_gangwon"
-                android:background="@drawable/solid_stroke"
+                android:background="@drawable/solid_stroke_q"
                 android:padding="15dp"
+                android:gravity="top"
                 android:maxLength="30"
-                android:hint="비밀 보장! 안심하고 작성해줘"/>
+                android:hint="오늘 편지로 작성할 일을 한 줄로 편하게 작성해줘."/>
 
 
             <LinearLayout
@@ -81,21 +82,23 @@
                 android:layout_gravity="center">
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="30dp" />
+                    android:layout_height="55dp" />
             <LinearLayout
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="end">
+                android:gravity="bottom|end">
                 <TextView
                     android:id="@+id/char_count_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_gangwon"
                     android:text="0" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/font_gangwon"
                     android:text="/30" />
             </LinearLayout>
 
@@ -106,12 +109,14 @@
         <Button
             android:id="@+id/next_btn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="55dp"
             android:layout_marginTop="50dp"
             android:layout_marginBottom="5dp"
             android:gravity="center"
-            android:background="@drawable/solid_no_stroke"
-            android:elevation="20dp"
+            android:background="@drawable/solid_no_gray"
+            android:elevation="2dp"
+            android:textSize="17sp"
+            android:textColor="@color/white"
             android:text="다음"/>
     </LinearLayout>
 

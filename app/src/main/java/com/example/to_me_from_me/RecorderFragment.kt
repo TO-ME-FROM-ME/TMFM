@@ -50,6 +50,8 @@ class RecorderFragment : BottomSheetDialogFragment() {
         textTv.text = "녹음 버튼을 눌러 시작하세요."
         oneTv.setBackgroundResource(R.drawable.oval_shape_w)
         twoTv.setBackgroundResource(R.drawable.oval_shape_w)
+        oneTv.setTextColor(requireContext().getColor(R.color.dark))
+        twoTv.setTextColor(requireContext().getColor(R.color.dark))
 
         // SendFragment 초기화
         sendFragment = SendFragment()
@@ -96,11 +98,13 @@ class RecorderFragment : BottomSheetDialogFragment() {
                         startBtn.text = "다음"
                         textTv.text = "잘하고 있어! 더 크게 외쳐봐!"
                         oneTv.setBackgroundResource(R.drawable.oval_shape_g)
+                        oneTv.setTextColor(requireContext().getColor(R.color.white))
                     } else if (startBtn.text == "다음") {
                         startRecording()
                         startBtn.text = "확인"
-                        textTv.text = "좋아! 마지막으로 외쳐봐!"
+                        textTv.text = "마지막 녹음이니까 더 크게 외쳐봐!"
                         twoTv.setBackgroundResource(R.drawable.oval_shape_g)
+                        twoTv.setTextColor(requireContext().getColor(R.color.white))
                         startBtn.setOnClickListener{
                             sendFragment.show(parentFragmentManager, "SendFragment")
                         }
@@ -125,8 +129,8 @@ class RecorderFragment : BottomSheetDialogFragment() {
     private fun startRecording() {
         val resolver = requireContext().contentResolver
         val contentValues = ContentValues().apply {
-            put(MediaStore.Audio.Media.DISPLAY_NAME, "audiorecordtest.mp4")
-            put(MediaStore.Audio.Media.MIME_TYPE, "audio/mp4")
+            put(MediaStore.Audio.Media.DISPLAY_NAME, "audiorecordtest.mp3")
+            put(MediaStore.Audio.Media.MIME_TYPE, "audio/mp3")
             put(MediaStore.Audio.Media.RELATIVE_PATH, "Music/Recordings")
         }
 

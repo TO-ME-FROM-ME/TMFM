@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/transparent"
     tools:context=".FirstFragment">
-
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -42,22 +41,15 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="150dp"/>
-        <ImageView
-            android:id="@+id/mail_box_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/n_mailbox"
-            android:layout_gravity="center"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="120dp"/>
-        <ImageView
-            android:id="@+id/write_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_write"
-            android:elevation="20dp"
-            android:layout_gravity="end"/>
-
     </LinearLayout>
-</FrameLayout>
+
+    <!-- write_iv를 화면의 제일 아래에 배치 -->
+    <ImageView
+        android:id="@+id/write_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_home_icon"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
