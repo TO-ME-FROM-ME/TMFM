@@ -1,6 +1,7 @@
 package com.example.to_me_from_me
 
 
+import android.media.Image
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +18,12 @@ class WriteLetterActivity : AppCompatActivity() {
         val backButton: ImageView = findViewById(R.id.back_iv)
         backButton.setOnClickListener {
             onBackPressed()
+        }
+
+        val saveButton: ImageView = findViewById(R.id.save_iv)
+        saveButton.setOnClickListener {
+            val dialogFragment = StorageDialogFragment()
+            dialogFragment.show(supportFragmentManager, "StorageDialogFragment")
         }
     }
 
