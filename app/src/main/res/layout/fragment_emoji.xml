@@ -37,8 +37,8 @@
         <ImageView
             android:id="@+id/user_emo_iv"
             android:visibility="gone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:src="@drawable/ic_excited"
             android:layout_gravity="end|center"
             android:layout_marginTop="15dp"

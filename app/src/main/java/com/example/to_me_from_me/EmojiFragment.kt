@@ -24,6 +24,8 @@ class EmojiFragment : BottomSheetDialogFragment() {
         val textView = view.findViewById<TextView>(R.id.user_situation_tv)
         textView.text = textValue
 
+        val emojiView = view.findViewById<ImageView>(R.id.user_emo_iv)
+
 
         val excitedButton = view.findViewById<ImageView>(R.id.excited_btn)
         val happyButton = view.findViewById<ImageView>(R.id.happy_btn)
@@ -38,6 +40,8 @@ class EmojiFragment : BottomSheetDialogFragment() {
         buttons.forEachIndexed { index, button ->
             button.setOnClickListener {
                 setActiveButton(button, activeDrawables[index], inactiveDrawables)
+                emojiView.setImageResource(activeDrawables[index])
+                emojiView.visibility = View.VISIBLE
             }
         }
 
