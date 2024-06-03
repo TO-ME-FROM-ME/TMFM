@@ -13,6 +13,7 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -28,6 +29,8 @@ class Q2Fragment : BottomSheetDialogFragment() {
         val charCountTextView = view.findViewById<TextView>(R.id.char_count_tv)
         val layout = view.findViewById<LinearLayout>(R.id.custom_toast_container)
 
+        val mainColor = ContextCompat.getDrawable(requireContext(), R.drawable.solid_no_main)
+        val defaultColor = ContextCompat.getDrawable(requireContext(), R.drawable.solid_no_gray)
 
         val nextButton = view.findViewById<Button>(R.id.next_btn)
         nextButton.setOnClickListener {
@@ -78,6 +81,13 @@ class Q2Fragment : BottomSheetDialogFragment() {
             override fun afterTextChanged(s: Editable?) {
                 val charCount = s?.length ?: 0
                 charCountTextView.text = "$charCount"
+
+                // 버튼 배경 변경 로직
+                if (charCount >= 50 && charCount <= 150) {
+                    nextButton.background = mainColor
+                } else {
+                    nextButton.background = defaultColor
+                }
             }
         })
 

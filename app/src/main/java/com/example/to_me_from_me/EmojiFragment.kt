@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -38,6 +39,7 @@ class EmojiFragment : BottomSheetDialogFragment() {
         val nextButton = view.findViewById<Button>(R.id.next_btn)
         nextButton.setOnClickListener {
             if (isImageSelected) { // 이미지가 선택된 경우에만 다음 단계로 이동
+                nextButton.background = ContextCompat.getDrawable(requireContext(), R.drawable.solid_no_main)
                 val nextFragment = AdjectiveFragment()
                 parentFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, nextFragment)
