@@ -21,7 +21,7 @@
         android:id="@+id/storage_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="저장하고 나중에 쓸까?"
+        android:text="작성 중인 편지가 있어!"
         android:textSize="20dp"
         android:textStyle="bold"
         android:layout_gravity="center"
@@ -33,23 +33,44 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="16dp"
-        android:text="지금 작성하고 있던 편지를 \n 간직하고 있을게! 나중에 다시 와줘💙"
+        android:text="지난 번에 간직해둔 편지를 이어서 쓸래? \n 새로 쓰면, 기존 편지는 사라지니 주의해!"
         android:textSize="18dp"
         android:layout_gravity="center"
         android:gravity="center"
         android:paddingBottom="8dp"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:layout_gravity="center"
+        android:gravity="center">
 
         <Button
-            android:id="@+id/save_btn"
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="저장하고 나가기"
+            android:text="새로운 편지 쓰기"
             android:textSize="17sp"
+            android:layout_marginLeft="10dp"
+            android:paddingHorizontal="20dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@drawable/solid_no_stroke"
+            android:textColor="@color/black"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="이어쓰기"
+            android:textSize="17sp"
+            android:layout_marginLeft="10dp"
+            android:paddingHorizontal="20dp"
             android:layout_gravity="center"
             android:gravity="center"
             android:background="@drawable/solid_no_main"
             android:textColor="@color/white"/>
+
+    </LinearLayout>
 
 
 </LinearLayout>
