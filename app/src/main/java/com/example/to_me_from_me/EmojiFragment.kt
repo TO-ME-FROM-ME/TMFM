@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -18,6 +19,10 @@ class EmojiFragment : BottomSheetDialogFragment() {
     private var isImageSelected = false // 이미지가 선택되었는지 여부를 저장하는 변수
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_emoji, container, false)
+
+        val textValue = arguments?.getString("textValue")
+        val textView = view.findViewById<TextView>(R.id.user_situation_tv)
+        textView.text = textValue
 
 
         val excitedButton = view.findViewById<ImageView>(R.id.excited_btn)

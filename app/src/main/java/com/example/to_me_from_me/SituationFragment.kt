@@ -34,6 +34,7 @@ class SituationFragment : BottomSheetDialogFragment() {
 
         val nextButton = view.findViewById<Button>(R.id.next_btn)
         nextButton.setOnClickListener {
+            val stextValue = writeEditText.text.toString()
 
             val textLength = writeEditText.text.length
             val toastLayout = LayoutInflater.from(requireContext()).inflate(R.layout.toast, layout, false)
@@ -54,6 +55,11 @@ class SituationFragment : BottomSheetDialogFragment() {
 
                     // 다음 Fragment화면으로 이동
                     val nextFragment = EmojiFragment()
+
+                    val bundle = Bundle()
+                    bundle.putString("textValue", stextValue)
+                    nextFragment.arguments = bundle
+
                     parentFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container, nextFragment)
                         .addToBackStack(null)
