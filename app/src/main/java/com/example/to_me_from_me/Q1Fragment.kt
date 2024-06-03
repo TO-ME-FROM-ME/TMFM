@@ -88,7 +88,7 @@ class Q1Fragment : BottomSheetDialogFragment() {
         val location = IntArray(2)
         writeEditText.getLocationOnScreen(location)
         layout.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
-        val yOffset = location[1] - 200 - toastLayout.measuredHeight
+        val yOffset = location[1] - 170 - toastLayout.measuredHeight
 
 
         toast.setGravity(Gravity.TOP or Gravity.END, location[0], yOffset)

@@ -92,7 +92,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="20dp" />
+            android:layout_height="25dp" />
 
         <FrameLayout
             android:id="@+id/frame_layout"
@@ -107,7 +107,7 @@
 
             <EditText
                 android:id="@+id/write_et"
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:layout_weight="1"
                 android:layout_gravity="center"

@@ -73,18 +73,48 @@
             android:layout_width="match_parent"
             android:layout_height="0dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="💌 TO. 우리 동생 \n응원하는 마음으로 공감의 말을 건네봐."
-            android:fontFamily="@font/bnotosans"
-            android:textSize="20dp"
-            android:textColor="@color/dark"/>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="💌 TO."
+                        android:fontFamily="@font/bnotosans"
+                        android:textSize="20dp"
+                        android:textColor="@color/dark"/>
+                    <TextView
+                        android:id="@+id/nickname_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="nickname"
+                        android:fontFamily="@font/bnotosans"
+                        android:textSize="20dp"
+                        android:textColor="@color/dark"/>
+                </LinearLayout>
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="응원하는 마음으로 공감의 말을 건네봐."
+                android:fontFamily="@font/bnotosans"
+                android:textSize="20dp"
+                android:layout_marginTop="35dp"
+                android:textColor="@color/dark"/>
+        </FrameLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="20dp" />
+            android:layout_height="25dp" />
 
         <FrameLayout
             android:id="@+id/frame_layout"
@@ -99,7 +129,7 @@
 
             <EditText
                 android:id="@+id/write_et"
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:layout_weight="1"
                 android:layout_marginTop="0dp"
