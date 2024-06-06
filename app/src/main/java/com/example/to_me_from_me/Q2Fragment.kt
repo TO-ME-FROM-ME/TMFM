@@ -2,6 +2,8 @@ package com.example.to_me_from_me
 
 import android.app.Dialog
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.Gravity
@@ -60,12 +62,12 @@ class Q2Fragment : BottomSheetDialogFragment() {
 
             when {
                 textLength < 50 -> {
-                    showToast(toastLayout,writeEditText)
+                    showToast(toastLayout,writeEditText,1000)
                     toastTv.text = "최소 50자 이상 작성해줘!"
                 }
 
                 textLength > 150 -> {
-                    showToast(toastLayout,writeEditText)
+                    showToast(toastLayout,writeEditText,1000)
                     toastTv.text = "150자 이하로 작성해줘!"
                 }
 
@@ -115,19 +117,29 @@ class Q2Fragment : BottomSheetDialogFragment() {
     }
 
 
-    private fun showToast(layout: View, writeEditText: EditText) {
-        val toastLayout = LayoutInflater.from(requireContext()).inflate(R.layout.toast, null, false)
+    private fun showToast(layout: View, writeEditText: EditText, duration: Int) {
         val toast = Toast(requireContext())
         val location = IntArray(2)
         writeEditText.getLocationOnScreen(location)
         layout.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
-        val yOffset = location[1] - 170 - toastLayout.measuredHeight
-
+        val yOffset = location[1] - 170 - layout.measuredHeight
 
         toast.setGravity(Gravity.TOP or Gravity.END, location[0], yOffset)
-        toast.duration = Toast.LENGTH_SHORT
         toast.view = layout
-        toast.show()
+
+        val handler = Handler(Looper.getMainLooper())
+        val startTime = System.currentTimeMillis()
+
+        handler.post(object : Runnable {
+            override fun run() {
+                if (System.currentTimeMillis() - startTime < duration) {
+                    toast.show()
+                    handler.postDelayed(this, 1000)
+                } else {
+                    toast.cancel()
+                }
+            }
+        })
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

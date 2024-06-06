@@ -1,6 +1,8 @@
 package com.example.to_me_from_me
 
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -85,9 +87,13 @@ class AdjectiveButtonAdapter(
                             val yOffset = location[1] - customToastContainer.height - toastLayout.measuredHeight
 
                             toast.view = toastLayout
-                            toast.duration = Toast.LENGTH_SHORT
                             toast.setGravity(Gravity.TOP or Gravity.END, 0, yOffset)
                             toast.show()
+
+                            val handler = Handler(Looper.getMainLooper())
+                            handler.postDelayed({
+                                toast.cancel()
+                            }, 1000)
                         }
 
                     }
