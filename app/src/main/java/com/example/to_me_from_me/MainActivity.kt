@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         // 바텀 네비게이션 바 초기화
         bottomNavigation.selectedItemId = R.id.mail
         val colorStateList = resources.getColorStateList(R.color.navigation_item_color, theme)
-        bottomNavigation.itemIconTintList = colorStateList
+        bottomNavigation.itemIconTintList = null
         bottomNavigation.itemTextColor = colorStateList
 
 
@@ -42,20 +42,25 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        resetMenuIcons()
+
         var selectedFragment: Fragment? = null
         when (item.itemId) {
             R.id.mail -> {
                 selectedFragment = FirstFragment()
+                item.setIcon(R.drawable.ic_mail_s)
                 Log.d("MainActivity", " write letter 클릭 ")
             }
             R.id.data -> {
                 val intent = Intent(this, StatisticalReportActivity::class.java)
+                item.setIcon(R.drawable.ic_data_s)
                 startActivity(intent)
                 Log.d("MainActivity", " Statistical report 클릭 ")
                 return true
             }
             R.id.profile -> {
                 val intent = Intent(this, ProfileActivity::class.java)
+                item.setIcon(R.drawable.ic_profile_s)
                 startActivity(intent)
                 Log.d("MainActivity", " profile 클릭 ")
                 return true
@@ -69,4 +74,12 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         }
         return false
     }
+
+    private fun resetMenuIcons() {
+        val menu = bottomNavigation.menu
+        menu.findItem(R.id.mail).setIcon(R.drawable.ic_mail)
+        menu.findItem(R.id.data).setIcon(R.drawable.ic_data)
+        menu.findItem(R.id.profile).setIcon(R.drawable.ic_profile)
+    }
+
 }
