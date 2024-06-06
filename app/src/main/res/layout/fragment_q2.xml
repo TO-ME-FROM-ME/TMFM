@@ -103,7 +103,7 @@
         <EditText
             android:id="@+id/write_et"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="250dp"
             android:layout_weight="1"
             android:layout_marginTop="0dp"
             android:layout_gravity="center"
@@ -113,17 +113,17 @@
             android:background="@drawable/solid_stroke_q"
             android:padding="15dp"
             android:maxLength="150"
-            android:hint="두려운, 불안한 감정을 느낄 때 스스로에게 어떤 말을 했는지 생각나는 대로 적어줘."/>
+            android:hint="앞서 선택한 감정을 느낄 때 스스로에게 어떤 말을\n했는지 생각나는 대로 적어줘."/>
 
 
         <LinearLayout
             android:layout_width="350dp"
-            android:layout_height="300dp"
+            android:layout_height="250dp"
             android:orientation="vertical"
             android:layout_gravity="center">
             <View
                 android:layout_width="match_parent"
-                android:layout_height="270dp" />
+                android:layout_height="220dp" />
             <LinearLayout
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"

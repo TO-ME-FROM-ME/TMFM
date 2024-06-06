@@ -39,7 +39,7 @@ class LetterFragment : BottomSheetDialogFragment() {
 // prefixText의 길이를 계산하여 RelativeSizeSpan을 적용합니다.
         val prefixLength = nicknameText.length
         spannableString.setSpan(
-            RelativeSizeSpan(1.5f), // 글자 크기를 1.5배로 설정
+            RelativeSizeSpan(1.3f), // 글자 크기를 1.5배로 설정
             0, // 시작 인덱스
             prefixLength, // 끝 인덱스
             Spanned.SPAN_EXCLUSIVE_EXCLUSIVE

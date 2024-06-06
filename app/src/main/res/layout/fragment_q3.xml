@@ -132,7 +132,7 @@
             <EditText
                 android:id="@+id/write_et"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="215dp"
                 android:layout_weight="1"
                 android:layout_marginTop="0dp"
                 android:layout_gravity="center"
@@ -142,17 +142,17 @@
                 android:background="@drawable/solid_stroke_q"
                 android:padding="15dp"
                 android:maxLength="150"
-                android:hint="소중한 존재 우리동생이 같은 상황에 있다고 가정하고, \n진심을 담아 보내는 편지를 보내봐."/>
+                android:hint="소중한 존재가 같은 상황에 있다고 가정하고, 진심을\n담아 편지를 보내봐."/>
 
 
             <LinearLayout
                 android:layout_width="350dp"
-                android:layout_height="300dp"
+                android:layout_height="215dp"
                 android:orientation="vertical"
                 android:layout_gravity="center">
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="270dp" />
+                    android:layout_height="185dp" />
                 <LinearLayout
                     android:layout_width="350dp"
                     android:layout_height="wrap_content"

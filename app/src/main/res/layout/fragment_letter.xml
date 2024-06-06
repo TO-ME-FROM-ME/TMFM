@@ -72,6 +72,10 @@
         android:background="@drawable/round_corner_top"
         android:padding="20dp">
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="25dp" />
+
         <FrameLayout
             android:id="@+id/frame_layout"
             android:layout_width="match_parent"
