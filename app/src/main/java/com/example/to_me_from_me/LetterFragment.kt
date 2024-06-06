@@ -5,7 +5,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
+import android.text.SpannableString
+import android.text.Spanned
 import android.text.TextWatcher
+import android.text.style.RelativeSizeSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,7 +30,23 @@ class LetterFragment : BottomSheetDialogFragment() {
         val sendBtn = view.findViewById<Button>(R.id.send_btn)
         val letterTV = view.findViewById<EditText>(R.id.letter_tv)
         val combinedTextValue = arguments?.getString("combinedTextValue")
-        letterTV.setText(combinedTextValue)
+        val nicknameText = "사랑하는 nickname에게"
+        val letterFull = "$nicknameText\n\n$combinedTextValue"
+
+        // SpannableString을 생성합니다.
+        val spannableString = SpannableString(letterFull)
+
+// prefixText의 길이를 계산하여 RelativeSizeSpan을 적용합니다.
+        val prefixLength = nicknameText.length
+        spannableString.setSpan(
+            RelativeSizeSpan(1.5f), // 글자 크기를 1.5배로 설정
+            0, // 시작 인덱스
+            prefixLength, // 끝 인덱스
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+// EditText에 결합된 문자열을 설정합니다.
+        letterTV.setText(spannableString)
 
         val textView = view.findViewById<TextView>(R.id.user_situation_tv)
         sharedViewModel.situationText.observe(viewLifecycleOwner) { text ->
