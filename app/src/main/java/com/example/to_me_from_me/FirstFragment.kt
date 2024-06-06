@@ -16,12 +16,10 @@ class FirstFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_first, container, false)
 
 
-
         val writeIv = view.findViewById<ImageView>(R.id.write_iv)
         writeIv.setOnClickListener {
-            // WriteLetterActivity 이동
-            val intent = Intent(activity, WriteLetterActivity::class.java)
-            startActivity(intent)
+            val dialogFragment = HomeDialogFragment()
+            dialogFragment.show(parentFragmentManager, "HomeDialogFragment")
 
         }
         return view
