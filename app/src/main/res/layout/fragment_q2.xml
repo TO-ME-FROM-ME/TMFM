@@ -18,6 +18,7 @@
         android:background="@drawable/solid_no_stroke" >
 
         <ImageView
+            android:id="@+id/user_emo_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/angry"
@@ -30,6 +31,7 @@
             android:orientation="vertical"
             android:layout_marginLeft="10dp">
             <TextView
+                android:id="@+id/user_situation_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="시험 결과가 나왔는데 점수가 너무 나빠서 두려웠어."

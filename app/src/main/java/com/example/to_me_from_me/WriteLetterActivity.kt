@@ -6,9 +6,13 @@ import android.media.Image
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.ImageView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.viewModels
 
 class WriteLetterActivity : AppCompatActivity() {
+
+    private val sharedViewModel: ViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

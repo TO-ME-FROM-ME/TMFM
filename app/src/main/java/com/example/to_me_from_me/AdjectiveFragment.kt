@@ -7,15 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class AdjectiveFragment : BottomSheetDialogFragment(), AdjectiveButtonAdapter.OnButtonClickListener {
+
+    private val sharedViewModel: ViewModel by activityViewModels()
 
     private lateinit var recyclerViews: List<RecyclerView>
     private var selectedCount = 0
@@ -25,6 +29,20 @@ class AdjectiveFragment : BottomSheetDialogFragment(), AdjectiveButtonAdapter.On
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_adjective, container, false)
+
+        val textView = view.findViewById<TextView>(R.id.user_situation_tv)
+        sharedViewModel.situationText.observe(viewLifecycleOwner) { text ->
+            textView.text = text
+        }
+
+        val imageView = view.findViewById<ImageView>(R.id.user_emo_iv)
+
+        sharedViewModel.selectedImageResId.observe(viewLifecycleOwner) { resId ->
+            if (resId != null) {
+                imageView.setImageResource(resId)
+                imageView.visibility = View.VISIBLE
+            }
+        }
 
         val layout = view.findViewById<LinearLayout>(R.id.custom_toast_container)
 

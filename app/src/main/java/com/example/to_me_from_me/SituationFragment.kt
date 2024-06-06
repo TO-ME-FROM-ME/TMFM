@@ -17,14 +17,19 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.whenCreated
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class SituationFragment : BottomSheetDialogFragment() {
 
+    private val sharedViewModel: ViewModel by activityViewModels()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_situation, container, false)
+
         val writeEditText = view.findViewById<EditText>(R.id.write_et)
         val charCountTextView = view.findViewById<TextView>(R.id.char_count_tv)
         val layout = view.findViewById<LinearLayout>(R.id.custom_toast_container)
@@ -34,7 +39,8 @@ class SituationFragment : BottomSheetDialogFragment() {
 
         val nextButton = view.findViewById<Button>(R.id.next_btn)
         nextButton.setOnClickListener {
-            val stextValue = writeEditText.text.toString()
+            val textValue = writeEditText.text.toString()
+            sharedViewModel.setSituationText(textValue)
 
             val textLength = writeEditText.text.length
             val toastLayout = LayoutInflater.from(requireContext()).inflate(R.layout.toast, layout, false)
@@ -55,10 +61,6 @@ class SituationFragment : BottomSheetDialogFragment() {
 
                     // 다음 Fragment화면으로 이동
                     val nextFragment = EmojiFragment()
-
-                    val bundle = Bundle()
-                    bundle.putString("textValue", stextValue)
-                    nextFragment.arguments = bundle
 
                     parentFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container, nextFragment)

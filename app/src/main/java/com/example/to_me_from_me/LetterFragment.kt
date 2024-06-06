@@ -8,21 +8,37 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class LetterFragment : BottomSheetDialogFragment() {
 
+    private val sharedViewModel: ViewModel by activityViewModels()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_letter, container, false)
 
         val reservBtn = view.findViewById<Button>(R.id.reserve_btn)
         val sendBtn = view.findViewById<Button>(R.id.send_btn)
-        val textView = view.findViewById<TextView>(R.id.letter_tv)
+        val letterTV = view.findViewById<TextView>(R.id.letter_tv)
         val combinedTextValue = arguments?.getString("combinedTextValue")
+        letterTV.text = combinedTextValue
 
-        textView.text = combinedTextValue
+        val textView = view.findViewById<TextView>(R.id.user_situation_tv)
+        sharedViewModel.situationText.observe(viewLifecycleOwner) { text ->
+            textView.text = text
+        }
+
+        val imageView = view.findViewById<ImageView>(R.id.user_emo_iv)
+
+        sharedViewModel.selectedImageResId.observe(viewLifecycleOwner) { resId ->
+            if (resId != null) {
+                imageView.setImageResource(resId)
+                imageView.visibility = View.VISIBLE
+            }
+        }
 
 
         reservBtn.setOnClickListener {

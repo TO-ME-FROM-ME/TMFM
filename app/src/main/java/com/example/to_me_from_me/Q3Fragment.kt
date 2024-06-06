@@ -11,18 +11,37 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class Q3Fragment : BottomSheetDialogFragment() {
 
+    private val sharedViewModel: ViewModel by activityViewModels()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_q3, container, false)
+
+        val textView = view.findViewById<TextView>(R.id.user_situation_tv)
+
+        sharedViewModel.situationText.observe(viewLifecycleOwner) { text ->
+            textView.text = text
+        }
+
+        val imageView = view.findViewById<ImageView>(R.id.user_emo_iv)
+
+        sharedViewModel.selectedImageResId.observe(viewLifecycleOwner) { resId ->
+            if (resId != null) {
+                imageView.setImageResource(resId)
+                imageView.visibility = View.VISIBLE
+            }
+        }
 
         val q1TextValue = arguments?.getString("q1TextValue")
         val q2TextValue = arguments?.getString("q2TextValue")
@@ -56,7 +75,7 @@ class Q3Fragment : BottomSheetDialogFragment() {
                     // 다음 Fragment화면으로 이동
                     val q3TextValue = writeEditText.text.toString()
 
-                    val combinedTextValue = "$q1TextValue $q2TextValue $q3TextValue"
+                    val combinedTextValue = "$q1TextValue\n$q2TextValue\n$q3TextValue"
 
                     val nextFragment = LetterFragment().apply {
                         arguments = Bundle().apply {

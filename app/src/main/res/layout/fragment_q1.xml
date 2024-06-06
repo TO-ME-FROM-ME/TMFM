@@ -23,6 +23,7 @@
         android:padding="15dp">
 
         <ImageView
+            android:id="@+id/user_emo_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -36,6 +37,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/user_situation_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/font_gangwon"

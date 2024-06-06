@@ -10,19 +10,23 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class EmojiFragment : BottomSheetDialogFragment() {
+
+    private val sharedViewModel: ViewModel by activityViewModels()
 
     private var activeButton: ImageView? = null
     private var isImageSelected = false // 이미지가 선택되었는지 여부를 저장하는 변수
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_emoji, container, false)
 
-        val textValue = arguments?.getString("textValue")
         val textView = view.findViewById<TextView>(R.id.user_situation_tv)
-        textView.text = textValue
+        sharedViewModel.situationText.observe(viewLifecycleOwner) { text ->
+            textView.text = text
+        }
 
         val emojiView = view.findViewById<ImageView>(R.id.user_emo_iv)
 
@@ -40,6 +44,7 @@ class EmojiFragment : BottomSheetDialogFragment() {
         buttons.forEachIndexed { index, button ->
             button.setOnClickListener {
                 setActiveButton(button, activeDrawables[index], inactiveDrawables)
+                sharedViewModel.setSelectedImageResId(activeDrawables[index])
                 emojiView.setImageResource(activeDrawables[index])
                 emojiView.visibility = View.VISIBLE
             }
