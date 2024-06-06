@@ -75,7 +75,7 @@ class Q3Fragment : BottomSheetDialogFragment() {
                     // 다음 Fragment화면으로 이동
                     val q3TextValue = writeEditText.text.toString()
 
-                    val combinedTextValue = "$q1TextValue\n$q2TextValue\n$q3TextValue"
+                    val combinedTextValue = "\n\n$q1TextValue\n$q2TextValue\n$q3TextValue"
 
                     val nextFragment = LetterFragment().apply {
                         arguments = Bundle().apply {

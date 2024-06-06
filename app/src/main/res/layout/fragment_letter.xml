@@ -72,19 +72,61 @@
         android:background="@drawable/round_corner_top"
         android:padding="20dp">
 
-        <TextView
-            android:id="@+id/letter_tv"
+        <FrameLayout
+            android:id="@+id/frame_layout"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:layout_weight="1"
-            android:layout_marginTop="20dp"
-            android:layout_gravity="center"
-            android:gravity="top"
-            android:text="사랑하는 우리동생에게~~~~"
-            android:textSize="20dp"
-            android:fontFamily="@font/font_gangwon"
-            android:background="@drawable/solid_stroke_q"
-            android:padding="15dp" />
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/custom_toast_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
+
+            <EditText
+                android:id="@+id/letter_tv"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:gravity="top"
+                android:text="사랑하는 우리동생에게"
+                android:textSize="20dp"
+                android:inputType="textNoSuggestions|textMultiLine"
+                android:fontFamily="@font/font_gangwon"
+                android:background="@drawable/solid_stroke_q"
+                android:padding="15dp"/>
+
+
+            <LinearLayout
+                android:layout_width="350dp"
+                android:layout_height="350dp"
+                android:orientation="vertical"
+                android:layout_gravity="center">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="320dp" />
+                <LinearLayout
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="end">
+                    <TextView
+                        android:id="@+id/char_count_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/font_gangwon"
+                        android:text="0" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="@font/font_gangwon"
+                        android:text="/500" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </FrameLayout>
 
 
         <LinearLayout

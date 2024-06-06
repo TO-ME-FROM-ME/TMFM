@@ -3,6 +3,9 @@ package com.example.to_me_from_me
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.InputType
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,9 +25,9 @@ class LetterFragment : BottomSheetDialogFragment() {
 
         val reservBtn = view.findViewById<Button>(R.id.reserve_btn)
         val sendBtn = view.findViewById<Button>(R.id.send_btn)
-        val letterTV = view.findViewById<TextView>(R.id.letter_tv)
+        val letterTV = view.findViewById<EditText>(R.id.letter_tv)
         val combinedTextValue = arguments?.getString("combinedTextValue")
-        letterTV.text = combinedTextValue
+        letterTV.setText(combinedTextValue)
 
         val textView = view.findViewById<TextView>(R.id.user_situation_tv)
         sharedViewModel.situationText.observe(viewLifecycleOwner) { text ->
@@ -39,6 +42,10 @@ class LetterFragment : BottomSheetDialogFragment() {
                 imageView.visibility = View.VISIBLE
             }
         }
+
+        val charCountTextView = view.findViewById<TextView>(R.id.char_count_tv)
+        val charCount = combinedTextValue?.length ?: 0
+        charCountTextView.text = "$charCount"
 
 
         reservBtn.setOnClickListener {
@@ -58,6 +65,17 @@ class LetterFragment : BottomSheetDialogFragment() {
                 .commit()
         }
 
+// 실시간 글자 수
+        letterTV.addTextChangedListener(object  : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+            override fun afterTextChanged(s: Editable?) {
+                val charCount = s?.length ?: 0
+                charCountTextView.text = "$charCount"
+            }
+        })
 
         return view
     }
