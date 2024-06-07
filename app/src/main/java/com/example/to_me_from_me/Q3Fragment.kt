@@ -3,6 +3,8 @@ package com.example.to_me_from_me
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.Gravity
@@ -11,18 +13,37 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class Q3Fragment : BottomSheetDialogFragment() {
 
+    private val sharedViewModel: ViewModel by activityViewModels()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_q3, container, false)
+
+        val textView = view.findViewById<TextView>(R.id.user_situation_tv)
+
+        sharedViewModel.situationText.observe(viewLifecycleOwner) { text ->
+            textView.text = text
+        }
+
+        val imageView = view.findViewById<ImageView>(R.id.user_emo_iv)
+
+        sharedViewModel.selectedImageResId.observe(viewLifecycleOwner) { resId ->
+            if (resId != null) {
+                imageView.setImageResource(resId)
+                imageView.visibility = View.VISIBLE
+            }
+        }
 
         val q1TextValue = arguments?.getString("q1TextValue")
         val q2TextValue = arguments?.getString("q2TextValue")
@@ -43,13 +64,13 @@ class Q3Fragment : BottomSheetDialogFragment() {
 
             when {
                 textLength < 50 -> {
-                    showToast(toastLayout,writeEditText)
+                    showToast(toastLayout,writeEditText,700)
                     toastTv.text = "최소 50자 이상 작성해줘!"
                     writeEditText.background = ContextCompat.getDrawable(requireContext(), R.drawable.solid_over_txt)
                 }
 
                 textLength > 150 -> {
-                    showToast(toastLayout,writeEditText)
+                    showToast(toastLayout,writeEditText,700)
                     toastTv.text = "150자 이하로 작성해줘!"
                     writeEditText.background = ContextCompat.getDrawable(requireContext(), R.drawable.solid_stroke_q)
                 }
@@ -58,7 +79,7 @@ class Q3Fragment : BottomSheetDialogFragment() {
                     // 다음 Fragment화면으로 이동
                     val q3TextValue = writeEditText.text.toString()
 
-                    val combinedTextValue = "$q1TextValue $q2TextValue $q3TextValue"
+                    val combinedTextValue = "$q1TextValue\n$q2TextValue\n$q3TextValue"
 
                     val nextFragment = LetterFragment().apply {
                         arguments = Bundle().apply {
@@ -99,19 +120,29 @@ class Q3Fragment : BottomSheetDialogFragment() {
     }
 
 
-    private fun showToast(layout: View, writeEditText: EditText) {
-        val toastLayout = LayoutInflater.from(requireContext()).inflate(R.layout.toast, null, false)
+    private fun showToast(layout: View, writeEditText: EditText, duration: Int) {
         val toast = Toast(requireContext())
         val location = IntArray(2)
         writeEditText.getLocationOnScreen(location)
         layout.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
-        val yOffset = location[1] - 170 - toastLayout.measuredHeight
-
+        val yOffset = location[1] - 170 - layout.measuredHeight
 
         toast.setGravity(Gravity.TOP or Gravity.END, location[0], yOffset)
-        toast.duration = Toast.LENGTH_SHORT
         toast.view = layout
-        toast.show()
+
+        val handler = Handler(Looper.getMainLooper())
+        val startTime = System.currentTimeMillis()
+
+        handler.post(object : Runnable {
+            override fun run() {
+                if (System.currentTimeMillis() - startTime < duration) {
+                    toast.show()
+                    handler.postDelayed(this, 700)
+                } else {
+                    toast.cancel()
+                }
+            }
+        })
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

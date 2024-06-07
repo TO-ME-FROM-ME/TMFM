@@ -23,6 +23,7 @@
         android:padding="15dp">
 
         <ImageView
+            android:id="@+id/user_emo_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -36,6 +37,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/user_situation_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/font_gangwon"
@@ -149,7 +151,7 @@
             <EditText
                 android:id="@+id/write_et"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="250dp"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:gravity="top"
@@ -163,12 +165,12 @@
 
             <LinearLayout
                 android:layout_width="350dp"
-                android:layout_height="300dp"
+                android:layout_height="250dp"
                 android:orientation="vertical"
                 android:layout_gravity="center">
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="270dp" />
+                    android:layout_height="220dp" />
                 <LinearLayout
                     android:layout_width="350dp"
                     android:layout_height="wrap_content"
