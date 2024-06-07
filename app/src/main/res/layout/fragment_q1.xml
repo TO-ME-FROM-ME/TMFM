@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F6F3F8"
+    android:background="@android:color/transparent"
     tools:context=".Q1Fragment"
     android:id="@+id/background"
     android:onClick="hideKeyboard">
@@ -82,13 +82,54 @@
             android:layout_width="match_parent"
             android:layout_height="0dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="💌 왜 두려운, 불안한 감정을 느꼈어?"
-            android:fontFamily="@font/bnotosans"
-            android:textSize="20dp"
-            android:textColor="@color/dark" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="💌 왜 "
+                        android:fontFamily="@font/bnotosans"
+                        android:textSize="20dp"
+                        android:textColor="@color/dark"/>
+                    <TextView
+                        android:id="@+id/adjective1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="감정1"
+                        android:fontFamily="@font/bnotosans"
+                        android:textSize="20dp"
+                        android:textColor="@color/dark"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=", "
+                        android:fontFamily="@font/bnotosans"
+                        android:textSize="20dp"
+                        android:textColor="@color/dark"/>
+                    <TextView
+                        android:id="@+id/adjective2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="감정2"
+                        android:fontFamily="@font/bnotosans"
+                        android:textSize="20dp"
+                        android:textColor="@color/dark"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" 감정을 느꼈어?"
+                        android:fontFamily="@font/bnotosans"
+                        android:textSize="20dp"
+                        android:textColor="@color/dark"/>
+                </LinearLayout>
+            </LinearLayout>
+
 
         <View
             android:layout_width="match_parent"

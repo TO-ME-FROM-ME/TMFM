@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ic_bg"
+    android:background="@android:color/transparent"
     tools:context=".SituationFragment">
 
 
@@ -60,12 +60,11 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="30dp" />
+            android:layout_height="10dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:text="그때 기분은 어땠어?"
             android:fontFamily="@font/notosans"
             android:textSize="24dp"
@@ -75,7 +74,8 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="30dp" />
+            android:layout_height="20dp" />
+
 
         <FrameLayout
             android:id="@+id/frame_layout"

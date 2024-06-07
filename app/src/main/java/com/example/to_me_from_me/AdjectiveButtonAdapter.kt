@@ -82,7 +82,7 @@ class AdjectiveButtonAdapter(
 
                             customToastContainer.getLocationOnScreen(location)
                             toastLayout.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
-                            val yOffset = location[1] - customToastContainer.height - toastLayout.measuredHeight
+                            val yOffset = location[1] - 120 - toastLayout.measuredHeight
 
                             toast.view = toastLayout
                             toast.duration = Toast.LENGTH_SHORT

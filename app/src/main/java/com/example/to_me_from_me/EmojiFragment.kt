@@ -25,7 +25,7 @@ class EmojiFragment : BottomSheetDialogFragment() {
         textView.text = textValue
 
         val emojiView = view.findViewById<ImageView>(R.id.user_emo_iv)
-
+        val nextButton = view.findViewById<Button>(R.id.next_btn)
 
         val excitedButton = view.findViewById<ImageView>(R.id.excited_btn)
         val happyButton = view.findViewById<ImageView>(R.id.happy_btn)
@@ -40,15 +40,15 @@ class EmojiFragment : BottomSheetDialogFragment() {
         buttons.forEachIndexed { index, button ->
             button.setOnClickListener {
                 setActiveButton(button, activeDrawables[index], inactiveDrawables)
+                nextButton.background = ContextCompat.getDrawable(requireContext(), R.drawable.solid_no_main)
                 emojiView.setImageResource(activeDrawables[index])
                 emojiView.visibility = View.VISIBLE
             }
         }
 
-        val nextButton = view.findViewById<Button>(R.id.next_btn)
+
         nextButton.setOnClickListener {
             if (isImageSelected) { // 이미지가 선택된 경우에만 다음 단계로 이동
-                nextButton.background = ContextCompat.getDrawable(requireContext(), R.drawable.solid_no_main)
                 val nextFragment = AdjectiveFragment()
                 parentFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, nextFragment)

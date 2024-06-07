@@ -43,11 +43,13 @@ class Q2Fragment : BottomSheetDialogFragment() {
                 textLength < 50 -> {
                     showToast(toastLayout,writeEditText)
                     toastTv.text = "최소 50자 이상 작성해줘!"
+                    writeEditText.background = ContextCompat.getDrawable(requireContext(), R.drawable.solid_over_txt)
                 }
 
                 textLength > 150 -> {
                     showToast(toastLayout,writeEditText)
                     toastTv.text = "150자 이하로 작성해줘!"
+                    writeEditText.background = ContextCompat.getDrawable(requireContext(), R.drawable.solid_stroke_q)
                 }
 
                 else -> {
@@ -87,6 +89,7 @@ class Q2Fragment : BottomSheetDialogFragment() {
                     nextButton.background = mainColor
                 } else {
                     nextButton.background = defaultColor
+                    //charCountTextView.text = ContextCompat.getColor(R.color.dark)
                 }
             }
         })
