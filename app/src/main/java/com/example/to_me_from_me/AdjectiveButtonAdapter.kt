@@ -93,7 +93,7 @@ class AdjectiveButtonAdapter(
                             val handler = Handler(Looper.getMainLooper())
                             handler.postDelayed({
                                 toast.cancel()
-                            }, 1000)
+                            }, 700)
                         }
 
                     }

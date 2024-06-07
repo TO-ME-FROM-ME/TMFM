@@ -50,12 +50,12 @@ class SituationFragment : BottomSheetDialogFragment() {
 
             when {
                 textLength < 10 -> {
-                    showToast(toastLayout,writeEditText,1000)
+                    showToast(toastLayout,writeEditText,700)
                     toastTv.text = "최소 10자 이상 작성해줘!"
                 }
 
                 textLength > 30 -> {
-                    showToast(toastLayout,writeEditText,1000)
+                    showToast(toastLayout,writeEditText,700)
                     toastTv.text = "30자 이하로 작성해줘!"
                 }
 
@@ -116,7 +116,7 @@ class SituationFragment : BottomSheetDialogFragment() {
             override fun run() {
                 if (System.currentTimeMillis() - startTime < duration) {
                     toast.show()
-                    handler.postDelayed(this, 1000)
+                    handler.postDelayed(this, 700)
                 } else {
                     toast.cancel()
                 }

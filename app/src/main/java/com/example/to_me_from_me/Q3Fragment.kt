@@ -64,12 +64,12 @@ class Q3Fragment : BottomSheetDialogFragment() {
 
             when {
                 textLength < 50 -> {
-                    showToast(toastLayout,writeEditText,1000)
+                    showToast(toastLayout,writeEditText,700)
                     toastTv.text = "최소 50자 이상 작성해줘!"
                 }
 
                 textLength > 150 -> {
-                    showToast(toastLayout,writeEditText,1000)
+                    showToast(toastLayout,writeEditText,700)
                     toastTv.text = "150자 이하로 작성해줘!"
                 }
 
@@ -135,7 +135,7 @@ class Q3Fragment : BottomSheetDialogFragment() {
             override fun run() {
                 if (System.currentTimeMillis() - startTime < duration) {
                     toast.show()
-                    handler.postDelayed(this, 1000)
+                    handler.postDelayed(this, 700)
                 } else {
                     toast.cancel()
                 }
