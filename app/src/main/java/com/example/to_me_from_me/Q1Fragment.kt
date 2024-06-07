@@ -71,7 +71,6 @@ class Q1Fragment : BottomSheetDialogFragment() {
                 textLength > 150 -> {
                     showToast(toastLayout,writeEditText,700)
                     toastTv.text = "150자 이하로 작성해줘!"
-                    writeEditText.background = ContextCompat.getDrawable(requireContext(), R.drawable.solid_stroke_q)
                 }
 
                 else -> {
@@ -105,6 +104,7 @@ class Q1Fragment : BottomSheetDialogFragment() {
                 // 버튼 배경 변경 로직
                 if (charCount >= 50 && charCount <= 150) {
                     nextButton.background = mainColor
+                    writeEditText.background = ContextCompat.getDrawable(requireContext(), R.drawable.solid_stroke_q)
                 } else {
                     nextButton.background = defaultColor
                 }
@@ -120,7 +120,7 @@ class Q1Fragment : BottomSheetDialogFragment() {
         val location = IntArray(2)
         writeEditText.getLocationOnScreen(location)
         layout.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
-        val yOffset = location[1] - 170 - layout.measuredHeight
+        val yOffset = location[1] - 20 - layout.measuredHeight
 
         toast.setGravity(Gravity.TOP or Gravity.END, location[0], yOffset)
         toast.view = layout

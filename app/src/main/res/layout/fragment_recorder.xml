@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:background="@drawable/ic_reco_bg"
+    android:background="@drawable/ic_reco_bg2"
     tools:context=".RecorderFragment">
 
     <LinearLayout
@@ -59,12 +59,10 @@
 
     </LinearLayout>
 
-    <!--    녹음 시작 누르면 보이도록-->
     <LinearLayout
         android:id="@+id/count_ll"
         android:layout_width="wrap_content"
         android:layout_height="70dp"
-        android:layout_marginTop="20dp"
         android:orientation="horizontal"
         android:layout_gravity="center">
 
@@ -106,7 +104,7 @@
         android:layout_marginEnd="20dp"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:layout_marginBottom="5dp"
         android:gravity="center"
         android:background="@drawable/solid_no_main"

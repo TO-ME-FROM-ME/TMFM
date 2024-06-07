@@ -45,9 +45,8 @@ class RecorderFragment : BottomSheetDialogFragment() {
         val twoTv: TextView = view.findViewById(R.id.two_tv)
 
         // 화면 초기화
-        countLayout.visibility = View.GONE
         startBtn.text = "시작"
-        textTv.text = "녹음 버튼을 눌러 시작하세요."
+        textTv.text = "따뜻한 말을 건네며 마무리해보자."
         oneTv.setBackgroundResource(R.drawable.oval_shape_w)
         twoTv.setBackgroundResource(R.drawable.oval_shape_w)
         oneTv.setTextColor(requireContext().getColor(R.color.dark))
@@ -97,12 +96,19 @@ class RecorderFragment : BottomSheetDialogFragment() {
                         countLayout.visibility = View.VISIBLE
                         startBtn.text = "다음"
                         textTv.text = "잘하고 있어! 더 크게 외쳐봐!"
-                        oneTv.setBackgroundResource(R.drawable.oval_shape_g)
-                        oneTv.setTextColor(requireContext().getColor(R.color.white))
+                        oneTv.setBackgroundResource(R.drawable.oval_shape_reco)
+                        oneTv.setTextColor(requireContext().getColor(R.color.black))
+
                     } else if (startBtn.text == "다음") {
                         startRecording()
                         startBtn.text = "확인"
                         textTv.text = "마지막 녹음이니까 더 크게 외쳐봐!"
+                        twoTv.setBackgroundResource(R.drawable.oval_shape_reco)
+                        twoTv.setTextColor(requireContext().getColor(R.color.black))
+
+                    }else if (startBtn.text == "확인") {
+                        textTv.text="마지막 녹음 완료!\n" +
+                                "대견해. 너무 잘했어 💙"
                         twoTv.setBackgroundResource(R.drawable.oval_shape_g)
                         twoTv.setTextColor(requireContext().getColor(R.color.white))
                         startBtn.setOnClickListener{
@@ -124,7 +130,18 @@ class RecorderFragment : BottomSheetDialogFragment() {
         mediaRecorder = null
         isRecording = false
         Toast.makeText(requireContext(), "녹음이 중지되었습니다.", Toast.LENGTH_SHORT).show()
+
+        val startBtn: Button = view?.findViewById(R.id.start_btn) ?: return
+        val textTv: TextView = view?.findViewById(R.id.text_tv) ?: return
+        val oneTv: TextView = view?.findViewById(R.id.one_tv) ?: return
+
+        if (startBtn.text == "다음") {
+            textTv.text = "첫 번째 녹음 완료!"
+            oneTv.setBackgroundResource(R.drawable.oval_shape_g)
+            oneTv.setTextColor(requireContext().getColor(R.color.white))
+        }
     }
+
 
     private fun startRecording() {
         val resolver = requireContext().contentResolver
