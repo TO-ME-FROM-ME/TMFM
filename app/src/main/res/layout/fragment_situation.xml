@@ -6,18 +6,18 @@
     android:background="@android:color/transparent"
     tools:context=".SituationFragment">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:layout_gravity="center">
+
         <ImageView
             android:id="@+id/image_view"
             android:layout_width="300dp"
-            android:layout_height="400dp"
-            android:gravity="center"
+            android:layout_height="350dp"
+            android:layout_gravity="center"
             android:src="@drawable/ic_w" />
-    </LinearLayout>
+    </FrameLayout>
 
 
 
