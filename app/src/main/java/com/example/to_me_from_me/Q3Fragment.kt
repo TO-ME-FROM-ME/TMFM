@@ -8,6 +8,7 @@ import android.os.Handler
 import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -23,6 +24,8 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -58,6 +61,20 @@ class Q3Fragment : BottomSheetDialogFragment() {
         val mainColor = ContextCompat.getDrawable(requireContext(), R.drawable.solid_no_main)
         val defaultColor = ContextCompat.getDrawable(requireContext(), R.drawable.solid_no_gray)
 
+        // 형용사 버튼 받아오는 부분
+        val selectedButtonTexts = arguments?.getStringArrayList("selectedButtonTexts")
+        val buttonDataList = selectedButtonTexts?.map { ButtonData(it) } ?: emptyList()
+        Log.d("Buttondata", "Q3Fragment buttonDataList : $buttonDataList")
+
+        // RecyclerView 초기화
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view_buttons)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        recyclerView.adapter = AdjectiveQ1Adapter(requireContext(), buttonDataList) { buttonData ->
+        }
+
+
+
+
         val nextButton = view.findViewById<Button>(R.id.next_btn)
         nextButton.setOnClickListener {
 
@@ -84,10 +101,13 @@ class Q3Fragment : BottomSheetDialogFragment() {
                     val combinedTextValue = "$q1TextValue\n$q2TextValue\n$q3TextValue"
 
                     val nextFragment = LetterFragment().apply {
-                        arguments = Bundle().apply {
+                        val bundle = Bundle().apply {
                             putString("combinedTextValue", combinedTextValue)
+                            putStringArrayList("selectedButtonTexts", ArrayList(selectedButtonTexts))
                         }
+                        arguments = bundle
                     }
+
 
                     parentFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container, nextFragment)

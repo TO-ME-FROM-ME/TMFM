@@ -11,55 +11,49 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="20dp"
-        android:padding="15dp"
         android:layout_gravity="center"
-        android:background="@drawable/solid_no_stroke" >
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/solid_no_stroke"
+        android:orientation="horizontal"
+        android:padding="15dp">
 
         <ImageView
             android:id="@+id/user_emo_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/angry"
             android:layout_gravity="center"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:src="@drawable/angry" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginLeft="10dp">
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/user_situation_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/font_gangwon"
                 android:text="시험 결과가 나왔는데 점수가 너무 나빠서 두려웠어."
-                android:textSize="20dp"
-                android:fontFamily="@font/font_gangwon"/>
+                android:textSize="20dp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp">
-                <Button
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_buttons"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/solid_stroke"
-                    android:text="두려운"
-                    android:layout_marginRight="10dp"
-                    android:paddingHorizontal="10dp"
-                    android:gravity="center"/>
+                    android:layout_marginTop="10dp"
+                    />
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/solid_stroke"
-                    android:text="불안한"
-                    android:layout_marginRight="10dp"
-                    android:paddingHorizontal="10dp"
-                    android:gravity="center"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

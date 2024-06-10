@@ -30,6 +30,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 class Q1Fragment : BottomSheetDialogFragment() {
 
     private val sharedViewModel: ViewModel by activityViewModels()
+    // 선택된 버튼의 정보를 저장하기 위한 변수
+    private var selectedButtonText: String? = null
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_q1, container, false)
@@ -59,19 +62,20 @@ class Q1Fragment : BottomSheetDialogFragment() {
         // 전달된 형용사 받아오기
         val selectedButtonTexts = arguments?.getStringArrayList("selectedButtonTexts")
         if (!selectedButtonTexts.isNullOrEmpty()) {
-            // 선택된 텍스트를 처리하는 로직 추가
-            Log.d("Q1Fragment", "Selected Button Texts: $selectedButtonTexts")
+            // 선택된 텍스트를 처리
             adjective1.text = selectedButtonTexts.joinToString(", ")
 
 
             // 버튼 데이터 리스트 생성
             val buttonDataList = selectedButtonTexts.map { ButtonData(it) }
+            Log.d("Q1Fragment", "buttonDataList : $buttonDataList")
 
             // RecyclerView 초기화
             val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view_buttons)
             recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             recyclerView.adapter = AdjectiveQ1Adapter(requireContext(), buttonDataList) { buttonData ->
-                Log.d("Q1Fragment", "Clicked Button: ${buttonData.buttonText}")
+                Log.d("Q1Fragment", "Clicked Button 1 : ${buttonData.buttonText}")
+                selectedButtonText = buttonData.buttonText
             }
         }
 
@@ -102,6 +106,7 @@ class Q1Fragment : BottomSheetDialogFragment() {
 
                     val bundle = Bundle()
                     bundle.putString("q1textValue", q1textValue)
+                    bundle.putStringArrayList("selectedButtonTexts", ArrayList(selectedButtonTexts))
                     nextFragment.arguments = bundle
 
                     parentFragmentManager.beginTransaction()

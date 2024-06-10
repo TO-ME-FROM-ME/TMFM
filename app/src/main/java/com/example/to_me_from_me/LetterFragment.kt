@@ -10,6 +10,7 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextWatcher
 import android.text.style.RelativeSizeSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -20,6 +21,8 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -39,7 +42,7 @@ class LetterFragment : BottomSheetDialogFragment() {
         // SpannableString을 생성합니다.
         val spannableString = SpannableString(letterFull)
 
-// prefixText의 길이를 계산하여 RelativeSizeSpan을 적용합니다.
+        // prefixText의 길이를 계산하여 RelativeSizeSpan을 적용합니다.
         val prefixLength = nicknameText.length
         spannableString.setSpan(
             RelativeSizeSpan(1.3f), // 글자 크기를 1.5배로 설정
@@ -57,6 +60,18 @@ class LetterFragment : BottomSheetDialogFragment() {
         }
 
         val imageView = view.findViewById<ImageView>(R.id.user_emo_iv)
+
+        // 형용사 버튼 받아오는 부분
+        val selectedButtonTexts = arguments?.getStringArrayList("selectedButtonTexts")
+        val buttonDataList = selectedButtonTexts?.map { ButtonData(it) } ?: emptyList()
+        Log.d("Buttondata", "Letter buttonDataList : $buttonDataList")
+
+        // RecyclerView 초기화
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view_buttons)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        recyclerView.adapter = AdjectiveQ1Adapter(requireContext(), buttonDataList) { buttonData ->
+        }
+
 
         sharedViewModel.selectedImageResId.observe(viewLifecycleOwner) { resId ->
             if (resId != null) {
@@ -76,9 +91,6 @@ class LetterFragment : BottomSheetDialogFragment() {
         }
 
         sendBtn.setOnClickListener {
-//            val intent = Intent(activity, MainActivity::class.java)
-//            startActivity(intent)
-//            activity?.finish() // Fragment에서 Activity를 종료
 
             val nextFragment = RecorderFragment()
             parentFragmentManager.beginTransaction()
