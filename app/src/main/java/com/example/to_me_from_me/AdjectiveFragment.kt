@@ -1,16 +1,14 @@
 package com.example.to_me_from_me
 
 import android.os.Bundle
-import android.view.Gravity
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,12 +18,13 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 class AdjectiveFragment : BottomSheetDialogFragment(), AdjectiveButtonAdapter.OnButtonClickListener {
 
     private val sharedViewModel: ViewModel by activityViewModels()
-
     private lateinit var recyclerViews: List<RecyclerView>
     private var selectedCount = 0
     private val maxSelection = 2
     private var isAdjectiveSelected = false // 감정 형용사가 선택되었는지 여부를 저장하는 변수
     private lateinit var nextButton: Button
+    private val adapters = mutableListOf<AdjectiveButtonAdapter>() // 어댑터를 리스트로 선언
+    private var selectedTexts: MutableList<String> = mutableListOf() // 선택된 텍스트를 추적하기 위한 리스트 추가
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_adjective, container, false)
@@ -36,15 +35,12 @@ class AdjectiveFragment : BottomSheetDialogFragment(), AdjectiveButtonAdapter.On
         }
 
         val imageView = view.findViewById<ImageView>(R.id.user_emo_iv)
-
         sharedViewModel.selectedImageResId.observe(viewLifecycleOwner) { resId ->
             if (resId != null) {
                 imageView.setImageResource(resId)
                 imageView.visibility = View.VISIBLE
             }
         }
-
-        val layout = view.findViewById<LinearLayout>(R.id.custom_toast_container)
 
 
         // RecyclerView 설정
@@ -56,10 +52,19 @@ class AdjectiveFragment : BottomSheetDialogFragment(), AdjectiveButtonAdapter.On
             view.findViewById<RecyclerView>(R.id.recyclerView5)
         )
 
-
         recyclerViews.forEachIndexed { index, recyclerView ->
             recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            val adapter = AdjectiveButtonAdapter(requireContext(), recyclerViews, getButtonDataList(index), ::getSelectedCount, ::onSelectionChanged) // 수정된 부분: requireContext() 및 recyclerViews 추가
+            val adapter = AdjectiveButtonAdapter(
+                requireContext(),
+                recyclerViews,
+                getButtonDataList(index),
+                ::getSelectedCount,
+                ::onSelectionChanged,
+                mutableListOf(), // 빈 MutableList 전달
+                null, // null로 초기화된 OnButtonClickListener 전달
+                index
+            )
+            adapters.add(adapter) // 어댑터를 리스트에 추가
             adapter.setOnButtonClickListener(this)
             recyclerView.adapter = adapter
         }
@@ -67,18 +72,29 @@ class AdjectiveFragment : BottomSheetDialogFragment(), AdjectiveButtonAdapter.On
         nextButton = view.findViewById(R.id.next_btn) // nextButton 초기화
         nextButton.setOnClickListener {
             if (isAdjectiveSelected) { // 감정 형용사가 선택된 경우에만 다음 버튼을 클릭할 수 있도록 제한
+                selectedTexts.clear() // 선택된 텍스트 리스트 초기화
+                adapters.forEach { adapter ->
+                    selectedTexts.addAll(adapter.getSelectedButtonTexts()) // 각 어댑터에서 선택된 텍스트를 리스트에 추가
+                }
+
+                // 선택된 텍스트 확인 로그 추가
+                Log.d("AdjectiveFragment", "Selected Texts: $selectedTexts")
+
                 val nextFragment = Q1Fragment()
+                val bundle = Bundle()
+                bundle.putStringArrayList("selectedButtonTexts", ArrayList(selectedTexts))
+                nextFragment.arguments = bundle
+
                 parentFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, nextFragment)
                     .addToBackStack(null)
                     .commit()
             } else {
-
+                // 감정 형용사가 선택되지 않았을 때의 처리를 여기에 추가할 수 있습니다.
             }
         }
         return view
     }
-
 
     override fun onButtonClick(position: Int, recyclerViewIndex: Int) {
         // 클릭된 버튼의 위치를 해당하는 리사이클러뷰에만 알리도록 함
@@ -104,11 +120,10 @@ class AdjectiveFragment : BottomSheetDialogFragment(), AdjectiveButtonAdapter.On
         } else {
             nextButton.background = ContextCompat.getDrawable(requireContext(), R.drawable.solid_no_gray)
         }
-
     }
 
     private fun getButtonDataList(index: Int): List<ButtonData> {
-        return when(index) {
+        return when (index) {
             0 -> buttonDataList1()
             1 -> buttonDataList2()
             2 -> buttonDataList3()

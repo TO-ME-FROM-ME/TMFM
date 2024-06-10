@@ -1,6 +1,7 @@
 package com.example.to_me_from_me
 
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -9,8 +10,10 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.FrameLayout
@@ -38,6 +41,7 @@ class SituationFragment : BottomSheetDialogFragment() {
 
         val mainColor = ContextCompat.getDrawable(requireContext(), R.drawable.solid_no_main)
         val defaultColor = ContextCompat.getDrawable(requireContext(), R.drawable.solid_no_gray)
+
 
         val nextButton = view.findViewById<Button>(R.id.next_btn)
         nextButton.setOnClickListener {
@@ -95,6 +99,20 @@ class SituationFragment : BottomSheetDialogFragment() {
                 }
             }
         })
+
+        // 외부 영역 클릭하여 키보드 숨기기
+        view.setOnTouchListener { _, event ->
+            // 터치 이벤트가 발생한 뷰가 에디트텍스트가 아닌 경우 키보드 숨기기
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+                // 터치 이벤트가 클릭인 경우 performClick 호출
+                if (view.isClickable) {
+                    view.performClick()
+                }
+            }
+            false
+        }
 
 
         return view

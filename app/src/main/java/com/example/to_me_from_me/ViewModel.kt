@@ -11,10 +11,18 @@ class ViewModel : ViewModel() {
     private val _selectedImageResId = MutableLiveData<Int>()
     val selectedImageResId: LiveData<Int> get() = _selectedImageResId
 
+    private val _selectedButtonData = MutableLiveData<List<ButtonData>>()
+    val selectedButtonData: LiveData<List<ButtonData>> get() = _selectedButtonData
+
     fun setSituationText(text: String) {
         _situationText.value = text
     }
+
     fun setSelectedImageResId(resId: Int) {
         _selectedImageResId.value = resId
+    }
+
+    fun setSelectedButtonData(data: List<ButtonData>) {
+        _selectedButtonData.value = data
     }
 }

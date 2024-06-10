@@ -8,11 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
 import android.widget.LinearLayout
-import android.widget.TextView
 import android.widget.Toast
-import com.google.android.material.snackbar.Snackbar
 import androidx.recyclerview.widget.RecyclerView
 
 class AdjectiveButtonAdapter(
@@ -20,9 +17,11 @@ class AdjectiveButtonAdapter(
     private val recyclerViews: List<RecyclerView>,
     private val buttonDataList: List<ButtonData>,
     private val selectedCountProvider: () -> Int, // 현재 선택된 버튼의 수를 반환
-    private val onSelectionChanged: (Boolean) -> Unit // 선택 상태가 변경될 때 호출되어 selectedCount를 업데이트
+    private val onSelectionChanged: (Boolean) -> Unit, // 선택 상태가 변경될 때 호출되어 selectedCount를 업데이트
+    private var selectedTexts: MutableList<String> = mutableListOf(), // 선택된 텍스트를 추적하기 위한 리스트 추가
+    private var onButtonClickListener: OnButtonClickListener? = null, // 클릭 리스너 추가
+    private val recyclerViewIndex: Int // 리사이클러뷰의 인덱스 추가
 ) : RecyclerView.Adapter<AdjectiveButtonAdapter.ButtonViewHolder>() {
-
 
     // 리스너 선언
     private var listener: OnButtonClickListener? = null
@@ -37,7 +36,6 @@ class AdjectiveButtonAdapter(
         return ButtonViewHolder(view)
     }
 
-
     override fun onBindViewHolder(holder: ButtonViewHolder, position: Int) {
         val buttonData = buttonDataList[position]
         holder.bind(buttonData)
@@ -50,10 +48,10 @@ class AdjectiveButtonAdapter(
         fun onButtonClick(position: Int, recyclerViewIndex: Int)
     }
 
-
     inner class ButtonViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val button: Button = itemView.findViewById(R.id.button)
         val custom_toast_container = itemView.findViewById<LinearLayout>(R.id.custom_toast_container)
+
         fun bind(buttonData: ButtonData) {
             button.text = buttonData.buttonText
             button.isSelected = buttonData.isSelected
@@ -66,11 +64,13 @@ class AdjectiveButtonAdapter(
                     if (buttonData.isSelected) {
                         // 이미 선택된 버튼을 다시 클릭하여 선택 해제
                         buttonData.isSelected = false
+                        selectedTexts.remove(buttonData.buttonText) // 선택 해제 시 텍스트 제거
                         onSelectionChanged(false)
                         updateButtonColor(false)
                     } else if (selectedCount < 2) {
                         // 선택된 버튼의 개수가 제한보다 적으면 선택
                         buttonData.isSelected = true
+                        selectedTexts.add(buttonData.buttonText) // 선택 시 텍스트 추가
                         onSelectionChanged(true)
                         updateButtonColor(true)
                     } else {
@@ -80,7 +80,6 @@ class AdjectiveButtonAdapter(
                             val toast = Toast(context)
                             val location = IntArray(2)
                             val customToastContainer = itemView.rootView.findViewById<View>(R.id.recyclerView1)
-
 
                             customToastContainer.getLocationOnScreen(location)
                             toastLayout.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
@@ -95,7 +94,6 @@ class AdjectiveButtonAdapter(
                                 toast.cancel()
                             }, 700)
                         }
-
                     }
                     // 버튼의 선택 상태가 변경되었음을 어댑터에 알림
                     notifyItemChanged(currentPosition)
@@ -114,5 +112,9 @@ class AdjectiveButtonAdapter(
                 button.setBackgroundResource(R.drawable.solid_stroke)
             }
         }
+    }
+
+    fun getSelectedButtonTexts(): List<String> {
+        return selectedTexts.toList()
     }
 }

@@ -8,6 +8,7 @@ import android.os.Handler
 import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -32,13 +33,13 @@ class Q1Fragment : BottomSheetDialogFragment() {
         val view = inflater.inflate(R.layout.fragment_q1, container, false)
 
         val textView = view.findViewById<TextView>(R.id.user_situation_tv)
+        val adjective1 = view.findViewById<TextView>(R.id.adjective1)
 
         sharedViewModel.situationText.observe(viewLifecycleOwner) { text ->
             textView.text = text
         }
 
         val imageView = view.findViewById<ImageView>(R.id.user_emo_iv)
-
         sharedViewModel.selectedImageResId.observe(viewLifecycleOwner) { resId ->
             if (resId != null) {
                 imageView.setImageResource(resId)
@@ -52,6 +53,14 @@ class Q1Fragment : BottomSheetDialogFragment() {
 
         val mainColor = ContextCompat.getDrawable(requireContext(), R.drawable.solid_no_main)
         val defaultColor = ContextCompat.getDrawable(requireContext(), R.drawable.solid_no_gray)
+
+        // 전달된 형용사 받아오기
+        val selectedButtonTexts = arguments?.getStringArrayList("selectedButtonTexts")
+        if (!selectedButtonTexts.isNullOrEmpty()) {
+            // 선택된 텍스트를 처리하는 로직 추가
+            Log.d("Q1Fragment", "Selected Button Texts: $selectedButtonTexts")
+            adjective1.text = selectedButtonTexts.joinToString(", ")
+        }
 
         val nextButton = view.findViewById<Button>(R.id.next_btn)
         nextButton.setOnClickListener {
@@ -114,7 +123,6 @@ class Q1Fragment : BottomSheetDialogFragment() {
         return view
     }
 
-
     private fun showToast(layout: View, writeEditText: EditText, duration: Int) {
         val toast = Toast(requireContext())
         val location = IntArray(2)
@@ -142,7 +150,7 @@ class Q1Fragment : BottomSheetDialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return BottomSheetDialog(requireActivity(), R.style.TransparentBottomSheetDialogTheme).apply {
-            setTitle("1. 왜 두려운, 불안한 감정을 느꼈어?")
+            setTitle("1. 왜 감정1, 감정2 감정을 느꼈어?")
         }
     }
 
@@ -150,5 +158,4 @@ class Q1Fragment : BottomSheetDialogFragment() {
         val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(activity.window.decorView.applicationWindowToken, 0)
     }
-
 }

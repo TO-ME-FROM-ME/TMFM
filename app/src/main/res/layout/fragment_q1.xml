@@ -51,13 +51,14 @@
                 android:orientation="horizontal">
 
                 <Button
+                    android:id="@+id/user_adjective_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/solid_stroke"
                     android:gravity="center"
                     android:paddingHorizontal="10dp"
-                    android:text="두려운" />
+                    android:text="감정1" />
 
                 <Button
                     android:layout_width="wrap_content"
@@ -66,7 +67,7 @@
                     android:background="@drawable/solid_stroke"
                     android:gravity="center"
                     android:paddingHorizontal="10dp"
-                    android:text="불안한" />
+                    android:text="감정2" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -107,21 +108,7 @@
                         android:fontFamily="@font/bnotosans"
                         android:textSize="20dp"
                         android:textColor="@color/dark"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=", "
-                        android:fontFamily="@font/bnotosans"
-                        android:textSize="20dp"
-                        android:textColor="@color/dark"/>
-                    <TextView
-                        android:id="@+id/adjective2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="감정2"
-                        android:fontFamily="@font/bnotosans"
-                        android:textSize="20dp"
-                        android:textColor="@color/dark"/>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
