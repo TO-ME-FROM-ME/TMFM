@@ -22,6 +22,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -60,6 +62,17 @@ class Q1Fragment : BottomSheetDialogFragment() {
             // 선택된 텍스트를 처리하는 로직 추가
             Log.d("Q1Fragment", "Selected Button Texts: $selectedButtonTexts")
             adjective1.text = selectedButtonTexts.joinToString(", ")
+
+
+            // 버튼 데이터 리스트 생성
+            val buttonDataList = selectedButtonTexts.map { ButtonData(it) }
+
+            // RecyclerView 초기화
+            val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view_buttons)
+            recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            recyclerView.adapter = AdjectiveQ1Adapter(requireContext(), buttonDataList) { buttonData ->
+                Log.d("Q1Fragment", "Clicked Button: ${buttonData.buttonText}")
+            }
         }
 
         val nextButton = view.findViewById<Button>(R.id.next_btn)

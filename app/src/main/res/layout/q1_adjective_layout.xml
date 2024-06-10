@@ -11,9 +11,7 @@
         android:background="@drawable/solid_stroke"
         android:text="행복한"
         android:paddingHorizontal="10dp"
-        android:layout_marginStart="10dp"
         android:layout_marginEnd="15dp"
-        android:layout_marginTop="10dp"
         android:gravity="center"/>
 
 </LinearLayout>
