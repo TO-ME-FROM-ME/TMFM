@@ -37,20 +37,20 @@ class CalendarDialogFragment : DialogFragment() {
 
         calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             selectedDate = "$year-${month + 1}-$dayOfMonth"
-            Toast.makeText(requireContext(), "선택된 날짜: $selectedDate", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(requireContext(), "선택된 날짜: $selectedDate", Toast.LENGTH_SHORT).show()
         }
 
 
         okButton.setOnClickListener {
             selectedDate?.let {
-                Toast.makeText(requireContext(), "선택된 날짜: $it", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(requireContext(), "선택된 날짜: $it", Toast.LENGTH_SHORT).show()
                 // 시간 설정 다이얼로그 표시
                 val timePickerDialogFragment = TimePickerDialogFragment.newInstance(it)
                 timePickerDialogFragment.show(parentFragmentManager, "timePicker")
 
                 dismiss()
             } ?: run {
-                Toast.makeText(requireContext(), "날짜를 먼저 선택하세요.", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(requireContext(), "날짜를 먼저 선택하세요.", Toast.LENGTH_SHORT).show()
             }
         }
 

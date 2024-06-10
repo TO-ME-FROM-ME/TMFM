@@ -51,7 +51,7 @@ class TimePickerDialogFragment : DialogFragment() {
             val hour = timePicker.hour
             val minute = timePicker.minute
             val selectedTime = "$hour:$minute"
-            Toast.makeText(requireContext(), "선택된 시간: $selectedTime", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(requireContext(), "선택된 시간: $selectedTime", Toast.LENGTH_SHORT).show()
 
             // 다음 액티비티에 전달할 Intent 생성
 //            val intent = Intent(requireContext(), MainActivity::class.java)

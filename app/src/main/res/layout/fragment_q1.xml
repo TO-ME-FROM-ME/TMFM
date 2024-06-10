@@ -135,7 +135,11 @@
                 android:background="@drawable/solid_stroke_q"
                 android:padding="15dp"
                 android:maxLength="150"
-                android:hint="왜 그런 감정을 느꼈는지 곰곰히 생각해봐."/>
+                android:hint="왜 그런 감정을 느꼈는지 곰곰히 생각해봐."
+                android:scrollbars="vertical"
+                android:scrollbarStyle="insideOverlay"
+                android:scrollbarThumbVertical="@android:color/darker_gray"
+                android:scrollbarTrackVertical="@android:color/transparent"/>
 
 
             <LinearLayout

@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:gravity="center"
-            android:textColor="#676767"
+            android:textColor="@color/white"
             android:text="마지막으로 따뜻한 말을 건네보자."
             android:fontFamily="@font/notosans"
             android:textSize="20dp" />
