@@ -16,7 +16,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        android:background="@drawable/solid_no_stroke"
+        android:background="@drawable/solid_no_stroke_t"
         android:orientation="horizontal"
         android:padding="15dp">
 
@@ -27,6 +27,14 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:src="@drawable/angry" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginHorizontal="15dp"
+            android:src="@drawable/img_divider" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -40,7 +48,8 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/font_gangwon"
                 android:text="시험 결과가 나왔는데 점수가 너무 나빠서 두려웠어."
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:textColor="@color/black"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -51,8 +60,7 @@
                     android:id="@+id/recycler_view_buttons"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    />
+                    android:layout_marginTop="10dp" />
 
             </LinearLayout>
         </LinearLayout>

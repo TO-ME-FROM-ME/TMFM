@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
 class AdjectiveButtonAdapter(
@@ -103,13 +104,16 @@ class AdjectiveButtonAdapter(
             }
         }
 
+        private val defaultTextColor = button.currentTextColor
         fun updateButtonColor(isSelected: Boolean) {
             if (isSelected) {
                 // 선택된 경우 버튼 색상 변경
                 button.setBackgroundResource(R.drawable.select_solid)
+                button.setTextColor(ContextCompat.getColor(button.context, R.color.black))
             } else {
                 // 선택되지 않은 경우 기본 버튼 색상으로 변경
                 button.setBackgroundResource(R.drawable.solid_stroke)
+                button.setTextColor(defaultTextColor)
             }
         }
     }

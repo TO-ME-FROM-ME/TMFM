@@ -1,10 +1,13 @@
 package com.example.to_me_from_me
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
 class AdjectiveQ1Adapter(
@@ -31,8 +34,14 @@ class AdjectiveQ1Adapter(
     inner class ButtonViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val button: Button = itemView.findViewById(R.id.button)
 
+        val buttonBg = ContextCompat.getDrawable(itemView.context, R.drawable.solid_no_main2)
+
         fun bind(buttonData: ButtonData) {
             button.text = buttonData.buttonText
+            button.setTextColor(Color.BLACK)
+            buttonBg?.let {
+                button.background = it // 배경 이미지 설정
+            }
         }
     }
 }
