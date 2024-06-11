@@ -84,7 +84,7 @@ class AdjectiveButtonAdapter(
 
                             customToastContainer.getLocationOnScreen(location)
                             toastLayout.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
-                            val yOffset = location[1] - 70 - toastLayout.measuredHeight
+                            val yOffset = location[1] - 50 - toastLayout.measuredHeight
 
                             toast.view = toastLayout
                             toast.setGravity(Gravity.TOP or Gravity.END, 0, yOffset)

@@ -18,6 +18,7 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
@@ -38,6 +39,7 @@ class LetterFragment : BottomSheetDialogFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_letter, container, false)
 
+        val layout = view.findViewById<LinearLayout>(R.id.custom_toast_container)
         val reservBtn = view.findViewById<Button>(R.id.reserve_btn)
         val sendBtn = view.findViewById<Button>(R.id.send_btn)
         val letterTV = view.findViewById<EditText>(R.id.letter_tv)
@@ -56,6 +58,20 @@ class LetterFragment : BottomSheetDialogFragment() {
             prefixLength, // 끝 인덱스
             Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
         )
+
+        val toastLayout = LayoutInflater.from(requireContext()).inflate(R.layout.toast, layout, false)
+        val toastTv = toastLayout.findViewById<TextView>(R.id.toast_tv)
+
+        //토스트 메세지 생성
+        view.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                toastTv.text = "수정하고 싶으면 클릭해줘!"
+                showToast(toastLayout, letterTV, 2000) // 토스트 메시지 표시 (2초 동안)
+
+                // 리스너 제거
+                view.viewTreeObserver.removeOnGlobalLayoutListener(this)
+            }
+        })
 
 // EditText에 결합된 문자열을 설정합니다.
         letterTV.setText(spannableString)
@@ -86,7 +102,7 @@ class LetterFragment : BottomSheetDialogFragment() {
             }
         }
 
-        val layout = view.findViewById<LinearLayout>(R.id.custom_toast_container)
+
         val charCountTextView = view.findViewById<TextView>(R.id.char_count_tv)
         val charCount = combinedTextValue?.length ?: 0
         charCountTextView.text = "$charCount"
@@ -100,8 +116,6 @@ class LetterFragment : BottomSheetDialogFragment() {
         sendBtn.setOnClickListener {
 
             val textLength = letterTV.text.length
-            val toastLayout = LayoutInflater.from(requireContext()).inflate(R.layout.toast, layout, false)
-            val toastTv = toastLayout.findViewById<TextView>(R.id.toast_tv)
 
             when {
                 textLength < 150 -> {
@@ -144,7 +158,7 @@ class LetterFragment : BottomSheetDialogFragment() {
         val location = IntArray(2)
         writeEditText.getLocationOnScreen(location)
         layout.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
-        val yOffset = location[1] - 20 - layout.measuredHeight
+        val yOffset = location[1] - 30 - layout.measuredHeight
 
         toast.setGravity(Gravity.TOP or Gravity.END, location[0], yOffset)
         toast.view = layout
