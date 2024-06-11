@@ -39,4 +39,8 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
+    <style name="CustomTimePicker" parent="android:Widget.Material.TimePicker">
+        <item name="colorControlNormal">@color/main</item>
+    </style>
+
 </resources>
