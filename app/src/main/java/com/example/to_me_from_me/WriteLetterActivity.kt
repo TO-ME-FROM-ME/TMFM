@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.widget.ImageView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 
 class WriteLetterActivity : AppCompatActivity() {
@@ -30,6 +31,7 @@ class WriteLetterActivity : AppCompatActivity() {
         val saveButton: ImageView = findViewById(R.id.save_iv)
         saveButton.setOnClickListener {
             val dialogFragment = StorageDialogFragment()
+            dialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundedBottomSheetDialogTheme)
             dialogFragment.show(supportFragmentManager, "StorageDialogFragment")
         }
     }

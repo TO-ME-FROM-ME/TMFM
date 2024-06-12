@@ -176,4 +176,5 @@ class Q1Fragment : BottomSheetDialogFragment() {
         val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(activity.window.decorView.applicationWindowToken, 0)
     }
+
 }

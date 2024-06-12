@@ -43,5 +43,13 @@
         <item name="colorControlNormal">@color/main</item>
     </style>
 
+    <style name="RoundedBottomSheetDialogTheme" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/RoundedBottomSheetStyle</item>
+    </style>
+
+    <style name="RoundedBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/solid_no_stroke</item>
+    </style>
+
 
 </resources>

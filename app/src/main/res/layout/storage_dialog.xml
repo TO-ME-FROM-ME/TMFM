@@ -1,28 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="300dp"
-    android:layout_height="250dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="20dp"
     android:background="@drawable/solid_no_stroke">
 
     <ImageView
         android:id="@+id/close_iv"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
+        android:padding="15dp"
         android:src="@drawable/ic_cancel" />
 
     <TextView
         android:id="@+id/storage_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingStart="50dp"
+        android:paddingEnd="50dp"
         android:text="저장하고 나중에 쓸까?"
-        android:textSize="16dp"
+        android:textSize="20dp"
         android:textStyle="bold"
         android:layout_gravity="center"
         android:gravity="center"
@@ -32,7 +34,9 @@
         android:id="@+id/storage_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:paddingStart="50dp"
+        android:paddingEnd="50dp"
+        android:layout_marginTop="20dp"
         android:text="지금 작성하고 있던 편지를 \n 간직하고 있을게! 나중에 다시 와줘💙"
         android:textSize="14dp"
         android:layout_gravity="center"
@@ -43,12 +47,15 @@
             android:id="@+id/save_btn"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="45dp"
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
             android:text="저장하고 나가기"
             android:textSize="16dp"
             android:layout_gravity="center"
             android:gravity="center"
-            android:background="@drawable/solid_no_main"
+            android:background="@drawable/solid_no_main10"
             android:textColor="@color/white"/>
 
 
