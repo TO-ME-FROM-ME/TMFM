@@ -7,13 +7,14 @@
     android:orientation="vertical">
 
 
-    <TimePicker
+    <com.example.to_me_from_me.CustomTimePicker
         android:id="@+id/timePicker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:timePickerMode="spinner"
         android:gravity="center"
         android:theme="@style/CustomTimePicker"/>
+
 
     <ImageView
         android:layout_width="match_parent"

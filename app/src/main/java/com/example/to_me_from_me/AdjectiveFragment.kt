@@ -25,6 +25,11 @@ class AdjectiveFragment : BottomSheetDialogFragment(), AdjectiveButtonAdapter.On
     private val adapters = mutableListOf<AdjectiveButtonAdapter>() // 어댑터를 리스트로 선언
     private var selectedTexts: MutableList<String> = mutableListOf() // 선택된 텍스트를 추적하기 위한 리스트 추가
 
+    private lateinit var ad1: Button
+    private lateinit var ad2: Button
+
+
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_adjective, container, false)
 
@@ -40,6 +45,9 @@ class AdjectiveFragment : BottomSheetDialogFragment(), AdjectiveButtonAdapter.On
                 imageView.visibility = View.VISIBLE
             }
         }
+
+        ad1 = view.findViewById(R.id.user_ad1)
+        ad2 = view.findViewById(R.id.user_ad2)
 
 
         // RecyclerView 설정
@@ -98,7 +106,36 @@ class AdjectiveFragment : BottomSheetDialogFragment(), AdjectiveButtonAdapter.On
     override fun onButtonClick(position: Int, recyclerViewIndex: Int) {
         // 클릭된 버튼의 위치를 해당하는 리사이클러뷰에만 알리도록 함
         recyclerViews[recyclerViewIndex].adapter?.notifyItemChanged(position)
+
+        updateAdButtons()
     }
+
+    private fun updateAdButtons() {
+        // 선택된 텍스트를 ad1, ad2 버튼에 업데이트
+        selectedTexts.clear()
+        adapters.forEach { adapter ->
+            selectedTexts.addAll(adapter.getSelectedButtonTexts())
+        }
+
+        // ad1 버튼 설정
+        val ad1Text = selectedTexts.getOrNull(0)
+        if (ad1Text != null && ad1Text.isNotEmpty()) {
+            ad1.text = ad1Text
+            ad1.visibility = View.VISIBLE
+        } else {
+            ad1.visibility = View.INVISIBLE
+        }
+
+        // ad2 버튼 설정
+        val ad2Text = selectedTexts.getOrNull(1)
+        if (ad2Text != null && ad2Text.isNotEmpty()) {
+            ad2.text = ad2Text
+            ad2.visibility = View.VISIBLE
+        } else {
+            ad2.visibility = View.INVISIBLE
+        }
+    }
+
 
     private fun getSelectedCount(): Int {
         return selectedCount

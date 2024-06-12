@@ -19,7 +19,8 @@ class WriteLetterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_write_letter)
 
         // 초기 프래그먼트 설정
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, SituationFragment()).commit()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, SituationFragment()).commit()
 
         val backButton: ImageView = findViewById(R.id.back_iv)
         backButton.setOnClickListener {

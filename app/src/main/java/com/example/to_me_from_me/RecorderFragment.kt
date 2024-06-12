@@ -3,6 +3,7 @@ package com.example.to_me_from_me
 import android.Manifest
 import android.content.ContentValues
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.media.MediaRecorder
 import android.net.Uri
 import android.os.Build
@@ -37,6 +38,7 @@ class RecorderFragment : BottomSheetDialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_recorder, container, false)
+
 
         val startBtn: Button = view.findViewById(R.id.start_btn)
         val countLayout: LinearLayout = view.findViewById(R.id.count_ll)
