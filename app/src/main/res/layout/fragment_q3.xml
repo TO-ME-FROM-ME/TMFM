@@ -101,7 +101,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="nickname"
+                        android:text="우리 동생"
                         android:fontFamily="@font/bnotosans"
                         android:textSize="20dp"
                         android:textColor="@color/dark"/>
