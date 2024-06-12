@@ -148,11 +148,9 @@ class Q1Fragment : BottomSheetDialogFragment() {
         if (textContent1.length < 9) {
             // 텍스트 길이가 짧으면 short_text_layout을 보이게 함
             shortTextLayout.visibility = View.VISIBLE
-            longTextLayout.visibility = View.GONE
         } else {
             // 텍스트 길이가 길면 long_text_layout을 보이게 함
             longTextLayout.visibility = View.VISIBLE
-            shortTextLayout.visibility = View.GONE
         }
 
         return view
