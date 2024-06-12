@@ -39,6 +39,7 @@ class Q1Fragment : BottomSheetDialogFragment() {
 
         val textView = view.findViewById<TextView>(R.id.user_situation_tv)
         val adjective1 = view.findViewById<TextView>(R.id.adjective1)
+        val adjective2 = view.findViewById<TextView>(R.id.adjective2)
 
         sharedViewModel.situationText.observe(viewLifecycleOwner) { text ->
             textView.text = text
@@ -52,6 +53,7 @@ class Q1Fragment : BottomSheetDialogFragment() {
             }
         }
 
+
         val writeEditText = view.findViewById<EditText>(R.id.write_et)
         val charCountTextView = view.findViewById<TextView>(R.id.char_count_tv)
         val layout = view.findViewById<LinearLayout>(R.id.custom_toast_container)
@@ -64,7 +66,7 @@ class Q1Fragment : BottomSheetDialogFragment() {
         if (!selectedButtonTexts.isNullOrEmpty()) {
             // 선택된 텍스트를 처리
             adjective1.text = selectedButtonTexts.joinToString(", ")
-
+            adjective2.text = selectedButtonTexts.joinToString(", ")
 
             // 버튼 데이터 리스트 생성
             val buttonDataList = selectedButtonTexts.map { ButtonData(it) }
@@ -137,6 +139,21 @@ class Q1Fragment : BottomSheetDialogFragment() {
                 }
             }
         })
+
+        val shortTextLayout = view.findViewById<LinearLayout>(R.id.textshort)
+        val longTextLayout = view.findViewById<LinearLayout>(R.id.textlong)
+
+        val textContent1 = adjective1.text.toString()
+
+        if (textContent1.length < 9) {
+            // 텍스트 길이가 짧으면 short_text_layout을 보이게 함
+            shortTextLayout.visibility = View.VISIBLE
+            longTextLayout.visibility = View.GONE
+        } else {
+            // 텍스트 길이가 길면 long_text_layout을 보이게 함
+            longTextLayout.visibility = View.VISIBLE
+            shortTextLayout.visibility = View.GONE
+        }
 
         return view
     }
