@@ -31,7 +31,7 @@ class HomeDialogFragment : DialogFragment() {
             View? { val view = inflater.inflate(R.layout.home_dialog, container, false)
 
         // 편지쓰기 버튼
-        val writeMailIv: RelativeLayout = view.findViewById(R.id.writemail_iv)
+        val writeMailIv: Button = view.findViewById(R.id.writemail_iv)
         writeMailIv.setOnClickListener {
             val intent = Intent(activity, WriteLetterActivity::class.java)
             startActivity(intent)
