@@ -75,18 +75,17 @@
         android:background="@drawable/round_corner_top"
         android:padding="20dp">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp" />
 
+        <LinearLayout
+            android:id="@+id/textshort"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                android:orientation="horizontal">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -102,11 +101,56 @@
                         android:fontFamily="@font/bnotosans"
                         android:textSize="20dp"
                         android:textColor="@color/dark"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" 감정을 느꼈어?"
+                    android:fontFamily="@font/bnotosans"
+                    android:textSize="20dp"
+                    android:textColor="@color/dark"/>
+            </LinearLayout>
+        </LinearLayout>
 
+
+
+            <LinearLayout
+                android:id="@+id/textlong"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" 감정을 느꼈어?"
+                        android:text="💌 왜 \n느꼈어?"
+                        android:fontFamily="@font/bnotosans"
+                        android:textSize="20dp"
+                        android:textColor="@color/dark"/>
+                    <TextView
+                        android:id="@+id/adjective2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="56dp"
+                        android:layout_weight="1"
+                        android:text="감정1"
+                        android:fontFamily="@font/bnotosans"
+                        android:textSize="20dp"
+                        android:textColor="@color/dark"/>
+                </FrameLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" 감정을"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="2dp"
                         android:fontFamily="@font/bnotosans"
                         android:textSize="20dp"
                         android:textColor="@color/dark"/>

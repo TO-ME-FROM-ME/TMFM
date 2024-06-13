@@ -28,7 +28,7 @@
             android:layout_gravity="center"
             android:layout_marginBottom="90dp"
             android:fontFamily="@font/font_gangwon"
-            android:gravity="center"
+            android:gravity="left|center"
             android:maxEms="9"
             android:textColor="@color/dark"
             android:textSize="20dp" />
