@@ -44,7 +44,7 @@ class LetterFragment : BottomSheetDialogFragment() {
         val sendBtn = view.findViewById<Button>(R.id.send_btn)
         val letterTV = view.findViewById<EditText>(R.id.letter_tv)
         val combinedTextValue = arguments?.getString("combinedTextValue")
-        val nicknameText = "사랑하는 nickname에게"
+        val nicknameText = "사랑하는 우리동생에게"
         val letterFull = "$nicknameText\n\n$combinedTextValue"
 
         // SpannableString을 생성합니다.
@@ -121,6 +121,11 @@ class LetterFragment : BottomSheetDialogFragment() {
                 textLength < 150 -> {
                     showToast(toastLayout,letterTV,700)
                     toastTv.text = "최소 150자 이상 작성해줘!"
+                    letterTV.background = ContextCompat.getDrawable(requireContext(), R.drawable.solid_over_txt)
+                }
+                textLength > 500 -> {
+                    showToast(toastLayout,letterTV,700)
+                    toastTv.text = "500자 이하로 작성해줘!"
                     letterTV.background = ContextCompat.getDrawable(requireContext(), R.drawable.solid_over_txt)
                 }
 

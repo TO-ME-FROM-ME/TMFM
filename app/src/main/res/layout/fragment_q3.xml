@@ -144,7 +144,6 @@
                 android:fontFamily="@font/font_gangwon"
                 android:background="@drawable/solid_stroke_q"
                 android:padding="15dp"
-                android:maxLength="150"
                 android:hint="소중한 존재가 같은 상황에 있다고 가정하고, 진심을\n담아 편지를 보내봐."/>
 
 

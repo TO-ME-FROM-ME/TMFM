@@ -31,7 +31,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 class SituationFragment : BottomSheetDialogFragment() {
 
     private val sharedViewModel: ViewModel by activityViewModels()
-
+    private val tag = "SituationFragment"
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_situation, container, false)
 
@@ -52,6 +52,9 @@ class SituationFragment : BottomSheetDialogFragment() {
             val toastLayout = LayoutInflater.from(requireContext()).inflate(R.layout.toast, layout, false)
             val toastTv = toastLayout.findViewById<TextView>(R.id.toast_tv)
 
+            val toastLayout2 = LayoutInflater.from(requireContext()).inflate(R.layout.toast_over, layout, false)
+            val toastTv2 = toastLayout2.findViewById<TextView>(R.id.toast_tv)
+
             when {
                 textLength < 10 -> {
                     showToast(toastLayout,writeEditText,700)
@@ -60,8 +63,9 @@ class SituationFragment : BottomSheetDialogFragment() {
                 }
 
                 textLength > 30 -> {
-                    showToast(toastLayout,writeEditText,700)
-                    toastTv.text = "30자 이하로 작성해줘!"
+                    showToast2(toastLayout2,writeEditText,700)
+                    toastTv2.text = "30자 이하로 작성해줘!"
+
                 }
 
                 else -> {
@@ -71,7 +75,7 @@ class SituationFragment : BottomSheetDialogFragment() {
 
                     parentFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container, nextFragment)
-                        .addToBackStack(null)
+                        .addToBackStack(tag)
                         .commit()
                 }
 
@@ -94,6 +98,7 @@ class SituationFragment : BottomSheetDialogFragment() {
                 if (charCount >= 10 && charCount <= 30) {
                     nextButton.background = mainColor
                     writeEditText.background = ContextCompat.getDrawable(requireContext(), R.drawable.solid_stroke_q)
+
                 } else {
                     nextButton.background = defaultColor
                 }
@@ -125,6 +130,32 @@ class SituationFragment : BottomSheetDialogFragment() {
         writeEditText.getLocationOnScreen(location)
         layout.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
         val yOffset = location[1] - 10  - layout.measuredHeight
+
+        toast.setGravity(Gravity.TOP or Gravity.END, location[0], yOffset)
+        toast.view = layout
+
+        val handler = Handler(Looper.getMainLooper())
+        val startTime = System.currentTimeMillis()
+
+        handler.post(object : Runnable {
+            override fun run() {
+                if (System.currentTimeMillis() - startTime < duration) {
+                    toast.show()
+                    handler.postDelayed(this, 700)
+                } else {
+                    toast.cancel()
+                }
+            }
+        })
+    }
+
+    //30자 입력 토스트
+    private fun showToast2(layout: View, writeEditText: EditText, duration: Int) {
+        val toast = Toast(requireContext())
+        val location = IntArray(2)
+        writeEditText.getLocationOnScreen(location)
+        layout.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+        val yOffset = location[1]- (-50) - layout.measuredHeight
 
         toast.setGravity(Gravity.TOP or Gravity.END, location[0], yOffset)
         toast.view = layout

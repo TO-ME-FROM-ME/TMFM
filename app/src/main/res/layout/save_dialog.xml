@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:background="@drawable/solid_no_stroke">
+
+    <ImageView
+        android:id="@+id/close_iv"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:padding="15dp"
+        android:src="@drawable/ic_cancel" />
+
+    <TextView
+        android:id="@+id/storage_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="50dp"
+        android:paddingEnd="50dp"
+        android:text="작성 중인 편지가 있어."
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/storage_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="50dp"
+        android:paddingEnd="50dp"
+        android:layout_marginTop="20dp"
+        android:text="지난 번에 간직해둔 편지를 이어서 쓸래? \n새로 쓰면, 기존 편지는 사라지니 주의해!"
+        android:textSize="14dp"
+        android:layout_gravity="center"
+        android:gravity="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/new_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="45dp"
+            android:text="새로운 편지쓰기"
+            android:textSize="16dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@drawable/solid_no_main10"
+            android:textColor="@color/white"/>
+
+        <Button
+            android:id="@+id/cwrite_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="45dp"
+            android:text="이어쓰기"
+            android:textSize="16dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@drawable/solid_no_gray"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+
+
+
+</LinearLayout>

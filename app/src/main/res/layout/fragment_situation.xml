@@ -71,7 +71,6 @@
                 android:background="@drawable/solid_stroke_q"
                 android:padding="15dp"
                 android:gravity="top"
-                android:maxLength="30"
                 android:hint="오늘 편지로 작성할 일을 한 줄로 편하게 작성해줘."/>
 
 

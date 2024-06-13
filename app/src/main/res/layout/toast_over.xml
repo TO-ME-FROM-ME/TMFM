@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_toast_over" />
+
+    <TextView
+        android:id="@+id/toast_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="25dp"
+        android:textColor="@color/white"
+        android:textSize="14dp"
+        android:gravity="center"
+        android:textStyle="normal"
+        android:fontFamily="@font/notosans"
+        android:text="30자 이하로 작성해줘!"/>
+</FrameLayout>

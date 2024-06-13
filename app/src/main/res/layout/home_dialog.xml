@@ -20,15 +20,15 @@
         android:orientation="horizontal">
 
     <RelativeLayout
-        android:id="@+id/writemail_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginLeft="5dp">
-        <ImageView
+        <Button
+            android:id="@+id/writemail_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_writemail"
+            android:background="@drawable/ic_writemail"
             android:layout_gravity="center"
             android:gravity="center"/>
         <TextView

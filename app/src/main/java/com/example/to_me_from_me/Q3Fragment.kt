@@ -91,7 +91,7 @@ class Q3Fragment : BottomSheetDialogFragment() {
 
                 textLength > 150 -> {
                     showToast(toastLayout,writeEditText,700)
-                    toastTv.text = "150자 이하로 작성해줘!"
+                    toastTv.text = " 150자 이하로 작성해줘!"
                 }
 
                 else -> {

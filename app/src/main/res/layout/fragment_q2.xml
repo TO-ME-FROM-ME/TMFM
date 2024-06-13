@@ -116,7 +116,6 @@
             android:fontFamily="@font/font_gangwon"
             android:background="@drawable/solid_stroke_q"
             android:padding="15dp"
-            android:maxLength="150"
             android:hint="앞서 선택한 감정을 느낄 때 스스로에게 어떤 말을\n했는지 생각나는 대로 적어줘."/>
 
 

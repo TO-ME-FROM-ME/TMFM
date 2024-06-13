@@ -32,7 +32,7 @@ class Q1Fragment : BottomSheetDialogFragment() {
     private val sharedViewModel: ViewModel by activityViewModels()
     // 선택된 버튼의 정보를 저장하기 위한 변수
     private var selectedButtonText: String? = null
-
+    private val tag = "Q1Fragment"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_q1, container, false)
@@ -87,6 +87,10 @@ class Q1Fragment : BottomSheetDialogFragment() {
             val toastLayout = LayoutInflater.from(requireContext()).inflate(R.layout.toast, layout, false)
             val toastTv = toastLayout.findViewById<TextView>(R.id.toast_tv)
 
+
+            val toastLayout2 = LayoutInflater.from(requireContext()).inflate(R.layout.toast_over, layout, false)
+            val toastTv2 = toastLayout2.findViewById<TextView>(R.id.toast_tv)
+
             when {
                 textLength < 50 -> {
                     showToast(toastLayout,writeEditText,700)
@@ -96,7 +100,8 @@ class Q1Fragment : BottomSheetDialogFragment() {
 
                 textLength > 150 -> {
                     showToast(toastLayout,writeEditText,700)
-                    toastTv.text = "150자 이하로 작성해줘!"
+                    toastTv.text = " 150자 이하로 작성해줘!"
+
                 }
 
                 else -> {
@@ -111,7 +116,7 @@ class Q1Fragment : BottomSheetDialogFragment() {
 
                     parentFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container, nextFragment)
-                        .addToBackStack(null)
+                        .addToBackStack(tag)
                         .commit()
                 }
 
