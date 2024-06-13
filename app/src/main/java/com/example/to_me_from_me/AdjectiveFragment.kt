@@ -201,11 +201,11 @@ class AdjectiveFragment : BottomSheetDialogFragment(), AdjectiveButtonAdapter.On
 
     private fun buttonDataList3(): List<ButtonData> {
         return listOf(
-            ButtonData("기대되는"),
-            ButtonData("사랑스러운"),
+            ButtonData("두려운"),
+            ButtonData("불안한"),
             ButtonData("재미있는"),
             ButtonData("황홀한"),
-            ButtonData("두려운"),
+            ButtonData("기대되는"),
             ButtonData("미운"),
             ButtonData("무관심한"),
             ButtonData("피곤한"),
@@ -235,7 +235,7 @@ class AdjectiveFragment : BottomSheetDialogFragment(), AdjectiveButtonAdapter.On
             ButtonData("열중한"),
             ButtonData("평화로운"),
             ButtonData("건강한"),
-            ButtonData("불안한"),
+            ButtonData("사랑스러운"),
             ButtonData("억울한"),
             ButtonData("부러운"),
             ButtonData("그리운"),
