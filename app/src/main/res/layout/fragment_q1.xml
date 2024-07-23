@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
     tools:context=".Q1Fragment"
-    android:id="@+id/background"
-    android:onClick="hideKeyboard">
+    android:id="@+id/background">
 
 
     <LinearLayout
