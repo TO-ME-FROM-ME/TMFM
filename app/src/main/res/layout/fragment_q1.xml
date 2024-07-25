@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
     tools:context=".Q1Fragment"
-    android:id="@+id/background"
-    android:onClick="hideKeyboard">
+    android:id="@+id/background">
 
 
     <LinearLayout
@@ -41,6 +40,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:orientation="vertical">
 
             <TextView
@@ -55,12 +55,14 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical">
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_view_buttons"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    />
 
             </LinearLayout>
         </LinearLayout>
