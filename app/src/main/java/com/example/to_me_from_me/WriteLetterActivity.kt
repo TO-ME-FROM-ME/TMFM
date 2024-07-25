@@ -13,8 +13,6 @@ import androidx.fragment.app.viewModels
 
 class WriteLetterActivity : AppCompatActivity() {
 
-    private val sharedViewModel: ViewModel by viewModels()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_write_letter)

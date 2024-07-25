@@ -10,25 +10,23 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class AdjectiveFragment : BottomSheetDialogFragment(), AdjectiveButtonAdapter.OnButtonClickListener {
 
     private val sharedViewModel: ViewModel by activityViewModels()
-    private lateinit var recyclerViews: List<RecyclerView>
+    private lateinit var recyclerView: RecyclerView
     private var selectedCount = 0
     private val maxSelection = 2
-    private var isAdjectiveSelected = false // 감정 형용사가 선택되었는지 여부를 저장하는 변수
+    private var isAdjectiveSelected = false
     private lateinit var nextButton: Button
-    private val adapters = mutableListOf<AdjectiveButtonAdapter>() // 어댑터를 리스트로 선언
-    private var selectedTexts: MutableList<String> = mutableListOf() // 선택된 텍스트를 추적하기 위한 리스트 추가
+    private lateinit var adapter: AdjectiveButtonAdapter
+    private var selectedTexts: MutableList<String> = mutableListOf()
 
     private lateinit var ad1: Button
     private lateinit var ad2: Button
-
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_adjective, container, false)
@@ -49,42 +47,32 @@ class AdjectiveFragment : BottomSheetDialogFragment(), AdjectiveButtonAdapter.On
         ad1 = view.findViewById(R.id.user_ad1)
         ad2 = view.findViewById(R.id.user_ad2)
 
-
         // RecyclerView 설정
-        recyclerViews = listOf(
-            view.findViewById<RecyclerView>(R.id.recyclerView1),
-            view.findViewById<RecyclerView>(R.id.recyclerView2),
-            view.findViewById<RecyclerView>(R.id.recyclerView3),
-            view.findViewById<RecyclerView>(R.id.recyclerView4),
-            view.findViewById<RecyclerView>(R.id.recyclerView5)
+        recyclerView = view.findViewById(R.id.recyclerView)
+        val layoutManager = GridLayoutManager(requireContext(), 5, GridLayoutManager.HORIZONTAL, false)
+        recyclerView.layoutManager = layoutManager
+
+        // 모든 데이터를 병합하여 어댑터 설정
+        val allButtonData = getAllButtonData()
+        adapter = AdjectiveButtonAdapter(
+            requireContext(),
+            listOf(recyclerView),
+            allButtonData,
+            ::getSelectedCount,
+            ::onSelectionChanged,
+            mutableListOf(),
+            null,
+            0
         )
+        adapter.setOnButtonClickListener(this)
+        recyclerView.adapter = adapter
 
-        recyclerViews.forEachIndexed { index, recyclerView ->
-            recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            val adapter = AdjectiveButtonAdapter(
-                requireContext(),
-                recyclerViews,
-                getButtonDataList(index),
-                ::getSelectedCount,
-                ::onSelectionChanged,
-                mutableListOf(), // 빈 MutableList 전달
-                null, // null로 초기화된 OnButtonClickListener 전달
-                index
-            )
-            adapters.add(adapter) // 어댑터를 리스트에 추가
-            adapter.setOnButtonClickListener(this)
-            recyclerView.adapter = adapter
-        }
-
-        nextButton = view.findViewById(R.id.next_btn) // nextButton 초기화
+        nextButton = view.findViewById(R.id.next_btn)
         nextButton.setOnClickListener {
-            if (isAdjectiveSelected) { // 감정 형용사가 선택된 경우에만 다음 버튼을 클릭할 수 있도록 제한
-                selectedTexts.clear() // 선택된 텍스트 리스트 초기화
-                adapters.forEach { adapter ->
-                    selectedTexts.addAll(adapter.getSelectedButtonTexts()) // 각 어댑터에서 선택된 텍스트를 리스트에 추가
-                }
+            if (isAdjectiveSelected) {
+                selectedTexts.clear()
+                selectedTexts.addAll(adapter.getSelectedButtonTexts())
 
-                // 선택된 텍스트 확인 로그 추가
                 Log.d("AdjectiveFragment", "Selected Texts: $selectedTexts")
 
                 val nextFragment = Q1Fragment()
@@ -104,20 +92,14 @@ class AdjectiveFragment : BottomSheetDialogFragment(), AdjectiveButtonAdapter.On
     }
 
     override fun onButtonClick(position: Int, recyclerViewIndex: Int) {
-        // 클릭된 버튼의 위치를 해당하는 리사이클러뷰에만 알리도록 함
-        recyclerViews[recyclerViewIndex].adapter?.notifyItemChanged(position)
-
+        recyclerView.adapter?.notifyItemChanged(position)
         updateAdButtons()
     }
 
     private fun updateAdButtons() {
-        // 선택된 텍스트를 ad1, ad2 버튼에 업데이트
         selectedTexts.clear()
-        adapters.forEach { adapter ->
-            selectedTexts.addAll(adapter.getSelectedButtonTexts())
-        }
+        selectedTexts.addAll(adapter.getSelectedButtonTexts())
 
-        // ad1 버튼 설정
         val ad1Text = selectedTexts.getOrNull(0)
         if (ad1Text != null && ad1Text.isNotEmpty()) {
             ad1.text = ad1Text
@@ -126,7 +108,6 @@ class AdjectiveFragment : BottomSheetDialogFragment(), AdjectiveButtonAdapter.On
             ad1.visibility = View.INVISIBLE
         }
 
-        // ad2 버튼 설정
         val ad2Text = selectedTexts.getOrNull(1)
         if (ad2Text != null && ad2Text.isNotEmpty()) {
             ad2.text = ad2Text
@@ -135,7 +116,6 @@ class AdjectiveFragment : BottomSheetDialogFragment(), AdjectiveButtonAdapter.On
             ad2.visibility = View.INVISIBLE
         }
     }
-
 
     private fun getSelectedCount(): Int {
         return selectedCount
@@ -147,10 +127,8 @@ class AdjectiveFragment : BottomSheetDialogFragment(), AdjectiveButtonAdapter.On
         } else {
             selectedCount--
         }
-        // 선택된 감정 형용사의 수에 따라 다음 버튼의 활성화 상태를 업데이트
         isAdjectiveSelected = selectedCount > 0
 
-        // 선택된 감정 형용사의 수에 따라 다음 버튼의 배경색을 업데이트
         if (selectedCount == 2) {
             nextButton.background = ContextCompat.getDrawable(requireContext(), R.drawable.solid_no_main)
         } else {
@@ -158,15 +136,8 @@ class AdjectiveFragment : BottomSheetDialogFragment(), AdjectiveButtonAdapter.On
         }
     }
 
-    private fun getButtonDataList(index: Int): List<ButtonData> {
-        return when (index) {
-            0 -> buttonDataList1()
-            1 -> buttonDataList2()
-            2 -> buttonDataList3()
-            3 -> buttonDataList4()
-            4 -> buttonDataList5()
-            else -> listOf()
-        }
+    private fun getAllButtonData(): List<ButtonData> {
+        return buttonDataList1() + buttonDataList2() + buttonDataList3() + buttonDataList4() + buttonDataList5()
     }
 
     private fun buttonDataList1(): List<ButtonData> {

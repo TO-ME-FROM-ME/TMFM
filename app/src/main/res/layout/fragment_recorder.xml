@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:background="@drawable/ic_re_bg"
+    android:background="@drawable/ic_re_bg7"
     tools:context=".RecorderFragment">
 
     <LinearLayout

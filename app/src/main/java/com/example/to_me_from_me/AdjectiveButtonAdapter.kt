@@ -80,7 +80,7 @@ class AdjectiveButtonAdapter(
                             val toastLayout = LayoutInflater.from(context).inflate(R.layout.toast_long, null, false)
                             val toast = Toast(context)
                             val location = IntArray(2)
-                            val customToastContainer = itemView.rootView.findViewById<View>(R.id.recyclerView1)
+                            val customToastContainer = itemView.rootView.findViewById<View>(R.id.recyclerView)
 
                             customToastContainer.getLocationOnScreen(location)
                             toastLayout.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
