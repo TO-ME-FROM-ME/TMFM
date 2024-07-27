@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="30dp"
+    android:background="@drawable/solid_stroke">
+
+    <ImageView
+        android:id="@+id/close_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:src="@drawable/ic_cancel" />
+
+    <TextView
+        android:id="@+id/storage_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="정말 로그아웃 할거야?"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/storage_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp"
+        android:text="그러지 말고 따뜻한 편지로\n하루를 마무리하는 건 어때?"
+        android:textSize="18dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:paddingBottom="8dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:layout_gravity="center"
+        android:gravity="center">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="그러자!"
+            android:textSize="17sp"
+            android:layout_marginLeft="10dp"
+            android:paddingHorizontal="20dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@drawable/solid_no_stroke"
+            android:textColor="@color/black"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="로그아웃 하기"
+            android:textSize="17sp"
+            android:layout_marginLeft="10dp"
+            android:paddingHorizontal="20dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@drawable/solid_no_main"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>
