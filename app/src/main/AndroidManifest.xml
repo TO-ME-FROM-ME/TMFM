@@ -19,8 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TO_ME_FROM_ME"
         tools:targetApi="31">
+
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true"
             android:label="@style/Theme.TO_ME_FROM_ME"
             android:theme="@style/Theme.TO_ME_FROM_ME">
@@ -31,9 +32,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".StatisticalReport.StatisticalReportActivity" />
-        <activity android:name=".SignupActivity" />
-        <activity android:name=".LoginActivity"/>
-
+        <activity android:name=".SignupEmailActivity"/>
+        <activity android:name=".SignupPwdActivity"/>
+        <activity android:name=".MainActivity" />
         <activity
             android:name=".WriteLetterActivity"
             android:windowSoftInputMode="adjustResize" />
