@@ -19,7 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TO_ME_FROM_ME"
         tools:targetApi="31">
-
+        <activity
+            android:name=".SignupNicknameActivity"
+            android:exported="false" />
         <activity
             android:name=".LoginActivity"
             android:exported="true"
@@ -32,8 +34,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".StatisticalReport.StatisticalReportActivity" />
-        <activity android:name=".SignupEmailActivity"/>
-        <activity android:name=".SignupPwdActivity"/>
+        <activity android:name=".SignupEmailActivity" />
+        <activity android:name=".SignupPwdActivity" />
         <activity android:name=".MainActivity" />
         <activity
             android:name=".WriteLetterActivity"

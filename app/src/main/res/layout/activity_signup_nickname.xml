@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".SignupPwdActivity">
-
+    tools:context=".SignupNicknameActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -45,8 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="25dp"
-        android:src="@drawable/ic_signup2" />
-
+        android:src="@drawable/ic_signup3" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,62 +53,76 @@
         android:textStyle="bold"
         android:textColor="@color/black"
         android:layout_marginLeft="20dp"
-        android:text="사용할 비밀번호를 적어줘."/>
+        android:text="너에게 가장\n소중한 존재의 이름을 적어줘."/>
 
 
-    <TextView
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_marginLeft="20dp"
-        android:text="비밀번호"
-        android:textColor="@color/black"/>
+        android:src="@drawable/ic_nick"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"/>
 
-    <EditText
-        android:id="@+id/pwd_write_et"
+
+    <FrameLayout
+        android:id="@+id/frame_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="top"
-        android:textSize="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="5dp"
-        android:fontFamily="@font/font_gangwon"
-        android:background="@drawable/solid_stroke_q"
-        android:padding="15dp"
-        android:hint="8글자에서 12글자 사이로 비밀번호를 입력해줘."/>
+        android:layout_marginRight="20dp">
+
+        <LinearLayout
+            android:id="@+id/custom_toast_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" />
+
+        <EditText
+            android:id="@+id/nickname_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="top"
+            android:textSize="20dp"
+            android:fontFamily="@font/font_gangwon"
+            android:background="@drawable/solid_stroke_q"
+            android:padding="15dp"
+            android:hint="이 앱에서 사용될 닉네임이야!"/>
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_marginLeft="20dp"
-        android:text="비밀번호 확인"
-        android:textColor="@color/black"/>
+        <LinearLayout
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+            <LinearLayout
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="end">
+                <TextView
+                    android:id="@+id/char_count_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_gangwon"
+                    android:text="0" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/font_gangwon"
+                    android:text="/6" />
+            </LinearLayout>
 
-    <EditText
-        android:id="@+id/pwd_re_write_et"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="top"
-        android:textSize="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="5dp"
-        android:fontFamily="@font/font_gangwon"
-        android:background="@drawable/solid_stroke_q"
-        android:padding="15dp"
-        android:hint="비밀번호를 다시 확인해줘."/>
+        </LinearLayout>
+    </FrameLayout>
+
+
+
     <View
         android:layout_width="match_parent"
-        android:layout_height="80dp" />
+        android:layout_height="70dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -119,7 +131,7 @@
         android:layout_gravity="bottom">
 
         <Button
-            android:id="@+id/ok_btn"
+            android:id="@+id/signup_btn"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginTop="20dp"
@@ -133,6 +145,5 @@
             android:textColor="@color/black"
             android:text="회원가입 완료"/>
     </LinearLayout>
-
 
 </LinearLayout>
