@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent">
+    android:background="@android:color/transparent"
+    tools:context=".SeTestFragment">
 
 
     <LinearLayout
@@ -18,6 +19,7 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/q_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
@@ -28,22 +30,23 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="50dp" />
+            android:layout_height="70dp" />
 
 
         <TextView
+            android:id="@+id/q_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="나는 다른 사람만큼 가치 있는 사람이야."
+            android:layout_marginLeft="30dp"
             android:fontFamily="@font/notosans"
-            android:textSize="20dp"
-            android:textStyle="bold"
+            android:text="나는 다른 사람만큼 가치 있는 사람이야."
             android:textColor="@color/black"
-            android:layout_marginLeft="30dp"/>
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="50dp" />
+            android:layout_height="70dp" />
 
 
         <FrameLayout
@@ -65,7 +68,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="5dp"
                     android:gravity="center"
-                    android:background="@drawable/rounded"
+                    android:background="@drawable/solid_no_gray"
                     android:elevation="6dp"
                     android:textSize="17sp"
                     android:textColor="@color/black"
@@ -78,7 +81,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="5dp"
                     android:gravity="center"
-                    android:background="@drawable/rounded"
+                    android:background="@drawable/solid_no_gray"
                     android:elevation="6dp"
                     android:textSize="17sp"
                     android:textColor="@color/black"
@@ -91,7 +94,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="5dp"
                     android:gravity="center"
-                    android:background="@drawable/rounded"
+                    android:background="@drawable/solid_no_gray"
                     android:elevation="6dp"
                     android:textSize="17sp"
                     android:textColor="@color/black"
@@ -104,7 +107,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="5dp"
                     android:gravity="center"
-                    android:background="@drawable/rounded"
+                    android:background="@drawable/solid_no_gray"
                     android:elevation="6dp"
                     android:textSize="17sp"
                     android:textColor="@color/black"

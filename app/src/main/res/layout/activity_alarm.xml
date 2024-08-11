@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent">
+    android:background="@android:color/transparent"
+    tools:context=".AlarmActivity">
 
 
     <LinearLayout
@@ -72,6 +73,12 @@
                 android:layout_marginStart="150dp"/>
 
         </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/switch_all_on"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -165,7 +172,7 @@
                 android:textColor="@color/black"/>
 
             <ImageView
-                android:id="@+id/alarm_go"
+                android:id="@+id/alarmtime_go"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center_vertical"
@@ -176,5 +183,5 @@
         </LinearLayout>
 
     </LinearLayout>
-
+    </LinearLayout>
 </RelativeLayout >

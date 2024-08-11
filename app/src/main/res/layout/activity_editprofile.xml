@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".EditProfileActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -68,7 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:text="닉네임"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:textStyle="bold"
             android:textColor="@color/black"/>
 
@@ -98,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:text="이메일"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"/>
 
@@ -128,7 +130,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:text="비밀번호"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"/>
 
@@ -150,22 +152,21 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/frame_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="20dp">
 
         <Button
-            android:id="@+id/test_fin"
+            android:id="@+id/next_btn"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="50dp"
             android:layout_marginBottom="5dp"
             android:gravity="center"
             android:background="@drawable/solid_no_gray"
-            android:elevation="6dp"
+            android:elevation="2dp"
             android:textSize="17sp"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:text="확인"/>
 
     </LinearLayout>
