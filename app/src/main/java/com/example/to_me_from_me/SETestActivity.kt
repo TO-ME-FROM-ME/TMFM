@@ -2,18 +2,20 @@ package com.example.to_me_from_me
 
 
 import android.content.Intent
+import android.media.Image
 import android.os.Bundle
-import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.viewModels
 
-class SeTestFragment : Fragment() {
+class SETestActivity : AppCompatActivity() {
 
     private val questions = listOf(
         "나는 다른 사람만큼 가치 있는 사람이야.",
@@ -36,15 +38,17 @@ class SeTestFragment : Fragment() {
     private lateinit var agreebtn: Button
     private lateinit var disagreebtn: Button
     private lateinit var sDisagreebtn: Button
+    val backButton: ImageView = findViewById(R.id.back_iv)
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_setest_q, container, false)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_setest)
 
-        questiontv = view.findViewById(R.id.q_text)
-        sAgreebtn = view.findViewById(R.id.s_agree)
-        agreebtn = view.findViewById(R.id.agree)
-        disagreebtn = view.findViewById(R.id.disagree)
-        sDisagreebtn = view.findViewById(R.id.s_disagree)
+        questiontv = findViewById(R.id.q_text)
+        sAgreebtn = findViewById(R.id.s_agree)
+        agreebtn = findViewById(R.id.agree)
+        disagreebtn = findViewById(R.id.disagree)
+        sDisagreebtn = findViewById(R.id.s_disagree)
 
         questiontv.text = questions[currentQuestionIndex]
 
@@ -53,50 +57,40 @@ class SeTestFragment : Fragment() {
                 currentQuestionIndex++
                 questiontv.text = questions[currentQuestionIndex]
             } else {
-                navigateToSeFinFragment()
+                val intent = Intent(this, SETestFinActivity::class.java)
+                startActivity(intent)
             }
         }
 
         fun resetButtonBackgrounds() {
-            sAgreebtn.background = ContextCompat.getDrawable(requireContext(), R.drawable.solid_no_gray)
-            agreebtn.background = ContextCompat.getDrawable(requireContext(), R.drawable.solid_no_gray)
-            disagreebtn.background = ContextCompat.getDrawable(requireContext(), R.drawable.solid_no_gray)
-            sDisagreebtn.background = ContextCompat.getDrawable(requireContext(), R.drawable.solid_no_gray)
+            sAgreebtn.background = ContextCompat.getDrawable(this, R.drawable.solid_no_gray)
+            agreebtn.background = ContextCompat.getDrawable(this, R.drawable.solid_no_gray)
+            disagreebtn.background = ContextCompat.getDrawable(this, R.drawable.solid_no_gray)
+            sDisagreebtn.background = ContextCompat.getDrawable(this, R.drawable.solid_no_gray)
         }
 
         sAgreebtn.setOnClickListener {
             buttonClickListener.onClick(it)
             resetButtonBackgrounds()
-            sAgreebtn.background = ContextCompat.getDrawable(requireContext(), R.drawable.solid_no_main)
+            sAgreebtn.background = ContextCompat.getDrawable(this, R.drawable.solid_no_main)
         }
 
         agreebtn.setOnClickListener {
             buttonClickListener.onClick(it)
             resetButtonBackgrounds()
-            agreebtn.background = ContextCompat.getDrawable(requireContext(), R.drawable.solid_no_main)
+            agreebtn.background = ContextCompat.getDrawable(this, R.drawable.solid_no_main)
         }
 
         disagreebtn.setOnClickListener {
             buttonClickListener.onClick(it)
             resetButtonBackgrounds()
-            disagreebtn.background = ContextCompat.getDrawable(requireContext(), R.drawable.solid_no_main)
+            disagreebtn.background = ContextCompat.getDrawable(this, R.drawable.solid_no_main)
         }
 
         sDisagreebtn.setOnClickListener {
             buttonClickListener.onClick(it)
             resetButtonBackgrounds()
-            sDisagreebtn.background = ContextCompat.getDrawable(requireContext(), R.drawable.solid_no_main)
+            sDisagreebtn.background = ContextCompat.getDrawable(this, R.drawable.solid_no_main)
         }
-
-        return view
     }
-
-    private fun navigateToSeFinFragment() {
-        val fragmentTransaction = parentFragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.fragment_container, SeFinFragment())
-        fragmentTransaction.addToBackStack(null)
-        fragmentTransaction.commit()
-    }
-
 }
-
