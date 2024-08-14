@@ -59,7 +59,7 @@
 
 
     <EditText
-        android:id="@+id/email_write_et"
+        android:id="@+id/email_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

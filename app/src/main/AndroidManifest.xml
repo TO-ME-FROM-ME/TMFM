@@ -23,7 +23,7 @@
             android:name=".SignupNicknameActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".SignupEmailActivity"
             android:exported="true"
             android:label="@style/Theme.TO_ME_FROM_ME"
             android:theme="@style/Theme.TO_ME_FROM_ME">
@@ -34,14 +34,27 @@
             </intent-filter>
         </activity>
         <activity android:name=".StatisticalReport.StatisticalReportActivity" />
-        <activity android:name=".SignupEmailActivity" />
         <activity android:name=".SignupPwdActivity" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".LoginActivity" />
         <activity
             android:name=".WriteLetterActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".MailboxActivity" />
         <activity android:name=".ProfileActivity" />
+
+
+        <activity android:name=".VerifyEmailActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https" android:host="www.example.com" />
+            </intent-filter>
+        </activity>
+
+
     </application>
 
 </manifest>
