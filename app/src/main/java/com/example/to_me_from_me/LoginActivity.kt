@@ -3,6 +3,7 @@ package com.example.to_me_from_me
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.to_me_from_me.Signup.SignupEmailActivity
 import com.example.to_me_from_me.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {

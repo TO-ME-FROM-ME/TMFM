@@ -19,23 +19,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TO_ME_FROM_ME"
         tools:targetApi="31">
+
+        <!-- Main Activity -->
         <activity
-            android:name=".SignupNicknameActivity"
-            android:exported="false" />
-        <activity
-            android:name=".LoginActivity"
+            android:name=".Signup.SignupEmailActivity"
             android:exported="true"
-            android:label="@style/Theme.TO_ME_FROM_ME"
+            android:label="@string/app_name"
             android:theme="@style/Theme.TO_ME_FROM_ME">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Other -->
         <activity android:name=".StatisticalReport.StatisticalReportActivity" />
-        <activity android:name=".SignupEmailActivity" />
-        <activity android:name=".SignupPwdActivity" />
+        <activity android:name=".Signup.SignupNicknameActivity" />
+        <activity android:name=".Signup.SignupPwdActivity" />
+        <activity android:name=".Signup.SignupFinishActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".MyPageActivity" />
         <activity android:name=".EditProfileActivity" />
@@ -48,19 +49,18 @@
         <activity android:name=".MailboxActivity" />
         <activity android:name=".ProfileActivity" />
 
-
-        <activity android:name=".VerifyEmailActivity"
+        <activity
+            android:name=".VerifyEmailActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="https" android:host="www.example.com" />
+                <data
+                    android:scheme="https"
+                    android:host="www.example.com" />
             </intent-filter>
         </activity>
 
-
-        <activity android:name=".LoginActivity" />
     </application>
-
 </manifest>

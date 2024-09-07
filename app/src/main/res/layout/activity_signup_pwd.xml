@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".SignupPwdActivity">
+    tools:context=".Signup.SignupPwdActivity">
 
 
     <LinearLayout
@@ -68,21 +68,59 @@
         android:text="비밀번호"
         android:textColor="@color/black"/>
 
-    <EditText
-        android:id="@+id/pwd_write_et"
+
+    <FrameLayout
+        android:id="@+id/frame_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="top"
-        android:textSize="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="5dp"
-        android:fontFamily="@font/font_gangwon"
-        android:background="@drawable/solid_stroke_q"
-        android:padding="15dp"
-        android:hint="8글자에서 12글자 사이로 비밀번호를 입력해줘."/>
+        android:layout_marginRight="20dp">
 
+        <LinearLayout
+            android:id="@+id/custom_toast_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" />
+
+        <EditText
+            android:id="@+id/pwd_write_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="top"
+            android:textSize="20dp"
+            android:fontFamily="@font/font_gangwon"
+            android:background="@drawable/solid_stroke_q"
+            android:padding="15dp"
+            android:hint="8글자에서 12글자 사이로 비밀번호를 입력해줘."/>
+
+
+        <LinearLayout
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+            <LinearLayout
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="end">
+                <TextView
+                    android:id="@+id/char_count_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_gangwon"
+                    android:text="0" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/font_gangwon"
+                    android:text="/12" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </FrameLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -94,20 +132,58 @@
         android:text="비밀번호 확인"
         android:textColor="@color/black"/>
 
-    <EditText
-        android:id="@+id/pwd_re_write_et"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="top"
-        android:textSize="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="5dp"
-        android:fontFamily="@font/font_gangwon"
-        android:background="@drawable/solid_stroke_q"
-        android:padding="15dp"
-        android:hint="비밀번호를 다시 확인해줘."/>
+        android:layout_marginRight="20dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" />
+
+        <EditText
+            android:id="@+id/pwd_re_write_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="top"
+            android:textSize="20dp"
+            android:fontFamily="@font/font_gangwon"
+            android:background="@drawable/solid_stroke_q"
+            android:padding="15dp"
+            android:hint="비밀번호를 다시 확인해줘."/>
+
+
+        <LinearLayout
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+            <LinearLayout
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="end">
+                <TextView
+                    android:id="@+id/char_re_count_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_gangwon"
+                    android:text="0" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/font_gangwon"
+                    android:text="/12" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </FrameLayout>
+
+
     <View
         android:layout_width="match_parent"
         android:layout_height="80dp" />
@@ -119,7 +195,7 @@
         android:layout_gravity="bottom">
 
         <Button
-            android:id="@+id/ok_btn"
+            android:id="@+id/next_btn"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginTop="20dp"
