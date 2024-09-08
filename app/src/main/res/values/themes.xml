@@ -28,6 +28,14 @@
         <item name="android:colorBackground">#E6000000</item>
     </style>
 
+    <!-- BottomSheet 배경을 불투명한 투명으로, 내용은 투명하게 설정 -->
+    <style name="TransparentBottomSheetDialogTheme3" parent="Theme.AppCompat.Light">
+        <!-- 배경은 검정색으로 설정 -->
+        <item name="android:background">@android:color/transparent</item>
+        <!-- 내용은 투명하게 설정 -->
+        <item name="android:colorBackground">#00ffffff</item>
+    </style>
+
 
     <style name="CustomDatePickerDialogTheme" parent="Theme.AppCompat.Light">
         <item name="colorAccent">@color/main</item> <!-- 선택된 날짜의 배경색을 여기서 설정 -->

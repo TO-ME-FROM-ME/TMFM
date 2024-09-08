@@ -22,7 +22,7 @@
 
         <!-- Main Activity -->
         <activity
-            android:name=".Signup.SignupEmailActivity"
+            android:name=".Mailbox.MailboxActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.TO_ME_FROM_ME">
@@ -37,6 +37,7 @@
         <activity android:name=".Signup.SignupNicknameActivity" />
         <activity android:name=".Signup.SignupPwdActivity" />
         <activity android:name=".Signup.SignupFinishActivity" />
+        <activity android:name=".Signup.SignupEmailActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".MyPageActivity" />
         <activity android:name=".EditProfileActivity" />
@@ -46,7 +47,7 @@
         <activity
             android:name=".WriteLetterActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".MailboxActivity" />
+        <activity android:name=".SETestActivity" />
         <activity android:name=".ProfileActivity" />
 
         <activity
