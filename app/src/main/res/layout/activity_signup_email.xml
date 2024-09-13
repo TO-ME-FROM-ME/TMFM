@@ -57,21 +57,32 @@
         android:layout_marginLeft="20dp"
         android:text="사용할 이메일을 적어줘."/>
 
-
-    <EditText
-        android:id="@+id/email_et"
+    <FrameLayout
+        android:id="@+id/frame_layout"
+        android:layout_marginTop="40dp"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/custom_toast_container"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="top"
-        android:textSize="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="30dp"
-        android:fontFamily="@font/font_gangwon"
-        android:background="@drawable/solid_stroke_q"
-        android:padding="15dp"
-        android:hint="이메일을 입력해주세요."/>
+        android:orientation="horizontal" />
+
+        <EditText
+            android:id="@+id/email_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="top"
+            android:textSize="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:fontFamily="@font/font_gangwon"
+            android:background="@drawable/solid_stroke_q"
+            android:padding="15dp"
+            android:hint="이메일을 입력해주세요."/>
+    </FrameLayout>
 
     <View
         android:layout_width="match_parent"
@@ -92,10 +103,10 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:gravity="center"
-            android:background="@drawable/rounded"
+            android:background="@drawable/solid_no_gray"
             android:elevation="6dp"
             android:textSize="17sp"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:text="인증코드 받기"/>
     </LinearLayout>
 
