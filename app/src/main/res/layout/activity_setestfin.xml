@@ -56,47 +56,47 @@
             android:src="@drawable/ic_finish_pb" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/q_sheet"
-        android:orientation="vertical"
+    <FrameLayout
+        android:id="@+id/frameLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/linearLayout">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_test_finish" />
+
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="고생 많았어! \n\n 이대로 검사를 끝낼까?"
-            android:fontFamily="@font/notosans"
+            android:text="고생많았어!\n 이제 검사를 끝낼까?"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:textSize="18dp"
-            android:textColor="@color/black"
-            android:gravity="center"/>
+            android:textColor="@color/black"/>
+    </FrameLayout>
 
-        <View
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/frameLayout2"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <Button
+            android:id="@+id/test_fin"
             android:layout_width="match_parent"
-            android:layout_height="200dp" />
-
-        <LinearLayout
-            android:id="@+id/frame_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp">
-
-            <Button
-                android:id="@+id/test_fin"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="5dp"
-                android:gravity="center"
-                android:background="@drawable/solid_no_gray"
-                android:elevation="6dp"
-                android:textSize="17sp"
-                android:textColor="@color/black"
-                android:text="검사결과 받기"/>
-
-        </LinearLayout>
-
+            android:layout_height="55dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/solid_no_main10"
+            android:elevation="6dp"
+            android:gravity="center"
+            android:text="검사결과 받기"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
     </LinearLayout>
-
 </RelativeLayout >

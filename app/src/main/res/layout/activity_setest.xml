@@ -127,10 +127,10 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="5dp"
                     android:gravity="center"
-                    android:background="@drawable/solid_no_gray"
+                    android:background="@drawable/solid_stroke_q"
                     android:elevation="6dp"
                     android:textSize="17sp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/Gray3"
                     android:text="매우 동의해"/>
 
                 <Button
@@ -140,10 +140,10 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="5dp"
                     android:gravity="center"
-                    android:background="@drawable/solid_no_gray"
+                    android:background="@drawable/solid_stroke_q"
                     android:elevation="6dp"
                     android:textSize="17sp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/Gray3"
                     android:text="동의해"/>
 
                 <Button
@@ -153,10 +153,10 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="5dp"
                     android:gravity="center"
-                    android:background="@drawable/solid_no_gray"
+                    android:background="@drawable/solid_stroke_q"
                     android:elevation="6dp"
                     android:textSize="17sp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/Gray3"
                     android:text="동의하지 않아"/>
 
                 <Button
@@ -166,10 +166,10 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="5dp"
                     android:gravity="center"
-                    android:background="@drawable/solid_no_gray"
+                    android:background="@drawable/solid_stroke_q"
                     android:elevation="6dp"
                     android:textSize="17sp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/Gray3"
                     android:text="매우 동의하지 않아"/>
 
             </LinearLayout>
