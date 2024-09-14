@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "577212762284",
-    "project_id": "tmfm-58195",
-    "storage_bucket": "tmfm-58195.appspot.com"
+    "project_number": "653709728447",
+    "project_id": "tomefromme-d7e9b",
+    "storage_bucket": "tomefromme-d7e9b.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:577212762284:android:288e8705d7b9c74105b709",
+        "mobilesdk_app_id": "1:653709728447:android:d6292c05d5bb0970a7040a",
         "android_client_info": {
           "package_name": "com.example.to_me_from_me"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDQ6EW8dy9C4ZT74a9EaQCjL-0rgJBt_Xg"
+          "current_key": "AIzaSyAppFUYJxffcAnx9x2mq5JNahf4xdCJgeU"
         }
       ],
       "services": {
