@@ -22,7 +22,7 @@
 
         <!-- Main Activity -->
         <activity
-            android:name=".Mailbox.MailboxActivity"
+            android:name=".Signup.SignupPwdActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.TO_ME_FROM_ME">
@@ -35,9 +35,8 @@
         <!-- Other -->
         <activity android:name=".StatisticalReport.StatisticalReportActivity" />
         <activity android:name=".Signup.SignupNicknameActivity" />
-        <activity android:name=".Signup.SignupPwdActivity" />
-        <activity android:name=".Signup.SignupFinishActivity" />
         <activity android:name=".Signup.SignupEmailActivity" />
+        <activity android:name=".Signup.SignupFinishActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".MyPageActivity" />
         <activity android:name=".EditProfileActivity" />

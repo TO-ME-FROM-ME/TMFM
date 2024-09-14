@@ -41,20 +41,6 @@
             android:src="@drawable/ic_cancel" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="110dp">
-
-        <ImageView
-            android:id="@+id/p_bar"
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:src="@drawable/ic_pb_1" />
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/q_sheet"

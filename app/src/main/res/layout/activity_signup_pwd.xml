@@ -92,6 +92,7 @@
             android:fontFamily="@font/font_gangwon"
             android:background="@drawable/solid_stroke_q"
             android:padding="15dp"
+            android:inputType="textPassword"
             android:hint="8글자에서 12글자 사이로 비밀번호를 입력해줘."/>
 
 
@@ -114,9 +115,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="5dp"
                     android:fontFamily="@font/font_gangwon"
                     android:text="/12" />
+                <ImageView
+                    android:id="@+id/pwd_eye_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_eye_off"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -153,6 +159,7 @@
             android:fontFamily="@font/font_gangwon"
             android:background="@drawable/solid_stroke_q"
             android:padding="15dp"
+            android:inputType="textPassword"
             android:hint="비밀번호를 다시 확인해줘."/>
 
 
@@ -175,9 +182,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="5dp"
                     android:fontFamily="@font/font_gangwon"
                     android:text="/12" />
+                <ImageView
+                    android:id="@+id/pwd_re_eye_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_eye_off"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -203,11 +215,11 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:gravity="center"
-            android:background="@drawable/rounded"
+            android:background="@drawable/solid_no_gray"
             android:elevation="6dp"
             android:textSize="17sp"
-            android:textColor="@color/black"
-            android:text="회원가입 완료"/>
+            android:textColor="@color/white"
+            android:text="다음"/>
     </LinearLayout>
 
 

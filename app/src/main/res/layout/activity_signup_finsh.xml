@@ -105,10 +105,10 @@
           android:layout_marginLeft="20dp"
           android:layout_marginRight="20dp"
           android:gravity="center"
-          android:background="@drawable/rounded"
+          android:background="@drawable/solid_no_main"
           android:elevation="6dp"
           android:textSize="17sp"
-          android:textColor="@color/black"
+          android:textColor="@color/white"
           android:text="검사하러 가기"/>
     </LinearLayout>
   </LinearLayout>

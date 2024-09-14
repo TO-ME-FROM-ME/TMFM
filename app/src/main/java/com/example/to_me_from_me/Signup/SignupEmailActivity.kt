@@ -105,9 +105,7 @@ class SignupEmailActivity : AppCompatActivity() {
 
         layout.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
 
-        val yOffset = location[1] -(-50) -layout.measuredHeight // 20은 추가적인 조정 값입니다.
-        Log.d("ToastDebug", "Location: ${location.joinToString()}, YOffset: $yOffset")
-        // 토스트의 위치와 뷰를 설정합니다.
+        val yOffset = location[1] -(-50) -layout.measuredHeight
         toast.setGravity(Gravity.TOP or Gravity.END, location[0], yOffset)
         toast.view = layout
 
