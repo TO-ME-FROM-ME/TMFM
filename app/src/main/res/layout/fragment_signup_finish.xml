@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".SendFragment">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@drawable/round_corner_top"
+        android:padding="20dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🎉 WELCOME 🎉"
+            android:fontFamily="@font/bnotosans"
+            android:textSize="25dp"
+            android:textColor="@color/dark"
+            android:gravity="center"/>
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_send"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:text="스스로에게 따뜻한 편지를\n쓰도록 우리가 많~이 도와줄게 ♥"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <Button
+            android:id="@+id/next_btn"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
+            android:background="@drawable/ok_btn_main"
+            android:elevation="2dp"
+            android:textSize="17sp"
+            android:textColor="@color/white"
+            android:text="TO ME FROM ME 시작하기!"/>
+
+    </LinearLayout>
+</FrameLayout>

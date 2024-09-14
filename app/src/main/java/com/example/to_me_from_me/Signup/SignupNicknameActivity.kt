@@ -17,12 +17,13 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import com.example.to_me_from_me.R
+import com.example.to_me_from_me.SendFragment
 
+private lateinit var signupFinishFragment: SignupFinishFragment
 class SignupNicknameActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup_nickname)
-
 
         val nicknameEditText = findViewById<EditText>(R.id.nickname_et)
         val signupBtn = findViewById<Button>(R.id.signup_btn)
@@ -35,11 +36,18 @@ class SignupNicknameActivity : AppCompatActivity() {
         val toastLayout = LayoutInflater.from(this).inflate(R.layout.toast_pwd, null, false)
         val toastTv = toastLayout.findViewById<TextView>(R.id.toast_tv)
 
+        val toastLayout2 = LayoutInflater.from(this).inflate(R.layout.toast_nick6, null, false)
+        val toastTv2 = toastLayout2.findViewById<TextView>(R.id.toast_tv)
+
         val mainColor = ContextCompat.getDrawable(this, R.drawable.solid_no_main)
         val defaultColor = ContextCompat.getDrawable(this, R.drawable.solid_no_gray)
 
         // 닉네임 최대 6글자
         charCountTextView.filters = arrayOf(InputFilter.LengthFilter(6))
+
+
+        signupFinishFragment = SignupFinishFragment()
+
 
         // 닉네임 유효성 검사 메서드
         fun validateNickname() {
@@ -61,15 +69,11 @@ class SignupNicknameActivity : AppCompatActivity() {
                 toastTv.text = "2글자 이상 작성해줘!"
                 showToast(toastLayout, nicknameEditText, 700)
             } else if(nickname.length > 6){
-                toastTv.text = "6글자 이하로 작성해줘!"
-                showToast(toastLayout, nicknameEditText, 700)
+                toastTv2.text = "6글자 이하로 작성해줘!"
+                showToast(toastLayout2, nicknameEditText, 700)
             }
             else {
-                val intent = Intent(this, SignupFinishActivity::class.java)
-                intent.putExtra("email", email)
-                intent.putExtra("pwd", pwd)
-                intent.putExtra("nickname", nickname)
-                startActivity(intent)
+                signupFinishFragment.show(supportFragmentManager, "SignupFinishFragment")
             }
         }
 
