@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@drawable/ic_re_bg7"
-    tools:context=".RecorderFragment">
+    tools:context=".LetterWrite.RecorderFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

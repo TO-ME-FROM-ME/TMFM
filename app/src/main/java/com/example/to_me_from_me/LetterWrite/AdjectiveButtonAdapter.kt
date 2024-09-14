@@ -1,4 +1,4 @@
-package com.example.to_me_from_me
+package com.example.to_me_from_me.LetterWrite
 
 import android.content.Context
 import android.os.Handler
@@ -12,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.to_me_from_me.R
 
 class AdjectiveButtonAdapter(
     private val context: Context,

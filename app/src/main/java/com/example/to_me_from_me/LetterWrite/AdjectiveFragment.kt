@@ -1,4 +1,4 @@
-package com.example.to_me_from_me
+package com.example.to_me_from_me.LetterWrite
 
 import android.os.Bundle
 import android.util.Log
@@ -12,9 +12,11 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.to_me_from_me.R
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class AdjectiveFragment : BottomSheetDialogFragment(), AdjectiveButtonAdapter.OnButtonClickListener {
+class AdjectiveFragment : BottomSheetDialogFragment(),
+    AdjectiveButtonAdapter.OnButtonClickListener {
 
     private val sharedViewModel: ViewModel by activityViewModels()
     private lateinit var recyclerView: RecyclerView
@@ -130,9 +132,13 @@ class AdjectiveFragment : BottomSheetDialogFragment(), AdjectiveButtonAdapter.On
         isAdjectiveSelected = selectedCount > 0
 
         if (selectedCount == 2) {
-            nextButton.background = ContextCompat.getDrawable(requireContext(), R.drawable.solid_no_main)
+            nextButton.background = ContextCompat.getDrawable(requireContext(),
+                R.drawable.solid_no_main
+            )
         } else {
-            nextButton.background = ContextCompat.getDrawable(requireContext(), R.drawable.solid_no_gray)
+            nextButton.background = ContextCompat.getDrawable(requireContext(),
+                R.drawable.solid_no_gray
+            )
         }
     }
 

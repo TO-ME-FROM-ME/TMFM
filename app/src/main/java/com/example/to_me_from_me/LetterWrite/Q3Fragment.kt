@@ -1,7 +1,6 @@
-package com.example.to_me_from_me
+package com.example.to_me_from_me.LetterWrite
 
 import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -10,10 +9,8 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -21,19 +18,19 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.to_me_from_me.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class Q2Fragment : BottomSheetDialogFragment() {
+class Q3Fragment : BottomSheetDialogFragment() {
 
     private val sharedViewModel: ViewModel by activityViewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_q2, container, false)
+        val view = inflater.inflate(R.layout.fragment_q3, container, false)
 
         val textView = view.findViewById<TextView>(R.id.user_situation_tv)
 
@@ -50,7 +47,8 @@ class Q2Fragment : BottomSheetDialogFragment() {
             }
         }
 
-        val q1TextValue = arguments?.getString("q1textValue")
+        val q1TextValue = arguments?.getString("q1TextValue")
+        val q2TextValue = arguments?.getString("q2TextValue")
 
         val writeEditText = view.findViewById<EditText>(R.id.write_et)
         val charCountTextView = view.findViewById<TextView>(R.id.char_count_tv)
@@ -59,17 +57,17 @@ class Q2Fragment : BottomSheetDialogFragment() {
         val mainColor = ContextCompat.getDrawable(requireContext(), R.drawable.solid_no_main)
         val defaultColor = ContextCompat.getDrawable(requireContext(), R.drawable.solid_no_gray)
 
-
         // 형용사 버튼 받아오는 부분
         val selectedButtonTexts = arguments?.getStringArrayList("selectedButtonTexts")
         val buttonDataList = selectedButtonTexts?.map { ButtonData(it) } ?: emptyList()
-        Log.d("Buttondata", "Q2Fragment buttonDataList : $buttonDataList")
+        Log.d("Buttondata", "Q3Fragment buttonDataList : $buttonDataList")
 
         // RecyclerView 초기화
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view_buttons)
         recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         recyclerView.adapter = AdjectiveQ1Adapter(requireContext(), buttonDataList) { buttonData ->
         }
+
 
 
 
@@ -84,7 +82,9 @@ class Q2Fragment : BottomSheetDialogFragment() {
                 textLength < 50 -> {
                     showToast(toastLayout,writeEditText,700)
                     toastTv.text = "최소 50자 이상 작성해줘!"
-                    writeEditText.background = ContextCompat.getDrawable(requireContext(), R.drawable.solid_over_txt)
+                    writeEditText.background = ContextCompat.getDrawable(requireContext(),
+                        R.drawable.solid_over_txt
+                    )
                 }
 
                 textLength > 150 -> {
@@ -93,17 +93,19 @@ class Q2Fragment : BottomSheetDialogFragment() {
                 }
 
                 else -> {
-
                     // 다음 Fragment화면으로 이동
-                    val nextFragment = Q3Fragment()
+                    val q3TextValue = writeEditText.text.toString()
 
-                    val q2TextValue = writeEditText.text.toString()
+                    val combinedTextValue = "$q1TextValue\n$q2TextValue\n$q3TextValue"
 
-                    val bundle = Bundle()
-                    bundle.putString("q1TextValue", q1TextValue)
-                    bundle.putString("q2TextValue", q2TextValue)
-                    bundle.putStringArrayList("selectedButtonTexts", ArrayList(selectedButtonTexts))
-                    nextFragment.arguments = bundle
+                    val nextFragment = LetterFragment().apply {
+                        val bundle = Bundle().apply {
+                            putString("combinedTextValue", combinedTextValue)
+                            putStringArrayList("selectedButtonTexts", ArrayList(selectedButtonTexts))
+                        }
+                        arguments = bundle
+                    }
+
 
                     parentFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container, nextFragment)
@@ -112,7 +114,6 @@ class Q2Fragment : BottomSheetDialogFragment() {
                 }
             }
         }
-
 
 
         // 실시간 글자 수
@@ -128,10 +129,11 @@ class Q2Fragment : BottomSheetDialogFragment() {
                 // 버튼 배경 변경 로직
                 if (charCount >= 50 && charCount <= 150) {
                     nextButton.background = mainColor
-                    writeEditText.background = ContextCompat.getDrawable(requireContext(), R.drawable.solid_stroke_q)
+                    writeEditText.background = ContextCompat.getDrawable(requireContext(),
+                        R.drawable.solid_stroke_q
+                    )
                 } else {
                     nextButton.background = defaultColor
-                    //charCountTextView.text = ContextCompat.getColor(R.color.dark)
                 }
             }
         })

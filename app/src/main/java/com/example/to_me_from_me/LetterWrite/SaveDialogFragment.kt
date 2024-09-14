@@ -1,4 +1,4 @@
-package com.example.to_me_from_me
+package com.example.to_me_from_me.LetterWrite
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.activityViewModels
+import com.example.to_me_from_me.R
 
 class SaveDialogFragment : DialogFragment() {
 

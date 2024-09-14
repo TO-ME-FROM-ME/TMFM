@@ -1,4 +1,4 @@
-package com.example.to_me_from_me
+package com.example.to_me_from_me.LetterWrite
 
 import android.app.Dialog
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.DialogFragment
+import com.example.to_me_from_me.R
 
 class TimePickerDialogFragment : DialogFragment() {
 

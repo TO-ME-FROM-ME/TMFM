@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/ic_bg"
     tools:context=".StatisticalReport.StatisticalReportActivity">
 
   <TextView
@@ -19,83 +20,87 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent" />
 
-  <RelativeLayout
-      android:id="@+id/switch_rl"
-      android:layout_width="match_parent"
-      android:layout_height="40dp"
-      android:layout_marginHorizontal="15dp"
-      android:layout_marginVertical="20dp"
-      android:background="@drawable/bg_switch"
-      app:layout_constraintTop_toBottomOf="@id/title_tv"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent">
-
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/switchOnOff_sc"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:checked="false"
-        android:textColor="@color/black"
-        android:thumb="@drawable/thumb_selector"
-        app:track="@drawable/track_selector" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:weightSum="2">
-
-      <TextView
-          android:id="@+id/month_tv"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center"
-          android:layout_weight="1"
-          android:gravity="center"
-          android:text="월간 리포트"
-          android:textColor="@color/black"
-          android:textSize="15sp"
-          android:textStyle="bold" />
-
-      <TextView
-          android:id="@+id/annual_tv"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center"
-          android:layout_weight="1"
-          android:gravity="center"
-          android:text="연간 리포트"
-          android:textColor="@color/white"
-          android:textSize="15sp"
-          android:textStyle="bold" />
-    </LinearLayout>
-  </RelativeLayout>
-
-  <androidx.viewpager2.widget.ViewPager2
-      android:id="@+id/report_vp2"
+  <FrameLayout
+      android:id="@+id/framll"
       android:layout_width="match_parent"
       android:layout_height="0dp"
-      android:layout_marginTop="16dp"
-      app:layout_constraintTop_toBottomOf="@id/switch_rl"
-      app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
+      android:layout_marginTop="10dp"
+      android:background="@drawable/round_corner_top"
+      app:layout_constraintTop_toBottomOf="@id/title_tv"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent" />
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent">
+
+    <RelativeLayout
+        android:id="@+id/switch_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginVertical="20dp"
+        android:background="@drawable/bg_switch">
+
+      <androidx.appcompat.widget.SwitchCompat
+          android:id="@+id/switchOnOff_sc"
+          android:layout_width="match_parent"
+          android:layout_height="40dp"
+          android:checked="false"
+          android:textColor="@color/black"
+          android:thumb="@drawable/thumb_selector"
+          app:track="@drawable/track_selector" />
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:weightSum="2">
+
+        <TextView
+            android:id="@+id/month_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="월간 리포트"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/annual_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="연간 리포트"
+            android:textColor="@color/Gray4"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+      </LinearLayout>
+
+      <androidx.viewpager2.widget.ViewPager2
+          android:id="@+id/report_vp2"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_marginTop="80dp" />
+    </RelativeLayout>
+  </FrameLayout>
 
   <com.google.android.material.bottomnavigation.BottomNavigationView
       android:id="@+id/bottom_navigation"
       android:layout_width="match_parent"
-      android:layout_height="60dp"
-      android:layout_marginStart="30dp"
-      android:layout_marginEnd="30dp"
-      android:layout_marginBottom="30dp"
-      android:background="@drawable/rounded"
-      app:elevation="16dp"
-      app:itemIconTint="#98999A"
-      app:itemIconSize="30dp"
-      app:labelVisibilityMode="unlabeled"
-      app:menu="@menu/menu_bottom_nav"
-      app:layout_constraintBottom_toBottomOf="parent"
+      android:layout_height="100dp"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent" />
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintVertical_bias=".9"
+      app:layout_constraintHeight_percent=".1"
+      app:itemIconTint="#98999A"
+      app:labelVisibilityMode="labeled"
+      app:itemTextColor="@color/Gray3"
+      android:background="@drawable/round_corner_top_main"
+      app:itemIconSize="30dp"
+      app:menu="@menu/menu_bottom_nav"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

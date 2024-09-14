@@ -1,15 +1,11 @@
-package com.example.to_me_from_me
+package com.example.to_me_from_me.LetterWrite
 
 
-import android.content.Intent
-import android.media.Image
 import android.os.Bundle
-import android.view.MenuItem
 import android.widget.ImageView
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.viewModels
+import com.example.to_me_from_me.R
 
 class WriteLetterActivity : AppCompatActivity() {
 
@@ -29,7 +25,9 @@ class WriteLetterActivity : AppCompatActivity() {
         val saveButton: ImageView = findViewById(R.id.save_iv)
         saveButton.setOnClickListener {
             val dialogFragment = StorageDialogFragment()
-            dialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundedBottomSheetDialogTheme)
+            dialogFragment.setStyle(DialogFragment.STYLE_NORMAL,
+                R.style.RoundedBottomSheetDialogTheme
+            )
             dialogFragment.show(supportFragmentManager, "StorageDialogFragment")
         }
     }

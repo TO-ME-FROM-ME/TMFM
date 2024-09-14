@@ -33,23 +33,23 @@ class StatisticalReportActivity : AppCompatActivity() {
         // Switch 초기 상태 설정
         switch.isChecked = false
 
-        // TextView 초기 상태 설정
-        monthTextView.setTextColor(resources.getColor(R.color.white))
-        annualTextView.setTextColor(resources.getColor(R.color.black))
+        // TextView 초기 상태 설정 (기본값: month_tv 선택)
+        updateTextViewColors(isMonthSelected = true)
 
         // Switch 상태 변경 리스너 설정
         switch.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                viewPager.currentItem = 1
-                monthTextView.setTextColor(resources.getColor(R.color.black))
-                annualTextView.setTextColor(resources.getColor(R.color.white))
-            } else {
-                viewPager.currentItem = 0
-                monthTextView.setTextColor(resources.getColor(R.color.white))
-                annualTextView.setTextColor(resources.getColor(R.color.black))
-            }
+            updateTextViewColors(isMonthSelected = !isChecked)
+            viewPager.currentItem = if (isChecked) 1 else 0
         }
+    }
 
-
+    // TextView 색상 업데이트 메서드
+    private fun updateTextViewColors(isMonthSelected: Boolean) {
+        monthTextView.setTextColor(
+            resources.getColor(if (isMonthSelected) R.color.black else R.color.Gray4)
+        )
+        annualTextView.setTextColor(
+            resources.getColor(if (isMonthSelected) R.color.Gray4 else R.color.black)
+        )
     }
 }

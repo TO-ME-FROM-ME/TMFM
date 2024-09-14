@@ -13,6 +13,8 @@
 
     <style name="Theme.TO_ME_FROM_ME" parent="Base.Theme.TO_ME_FROM_ME" />
 
+
+
     <!--    BottomSheet 배경색상-->
     <style name="TransparentBottomSheetDialogTheme" parent="Theme.AppCompat.Light">
         <item name="android:background">@android:color/white</item>

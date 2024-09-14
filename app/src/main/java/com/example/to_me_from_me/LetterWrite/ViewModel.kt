@@ -1,9 +1,9 @@
-package com.example.to_me_from_me
+package com.example.to_me_from_me.LetterWrite
 
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.to_me_from_me.LetterWrite.ButtonData
 
 class ViewModel : ViewModel() {
     private val _situationText = MutableLiveData<String>()

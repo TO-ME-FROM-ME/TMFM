@@ -1,11 +1,11 @@
-package com.example.to_me_from_me
+package com.example.to_me_from_me.LetterWrite
 
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.NumberPicker
 import android.widget.TimePicker
 import androidx.core.content.ContextCompat
-import java.lang.reflect.Field
+import com.example.to_me_from_me.R
 
 class CustomTimePicker : TimePicker {
 
@@ -33,7 +33,9 @@ class CustomTimePicker : TimePicker {
                         for (numberPickerField in numberPickerFields) {
                             if (numberPickerField.name == "mSelectionDivider") {
                                 numberPickerField.isAccessible = true
-                                numberPickerField.set(numberPicker, ContextCompat.getDrawable(context, R.drawable.custom_divider))
+                                numberPickerField.set(numberPicker, ContextCompat.getDrawable(context,
+                                    R.drawable.custom_divider
+                                ))
                             }
                         }
                     }

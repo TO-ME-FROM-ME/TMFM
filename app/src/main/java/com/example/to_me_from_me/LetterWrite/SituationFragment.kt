@@ -1,8 +1,7 @@
-package com.example.to_me_from_me
+package com.example.to_me_from_me.LetterWrite
 
 import android.app.Dialog
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -16,15 +15,12 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
-import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.whenCreated
+import com.example.to_me_from_me.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -59,7 +55,9 @@ class SituationFragment : BottomSheetDialogFragment() {
                 textLength < 10 -> {
                     showToast(toastLayout,writeEditText,700)
                     toastTv.text = "최소 10자 이상 작성해줘!"
-                    writeEditText.background = ContextCompat.getDrawable(requireContext(), R.drawable.solid_over_txt)
+                    writeEditText.background = ContextCompat.getDrawable(requireContext(),
+                        R.drawable.solid_over_txt
+                    )
                 }
 
                 textLength > 30 -> {
@@ -97,7 +95,9 @@ class SituationFragment : BottomSheetDialogFragment() {
                 // 버튼 배경 변경 로직
                 if (charCount >= 10 && charCount <= 30) {
                     nextButton.background = mainColor
-                    writeEditText.background = ContextCompat.getDrawable(requireContext(), R.drawable.solid_stroke_q)
+                    writeEditText.background = ContextCompat.getDrawable(requireContext(),
+                        R.drawable.solid_stroke_q
+                    )
 
                 } else {
                     nextButton.background = defaultColor

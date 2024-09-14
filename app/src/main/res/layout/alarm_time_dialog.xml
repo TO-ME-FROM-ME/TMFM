@@ -16,7 +16,7 @@
         android:textStyle="bold"
         android:textColor="@color/black"/>
 
-    <com.example.to_me_from_me.CustomTimePicker
+    <com.example.to_me_from_me.LetterWrite.CustomTimePicker
         android:id="@+id/timePicker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

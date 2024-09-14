@@ -2,16 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/mail"
-        android:title="mail"
+        android:title="홈"
         android:icon="@drawable/ic_mail"
         android:state_checked="true"/>
     <item
         android:id="@+id/data"
-        android:title="data"
+        android:title="통계 리포트"
         android:icon="@drawable/ic_data"/>
     <item
         android:id="@+id/profile"
-        android:title="profile"
+        android:title="마이페이지"
         android:icon="@drawable/ic_profile"/>
 
 </menu>

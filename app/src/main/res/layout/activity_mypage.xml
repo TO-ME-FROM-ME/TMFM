@@ -6,76 +6,80 @@
     android:background="@android:color/transparent"
     tools:context=".MyPageActivity">
 
-
+    <!-- 상단 콘텐츠 -->
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <!-- 마진을 주기 위한 빈 View -->
         <View
             android:layout_width="match_parent"
             android:layout_height="20dp" />
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="마이페이지"
-            android:fontFamily="@font/notosans"
-            android:textSize="25dp"
-            android:textColor="@color/black"
-            android:layout_marginLeft="20dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="마이페이지"
+                android:fontFamily="@font/notosans"
+                android:textSize="25dp"
+                android:textColor="@color/black"
+                android:layout_marginLeft="20dp"/>
 
         </LinearLayout>
 
+        <!-- 빈 View -->
         <View
             android:layout_width="match_parent"
             android:layout_height="20dp" />
 
-    <FrameLayout
-        android:id="@+id/user_profile"
-        android:orientation="vertical"
-        android:layout_width="350dp"
-        android:layout_height="70dp"
-        android:elevation="6dp"
-        android:background="@drawable/rounded"
-        android:layout_gravity="center">
+        <!-- 사용자 프로필 -->
+        <FrameLayout
+            android:id="@+id/user_profile"
+            android:orientation="vertical"
+            android:layout_width="350dp"
+            android:layout_height="70dp"
+            android:elevation="6dp"
+            android:background="@drawable/rounded"
+            android:layout_gravity="center">
 
-        <ImageView
-            android:id="@+id/user_img"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="start|center_vertical"
-            android:layout_marginStart="15dp"
-            android:src="@drawable/solid_no_gray"/>
+            <ImageView
+                android:id="@+id/user_img"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginStart="15dp"
+                android:src="@drawable/solid_no_gray"/>
 
-        <TextView
-            android:id="@+id/user_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="70dp"
-            android:text="우리 동생"
-            android:textSize="16sp"
-            android:textColor="@color/black"/>
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="70dp"
+                android:text="우리 동생"
+                android:textSize="16sp"
+                android:textColor="@color/black"/>
 
-        <ImageView
-            android:id="@+id/user_go"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="end|center_vertical"
-            android:layout_marginEnd="15dp"
-            android:rotation="180"
-            android:src="@drawable/ic_back2"
-            android:clickable="true"/>
+            <ImageView
+                android:id="@+id/user_go"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="15dp"
+                android:rotation="180"
+                android:src="@drawable/ic_back2"
+                android:clickable="true"/>
 
-    </FrameLayout>
+        </FrameLayout>
 
+        <!-- 설정 항목들 -->
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -158,24 +162,16 @@
         </LinearLayout>
     </LinearLayout>
 
+    <!-- BottomNavigationView -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="60dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:elevation="16dp"
-        app:layout_constraintVertical_bias=".9"
-        app:layout_constraintHeight_percent=".1"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/round_corner_top_main"
         app:itemIconTint="#98999A"
-        app:labelVisibilityMode="unlabeled"
-        android:background="@drawable/rounded"
+        app:labelVisibilityMode="labeled"
+        app:itemTextColor="@color/Gray3"
         app:itemIconSize="30dp"
         app:menu="@menu/menu_bottom_nav"/>
-
-</RelativeLayout >
+</RelativeLayout>

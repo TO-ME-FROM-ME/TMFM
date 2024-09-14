@@ -1,13 +1,10 @@
-package com.example.to_me_from_me
+package com.example.to_me_from_me.LetterWrite
 
 import android.app.Dialog
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.text.Editable
-import android.text.InputType
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextWatcher
@@ -15,11 +12,9 @@ import android.text.style.RelativeSizeSpan
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
-import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -30,6 +25,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.to_me_from_me.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -121,12 +117,16 @@ class LetterFragment : BottomSheetDialogFragment() {
                 textLength < 150 -> {
                     showToast(toastLayout,letterTV,700)
                     toastTv.text = "최소 150자 이상 작성해줘!"
-                    letterTV.background = ContextCompat.getDrawable(requireContext(), R.drawable.solid_over_txt)
+                    letterTV.background = ContextCompat.getDrawable(requireContext(),
+                        R.drawable.solid_over_txt
+                    )
                 }
                 textLength > 500 -> {
                     showToast(toastLayout,letterTV,700)
                     toastTv.text = "500자 이하로 작성해줘!"
-                    letterTV.background = ContextCompat.getDrawable(requireContext(), R.drawable.solid_over_txt)
+                    letterTV.background = ContextCompat.getDrawable(requireContext(),
+                        R.drawable.solid_over_txt
+                    )
                 }
 
                 else -> {

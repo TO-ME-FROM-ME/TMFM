@@ -1,9 +1,8 @@
-package com.example.to_me_from_me
+package com.example.to_me_from_me.LetterWrite
 
 import android.Manifest
 import android.content.ContentValues
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.media.MediaRecorder
 import android.net.Uri
 import android.os.Build
@@ -19,9 +18,9 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
+import com.example.to_me_from_me.R
+import com.example.to_me_from_me.SendFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 

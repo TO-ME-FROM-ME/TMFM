@@ -1,4 +1,4 @@
-package com.example.to_me_from_me
+package com.example.to_me_from_me.LetterWrite
 
 import android.app.Dialog
 import android.os.Bundle
@@ -8,9 +8,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import com.example.to_me_from_me.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -38,8 +38,20 @@ class EmojiFragment : BottomSheetDialogFragment() {
         val angryButton = view.findViewById<ImageView>(R.id.angry_btn)
 
         val buttons = listOf(excitedButton, happyButton, normalButton, upsetButton, angryButton)
-        val activeDrawables = listOf(R.drawable.excited_s, R.drawable.happy_s, R.drawable.normal_s, R.drawable.upset_s, R.drawable.angry_s)
-        val inactiveDrawables = listOf(R.drawable.excited, R.drawable.happy, R.drawable.normal, R.drawable.upset, R.drawable.angry)
+        val activeDrawables = listOf(
+            R.drawable.excited_s,
+            R.drawable.happy_s,
+            R.drawable.normal_s,
+            R.drawable.upset_s,
+            R.drawable.angry_s
+        )
+        val inactiveDrawables = listOf(
+            R.drawable.excited,
+            R.drawable.happy,
+            R.drawable.normal,
+            R.drawable.upset,
+            R.drawable.angry
+        )
         val nextButton = view.findViewById<Button>(R.id.next_btn)
 
 
@@ -49,7 +61,9 @@ class EmojiFragment : BottomSheetDialogFragment() {
                 sharedViewModel.setSelectedImageResId(activeDrawables[index])
                 emojiView.setImageResource(activeDrawables[index])
                 emojiView.visibility = View.VISIBLE
-                nextButton.background = ContextCompat.getDrawable(requireContext(), R.drawable.solid_no_main)
+                nextButton.background = ContextCompat.getDrawable(requireContext(),
+                    R.drawable.solid_no_main
+                )
             }
         }
 
@@ -69,7 +83,13 @@ class EmojiFragment : BottomSheetDialogFragment() {
 
     private fun setActiveButton(button: ImageView, activeDrawable: Int, inactiveDrawables: List<Int>) {
         activeButton?.let {
-            val index = listOf(R.id.excited_btn, R.id.happy_btn, R.id.normal_btn, R.id.upset_btn, R.id.angry_btn).indexOf(it.id)
+            val index = listOf(
+                R.id.excited_btn,
+                R.id.happy_btn,
+                R.id.normal_btn,
+                R.id.upset_btn,
+                R.id.angry_btn
+            ).indexOf(it.id)
             if (index != -1) {
                 it.setBackgroundResource(inactiveDrawables[index])
             }

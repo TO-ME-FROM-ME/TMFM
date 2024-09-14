@@ -1,15 +1,14 @@
-package com.example.to_me_from_me
+package com.example.to_me_from_me.LetterWrite
 
 import android.app.Dialog
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CalendarView
-import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import com.example.to_me_from_me.R
 import java.util.Calendar
 
 class CalendarDialogFragment : DialogFragment() {
