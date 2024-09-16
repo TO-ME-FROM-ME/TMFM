@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         when (item.itemId) {
             R.id.mail -> {
                 selectedFragment = FirstFragment()
-                item.setIcon(R.drawable.ic_mail_s)
+                item.setIcon(R.drawable.ic_test_main)
                 Log.d("MainActivity", " write letter 클릭 ")
             }
             R.id.data -> {
