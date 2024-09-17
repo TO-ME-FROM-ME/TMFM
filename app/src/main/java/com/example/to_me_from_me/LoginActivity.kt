@@ -62,6 +62,7 @@ class LoginActivity : AppCompatActivity() {
                 } else {
                     //로그인에 실패한 경우 Toast 메시지로 에러를 띄워준다
                     Toast.makeText(this, task.exception?.message, Toast.LENGTH_LONG).show()
+                    Log.e("error","$task.exception?.message")
 
                 }
             }
