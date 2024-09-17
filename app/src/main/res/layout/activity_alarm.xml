@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
-    tools:context=".AlarmActivity">
+    tools:context=".Mypage.AlarmActivity">
 
 
     <LinearLayout
@@ -70,6 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center_vertical"
+                android:thumbTint="@color/main"
                 android:layout_marginStart="150dp"/>
 
         </LinearLayout>
@@ -101,6 +102,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center_vertical"
+                android:thumbTint="@color/main"
                 android:layout_marginStart="150dp"/>
 
         </LinearLayout>
@@ -126,6 +128,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center_vertical"
+                android:thumbTint="@color/main"
                 android:layout_marginStart="150dp"/>
 
         </LinearLayout>
@@ -151,6 +154,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center_vertical"
+                android:thumbTint="@color/main"
                 android:layout_marginStart="150dp"/>
 
         </LinearLayout>
@@ -166,13 +170,28 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="매일 오후 9시 00분에 알림을 보낼게!"
+                android:text="매일 "
+                android:fontFamily="@font/font_gangwon"
+                android:textSize="24dp"
+                android:textColor="@color/black"/>
+            <TextView
+                android:id="@+id/time_set_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="오후 9시 00분"
+                android:fontFamily="@font/font_gangwon"
+                android:textSize="24dp"
+                android:textColor="@color/main"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="에 알림을 보낼게!"
                 android:fontFamily="@font/font_gangwon"
                 android:textSize="24dp"
                 android:textColor="@color/black"/>
 
             <ImageView
-                android:id="@+id/alarmtime_go"
+                android:id="@+id/time_set_iv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center_vertical"

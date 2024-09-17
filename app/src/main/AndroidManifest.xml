@@ -37,17 +37,14 @@
         <activity android:name=".Signup.SignupEmailActivity" />
         <activity android:name=".Signup.SignupFinishActivity" />
         <activity android:name=".Signup.SignupPwdActivity"/>
-        <activity android:name=".StatisticalReport.StatisticalReportActivity"/>
-        <activity android:name=".MyPageActivity" />
-        <activity android:name=".EditProfileActivity" />
-        <activity android:name=".AlarmActivity" />
-        <activity android:name=".DeleteAccActivity" />
+        <activity android:name=".Mypage.EditProfileActivity" />
+        <activity android:name=".Mypage.AlarmActivity" />
+        <activity android:name=".Mypage.DeleteAccActivity" />
         <activity android:name=".SETestFinActivity" />
         <activity
             android:name=".LetterWrite.WriteLetterActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".SETestActivity" />
-        <activity android:name=".ProfileActivity" />
 
 
     </application>

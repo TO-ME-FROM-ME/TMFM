@@ -1,12 +1,13 @@
 package com.example.to_me_from_me
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.example.to_me_from_me.StatisticalReport.StatisticalReportActivity
+import com.example.to_me_from_me.Mypage.MyPageFragment
+import com.example.to_me_from_me.StatisticalReport.StatisticalReportFragment
 import com.example.to_me_from_me.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -35,6 +36,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         val colorStateList = resources.getColorStateList(R.color.navigation_item_color, theme)
         bottomNavigation.itemIconTintList = null
         bottomNavigation.itemTextColor = colorStateList
+        bottomNavigation.setOnNavigationItemSelectedListener(this)
+
 
     }
 
@@ -45,21 +48,19 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         when (item.itemId) {
             R.id.mail -> {
                 selectedFragment = FirstFragment()
-                item.setIcon(R.drawable.ic_test_main)
+                item.setIcon(R.drawable.ic_mail_s)
                 Log.d("MainActivity", " write letter 클릭 ")
             }
             R.id.data -> {
-                val intent = Intent(this, StatisticalReportActivity::class.java)
+                loadFragment(StatisticalReportFragment())
                 item.setIcon(R.drawable.ic_data_s)
-                startActivity(intent)
                 Log.d("MainActivity", " Statistical report 클릭 ")
                 return true
             }
             R.id.profile -> {
-                val intent = Intent(this, ProfileActivity::class.java)
+                loadFragment(MyPageFragment())
                 item.setIcon(R.drawable.ic_profile_s)
-                startActivity(intent)
-                Log.d("MainActivity", " profile 클릭 ")
+                Log.d("MainActivity", "profile 클릭")
                 return true
             }
         }
@@ -70,6 +71,12 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             return true
         }
         return false
+    }
+
+    private fun loadFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .commit()
     }
 
     private fun resetMenuIcons() {

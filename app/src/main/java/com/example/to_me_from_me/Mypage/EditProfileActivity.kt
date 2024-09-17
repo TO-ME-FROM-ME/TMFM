@@ -1,10 +1,12 @@
-package com.example.to_me_from_me
+package com.example.to_me_from_me.Mypage
 
 import android.content.Intent
-import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
+import com.example.to_me_from_me.MainActivity
+import com.example.to_me_from_me.ProfileImgFragment
+import com.example.to_me_from_me.R
 
 class
 EditProfileActivity : AppCompatActivity() {
@@ -20,8 +22,12 @@ EditProfileActivity : AppCompatActivity() {
         }
 
         backButton.setOnClickListener {
-            val intent = Intent(this, MyPageActivity::class.java)
+            //MyPageFragment로 이동하기
+            val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("fragmentToLoad", "MyPageFragment")
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
             startActivity(intent)
+            finish()
         }
     }
 }

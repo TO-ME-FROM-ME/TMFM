@@ -69,7 +69,7 @@ class LetterFragment : BottomSheetDialogFragment() {
             }
         })
 
-// EditText에 결합된 문자열을 설정합니다.
+        // EditText에 결합된 문자열을 설정합니다.
         letterTV.setText(spannableString)
 
         val textView = view.findViewById<TextView>(R.id.user_situation_tv)
