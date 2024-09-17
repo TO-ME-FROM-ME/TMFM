@@ -51,7 +51,19 @@ dependencies {
     implementation("androidx.annotation:annotation:1.7.1")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.1")
-    implementation("com.google.firebase:firebase-auth:23.0.0")
+
+    // Firebase BOM
+    implementation(platform("com.google.firebase:firebase-bom:33.3.0"))
+
+    // Firebase libraries
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-database-ktx")
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-messaging")
+    implementation("com.google.firebase:firebase-storage")
+    implementation ("com.google.firebase:firebase-appcheck")
+    implementation("com.google.firebase:firebase-appcheck-playintegrity:18.0.0")
+
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -59,22 +71,12 @@ dependencies {
     implementation ("androidx.fragment:fragment-ktx:1.3.0")
     implementation ("androidx.viewpager2:viewpager2:1.1.0")
 
-    //cardView
+    // CardView
     implementation ("androidx.cardview:cardview:1.0.0")
 
-    //recycleView
+    // RecyclerView
     implementation ("androidx.recyclerview:recyclerview:1.3.2")
 
-    //firebase
-    implementation(platform("com.google.firebase:firebase-bom:33.1.2"))
-    implementation("com.google.firebase:firebase-analytics")
-    implementation ("com.google.firebase:firebase-database-ktx")
-    implementation ("com.google.firebase:firebase-auth-ktx")
-    implementation ("com.google.firebase:firebase-messaging")
-    implementation ("com.google.firebase:firebase-storage")
-
-
-    // line chart
+    // Line chart
     implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
-
 }
