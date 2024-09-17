@@ -1,6 +1,5 @@
 package com.example.to_me_from_me.Signup
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -15,9 +14,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.widget.addTextChangedListener
 import com.example.to_me_from_me.R
-import com.example.to_me_from_me.SendFragment
 
 private lateinit var signupFinishFragment: SignupFinishFragment
 class SignupNicknameActivity : AppCompatActivity() {

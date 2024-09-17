@@ -2,10 +2,12 @@ package com.example.to_me_from_me.StatisticalReport
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.example.to_me_from_me.R
+import com.example.to_me_from_me.TestquitDialogFragment
 
 class StatisticalReportActivity : AppCompatActivity() {
 
@@ -41,6 +43,16 @@ class StatisticalReportActivity : AppCompatActivity() {
             updateTextViewColors(isMonthSelected = !isChecked)
             viewPager.currentItem = if (isChecked) 1 else 0
         }
+
+        // ViewPager 페이지 변경 리스너 설정
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                // Switch 상태 동기화
+                switch.isChecked = position == 1
+                updateTextViewColors(isMonthSelected = position == 0)
+            }
+        })
+
     }
 
     // TextView 색상 업데이트 메서드

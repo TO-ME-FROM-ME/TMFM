@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:fontFamily="@font/notosans"
+    android:background="@drawable/solid_no_stroke">
+
+    <ImageView
+        android:id="@+id/close_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:padding="15dp"
+        android:src="@drawable/ic_cancel" />
+
+
+    <TextView
+        android:id="@+id/storage_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="자아존중감은 이렇게 측정돼!"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@color/black"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="50dp"
+            android:paddingEnd="50dp"
+            android:layout_marginTop="20dp"
+            android:text="0~19점"
+            android:textSize="14dp"
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="50dp"
+            android:paddingEnd="50dp"
+            android:text="자존감이 매우 낮은 상태"
+            android:textSize="14dp"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="50dp"
+            android:paddingEnd="50dp"
+            android:layout_marginTop="20dp"
+            android:text="20~29점"
+            android:textSize="14dp"
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="50dp"
+            android:paddingEnd="50dp"
+            android:text="보통 수준의 자존감 상태"
+            android:textSize="14dp"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="50dp"
+            android:paddingEnd="50dp"
+            android:layout_marginTop="20dp"
+            android:text="30점 이상"
+            android:textSize="14dp"
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="50dp"
+            android:paddingEnd="50dp"
+            android:text="자신을 아끼고 사랑하는 상태"
+            android:textSize="14dp"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="※ 본 검사는 로젠버그의 자아존중감 검사 기반으로 합니다. \n 정확한 의학적인 판단은 전문가와 상담해주세요."
+            android:textSize="11dp"
+            android:layout_marginBottom="50dp"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+    </LinearLayout>
+
+</LinearLayout>

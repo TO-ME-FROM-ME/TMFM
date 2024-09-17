@@ -17,7 +17,6 @@ class LogoutDialogFragment : DialogFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.logout_dialog, container, false)
 
-
         // 다이얼로그의 닫기 버튼 설정
         val closeIv: ImageView = view.findViewById(R.id.close_iv)
         closeIv.setOnClickListener {
