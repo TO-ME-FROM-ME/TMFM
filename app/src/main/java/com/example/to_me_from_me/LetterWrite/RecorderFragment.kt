@@ -19,7 +19,6 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import com.example.to_me_from_me.R
-import com.example.to_me_from_me.SendFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.io.FileOutputStream
 import java.io.IOException

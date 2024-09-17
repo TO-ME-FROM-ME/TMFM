@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:fillViewport="true"
     tools:context=".StatisticalReport.MonthlyReportFragment">
@@ -65,6 +66,7 @@
                     android:textColor="@color/dark"
                     android:textSize="18dp"/>
                 <ImageView
+                    android:id="@+id/annual_tip1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_error" />
@@ -101,8 +103,14 @@
                     android:layout_height="wrap_content"
                     android:text="감정 통계"
                     android:layout_marginStart="20dp"
+                    android:paddingRight="10dp"
                     android:textColor="@color/dark"
                     android:textSize="18dp"/>
+                <ImageView
+                    android:id="@+id/annual_tip2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_error" />
             </LinearLayout>
 
             <ImageView
@@ -110,118 +118,148 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_line"/>
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_marginTop="60dp"
-                android:layout_marginStart="50dp"
                 android:gravity="center">
-
-                <ImageView
+                <TextView
+                    android:id="@+id/bar_chart_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_graph_rect" />
+                    android:text="100%"
+                    android:gravity="center"/>
 
-                <View
-                    android:layout_width="60dp"
-                    android:layout_height="0dp"/>
+                <com.github.mikephil.charting.charts.HorizontalBarChart
+                    android:id="@+id/bar_chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center"
+                    android:layout_gravity="center" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:orientation="vertical">
+                    android:orientation="horizontal"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center">
 
-                    <!-- First Row -->
-                    <LinearLayout
+                    <ImageView
+                        android:id="@+id/excited_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center">
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_icon_graph" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="15%"
-                            android:textSize="15dp"/>
-                    </LinearLayout>
+                        android:background="@drawable/ic_excited_report"
+                        android:clickable="true"
+                        android:focusable="true"/>
 
-                    <!-- Second Row -->
-                    <LinearLayout
+                    <ImageView
+                        android:id="@+id/happy_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center">
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_icon_graph" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="15%"
-                            android:textSize="15dp"/>
-                    </LinearLayout>
+                        android:layout_marginLeft="15dp"
+                        android:background="@drawable/ic_happy_report"
+                        android:clickable="true"
+                        android:focusable="true"/>
 
-                    <!-- Third Row -->
-                    <LinearLayout
+                    <ImageView
+                        android:id="@+id/normal_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center">
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_icon_graph" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="15%"
-                            android:textSize="15dp"/>
-                    </LinearLayout>
+                        android:layout_marginLeft="15dp"
+                        android:background="@drawable/ic_normal_report"
+                        android:clickable="true"
+                        android:focusable="true"/>
 
-                    <!-- Fourth Row -->
-                    <LinearLayout
+                    <ImageView
+                        android:id="@+id/upset_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center">
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_icon_graph" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="15%"
-                            android:textSize="15dp"/>
-                    </LinearLayout>
+                        android:layout_marginLeft="15dp"
+                        android:background="@drawable/ic_sad_report"
+                        android:clickable="true"
+                        android:focusable="true"/>
 
-                    <!-- Fifth Row -->
-                    <LinearLayout
+                    <ImageView
+                        android:id="@+id/angry_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center">
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_icon_graph" />
+                        android:layout_marginLeft="15dp"
+                        android:background="@drawable/ic_angry_report"
+                        android:clickable="true"
+                        android:focusable="true"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="20dp">
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        app:cardCornerRadius="100dp"
+                        android:backgroundTint="#FBDDCF"
+                        android:layout_marginRight="15dp"
+                        app:cardElevation="5dp">
                         <TextView
+                            android:id="@+id/adjective1"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="15%"
-                            android:textSize="15dp"/>
-                    </LinearLayout>
+                            android:layout_height="40dp"
+                            android:text="자랑스러운"
+                            android:textSize="13dp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/notosans"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"/>
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        app:cardCornerRadius="100dp"
+                        android:backgroundTint="#FBDDCF"
+                        android:layout_marginRight="15dp"
+                        app:cardElevation="5dp">
+                        <TextView
+                            android:id="@+id/adjective2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:text="자랑스러운"
+                            android:textSize="13dp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/notosans"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"/>
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        app:cardCornerRadius="100dp"
+                        android:backgroundTint="#FBDDCF"
+                        android:layout_marginRight="15dp"
+                        app:cardElevation="5dp">
+                        <TextView
+                            android:id="@+id/adjective3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:text="자랑스러운"
+                            android:textSize="13dp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/notosans"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"/>
+                    </androidx.cardview.widget.CardView>
+
                 </LinearLayout>
 
             </LinearLayout>
         </FrameLayout>
-
-
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="50dp"/>
     </LinearLayout>
 </ScrollView>
