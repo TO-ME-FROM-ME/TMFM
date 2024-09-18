@@ -35,7 +35,11 @@ class MonthAdapter(
         calendar.add(Calendar.MONTH, position) // 스크롤 시 포지션만큼 달 이동
 
         monthIv.setOnClickListener {
-            val dialogFragment = MonthPickerDialogFragment()
+            val dialogFragment = MonthPickerDialogFragment(
+                selectedYear = calendar.get(Calendar.YEAR),
+                selectedMonth = calendar.get(Calendar.MONTH)
+            )
+            Log.d("MonthPicker","넘길때 -> ${calendar.get(Calendar.YEAR)}, ${calendar.get(Calendar.MONTH)}")
             dialogFragment.setStyle(
                 DialogFragment.STYLE_NORMAL,
                 R.style.RoundedBottomSheetDialogTheme

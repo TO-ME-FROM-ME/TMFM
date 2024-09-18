@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.GridLayout
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
@@ -15,8 +16,10 @@ import androidx.fragment.app.DialogFragment
 import com.example.to_me_from_me.R
 import java.util.Calendar
 
-class MonthPickerDialogFragment : DialogFragment() {
-    private var selectedMonth: Int = Calendar.getInstance().get(Calendar.MONTH)
+class MonthPickerDialogFragment(private var selectedYear: Int, private var selectedMonth: Int) : DialogFragment() {
+//    private var selectedMonth: Int = Calendar.getInstance().get(Calendar.MONTH)
+//    private var selectedYear: Int = Calendar.getInstance().get(Calendar.YEAR)
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,10 +31,17 @@ class MonthPickerDialogFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val mainDrawable: Drawable? = ContextCompat.getDrawable(requireContext(), R.drawable.select_solid)
+        val yearBackIv = view.findViewById<ImageView>(R.id.year_back_iv)
 
+        val mainDrawable: Drawable? = ContextCompat.getDrawable(requireContext(), R.drawable.select_solid)
         val gridLayout: GridLayout = view.findViewById(R.id.month_grid)
         val monthTextViews = gridLayout.children.filterIsInstance<TextView>()
+        val monthText = view.findViewById<TextView>(R.id.year_month_text)
+
+        // 초기 연도와 월 표시
+        monthText.text = "${selectedYear}년 ${selectedMonth}월"
+
+
         monthTextViews.forEach { textView ->
             textView.setOnClickListener {
                 // 모든 TextView의 배경색상을 기본 색상으로 변경
@@ -42,8 +52,15 @@ class MonthPickerDialogFragment : DialogFragment() {
 
                 // 선택된 월 저장
                 selectedMonth = monthTextViews.indexOf(textView)+1
+                monthText.text="2024년 ${selectedMonth}월"
+
                 Log.d("MonthPicker","$selectedMonth")
             }
+        }
+
+        yearBackIv.setOnClickListener {
+            selectedYear -= 1 // 연도 감소
+            monthText.text = "${selectedYear}년 ${selectedMonth}월"
         }
 
 
@@ -51,8 +68,6 @@ class MonthPickerDialogFragment : DialogFragment() {
         cancelButton.setOnClickListener {
             dismiss()
         }
-
-
 
         val okButton: Button = view.findViewById(R.id.ok_btn)
         okButton.setOnClickListener {
