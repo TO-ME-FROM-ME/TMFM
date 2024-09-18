@@ -1,17 +1,23 @@
 package com.example.to_me_from_me.Mailbox
 
+import androidx.fragment.app.FragmentManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.to_me_from_me.R
 import java.util.Calendar
 import java.util.Date
 
-class MonthAdapter(private val onDayClickListener: (Date) -> Unit) : RecyclerView.Adapter<MonthAdapter.Month>() {
-    var calendar: Calendar = Calendar.getInstance()
+class MonthAdapter(
+    private val onDayClickListener: (Date) -> Unit,
+    private val fragmentManager: FragmentManager // FragmentManager 추가
+) : RecyclerView.Adapter<MonthAdapter.Month>() {
+
+        var calendar: Calendar = Calendar.getInstance()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Month {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_mailbox_month, parent, false)
@@ -21,10 +27,27 @@ class MonthAdapter(private val onDayClickListener: (Date) -> Unit) : RecyclerVie
     override fun onBindViewHolder(holder: Month, position: Int) {
         // 리사이클러뷰 초기화
         val listLayout = holder.view.findViewById<RecyclerView>(R.id.month_recycler)
+        val monthIv = holder.view.findViewById<View>(R.id.month_down_iv) // 월 선택 버튼
+
 
         calendar.time = Date() // 현재 날짜 초기화
         calendar.set(Calendar.DAY_OF_MONTH, 1) // 스크롤 시 현재 월의 1일로 이동
         calendar.add(Calendar.MONTH, position) // 스크롤 시 포지션만큼 달 이동
+
+
+        calendar.time = Date() // 현재 날짜 초기화
+        calendar.set(Calendar.DAY_OF_MONTH, 1)
+        calendar.add(Calendar.MONTH, position)
+
+        monthIv.setOnClickListener {
+            val dialogFragment = MonthPickerDialogFragment()
+            dialogFragment.setStyle(
+                DialogFragment.STYLE_NORMAL,
+                R.style.RoundedBottomSheetDialogTheme
+            )
+            dialogFragment.show(fragmentManager, "MonthPickerDialogFragment")
+        }
+
 
         // title 텍스트 초기화
         val titleText: TextView = holder.view.findViewById(R.id.title)

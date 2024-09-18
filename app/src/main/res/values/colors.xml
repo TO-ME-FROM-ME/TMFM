@@ -3,12 +3,14 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="main">#0D86AB</color>
-    <color name="Gray5">#FCFCFC</color>
     <color name="main2">#74D3E7</color>
     <color name="main3">#76AABA</color>
     <color name="dark">#222222</color>
     <color name="pink">#F49292</color>
+    <color name="Gray1">#666666</color>
+
     <color name="Gray3">#979797</color>
     <color name="Gray4">#E2E2E2</color>
+    <color name="Gray5">#FCFCFC</color>
     <color name="wireframe">#F6F3F8</color>
 </resources>

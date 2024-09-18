@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import com.example.to_me_from_me.LogoutDialogFragment
-import com.example.to_me_from_me.MainActivity
 import com.example.to_me_from_me.R
 
 class MyPageFragment : Fragment() {

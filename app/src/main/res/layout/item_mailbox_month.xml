@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white">
+    android:background="@drawable/ic_bg">
 
     <LinearLayout
         android:id="@+id/title_ll"
@@ -41,7 +41,7 @@
                 android:textAlignment="center" />
 
             <ImageView
-                android:id="@+id/downbtn"
+                android:id="@+id/month_down_iv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -59,7 +59,6 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="20dp"
-        android:background="@color/white"
         android:orientation="horizontal"
         android:id="@+id/month_layout"
         app:layout_constraintTop_toBottomOf="@id/title_ll">
@@ -71,7 +70,7 @@
             android:gravity="center"
             android:text="일"
             android:textSize="15dp"
-            android:textColor="#FF0000" />
+            android:textColor="@color/pink" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="0dp"
@@ -79,7 +78,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="월"
-            android:textColor="@color/black"
+            android:textColor="#8D8D8D"
             android:textSize="15dp" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -88,7 +87,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="화"
-            android:textColor="@color/black"
+            android:textColor="#8D8D8D"
             android:textSize="15dp" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -97,7 +96,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="수"
-            android:textColor="@color/black"
+            android:textColor="#8D8D8D"
             android:textSize="15dp" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -106,7 +105,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="목"
-            android:textColor="@color/black"
+            android:textColor="#8D8D8D"
             android:textSize="15dp" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -115,7 +114,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="금"
-            android:textColor="@color/black"
+            android:textColor="#8D8D8D"
             android:textSize="15dp" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -125,7 +124,7 @@
             android:gravity="center"
             android:text="토"
             android:textSize="15dp"
-            android:textColor="#0000FF" />
+            android:textColor="@color/main" />
     </LinearLayout>
 
     <!-- 달력 RecyclerView -->
