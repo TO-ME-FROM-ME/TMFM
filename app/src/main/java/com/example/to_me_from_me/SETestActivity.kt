@@ -2,6 +2,8 @@ package com.example.to_me_from_me
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -62,25 +64,33 @@ class SETestActivity : AppCompatActivity() {
         sAgreebtn.setOnClickListener {
             totalScore += 4
             sAgreebtn.background = ContextCompat.getDrawable(this, R.drawable.solid_no_main)
-            moveToNextQuestion()
+            Handler(Looper.getMainLooper()).postDelayed({
+                moveToNextQuestion()
+            }, 500)
         }
 
         agreebtn.setOnClickListener {
             totalScore += 3
             agreebtn.background = ContextCompat.getDrawable(this, R.drawable.solid_no_main)
-            moveToNextQuestion()
+            Handler(Looper.getMainLooper()).postDelayed({
+                moveToNextQuestion()
+            }, 500)
         }
 
         disagreebtn.setOnClickListener {
             totalScore += 2
             disagreebtn.background = ContextCompat.getDrawable(this, R.drawable.solid_no_main)
-            moveToNextQuestion()
+            Handler(Looper.getMainLooper()).postDelayed({
+                moveToNextQuestion()
+            }, 500)
         }
 
         sDisagreebtn.setOnClickListener {
             totalScore += 1
             sDisagreebtn.background = ContextCompat.getDrawable(this, R.drawable.solid_no_main)
-            moveToNextQuestion()
+            Handler(Looper.getMainLooper()).postDelayed({
+                moveToNextQuestion()
+            }, 500)
         }
 
         // 뒤로가기 버튼 클릭 리스너 설정
