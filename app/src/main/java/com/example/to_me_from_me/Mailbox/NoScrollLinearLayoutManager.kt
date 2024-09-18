@@ -1,4 +1,4 @@
-package com.example.to_me_from_me
+package com.example.to_me_from_me.Mailbox
 
 import android.content.Context
 import androidx.recyclerview.widget.LinearLayoutManager

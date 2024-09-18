@@ -2,17 +2,21 @@ package com.example.to_me_from_me.Mailbox
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.GridLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.fragment.app.DialogFragment
 import com.example.to_me_from_me.R
+import java.util.Calendar
 
 class MonthPickerDialogFragment : DialogFragment() {
+    private var selectedMonth: Int = Calendar.getInstance().get(Calendar.MONTH)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,8 +39,32 @@ class MonthPickerDialogFragment : DialogFragment() {
 
                 // 클릭된 TextView의 배경색상을 main 색상으로 변경
                 textView.background = mainDrawable
+
+                // 선택된 월 저장
+                selectedMonth = monthTextViews.indexOf(textView)+1
+                Log.d("MonthPicker","$selectedMonth")
             }
         }
 
+
+        val cancelButton: Button = view.findViewById(R.id.cancel_btn)
+        cancelButton.setOnClickListener {
+            dismiss()
+        }
+
+
+
+        val okButton: Button = view.findViewById(R.id.ok_btn)
+        okButton.setOnClickListener {
+            // 선택 된 월 MonthAdapter에 넘긴 후 해당 월 보여주기
+            (activity  as? MonthSelectionListener)?.onMonthSelected(selectedMonth)
+            Log.d("MonthPicker","MonthPickerDialog $selectedMonth")
+            dismiss()
+        }
+
+    }
+
+    interface MonthSelectionListener {
+        fun onMonthSelected(month: Int)
     }
 }
