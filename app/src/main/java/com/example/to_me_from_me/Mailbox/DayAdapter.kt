@@ -3,8 +3,10 @@ package com.example.to_me_from_me.Mailbox
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.to_me_from_me.R
 import java.util.*
@@ -14,18 +16,21 @@ class DayAdapter(
     private val dayList: MutableList<Date>,
     private val onDayClickListener: (Date) -> Unit // 클릭 리스너 추가
 ) : RecyclerView.Adapter<DayAdapter.DayView>() {
-    val ROW = 6
+    val ROW = 5
 
     class DayView(val layout: View) : RecyclerView.ViewHolder(layout)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DayView {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_mailbox_day, parent, false)
+
         return DayView(view)
     }
 
     override fun onBindViewHolder(holder: DayView, position: Int) {
         // 초기화
         val dayText = holder.layout.findViewById<TextView>(R.id.item_day_text)
+        val todayIv = holder.layout.findViewById<ImageView>(R.id.today_iv)
+
 
         // 날짜 표시
         val currentDate = dayList[position]
@@ -45,8 +50,11 @@ class DayAdapter(
             currentDate.year == today.get(Calendar.YEAR) - 1900 // Date의 year는 1900부터 시작
         ) {
             dayText.setTextColor(ContextCompat.getColor(holder.layout.context, android.R.color.black))
+            todayIv.isVisible=true
+
         } else {
             dayText.setTextColor(ContextCompat.getColor(holder.layout.context, R.color.Gray1)) // 다른 날짜의 기본 색상
+            todayIv.isVisible=false
         }
 
         // 날짜 클릭 이벤트 설정

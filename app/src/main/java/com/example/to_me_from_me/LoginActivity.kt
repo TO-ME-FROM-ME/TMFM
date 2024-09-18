@@ -5,15 +5,18 @@ import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputType
 import android.text.TextWatcher
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import com.example.to_me_from_me.Signup.SignupEmailActivity
 import com.example.to_me_from_me.databinding.ActivityLoginBinding
 import com.google.firebase.Firebase
@@ -36,6 +39,11 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val pwdEye = findViewById<ImageView>(R.id.eye_off)
+        var isPasswordVisible = false
+        val pwdEditText =findViewById<EditText>(R.id.login_input_pwd_et)
+        val font = ResourcesCompat.getFont(this, R.font.font_gangwon)
 
         FirebaseApp.initializeApp(this)
         val providerFactory = PlayIntegrityAppCheckProviderFactory.getInstance()
@@ -61,6 +69,24 @@ class LoginActivity : AppCompatActivity() {
         binding.signupTv.setOnClickListener {
             startActivity(Intent(this, SignupEmailActivity::class.java))
             finish() // 현재 화면 종료
+        }
+
+
+        pwdEye.setOnClickListener {
+            isPasswordVisible = !isPasswordVisible
+
+            if (isPasswordVisible) {
+                // 비밀번호 보이도록 설정
+                pwdEditText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                pwdEye.setImageResource(R.drawable.ic_eye_on)
+            } else {
+                // 비밀번호 숨기도록 설정
+                pwdEditText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                pwdEye.setImageResource(R.drawable.ic_eye_off)
+            }
+            pwdEditText.typeface = font
+            // 커서 위치 유지
+            pwdEditText.setSelection(pwdEditText.text.length)
         }
     }
 

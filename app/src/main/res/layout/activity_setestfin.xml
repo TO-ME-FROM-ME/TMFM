@@ -1,10 +1,12 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/transparent">
 
     <LinearLayout
+        android:id="@+id/linear_ll"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_marginStart="4dp"
@@ -12,7 +14,10 @@
         android:layout_marginEnd="4dp"
         android:gravity="center"
         android:background="@android:color/transparent"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <ImageView
             android:id="@+id/back_iv"
@@ -41,18 +46,14 @@
             android:src="@drawable/ic_cancel" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="110dp"/>
-
     <FrameLayout
         android:id="@+id/frameLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
-        android:layout_below="@+id/linearLayout">
+        app:layout_constraintBottom_toTopOf="@+id/test_fin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linear_ll">
 
         <ImageView
             android:layout_width="match_parent"
@@ -60,34 +61,31 @@
             android:scaleType="fitXY"
             android:src="@drawable/ic_test_finish" />
 
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="고생많았어!\n 이제 검사를 끝낼까?"
             android:layout_gravity="center"
             android:gravity="center"
-            android:textSize="18dp"
-            android:textColor="@color/black"/>
+            android:text="고생많았어!\n 이제 검사를 끝낼까?"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
     </FrameLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/frameLayout2"
-        android:orientation="vertical"
-        android:padding="20dp">
-
-        <Button
-            android:id="@+id/test_fin"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/solid_no_main10"
-            android:elevation="6dp"
-            android:gravity="center"
-            android:text="검사결과 받기"
-            android:textColor="@color/white"
-            android:textSize="17sp" />
-    </LinearLayout>
-</RelativeLayout >
+    <Button
+        android:id="@+id/test_fin"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="25dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:gravity="center"
+        android:background="@drawable/solid_no_main"
+        android:elevation="6dp"
+        android:textSize="17sp"
+        android:textColor="@color/white"
+        android:text="검사결과 받기"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -25,7 +25,7 @@
 
         <!-- Main Activity -->
         <activity
-            android:name=".SETestActivity"
+            android:name=".Mailbox.MailboxActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.TO_ME_FROM_ME">
@@ -37,7 +37,6 @@
 
         <!-- Other -->
         <activity android:name=".Signup.SignupNicknameActivity" />
-<!--        <activity android:name=".LoginActivity" />-->
         <activity android:name=".LoginActivity"/>
         <activity android:name=".Signup.SignupEmailActivity"/>
         <activity android:name=".Signup.SignupFinishActivity" />
@@ -45,6 +44,7 @@
         <activity android:name=".Mypage.EditProfileActivity" />
         <activity android:name=".Mypage.AlarmActivity" />
         <activity android:name=".Mypage.DeleteAccActivity" />
+        <activity android:name=".SETestActivity"/>
         <activity android:name=".SETestFinActivity" />
         <activity
             android:name=".LetterWrite.WriteLetterActivity"

@@ -35,10 +35,6 @@ class MonthAdapter(
         calendar.add(Calendar.MONTH, position) // 스크롤 시 포지션만큼 달 이동
 
 
-        calendar.time = Date() // 현재 날짜 초기화
-        calendar.set(Calendar.DAY_OF_MONTH, 1)
-        calendar.add(Calendar.MONTH, position)
-
         monthIv.setOnClickListener {
             val dialogFragment = MonthPickerDialogFragment()
             dialogFragment.setStyle(
@@ -55,7 +51,7 @@ class MonthAdapter(
 
         val tempMonth = calendar.get(Calendar.MONTH)
 
-        // 6주 7일로 날짜를 표시
+        // 5주 7일로 날짜를 표시
         val dayList: MutableList<Date> = MutableList(6 * 7) { Date() }
         for (i in 0..5) { // 주
             for (k in 0..6) { // 요일

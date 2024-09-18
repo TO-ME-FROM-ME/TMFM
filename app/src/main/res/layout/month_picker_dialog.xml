@@ -5,25 +5,46 @@
     android:background="@drawable/round_corner_all"
     android:orientation="vertical">
 
-    <!-- 상단에 년/월을 표시하는 TextView -->
-    <TextView
-        android:id="@+id/year_month_text"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="2024년 9월"
-        android:paddingStart="50dp"
-        android:paddingEnd="50dp"
-        android:textSize="18sp"
+        android:orientation="horizontal"
         android:gravity="center"
         android:layout_gravity="center"
-        android:padding="8dp" />
+        android:layout_marginTop="10dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp">
 
-    <!-- 3x4 그리드 형태로 월을 표시하는 GridLayout -->
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_vertical"
+            android:src="@drawable/ic_left"/>
+        <TextView
+            android:id="@+id/year_month_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2024년 9월"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:fontFamily="@font/bnotosans"
+            android:layout_weight="2"
+            android:padding="8dp" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:src="@drawable/ic_right"/>
+    </LinearLayout>
+
+
     <GridLayout
         android:id="@+id/month_grid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_weight="1"
         android:columnCount="3"
         android:rowCount="4"
         android:padding="10dp">
@@ -37,6 +58,7 @@
             android:textSize="16sp"
             android:padding="8dp"
             android:background="@drawable/solid_no_stroke"
+            android:textColor="@color/black"
             android:clickable="true"
             android:focusable="true" />
         <TextView
@@ -49,6 +71,7 @@
             android:textSize="16sp"
             android:padding="8dp"
             android:background="@drawable/solid_no_stroke"
+            android:textColor="@color/black"
             android:clickable="true"
             android:focusable="true" />
         <TextView
@@ -60,6 +83,8 @@
             android:gravity="center"
             android:textSize="16sp"
             android:padding="8dp"
+            android:background="@drawable/solid_no_stroke"
+            android:textColor="@color/black"
             android:clickable="true"
             android:focusable="true" />
         <TextView
@@ -72,6 +97,7 @@
             android:textSize="16sp"
             android:padding="8dp"
             android:background="@drawable/solid_no_stroke"
+            android:textColor="@color/black"
             android:clickable="true"
             android:focusable="true" />
         <TextView
@@ -84,6 +110,7 @@
             android:textSize="16sp"
             android:padding="8dp"
             android:background="@drawable/solid_no_stroke"
+            android:textColor="@color/black"
             android:clickable="true"
             android:focusable="true" />
         <TextView
@@ -95,6 +122,8 @@
             android:gravity="center"
             android:textSize="16sp"
             android:padding="8dp"
+            android:background="@drawable/solid_no_stroke"
+            android:textColor="@color/black"
             android:clickable="true"
             android:focusable="true" />
         <TextView
@@ -107,6 +136,7 @@
             android:textSize="16sp"
             android:padding="8dp"
             android:background="@drawable/solid_no_stroke"
+            android:textColor="@color/black"
             android:clickable="true"
             android:focusable="true" />
         <TextView
@@ -119,6 +149,7 @@
             android:textSize="16sp"
             android:padding="8dp"
             android:background="@drawable/solid_no_stroke"
+            android:textColor="@color/black"
             android:clickable="true"
             android:focusable="true" />
         <TextView
@@ -130,20 +161,23 @@
             android:gravity="center"
             android:textSize="16sp"
             android:padding="8dp"
+            android:background="@drawable/solid_no_stroke"
+            android:textColor="@color/black"
             android:clickable="true"
             android:focusable="true" />
-        <TextView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_columnWeight="1"
-        android:layout_rowWeight="1"
-        android:text="10월"
-        android:gravity="center"
-        android:textSize="16sp"
-        android:padding="8dp"
-        android:background="@drawable/solid_no_stroke"
-        android:clickable="true"
-        android:focusable="true" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:text="10월"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:padding="8dp"
+                android:background="@drawable/solid_no_stroke"
+                android:textColor="@color/black"
+                android:clickable="true"
+                android:focusable="true" />
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -154,6 +188,7 @@
             android:textSize="16sp"
             android:padding="8dp"
             android:background="@drawable/solid_no_stroke"
+            android:textColor="@color/black"
             android:clickable="true"
             android:focusable="true" />
         <TextView
@@ -165,6 +200,8 @@
             android:gravity="center"
             android:textSize="16sp"
             android:padding="8dp"
+            android:background="@drawable/solid_no_stroke"
+            android:textColor="@color/black"
             android:clickable="true"
             android:focusable="true" />
 

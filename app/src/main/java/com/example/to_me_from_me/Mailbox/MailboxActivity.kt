@@ -1,10 +1,10 @@
 package com.example.to_me_from_me.Mailbox
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.to_me_from_me.NoScrollLinearLayoutManager
 import com.example.to_me_from_me.databinding.ActivityMailboxBinding
 import java.util.Date
 
@@ -34,9 +34,10 @@ class MailboxActivity : AppCompatActivity() {
             fragmentManager = supportFragmentManager // FragmentManager 전달
         )
 
-        binding.calRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        binding.calRecycler.adapter = adapter
-        binding.calRecycler.scrollToPosition(position)
+        // 커스텀 LinearLayoutManager 생성 및 설정
+        recyclerView.layoutManager = NoScrollLinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        recyclerView.adapter = adapter
+        recyclerView.scrollToPosition(position) // 중앙으로 스크롤 위치 설정
     }
 
     private fun showNullMailboxFragment(selectedDate: Date) {
