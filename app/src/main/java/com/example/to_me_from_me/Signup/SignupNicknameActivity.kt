@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -15,12 +16,20 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.example.to_me_from_me.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 private lateinit var signupFinishFragment: SignupFinishFragment
 class SignupNicknameActivity : AppCompatActivity() {
+    private lateinit var auth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup_nickname)
+
+        auth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
 
         val nicknameEditText = findViewById<EditText>(R.id.nickname_et)
         val signupBtn = findViewById<Button>(R.id.signup_btn)
@@ -70,7 +79,25 @@ class SignupNicknameActivity : AppCompatActivity() {
                 showToast(toastLayout2, nicknameEditText, 700)
             }
             else {
-                signupFinishFragment.show(supportFragmentManager, "SignupFinishFragment")
+                // Firebase Authentication을 통해 사용자 등록
+                if (email != null) {
+                    if (pwd != null) {
+                        auth.createUserWithEmailAndPassword(email, pwd)
+                            .addOnCompleteListener(this) { task ->
+                                if (task.isSuccessful) {
+                                    // Firebase Authentication에 사용자 추가 성공
+                                    val user = auth.currentUser
+                                    if (user != null) {
+                                        // Firestore에 사용자 정보 저장
+                                        saveUserToFirestore(user.uid, email, nickname)
+                                    }
+                                } else {
+                                    // 회원가입 실패
+                                    Log.w("Signup", "createUserWithEmail:failure", task.exception)
+                                }
+                            }
+                    }
+                }
             }
         }
 
@@ -99,6 +126,25 @@ class SignupNicknameActivity : AppCompatActivity() {
 
 
 
+    }
+
+    private fun saveUserToFirestore(userId: String, email: String, nickname: String) {
+        val user = hashMapOf(
+            "email" to email,
+            "nickname" to nickname
+        )
+
+        firestore.collection("users").document(userId)
+            .set(user)
+            .addOnSuccessListener {
+                Log.d("Firestore", "User data successfully written!")
+                // 회원가입 성공 후 다음 화면으로 이동
+                signupFinishFragment.show(supportFragmentManager, "SignupFinishFragment")
+            }
+            .addOnFailureListener { e ->
+                Log.w("Firestore", "Error writing user data", e)
+                Toast.makeText(this, "Firestore 저장 실패", Toast.LENGTH_SHORT).show()
+            }
     }
 
     private fun showToast(layout: View, writeEditText: EditText, duration: Int) {
