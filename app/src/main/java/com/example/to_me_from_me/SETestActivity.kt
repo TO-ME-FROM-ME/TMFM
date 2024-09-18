@@ -121,10 +121,10 @@ class SETestActivity : AppCompatActivity() {
     }
 
     private fun resetButtonBackgrounds() {
-        sAgreebtn.background = ContextCompat.getDrawable(this, R.drawable.solid_no_gray)
-        agreebtn.background = ContextCompat.getDrawable(this, R.drawable.solid_no_gray)
-        disagreebtn.background = ContextCompat.getDrawable(this, R.drawable.solid_no_gray)
-        sDisagreebtn.background = ContextCompat.getDrawable(this, R.drawable.solid_no_gray)
+        sAgreebtn.background = ContextCompat.getDrawable(this, R.drawable.solid_no_white)
+        agreebtn.background = ContextCompat.getDrawable(this, R.drawable.solid_no_white)
+        disagreebtn.background = ContextCompat.getDrawable(this, R.drawable.solid_no_white)
+        sDisagreebtn.background = ContextCompat.getDrawable(this, R.drawable.solid_no_white)
     }
 
     private fun showTotalScore() {

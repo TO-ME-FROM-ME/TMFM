@@ -58,7 +58,7 @@ class SignupEmailActivity : AppCompatActivity() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 // 텍스트가 변경되는 동안 호출
-                if(start >0){
+                if(!s.isNullOrEmpty()){
                     emailCodeButton.background = mainColor
                     emailEditText.background = ContextCompat.getDrawable(this@SignupEmailActivity, R.drawable.solid_stroke_q)
                 }else{
@@ -105,7 +105,7 @@ class SignupEmailActivity : AppCompatActivity() {
 
         layout.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
 
-        val yOffset = location[1] -(-50) -layout.measuredHeight
+        val yOffset = location[1] -(30) -layout.measuredHeight
         toast.setGravity(Gravity.TOP or Gravity.END, location[0], yOffset)
         toast.view = layout
 

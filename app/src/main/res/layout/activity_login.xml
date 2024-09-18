@@ -15,20 +15,21 @@
         android:layout_height="wrap_content"
         android:textSize="30dp"
         android:textStyle="bold"
+        android:textColor="@color/black"
         android:text="TO ME FROM ME" />
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_marginTop="30dp"
-        android:src="@drawable/ic_ra"/>
-
+        android:src="@drawable/ic_login_img"/>
 
     <EditText
         android:id="@+id/login_input_id_et"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:hint="아이디를 입력해 주세요."
+        android:hint="이메일"
+        android:fontFamily="@font/font_gangwon"
         android:background="@drawable/solid_stroke_q"
         android:textSize="16dp"
         android:layout_marginTop="30dp"
@@ -41,7 +42,8 @@
             android:id="@+id/login_input_pwd_et"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:hint="비밀번호를 입력해 주세요."
+            android:hint="비밀번호"
+            android:fontFamily="@font/font_gangwon"
             android:inputType="textPassword"
             android:background="@drawable/solid_stroke_q"
             android:layout_marginTop="15dp"
@@ -80,10 +82,10 @@
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
         android:gravity="center"
-        android:background="@drawable/round_corner_all"
+        android:background="@drawable/solid_no_gray"
         android:elevation="15dp"
         android:textSize="17sp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:text="로그인"/>
 
 

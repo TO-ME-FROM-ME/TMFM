@@ -1,18 +1,20 @@
 package com.example.to_me_from_me.Mailbox
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.to_me_from_me.R
 import com.example.to_me_from_me.databinding.ActivityMailboxBinding
+import java.util.Calendar
 import java.util.Date
 
-class MailboxActivity : AppCompatActivity() {
+class MailboxActivity : AppCompatActivity(), MonthPickerDialogFragment.MonthSelectionListener {
 
     private lateinit var binding: ActivityMailboxBinding
     private lateinit var recyclerView: RecyclerView
-    private lateinit var nullMailboxFragment: NullMailboxFragment
+    private var adapter: MonthAdapter? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,26 +23,35 @@ class MailboxActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initView(binding)
-        createDate()
     }
 
-    private fun createDate() {
-        binding.calRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-    }
+
 
     private fun initView(binding: ActivityMailboxBinding) {
         recyclerView = binding.calRecycler
         val position: Int = Int.MAX_VALUE / 2
 
-        // MonthAdapter에 클릭 리스너 추가
-        val adapter = MonthAdapter { clickedDate ->
-            showNullMailboxFragment(clickedDate) // 날짜 클릭 시 바텀시트 표시
-        }
+        // 멤버 변수인 adapter 초기화
+        adapter = MonthAdapter(
+            onDayClickListener = { clickedDate ->
+                showNullMailboxFragment(clickedDate) // 날짜 클릭 시 바텀시트 표시
+            },
+            fragmentManager = supportFragmentManager // FragmentManager 전달
+        )
 
-        binding.calRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        binding.calRecycler.adapter = adapter
-        binding.calRecycler.scrollToPosition(position)
+        // 커스텀 LinearLayoutManager 생성 및 설정
+        recyclerView.layoutManager = NoScrollLinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        recyclerView.adapter = adapter
+        recyclerView.scrollToPosition(position)
     }
+
+    override fun onMonthSelected(month: Int) {
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.MONTH, month - 1)
+        adapter?.setCurrentMonth(calendar.time)
+        Log.d("MonthPicker", "Mailbox Activity : ${calendar.time}")
+    }
+
 
     private fun showNullMailboxFragment(selectedDate: Date) {
         val nullMailboxFragment = NullMailboxFragment()
@@ -52,4 +63,5 @@ class MailboxActivity : AppCompatActivity() {
 
         nullMailboxFragment.show(supportFragmentManager, nullMailboxFragment.tag)
     }
+
 }

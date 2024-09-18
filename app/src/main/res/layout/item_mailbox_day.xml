@@ -1,26 +1,43 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/item_day_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
-    android:layout_marginRight="5dp"
-    android:orientation="vertical"
-    android:background="@color/white">
+    android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:gravity="center"
-        android:layout_marginLeft="18dp"
-        android:src="@drawable/ic_test_box" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/item_day_text"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:gravity="center"
-        android:textSize="11dp"
-        android:text="9"
-        android:layout_marginLeft="18dp"
-        android:textColor="@color/dark"/>
+        <ImageView
+            android:id="@+id/today_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:gravity="center"
+            android:visibility="gone"
+            android:src="@drawable/ic_today"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            app:cardCornerRadius="60dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="12dp"
+            app:cardBackgroundColor="#FFFFFF" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/item_day_text"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:layout_marginTop="35dp"
+            android:textSize="13dp"
+            android:text="9"
+            android:layout_marginLeft="12dp"
+            android:textColor="@color/Gray1"/>
+
+    </FrameLayout>
+
 </LinearLayout>
