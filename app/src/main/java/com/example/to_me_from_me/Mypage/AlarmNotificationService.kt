@@ -1,4 +1,4 @@
-package com.example.to_me_from_me
+package com.example.to_me_from_me.Mypage
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -9,6 +9,8 @@ import android.os.Build
 import android.service.notification.NotificationListenerService
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import com.example.to_me_from_me.MainActivity
+import com.example.to_me_from_me.R
 
 class AlarmNotificationService : NotificationListenerService() {
 

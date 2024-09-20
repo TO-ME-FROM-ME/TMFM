@@ -1,6 +1,7 @@
 package com.example.to_me_from_me.Mypage
 
 import android.Manifest
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
@@ -15,13 +16,10 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.to_me_from_me.AlarmNotificationService
-import com.example.to_me_from_me.AlarmTimeDialogFragment
 import com.example.to_me_from_me.MainActivity
 import com.example.to_me_from_me.R
-import com.example.to_me_from_me.SharedViewModel
-import java.text.ParseException
 import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
 
 class AlarmActivity : AppCompatActivity() {
@@ -30,6 +28,7 @@ class AlarmActivity : AppCompatActivity() {
 
     companion object {
         private const val REQUEST_NOTIFICATION_PERMISSION = 2001
+        private const val REQUEST_TIME_PICKER = 1001 // 시간 선택 요청 코드
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +41,9 @@ class AlarmActivity : AppCompatActivity() {
         val backButton: ImageView = findViewById(R.id.back_iv)
         val alarmTime = findViewById<ImageView>(R.id.time_set_iv)
         val switchAll: Switch = findViewById(R.id.switch_all)
+        val switchService: Switch = findViewById(R.id.switch_service)
+        val switchLetter: Switch = findViewById(R.id.switch_letter)
+        val switchRemind: Switch = findViewById(R.id.switch_remind)
         val switchAllOnLayout: LinearLayout = findViewById(R.id.switch_all_on)
 
         switchAllOnLayout.visibility = LinearLayout.GONE
@@ -60,19 +62,43 @@ class AlarmActivity : AppCompatActivity() {
             dialogFragment.show(supportFragmentManager, "AlarmTimeDialogFragment")
         }
 
-        viewModel.selectedData.observe(this, Observer { data ->
-            Log.d("selectedTime", "AlarmActivity: $data")
-            startAlarmService(convertTimeToString(data))
-            Log.d("selectedTime", "timeInMillis: $data")
+        // ViewModel의 selectedTime을 관찰
+        viewModel.selectedTime.observe(this, Observer { timeInMillis ->
+            val formattedTime = convertMillisToTime(timeInMillis)
+            timeSetTextview.text = formattedTime
+            Log.d("selectedTime", "formattedTime: $formattedTime")
+            startAlarmService(formattedTime)
         })
 
 
+
         switchAll.setOnCheckedChangeListener { _, isChecked ->
-            switchAllOnLayout.visibility = if (isChecked) LinearLayout.VISIBLE else LinearLayout.GONE
+            switchAllOnLayout.visibility = if (isChecked) {
+                LinearLayout.VISIBLE
+            } else LinearLayout.GONE
+            switchService.isChecked = true
+            switchLetter.isChecked = true
+            switchRemind.isChecked = true
+
         }
 
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_TIME_PICKER && resultCode == Activity.RESULT_OK) {
+            data?.getLongExtra("selected_time", System.currentTimeMillis())?.let { timeInMillis ->
+                // ViewModel을 통해 선택한 시간 저장
+                viewModel.setSelectedTime(timeInMillis)
+            }
+        }
+    }
+
+    private fun convertMillisToTime(timeInMillis: Long): String {
+        val dateFormat = SimpleDateFormat("a hh시 mm분", Locale.getDefault())
+        val date = Date(timeInMillis)
+        return dateFormat.format(date)
+    }
     private fun checkNotificationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
@@ -89,10 +115,6 @@ class AlarmActivity : AppCompatActivity() {
         ContextCompat.startForegroundService(this, serviceIntent) // 포그라운드 서비스 시작
     }
 
-
-    private fun convertTimeToString(time: String?): String {
-        return time ?: "00:00" // 기본값 설정
-    }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)

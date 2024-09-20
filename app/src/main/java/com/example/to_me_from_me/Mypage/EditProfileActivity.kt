@@ -6,11 +6,13 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.FragmentResultListener
 import com.example.to_me_from_me.MainActivity
 import com.example.to_me_from_me.R
 
@@ -31,11 +33,21 @@ EditProfileActivity : AppCompatActivity() {
         val pwdEye = findViewById<ImageView>(R.id.pwd_eye_iv)
         val pwdCountTextView = findViewById<TextView>(R.id.char_count_tv)
 
+
+
+
         profileimg.setOnClickListener {
             val profileImgFragment = ProfileImgFragment()
             profileImgFragment.show(supportFragmentManager, profileImgFragment.tag)
         }
 
+        supportFragmentManager.setFragmentResultListener("profileImgKey", this, FragmentResultListener { requestKey, bundle ->
+            if (requestKey == "profileImgKey") {
+                val selectedImgResId = bundle.getInt("selectedImgResId", R.drawable.ic_profile_01_s)
+                Log.d("이미지","profileImgKey : $selectedImgResId")
+                profileimg.setImageResource(selectedImgResId)
+            }
+        })
 
 
 
