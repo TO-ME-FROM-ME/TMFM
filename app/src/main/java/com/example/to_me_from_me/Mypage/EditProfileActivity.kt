@@ -15,9 +15,19 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.FragmentResultListener
 import com.example.to_me_from_me.MainActivity
 import com.example.to_me_from_me.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class
 EditProfileActivity : AppCompatActivity() {
+
+    private lateinit var auth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
+    private lateinit var nicknameET: EditText
+    private lateinit var emailET: EditText
+    private lateinit var pwdET: EditText
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_editprofile)
@@ -29,12 +39,17 @@ EditProfileActivity : AppCompatActivity() {
 
         // 비밀번호 가시성 상태를 저장하는 변수
         var isPasswordVisible = false
-        val pwdEditText = findViewById<EditText>(R.id.pwd_et)
         val pwdEye = findViewById<ImageView>(R.id.pwd_eye_iv)
         val pwdCountTextView = findViewById<TextView>(R.id.char_count_tv)
 
+        auth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
 
+        nicknameET = findViewById(R.id.nickname_et)
+        emailET = findViewById(R.id.email_et)
+        pwdET = findViewById(R.id.pwd_et)
 
+        loadUserProfile()
 
         profileimg.setOnClickListener {
             val profileImgFragment = ProfileImgFragment()
@@ -58,20 +73,20 @@ EditProfileActivity : AppCompatActivity() {
 
             if (isPasswordVisible) {
                 // 비밀번호 보이도록 설정
-                pwdEditText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                pwdET.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
                 pwdEye.setImageResource(R.drawable.ic_eye_on)
             } else {
                 // 비밀번호 숨기도록 설정
-                pwdEditText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                pwdET.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
                 pwdEye.setImageResource(R.drawable.ic_eye_off)
             }
             // 비밀번호 글씨체 유지
-            pwdEditText.typeface = font
+            pwdET.typeface = font
 
             // 커서 위치 유지
-            pwdEditText.setSelection(pwdEditText.text.length)
+            pwdET.setSelection(pwdET.text.length)
         }
-        pwdEditText.addTextChangedListener(object : TextWatcher {
+        pwdET.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
@@ -79,18 +94,15 @@ EditProfileActivity : AppCompatActivity() {
                 if(!s.isNullOrEmpty()){
                     val charCount = s?.length ?: 0
                     pwdCountTextView.text = "$charCount"
-                    pwdEditText.background = ContextCompat.getDrawable(this@EditProfileActivity, R.drawable.solid_over_txt)
+                    pwdET.background = ContextCompat.getDrawable(this@EditProfileActivity, R.drawable.solid_over_txt)
                 }else{
-                    pwdEditText.background = ContextCompat.getDrawable(this@EditProfileActivity, R.drawable.solid_stroke_q)
+                    pwdET.background = ContextCompat.getDrawable(this@EditProfileActivity, R.drawable.solid_stroke_q)
                 }
             }
 
             override fun afterTextChanged(s: Editable?) {1
             }
         })
-
-
-
 
 
         backButton.setOnClickListener {
@@ -102,4 +114,31 @@ EditProfileActivity : AppCompatActivity() {
             finish()
         }
     }
+    private fun loadUserProfile() {
+        val user = auth.currentUser
+
+        if (user != null) {
+            // Firestore에서 사용자 문서 참조
+            val userRef = firestore.collection("users").document(user.uid)
+
+            userRef.get()
+                .addOnSuccessListener { document ->
+                    if (document != null && document.exists()) {
+                        // Firestore에서 닉네임, 이메일, 비밀번호 가져오기
+                        val nickname = document.getString("nickname")
+                        val email = document.getString("email")
+                        val password = document.getString("password")
+
+                        // EditText에 값 설정
+                        nicknameET.setText(nickname)
+                        emailET.setText(email)
+                        pwdET.setText(password)
+                    }
+                }
+                .addOnFailureListener { e ->
+                    Log.w("EditProfile", "사용자 정보를 불러오지 못했습니다.", e)
+                }
+        }
+    }
+
 }

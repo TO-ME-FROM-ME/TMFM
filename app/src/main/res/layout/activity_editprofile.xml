@@ -137,7 +137,7 @@
                     android:fontFamily="@font/font_gangwon"
                     android:background="@drawable/solid_stroke_q"
                     android:padding="15dp"
-                    android:inputType="textPassword" />
+                    android:inputType="textEmailAddress" />
             </FrameLayout>
         </LinearLayout>
 

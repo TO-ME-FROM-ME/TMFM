@@ -89,7 +89,7 @@ class SignupNicknameActivity : AppCompatActivity() {
                                     val user = auth.currentUser
                                     if (user != null) {
                                         // Firestore에 사용자 정보 저장
-                                        saveUserToFirestore(user.uid, email, nickname)
+                                        saveUserToFirestore(user.uid, email, nickname, pwd)
                                     }
                                 } else {
                                     // 회원가입 실패
@@ -133,10 +133,11 @@ class SignupNicknameActivity : AppCompatActivity() {
 
     }
 
-    private fun saveUserToFirestore(userId: String, email: String, nickname: String) {
+    private fun saveUserToFirestore(userId: String, email: String, nickname: String, password: String) {
         val user = hashMapOf(
             "email" to email,
-            "nickname" to nickname
+            "nickname" to nickname,
+            "password" to password
         )
 
         firestore.collection("users").document(userId)
