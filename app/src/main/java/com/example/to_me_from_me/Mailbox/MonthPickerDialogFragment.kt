@@ -17,9 +17,6 @@ import com.example.to_me_from_me.R
 import java.util.Calendar
 
 class MonthPickerDialogFragment(private var selectedYear: Int, private var selectedMonth: Int) : DialogFragment() {
-//    private var selectedMonth: Int = Calendar.getInstance().get(Calendar.MONTH)
-//    private var selectedYear: Int = Calendar.getInstance().get(Calendar.YEAR)
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -87,7 +87,7 @@
         android:elevation="6dp"
         android:textSize="17sp"
         android:textColor="@color/white"
-        android:text="검사결과 받기"
+        android:text="투미프롬미 둘러보기"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

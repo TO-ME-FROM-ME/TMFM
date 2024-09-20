@@ -50,6 +50,7 @@
         <activity android:name=".Mypage.DeleteAccActivity" />
         <activity android:name=".Mailbox.MailboxActivity" />
         <activity android:name=".LoginActivity"/>
+        <activity android:name=".MainAlarm.MainAlarmActivity"/>
         <activity android:name=".SetTest.SETestFinActivity" />
         <activity
             android:name=".LetterWrite.WriteLetterActivity"

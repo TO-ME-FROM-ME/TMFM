@@ -1,10 +1,12 @@
 package com.example.to_me_from_me.LetterWrite
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
+import com.example.to_me_from_me.MainActivity
 import com.example.to_me_from_me.R
 
 class WriteLetterActivity : AppCompatActivity() {
@@ -20,6 +22,9 @@ class WriteLetterActivity : AppCompatActivity() {
         val backButton: ImageView = findViewById(R.id.back_iv)
         backButton.setOnClickListener {
             supportFragmentManager.popBackStack()
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
 
         val saveButton: ImageView = findViewById(R.id.save_iv)
