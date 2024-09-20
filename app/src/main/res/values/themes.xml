@@ -8,7 +8,7 @@
         <item name="android:buttonStyle">@style/customButtonFontStyle</item>
         <item name="android:radioButtonStyle">@style/customRadioButtonFontStyle</item>
         <item name="android:checkboxStyle">@style/customCheckboxFontStyle</item>
-
+        <item name="android:fontFamily">@font/notosans</item>
     </style>
 
     <style name="Theme.TO_ME_FROM_ME" parent="Base.Theme.TO_ME_FROM_ME" />

@@ -7,7 +7,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import com.example.to_me_from_me.R
-import com.example.to_me_from_me.SETestActivity
+import com.example.to_me_from_me.SetTest.SETestActivity
 
 class SignupFinishActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

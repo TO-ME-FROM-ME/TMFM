@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.example.to_me_from_me.LetterWrite.SaveDialogFragment
 import com.example.to_me_from_me.LetterWrite.WriteLetterActivity
+import com.example.to_me_from_me.Mailbox.MailboxActivity
 
 class HomeDialogFragment : DialogFragment() {
     private var fragmentTag: String? = null
@@ -72,7 +73,9 @@ class HomeDialogFragment : DialogFragment() {
         // 다른 뷰들 초기화 및 설정
         val mailBoxIv: RelativeLayout = view.findViewById(R.id.mailbox_iv)
         mailBoxIv.setOnClickListener {
-            Toast.makeText(requireContext(), "편지함 버튼 클릭", Toast.LENGTH_SHORT).show()
+            val intent = Intent(requireContext(), MailboxActivity::class.java)
+            startActivity(intent)
+            activity?.finish()
         }
     }
 

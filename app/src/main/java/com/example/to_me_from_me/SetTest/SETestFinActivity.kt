@@ -1,4 +1,4 @@
-package com.example.to_me_from_me
+package com.example.to_me_from_me.SetTest
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
+import com.example.to_me_from_me.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -22,6 +23,10 @@ class SETestFinActivity : AppCompatActivity() {
 
         val totalScore = intent.getIntExtra("totalScore", 0) // 기본값 0 설정
         Log.d("totalScore" ,"totalScore : $totalScore")
+
+        val saveButton = findViewById<ImageView>(R.id.save_iv)
+        val dialog = TestquitDialogFragment()
+        dialog.show(supportFragmentManager, "TestDialogFragment")
 
 
         val backButton = findViewById<ImageView>(R.id.back_iv)

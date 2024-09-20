@@ -146,9 +146,14 @@ class SignupPwdActivity : AppCompatActivity() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 // 텍스트가 변경될 때마다 글자 수 업데이트
-                val charCount = s?.length ?: 0
-                charCountTextView.text = "$charCount"
-                validatePasswords()
+                if(!s.isNullOrEmpty()){
+                    val charCount = s?.length ?: 0
+                    charCountTextView.text = "$charCount"
+                    pwdEditText.background = ContextCompat.getDrawable(this@SignupPwdActivity, R.drawable.solid_over_txt)
+                    validatePasswords()
+                }else{
+                    pwdEditText.background = ContextCompat.getDrawable(this@SignupPwdActivity, R.drawable.solid_stroke_q)
+                }
             }
 
             override fun afterTextChanged(s: Editable?) {1
@@ -160,9 +165,15 @@ class SignupPwdActivity : AppCompatActivity() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 // 텍스트가 변경될 때마다 글자 수 업데이트
-                val charCount = s?.length ?: 0
-                charReCountTextView.text = "$charCount"
-                validatePasswords()
+                if(!s.isNullOrEmpty()){
+                    val charCount = s?.length ?: 0
+                    charReCountTextView.text = "$charCount"
+                    pwdReEditText.background = ContextCompat.getDrawable(this@SignupPwdActivity, R.drawable.solid_over_txt)
+                    validatePasswords()
+                }else{
+                    pwdReEditText.background = ContextCompat.getDrawable(this@SignupPwdActivity, R.drawable.solid_stroke_q)
+                }
+
             }
 
             override fun afterTextChanged(s: Editable?) {

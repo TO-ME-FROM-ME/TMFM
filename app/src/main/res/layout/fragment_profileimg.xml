@@ -1,10 +1,9 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent"
-    tools:context=".ProfileImgFragment">
+    tools:context=".Mypage.ProfileImgFragment">
 
     <LinearLayout
         android:id="@+id/bottom_sheet"
@@ -26,74 +25,66 @@
             android:textSize="24dp"
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:gravity="center"/>
+            android:gravity="center" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="25dp" />
 
-        <FrameLayout
-            android:id="@+id/frame_layout"
+        <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="20dp">
+            android:scrollbars="none"
+            android:padding="10dp">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <androidx.viewpager2.widget.ViewPager2
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
                 <ImageView
                     android:id="@+id/excited_img"
-                    android:layout_width="110dp"
-                    android:layout_height="110dp"
-                    android:background="@drawable/solid_no_gray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_profile_01_s"
                     android:clickable="true"
                     android:focusable="true" />
 
                 <ImageView
                     android:id="@+id/happy_img"
-                    android:layout_width="110dp"
-                    android:layout_height="110dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="25dp"
-                    android:background="@drawable/solid_no_gray"
+                    android:background="@drawable/ic_profile_02"
                     android:clickable="true"
                     android:focusable="true" />
 
                 <ImageView
                     android:id="@+id/normal_img"
-                    android:layout_width="110dp"
-                    android:layout_height="110dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="25dp"
-                    android:background="@drawable/solid_no_gray"
+                    android:background="@drawable/ic_profile_03"
                     android:clickable="true"
                     android:focusable="true" />
 
                 <ImageView
                     android:id="@+id/upset_img"
-                    android:layout_width="110dp"
-                    android:layout_height="110dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="25dp"
-                    android:background="@drawable/solid_no_gray"
+                    android:background="@drawable/ic_profile_04"
                     android:clickable="true"
                     android:focusable="true" />
 
                 <ImageView
                     android:id="@+id/angry_img"
-                    android:layout_width="110dp"
-                    android:layout_height="110dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="25dp"
-                    android:background="@drawable/solid_no_gray"
+                    android:background="@drawable/ic_profile_05"
                     android:clickable="true"
                     android:focusable="true" />
 
             </LinearLayout>
-        </FrameLayout>
+        </HorizontalScrollView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -101,17 +92,17 @@
             android:padding="20dp">
 
             <Button
-                android:id="@+id/next_btn"
+                android:id="@+id/ok_btn"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginBottom="5dp"
                 android:gravity="center"
-                android:background="@drawable/solid_no_gray"
+                android:background="@drawable/solid_no_main"
+                android:textColor="@color/white"
                 android:elevation="2dp"
                 android:textSize="17sp"
-                android:textColor="@color/black"
-                android:text="확인"/>
+                android:text="확인" />
         </LinearLayout>
     </LinearLayout>
 
-</RelativeLayout>
+</FrameLayout>

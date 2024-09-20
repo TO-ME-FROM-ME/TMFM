@@ -108,9 +108,14 @@ class SignupNicknameActivity : AppCompatActivity() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 // 텍스트가 변경될 때마다 글자 수 업데이트
-                val charCount = s?.length ?: 0
-                charCountTextView.text = "$charCount"
-                validateNickname()
+                if(!s.isNullOrEmpty()){
+                    val charCount = s?.length ?: 0
+                    charCountTextView.text = "$charCount"
+                    nicknameEditText.background = ContextCompat.getDrawable(this@SignupNicknameActivity, R.drawable.solid_over_txt)
+                    validateNickname()
+                }else{
+                    nicknameEditText.background = ContextCompat.getDrawable(this@SignupNicknameActivity, R.drawable.solid_stroke_q)
+                }
             }
 
             override fun afterTextChanged(s: Editable?) {

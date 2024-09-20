@@ -60,9 +60,10 @@ class SignupEmailActivity : AppCompatActivity() {
                 // 텍스트가 변경되는 동안 호출
                 if(!s.isNullOrEmpty()){
                     emailCodeButton.background = mainColor
-                    emailEditText.background = ContextCompat.getDrawable(this@SignupEmailActivity, R.drawable.solid_stroke_q)
+                    emailEditText.background = ContextCompat.getDrawable(this@SignupEmailActivity, R.drawable.solid_over_txt)
                 }else{
                     emailCodeButton.background = defaultColor
+                    emailEditText.background = ContextCompat.getDrawable(this@SignupEmailActivity, R.drawable.solid_stroke_q)
                 }
             }
 

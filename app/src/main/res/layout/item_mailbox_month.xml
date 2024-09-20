@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/ic_bg">
+    android:background="@drawable/ic_bg"
+    android:alpha="0.7">
 
     <LinearLayout
         android:id="@+id/title_ll"
@@ -37,6 +38,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
+                android:fontFamily="@font/notosans"
+                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textAlignment="center" />
 
@@ -69,6 +72,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="일"
+            android:fontFamily="@font/notosans"
+            android:textStyle="bold"
             android:textSize="15dp"
             android:textColor="@color/pink" />
 
@@ -78,6 +83,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="월"
+            android:fontFamily="@font/notosans"
+            android:textStyle="bold"
             android:textColor="#8D8D8D"
             android:textSize="15dp" />
 
@@ -87,6 +94,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="화"
+            android:fontFamily="@font/notosans"
+            android:textStyle="bold"
             android:textColor="#8D8D8D"
             android:textSize="15dp" />
 
@@ -96,6 +105,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="수"
+            android:fontFamily="@font/notosans"
+            android:textStyle="bold"
             android:textColor="#8D8D8D"
             android:textSize="15dp" />
 
@@ -105,6 +116,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="목"
+            android:fontFamily="@font/notosans"
+            android:textStyle="bold"
             android:textColor="#8D8D8D"
             android:textSize="15dp" />
 
@@ -114,6 +127,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="금"
+            android:fontFamily="@font/notosans"
+            android:textStyle="bold"
             android:textColor="#8D8D8D"
             android:textSize="15dp" />
 
@@ -123,6 +138,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="토"
+            android:fontFamily="@font/notosans"
+            android:textStyle="bold"
             android:textSize="15dp"
             android:textColor="@color/main" />
     </LinearLayout>

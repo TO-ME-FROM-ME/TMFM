@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent"
+    android:background="@drawable/main_home"
     tools:context=".FirstFragment">
 
     <LinearLayout
@@ -20,6 +20,7 @@
 
 
             <TextView
+                android:id="@+id/logo_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="LOGO"
@@ -49,6 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_home_icon"
+        android:alpha="0"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 

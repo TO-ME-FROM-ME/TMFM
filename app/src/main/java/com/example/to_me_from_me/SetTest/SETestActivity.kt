@@ -1,16 +1,15 @@
-package com.example.to_me_from_me
+package com.example.to_me_from_me.SetTest
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.example.to_me_from_me.R
 
 class SETestActivity : AppCompatActivity() {
 
@@ -64,33 +63,37 @@ class SETestActivity : AppCompatActivity() {
         sAgreebtn.setOnClickListener {
             totalScore += 4
             sAgreebtn.background = ContextCompat.getDrawable(this, R.drawable.solid_no_main)
+            sAgreebtn.setTextColor(ContextCompat.getColor(this, R.color.white))
             Handler(Looper.getMainLooper()).postDelayed({
                 moveToNextQuestion()
-            }, 500)
+            }, 300)
         }
 
         agreebtn.setOnClickListener {
             totalScore += 3
             agreebtn.background = ContextCompat.getDrawable(this, R.drawable.solid_no_main)
+            agreebtn.setTextColor(ContextCompat.getColor(this, R.color.white))
             Handler(Looper.getMainLooper()).postDelayed({
                 moveToNextQuestion()
-            }, 500)
+            }, 300)
         }
 
         disagreebtn.setOnClickListener {
             totalScore += 2
             disagreebtn.background = ContextCompat.getDrawable(this, R.drawable.solid_no_main)
+            disagreebtn.setTextColor(ContextCompat.getColor(this, R.color.white))
             Handler(Looper.getMainLooper()).postDelayed({
                 moveToNextQuestion()
-            }, 500)
+            }, 300)
         }
 
         sDisagreebtn.setOnClickListener {
             totalScore += 1
             sDisagreebtn.background = ContextCompat.getDrawable(this, R.drawable.solid_no_main)
+            sDisagreebtn.setTextColor(ContextCompat.getColor(this, R.color.white))
             Handler(Looper.getMainLooper()).postDelayed({
                 moveToNextQuestion()
-            }, 500)
+            }, 300)
         }
 
         // 뒤로가기 버튼 클릭 리스너 설정
@@ -118,6 +121,14 @@ class SETestActivity : AppCompatActivity() {
         questiontv.text = questions[currentQuestionIndex]
         qNumTextView.text = "${currentQuestionIndex + 1}"
         resetButtonBackgrounds() // 버튼 색상 초기화
+        resetButtonText() // 버튼 텍스트 색상 초기화
+    }
+
+    private fun resetButtonText() {
+        sAgreebtn.setTextColor(ContextCompat.getColor(this, R.color.Gray3))
+        agreebtn.setTextColor(ContextCompat.getColor(this, R.color.Gray3))
+        disagreebtn.setTextColor(ContextCompat.getColor(this, R.color.Gray3))
+        sDisagreebtn.setTextColor(ContextCompat.getColor(this, R.color.Gray3))
     }
 
     private fun resetButtonBackgrounds() {
