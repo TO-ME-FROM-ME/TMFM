@@ -6,11 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import com.example.to_me_from_me.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class MyPageFragment : Fragment() {
+
+    private lateinit var auth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
+    private lateinit var userNameTV: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,6 +29,12 @@ class MyPageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        auth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
+
+        userNameTV = view.findViewById(R.id.user_name)
+        loadUserNickname()
 
         val userProfile = view.findViewById<ImageView>(R.id.user_go)
         val userAlarm = view.findViewById<ImageView>(R.id.alarm_go)
@@ -45,6 +59,28 @@ class MyPageFragment : Fragment() {
 
         userDeleteAcc.setOnClickListener {
             startActivity(Intent(activity, DeleteAccActivity::class.java))
+        }
+    }
+    private fun loadUserNickname() {
+        val user = auth.currentUser
+
+        if (user != null) {
+            // Firestore에서 사용자 문서 참조
+            val userRef = firestore.collection("users").document(user.uid)
+
+            userRef.get()
+                .addOnSuccessListener { document ->
+                    if (document != null && document.exists()) {
+                        // 닉네임 가져와서 TextView에 설정
+                        val nickname = document.getString("nickname")
+                        userNameTV.text = nickname
+                    }
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(activity, "데이터 로드 실패: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+        } else {
+            userNameTV.text = "로그인을 해주세요."
         }
     }
 }
