@@ -22,11 +22,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // 가져온 값 사용 예시
-        val selectedDate = intent.getStringExtra("selectedDate")
-        val selectedTime = intent.getStringExtra("selectedTime")
-        Log.d("MainActivity", "선택된 날짜: $selectedDate")
-        Log.d("MainActivity", "선택된 시간: $selectedTime")
 
         // 리스너 연결
         bottomNavigation.setOnNavigationItemSelectedListener(this)

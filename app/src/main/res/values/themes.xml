@@ -9,6 +9,7 @@
         <item name="android:radioButtonStyle">@style/customRadioButtonFontStyle</item>
         <item name="android:checkboxStyle">@style/customCheckboxFontStyle</item>
         <item name="android:fontFamily">@font/notosans</item>
+        <item name="android:windowFullscreen">true</item> <!--상태바 여부-->
     </style>
 
     <style name="Theme.TO_ME_FROM_ME" parent="Base.Theme.TO_ME_FROM_ME" />
