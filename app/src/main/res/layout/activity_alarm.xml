@@ -38,6 +38,8 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="알림 설정"
+                android:fontFamily="@font/notosans"
+                android:textStyle="bold"
                 android:textSize="18dp"
                 android:textColor="@color/black"/>
 
