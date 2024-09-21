@@ -30,6 +30,7 @@
                 android:textColor="@color/dark"
                 android:text="2024년 1월"
                 android:textSize="20dp"
+                android:fontFamily="@font/bnotosans"
                 android:paddingRight="10dp"/>
 
             <ImageView
@@ -37,6 +38,11 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_down"/>
         </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_line"/>
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -61,6 +67,8 @@
                     android:layout_height="wrap_content"
                     android:text="자아존중감 검사 결과"
                     android:layout_marginStart="20dp"
+                    android:fontFamily="@font/notosans"
+                    android:textStyle="bold"
                     android:paddingRight="10dp"
                     android:textColor="@color/dark"
                     android:textSize="18dp"/>
@@ -152,6 +160,8 @@
                     android:text="감정 통계"
                     android:layout_marginStart="20dp"
                     android:paddingRight="10dp"
+                    android:fontFamily="@font/notosans"
+                    android:textStyle="bold"
                     android:textColor="@color/dark"
                     android:textSize="18dp"/>
 
@@ -180,125 +190,236 @@
                     android:id="@+id/bar_chart"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginTop="-15dp"
-                    android:layout_marginStart="20dp"
                     android:gravity="center"
                     android:layout_gravity="center" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="20dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
                     android:gravity="center">
 
-                    <ImageView
-                        android:id="@+id/excited_btn"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/ic_excited_report"
-                        android:clickable="true"
-                        android:focusable="true"/>
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:id="@+id/excited_btn"
+                            android:layout_width="60dp"
+                            android:layout_height="70dp"
+                            android:background="@drawable/ic_exc_report"
+                            android:clickable="true"
+                            android:focusable="true"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/Gray4"
+                            android:fontFamily="@font/bnotosans"
+                            android:text="매우기쁨"/>
+                    </LinearLayout>
 
-                    <ImageView
-                        android:id="@+id/happy_btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:background="@drawable/ic_happy_report"
-                        android:clickable="true"
-                        android:focusable="true"/>
 
-                    <ImageView
-                        android:id="@+id/normal_btn"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:background="@drawable/ic_normal_report"
-                        android:clickable="true"
-                        android:focusable="true"/>
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:id="@+id/happy_btn"
+                            android:layout_width="60dp"
+                            android:layout_height="70dp"
+                            android:background="@drawable/ic_happy_report"
+                            android:clickable="true"
+                            android:focusable="true"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/Gray4"
+                            android:fontFamily="@font/bnotosans"
+                            android:text="기쁨"/>
+                    </LinearLayout>
 
-                    <ImageView
-                        android:id="@+id/upset_btn"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:background="@drawable/ic_sad_report"
-                        android:clickable="true"
-                        android:focusable="true"/>
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:id="@+id/normal_btn"
+                            android:layout_width="60dp"
+                            android:layout_height="70dp"
+                            android:background="@drawable/ic_normal_report"
+                            android:clickable="true"
+                            android:focusable="true"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/Gray4"
+                            android:fontFamily="@font/bnotosans"
+                            android:text="보통"/>
+                    </LinearLayout>
 
-                    <ImageView
-                        android:id="@+id/angry_btn"
-                        android:layout_width="wrap_content"
+
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:background="@drawable/ic_angry_report"
-                        android:clickable="true"
-                        android:focusable="true"/>
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:id="@+id/sad_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            android:background="@drawable/ic_sad_report"
+                            android:clickable="true"
+                            android:focusable="true"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/Gray4"
+                            android:fontFamily="@font/bnotosans"
+                            android:text="슬픔"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:id="@+id/angry_btn"
+                            android:layout_width="60dp"
+                            android:layout_height="70dp"
+                            android:background="@drawable/ic_upset_report"
+                            android:clickable="true"
+                            android:focusable="true"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/Gray4"
+                            android:fontFamily="@font/bnotosans"
+                            android:text="분노"/>
+                    </LinearLayout>
+
                 </LinearLayout>
 
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
                     android:orientation="horizontal"
-                    android:layout_marginTop="20dp">
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:gravity="center"
+                    android:layout_marginTop="30dp">
 
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        app:cardCornerRadius="100dp"
+                        android:layout_marginEnd="15dp"
+                        android:backgroundTint="#FBDDCF"
+                        app:cardElevation="5dp">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="horizontal">
 
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        app:cardCornerRadius="100dp"
-                        android:backgroundTint="#FBDDCF"
-                        android:layout_marginRight="15dp"
-                        app:cardElevation="5dp">
-                        <TextView
-                            android:id="@+id/adjective1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="40dp"
-                            android:text="자랑스러운"
-                            android:textSize="13dp"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/notosans"
-                            android:paddingStart="10dp"
-                            android:paddingEnd="10dp"/>
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginStart="10dp"
+                                android:src="@drawable/ic_01"/>
+                            <TextView
+                                android:id="@+id/adjective1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="자랑스러운"
+                                android:textSize="11dp"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginEnd="15dp"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/notosans" />
+                        </LinearLayout>
                     </androidx.cardview.widget.CardView>
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/cardView2"
                         android:layout_width="wrap_content"
-                        android:layout_height="40dp"
+                        android:layout_height="30dp"
                         app:cardCornerRadius="100dp"
+                        android:layout_marginEnd="15dp"
                         android:backgroundTint="#FBDDCF"
-                        android:layout_marginRight="15dp"
                         app:cardElevation="5dp">
-                        <TextView
-                            android:id="@+id/adjective2"
+                        <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="40dp"
-                            android:text="자랑스러운"
-                            android:textSize="13dp"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/notosans"
-                            android:paddingStart="10dp"
-                            android:paddingEnd="10dp"/>
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginStart="10dp"
+                                android:src="@drawable/ic_02"/>
+                            <TextView
+                                android:id="@+id/adjective2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="자랑스러운"
+                                android:textSize="11dp"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginEnd="15dp"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/notosans" />
+                        </LinearLayout>
                     </androidx.cardview.widget.CardView>
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/cardView3"
                         android:layout_width="wrap_content"
-                        android:layout_height="40dp"
+                        android:layout_height="30dp"
                         app:cardCornerRadius="100dp"
+                        android:layout_marginEnd="15dp"
                         android:backgroundTint="#FBDDCF"
-                        android:layout_marginRight="15dp"
                         app:cardElevation="5dp">
-                        <TextView
-                            android:id="@+id/adjective3"
+                        <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="40dp"
-                            android:text="자랑스러운"
-                            android:textSize="13dp"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/notosans"
-                            android:paddingStart="10dp"
-                            android:paddingEnd="10dp"/>
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginStart="10dp"
+                                android:src="@drawable/ic_03"/>
+                            <TextView
+                                android:id="@+id/adjective3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="자랑스러운"
+                                android:textSize="11dp"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginEnd="15dp"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/notosans" />
+                        </LinearLayout>
                     </androidx.cardview.widget.CardView>
+
 
                 </LinearLayout>
 
@@ -318,6 +439,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
             android:gravity="center"
+            android:visibility="gone"
             android:background="@drawable/round_corner_all"
             android:elevation="15dp"
             android:textSize="17sp"

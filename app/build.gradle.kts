@@ -81,6 +81,6 @@ dependencies {
     implementation ("androidx.recyclerview:recyclerview:1.3.2")
 
 
-    // line chart
+    // chart
     implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
 }

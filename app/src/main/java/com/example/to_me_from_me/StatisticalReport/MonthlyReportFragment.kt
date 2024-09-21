@@ -1,10 +1,7 @@
 package com.example.to_me_from_me.StatisticalReport
 
-import android.app.Dialog
-import com.example.to_me_from_me.RoundedBarChartRenderer
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,7 +40,7 @@ class MonthlyReportFragment : Fragment() {
 
         val tipButton2 = view.findViewById<ImageView>(R.id.month_tip2)
         tipButton2.setOnClickListener {
-            val dialog = StatisticalTipDialogFragment()
+            val dialog = StatisticalTipMDialogFragment()
             dialog.setStyle(
                 DialogFragment.STYLE_NORMAL,
                 R.style.RoundedBottomSheetDialogTheme

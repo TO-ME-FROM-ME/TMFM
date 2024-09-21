@@ -11,9 +11,8 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import com.example.to_me_from_me.R
 import com.example.to_me_from_me.databinding.FragmentAnnualReportBinding
-import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.charts.HorizontalBarChart
 import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
@@ -21,7 +20,6 @@ import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 
 class AnnualReportFragment : Fragment() {
@@ -49,12 +47,12 @@ class AnnualReportFragment : Fragment() {
 
         val tipButton2 = view.findViewById<ImageView>(R.id.annual_tip2)
         tipButton2.setOnClickListener {
-            val dialog = StatisticalTipDialogFragment()
+            val dialog = StatisticalTipYDialogFragment()
             dialog.setStyle(
                 DialogFragment.STYLE_NORMAL,
                 R.style.RoundedBottomSheetDialogTheme
             )
-            dialog.show(parentFragmentManager, "StatisticalTipDialogFragment")
+            dialog.show(parentFragmentManager, "StatisticalTipYDialogFragment")
         }
 
 
@@ -91,6 +89,7 @@ class AnnualReportFragment : Fragment() {
         lineDataSet.valueTextSize = 0f
         val lineData = LineData(lineDataSet)
         lineChart.data = lineData
+
 
         // 차트 업데이트
         lineChart.notifyDataSetChanged()
@@ -139,7 +138,7 @@ class AnnualReportFragment : Fragment() {
         yAxisLeft.textColor = Color.rgb(163, 163, 163)
         yAxisLeft.axisLineWidth = 2f
         yAxisLeft.axisMinimum = 0f // 최솟값
-        yAxisLeft.axisMaximum = 30f // 최댓값 설정
+        yAxisLeft.axisMaximum = 100f // 최댓값 설정
         yAxisLeft.granularity = 10f // 간격 설정
 
         val yAxis = lineChart.axisRight
@@ -148,22 +147,39 @@ class AnnualReportFragment : Fragment() {
 
     }
 
-    private fun configureChartAppearanceBar(barChart: BarChart, barText: TextView) {
-        // BarEntry 데이터 생성 (x, y 값을 설정)
-        val entries = ArrayList<BarEntry>()
-        entries.add(BarEntry(1f, 100f)) // BarEntry 사용
+    private fun configureChartAppearanceBar(
+        barChart: HorizontalBarChart,
+        barText1: TextView,
+
+    ) {
+        // Stacked BarEntry 데이터 생성
+        val entries = listOf(
+            BarEntry(1f, floatArrayOf(10f, 90f)) // 10%와 90% 비율로 스택된 막대
+        )
 
         // BarDataSet 생성 및 설정
         val barDataSet = BarDataSet(entries, "감정 데이터")
-        barDataSet.color = Color.parseColor("#FFBC9B") // 막대 색상 설정
-        // BarData 생성 및 BarChart에 설정
+        barDataSet.setDrawValues(true) // 막대 위의 값 숨기기
+        barDataSet.color = Color.parseColor("#FFBC9B") // 첫 번째 막대 색상 설정
+        barDataSet.setColors(listOf(Color.parseColor("#FFBC9B"), Color.parseColor("#4CAF50"))) // 두 번째 색상 설정
+
+
+
+        //barChart.renderer = RoundedBarChartRenderer(barChart, barChart.animator, barChart.viewPortHandler)
+
+        // BarData 생성
         val barData = BarData(barDataSet)
         barChart.data = barData
+        barChart.notifyDataSetChanged() // 데이터 갱신을 알려줌
         barChart.invalidate() // 데이터 갱신 및 차트 리프레시
 
+
         // 첫 번째 막대의 값을 TextView에 표시
-        val firstBarValue = entries[0].y.toInt()
-        barText.text = "$firstBarValue%"
+        val firstBarValue = entries[0].yVals[0].toInt() // 스택의 첫 번째 값 가져오기
+        val secondBarValue = entries[0].yVals[1].toInt() // 스택의 두 번째 값 가져오기
+
+        barText1.text = "$firstBarValue%  $secondBarValue%"
+
 
         // BarChart 설정
         barChart.isDragEnabled = false
@@ -173,8 +189,8 @@ class AnnualReportFragment : Fragment() {
         barChart.setDrawBorders(false)  // 차트의 경계선 비활성화
         barChart.setPinchZoom(false)
         barChart.legend.isEnabled = false
-        barChart.isEnabled = false
-        barChart.setExtraOffsets(10f, 0f, 40f, 0f)
+        barChart.isEnabled = true
+        //barChart.setExtraOffsets(10f, 0f, 40f, 0f)
 
         // Description 숨기기
         barChart.description.isEnabled = false
@@ -187,7 +203,7 @@ class AnnualReportFragment : Fragment() {
         xAxis.gridLineWidth = 15f
         xAxis.textSize = 0f
         xAxis.gridColor = Color.parseColor("#80E5E5E5")
-        barDataSet.setDrawValues(false) // 막대 위의 값 숨기기
+        barData.setDrawValues(false) // 막대 위의 값 숨기기
         xAxis.valueFormatter = object : ValueFormatter() {
             override fun getFormattedValue(value: Float): String {
                 return "" // 레이블 숨기기
@@ -224,10 +240,14 @@ class AnnualReportFragment : Fragment() {
         }
 
         // 데이터 갱신 및 차트 리프레시
-        barChart.invalidate()
+        //barChart.invalidate()
+
+
     }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
+
 }

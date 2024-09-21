@@ -24,9 +24,10 @@
         android:layout_height="wrap_content"
         android:text="자아존중감은 이렇게 측정돼!"
         android:textSize="20dp"
-        android:textStyle="bold"
         android:layout_gravity="center"
         android:gravity="center"
+        android:fontFamily="@font/notosans"
+        android:textStyle="bold"
         android:textColor="@color/black"/>
 
     <LinearLayout
@@ -46,6 +47,7 @@
             android:textSize="14dp"
             android:textColor="@color/black"
             android:layout_gravity="center"
+            android:fontFamily="@font/notosans"
             android:gravity="center"/>
         <TextView
             android:layout_width="wrap_content"
@@ -54,6 +56,8 @@
             android:paddingEnd="50dp"
             android:text="자존감이 매우 낮은 상태"
             android:textSize="14dp"
+            android:layout_marginTop="-10dp"
+            android:fontFamily="@font/notosans"
             android:layout_gravity="center"
             android:gravity="center"/>
 
@@ -68,6 +72,7 @@
             android:textSize="14dp"
             android:textColor="@color/black"
             android:layout_gravity="center"
+            android:fontFamily="@font/notosans"
             android:gravity="center"/>
         <TextView
             android:layout_width="wrap_content"
@@ -76,6 +81,8 @@
             android:paddingEnd="50dp"
             android:text="보통 수준의 자존감 상태"
             android:textSize="14dp"
+            android:layout_marginTop="-10dp"
+            android:fontFamily="@font/notosans"
             android:layout_gravity="center"
             android:gravity="center"/>
 
@@ -87,6 +94,7 @@
             android:layout_marginTop="20dp"
             android:text="30점 이상"
             android:textSize="14dp"
+            android:fontFamily="@font/notosans"
             android:textColor="@color/black"
             android:layout_gravity="center"
             android:gravity="center"/>
@@ -96,7 +104,9 @@
             android:paddingStart="50dp"
             android:paddingEnd="50dp"
             android:text="자신을 아끼고 사랑하는 상태"
+            android:fontFamily="@font/notosans"
             android:textSize="14dp"
+            android:layout_marginTop="-10dp"
             android:layout_gravity="center"
             android:gravity="center"/>
 
@@ -105,6 +115,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+            android:fontFamily="@font/notosans"
             android:text="※ 본 검사는 로젠버그의 자아존중감 검사 기반으로 합니다. \n 정확한 의학적인 판단은 전문가와 상담해주세요."
             android:textSize="11dp"
             android:layout_marginBottom="50dp"
