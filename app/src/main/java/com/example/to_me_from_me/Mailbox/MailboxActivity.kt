@@ -1,10 +1,14 @@
 package com.example.to_me_from_me.Mailbox
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.to_me_from_me.MainActivity
+import com.example.to_me_from_me.R
 import com.example.to_me_from_me.databinding.ActivityMailboxBinding
 import java.util.Calendar
 import java.util.Date
@@ -21,6 +25,7 @@ class MailboxActivity : AppCompatActivity(), MonthPickerDialogFragment.MonthSele
 
         binding = ActivityMailboxBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
 
         initView(binding)
     }
@@ -54,7 +59,7 @@ class MailboxActivity : AppCompatActivity(), MonthPickerDialogFragment.MonthSele
 
 
     private fun showNullMailboxFragment(selectedDate: Date) {
-        val nullMailboxFragment = NullMailboxFragment()
+        val nullMailboxFragment = MailBoxFragment()
 
         // 선택한 날짜를 전달하려면 Bundle 사용 가능
         val args = Bundle()

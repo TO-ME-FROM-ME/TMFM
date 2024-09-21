@@ -1,14 +1,17 @@
 package com.example.to_me_from_me.Mailbox
 
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.to_me_from_me.MainActivity
 import com.example.to_me_from_me.R
 import java.util.Calendar
 import java.util.Date
@@ -23,6 +26,14 @@ class MonthAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Month {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_mailbox_month, parent, false)
+
+        val backButton: ImageView = view.findViewById(R.id.back_iv)
+        backButton.setOnClickListener {
+            val intent = Intent(parent.context, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+            parent.context.startActivity(intent)
+        }
+
         return Month(view)
     }
 
