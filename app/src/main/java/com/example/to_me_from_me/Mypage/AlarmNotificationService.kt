@@ -57,9 +57,9 @@ class AlarmNotificationService : NotificationListenerService() {
         )
 
         val notification: Notification = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setContentTitle("편지 쓸 시간이야!")
-            .setContentText("설정한 시간: $time")
-            .setSmallIcon(R.drawable.ic_alarm) // 적절한 아이콘으로 변경
+            .setContentTitle("TO ME FROM ME")
+            .setContentText("$time")
+            .setSmallIcon(R.drawable.ic_alarm)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
             .build()

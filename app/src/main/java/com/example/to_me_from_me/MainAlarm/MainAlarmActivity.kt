@@ -14,7 +14,7 @@ MainAlarmActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_alarm)
 
-        loadFragment(MainNoAlarmFragment())
+        loadFragment(MainAlarmFragment())
 
 
         val backButton: ImageView = findViewById(R.id.back_iv)
