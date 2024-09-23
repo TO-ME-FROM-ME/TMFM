@@ -7,16 +7,21 @@ import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
 import android.util.Log
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentResultListener
 import com.example.to_me_from_me.MainActivity
 import com.example.to_me_from_me.R
+import com.example.to_me_from_me.Signup.SignupNicknameActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -43,16 +48,17 @@ class EditProfileActivity : AppCompatActivity() {
 
         val font = ResourcesCompat.getFont(this, R.font.font_gangwon)
 
-
         val backButton: ImageView = findViewById(R.id.back_iv)
         saveButton = findViewById(R.id.save_button)
-        saveButton.isEnabled = false // 기본적으로 비활성화
+
 
 
         // 비밀번호 가시성 상태를 저장하는 변수
         var isPasswordVisible = false
         val pwdEye = findViewById<ImageView>(R.id.pwd_eye_iv)
         val pwdCountTextView = findViewById<TextView>(R.id.char_count_tv)
+
+        val nicknameCountTextView = findViewById<TextView>(R.id.char_count_tv_e)
 
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
@@ -110,6 +116,7 @@ class EditProfileActivity : AppCompatActivity() {
                     val charCount = s?.length ?: 0
                     pwdCountTextView.text = "$charCount"
                     pwdET.background = ContextCompat.getDrawable(this@EditProfileActivity, R.drawable.solid_over_txt)
+                    saveButton.isEnabled = true
                 }else{
                     pwdET.background = ContextCompat.getDrawable(this@EditProfileActivity, R.drawable.solid_stroke_q)
                 }
@@ -123,8 +130,14 @@ class EditProfileActivity : AppCompatActivity() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                // 내용이 변경되었을 때 확인 버튼 활성화
-                saveButton.isEnabled = true
+                if(!s.isNullOrEmpty()){
+                    val charCount = s?.length ?: 0
+                    nicknameCountTextView.text = "$charCount"
+                    nicknameET.background = ContextCompat.getDrawable(this@EditProfileActivity, R.drawable.solid_over_txt)
+                    saveButton.isEnabled = true
+                }else{
+                    nicknameET.background = ContextCompat.getDrawable(this@EditProfileActivity, R.drawable.solid_stroke_q)
+                }
             }
 
             override fun afterTextChanged(s: Editable?) {}
@@ -134,11 +147,17 @@ class EditProfileActivity : AppCompatActivity() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                // 내용이 변경되었을 때 확인 버튼 활성화
-                saveButton.isEnabled = true
+                if(!s.isNullOrEmpty()){
+                    emailET.background = ContextCompat.getDrawable(this@EditProfileActivity, R.drawable.solid_over_txt)
+                    saveButton.isEnabled = true
+                }else{
+                    emailET.background = ContextCompat.getDrawable(this@EditProfileActivity, R.drawable.solid_stroke_q)
+                }
             }
 
-            override fun afterTextChanged(s: Editable?) {}
+            override fun afterTextChanged(s: Editable?) {
+                saveButton.isEnabled = true
+            }
         })
 
         saveButton.setOnClickListener {
@@ -162,6 +181,18 @@ class EditProfileActivity : AppCompatActivity() {
     private fun updateUserProfile() {
         val user = auth.currentUser
 
+        val toastLayout = LayoutInflater.from(this).inflate(R.layout.toast_pwd, null, false)
+        val toastTv = toastLayout.findViewById<TextView>(R.id.toast_tv)
+
+        val toastLayout2 = LayoutInflater.from(this).inflate(R.layout.toast_pwd12, null, false)
+        val toastTv2 = toastLayout2.findViewById<TextView>(R.id.toast_tv)
+
+        val toastLayout3 = LayoutInflater.from(this).inflate(R.layout.toast, null, false)
+        val toastTv3 = toastLayout3.findViewById<TextView>(R.id.toast_tv)
+
+        val toastLayout4 = LayoutInflater.from(this).inflate(R.layout.toast_nick6, null, false)
+        val toastTv4 = toastLayout4.findViewById<TextView>(R.id.toast_tv)
+
         if (user != null) {
             // Firestore의 사용자 문서 참조
             val userRef = firestore.collection("users").document(user.uid)
@@ -170,32 +201,61 @@ class EditProfileActivity : AppCompatActivity() {
             val updates = hashMapOf<String, Any>()
 
             val newNickname = nicknameET.text.toString()
-            if (newNickname != initialNickname) {
-                updates["nickname"] = newNickname
+            if (newNickname.isNotEmpty() && newNickname != initialNickname) {
+                if(newNickname.length < 2) {
+                    toastTv.text = "2글자 이상 작성해줘!"
+                    showToast(toastLayout, nicknameET, 700)
+                }else if(newNickname.length > 6) {
+                    toastTv4.text = "6글자 이하로 작성해줘!"
+                    showToast(toastLayout4, nicknameET, 700)
+                }else{
+                    updates["nickname"] = newNickname
+                    user.updateEmail(newNickname)
+                        .addOnSuccessListener {
+                            Log.d("EditProfileFB", "닉네임 업데이트 성공.")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w("EditProfileFB", "닉네임 업데이트 실패.", e)
+                        }
+                }
             }
 
             val newEmail = emailET.text.toString()
-            if (newEmail != initialEmail) {
-                updates["email"] = newEmail
-                user.updateEmail(newEmail)
-                    .addOnSuccessListener {
-                        Log.d("EditProfileFB", "이메일 업데이트 성공.")
-                    }
-                    .addOnFailureListener { e ->
-                        Log.w("EditProfileFB", "이메일 업데이트 실패.", e)
-                    }
+            if (newEmail.isNotEmpty() && newEmail != initialEmail) {
+                if(!isValidEmail(newEmail)){
+                    showToast2(toastLayout3,emailET,700)
+                    toastTv3.text = "이메일 형식으로 작성해줘!"
+                    toastTv3.textAlignment = View.TEXT_ALIGNMENT_CENTER
+                }else{
+                    updates["email"] = newEmail
+                    user.updateEmail(newEmail)
+                        .addOnSuccessListener {
+                            Log.d("EditProfileFB", "이메일 업데이트 성공.")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w("EditProfileFB", "이메일 업데이트 실패.", e)
+                        }
+                }
             }
 
             val newPassword = pwdET.text.toString()
-            if (newPassword != initialPassword) {
-                updates["password"] = newPassword
-                user.updatePassword(newPassword)
-                    .addOnSuccessListener {
-                        Log.d("EditProfileFB", "비밀번호 업데이트 성공.")
-                    }
-                    .addOnFailureListener { e ->
-                        Log.w("EditProfileFB", "비밀번호 업데이트 실패.", e)
-                    }
+            if (newPassword.isNotEmpty() && newPassword != initialPassword) {
+                if(newPassword.length < 8) {
+                    toastTv.text = "8글자 이상 작성해줘!"
+                    showToast(toastLayout, pwdET, 700)
+                }else if(newPassword.length > 12) {
+                    toastTv2.text = "12글자 이하로 작성해줘!"
+                    showToast(toastLayout2, pwdET, 700)
+                }else{
+                    updates["password"] = newPassword
+                    user.updatePassword(newPassword)
+                        .addOnSuccessListener {
+                            Log.d("EditProfileFB", "비밀번호 업데이트 성공.")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w("EditProfileFB", "비밀번호 업데이트 실패.", e)
+                        }
+                }
             }
 
             // 프로필 이미지가 변경된 경우
@@ -224,10 +284,9 @@ class EditProfileActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, fragment)
-            .commit()
+    private fun isValidEmail(newEmail: String): Boolean {
+        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+        return newEmail.matches(Regex(emailPattern))
     }
 
 
@@ -283,6 +342,32 @@ class EditProfileActivity : AppCompatActivity() {
                 }
         }
     }
+    private fun showToast(layout: View, writeEditText: EditText, duration: Int) {
+        val toast = Toast(this)
+        val location = IntArray(2)
+        writeEditText.getLocationOnScreen(location)
 
+        layout.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+
+        val yOffset = location[1] -(-10) -layout.measuredHeight
+        toast.setGravity(Gravity.TOP or Gravity.END, location[0], yOffset)
+        toast.view = layout
+
+        toast.show()
+    }
+
+    private fun showToast2(layout: View, writeEditText: EditText, duration: Int) {
+        val toast = Toast(this)
+        val location = IntArray(2)
+        writeEditText.getLocationOnScreen(location)
+
+        layout.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+
+        val yOffset = location[1] -(-10) -layout.measuredHeight
+        toast.setGravity(Gravity.TOP or Gravity.END, location[0], yOffset)
+        toast.view = layout
+
+        toast.show()
+    }
 
 }

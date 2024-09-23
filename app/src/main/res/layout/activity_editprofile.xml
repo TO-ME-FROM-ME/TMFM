@@ -101,6 +101,35 @@
                     android:fontFamily="@font/font_gangwon"
                     android:background="@drawable/solid_stroke_q"
                     android:padding="15dp" />
+
+                <LinearLayout
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center">
+
+                    <LinearLayout
+                        android:layout_width="350dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="end">
+
+                        <TextView
+                            android:id="@+id/char_count_tv_e"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/font_gangwon"
+                            android:text="0" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
+                            android:fontFamily="@font/font_gangwon"
+                            android:text="/6" />
+
+                    </LinearLayout>
+                </LinearLayout>
             </FrameLayout>
         </LinearLayout>
 
