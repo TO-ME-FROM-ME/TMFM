@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.setFragmentResult
 import com.example.to_me_from_me.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -40,12 +41,22 @@ class ProfileImgFragment : BottomSheetDialogFragment() {
             dismiss() // 프래그먼트 닫기
         }
 
+        // 선택된 이미지에 해당하는 ImageView를 강조 처리
+        when (selectedImgResId) {
+            R.drawable.ic_profile_01_s -> excited.setImageResource(R.drawable.ic_profile_01_s)
+            R.drawable.ic_profile_02_s -> happy.setImageResource(R.drawable.ic_profile_02_s)
+            R.drawable.ic_profile_03_s -> normal.setImageResource(R.drawable.ic_profile_03_s)
+            R.drawable.ic_profile_04_s -> upset.setImageResource(R.drawable.ic_profile_04_s)
+            R.drawable.ic_profile_05_s -> angry.setImageResource(R.drawable.ic_profile_05_s)
+        }
+
+
         // 각 이미지 클릭 시 동작 정의
         excited.setOnClickListener { updateImageSelection(excited, R.drawable.ic_profile_01_s) }
-        happy.setOnClickListener { updateImageSelection(happy, R.drawable.ic_profile_01_s) }
-        normal.setOnClickListener { updateImageSelection(normal, R.drawable.ic_profile_01_s) }
-        upset.setOnClickListener { updateImageSelection(upset, R.drawable.ic_profile_01_s) }
-        angry.setOnClickListener { updateImageSelection(angry, R.drawable.ic_profile_01_s) }
+        happy.setOnClickListener { updateImageSelection(happy, R.drawable.ic_profile_02_s) }
+        normal.setOnClickListener { updateImageSelection(normal, R.drawable.ic_profile_03_s) }
+        upset.setOnClickListener { updateImageSelection(upset, R.drawable.ic_profile_04_s) }
+        angry.setOnClickListener { updateImageSelection(angry, R.drawable.ic_profile_05_s) }
 
         // 초기 이미지 리소스 설정 (선택된 이미지가 없으므로 기본 이미지 설정)
         excited.setImageResource(R.drawable.ic_profile_01)

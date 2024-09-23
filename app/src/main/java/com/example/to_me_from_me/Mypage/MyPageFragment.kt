@@ -2,6 +2,7 @@ package com.example.to_me_from_me.Mypage
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,12 +20,18 @@ class MyPageFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
     private lateinit var userNameTV: TextView
+    private lateinit var profileIMG: ImageView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_mypage, container, false)
+    }
+    override fun onResume() {
+        super.onResume()
+        // 프로필 이미지와 닉네임을 다시 불러옴
+        loadUserNickname()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,6 +41,7 @@ class MyPageFragment : Fragment() {
         firestore = FirebaseFirestore.getInstance()
 
         userNameTV = view.findViewById(R.id.user_name)
+        profileIMG = view.findViewById(R.id.user_img)
         loadUserNickname()
 
         val userProfile = view.findViewById<ImageView>(R.id.user_go)
@@ -74,6 +82,10 @@ class MyPageFragment : Fragment() {
                         // 닉네임 가져와서 TextView에 설정
                         val nickname = document.getString("nickname")
                         userNameTV.text = nickname
+                        val profileImage = document.getLong("profileImage")?.toInt() ?: R.drawable.ic_profile_01_s
+                        profileIMG.setImageResource(profileImage)
+                        Log.d("이미지","img : $profileImage")
+
                     }
                 }
                 .addOnFailureListener { e ->

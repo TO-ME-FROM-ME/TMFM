@@ -7,19 +7,20 @@ import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
 import android.util.Log
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentResultListener
 import com.example.to_me_from_me.MainActivity
 import com.example.to_me_from_me.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
-class
-EditProfileActivity : AppCompatActivity() {
+class EditProfileActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
@@ -27,7 +28,14 @@ EditProfileActivity : AppCompatActivity() {
     private lateinit var emailET: EditText
     private lateinit var pwdET: EditText
     private lateinit var profileIMG: ImageView
+    private lateinit var saveButton: Button
 
+    // 초기값을 저장하기 위한 변수
+    private var initialNickname: String = ""
+    private var initialEmail: String = ""
+    private var initialPassword: String = ""
+    private var initialProfileImage: Int = R.drawable.ic_profile_01_s
+    private var selectedProfileImage: Int = R.drawable.ic_profile_01_s
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +43,11 @@ EditProfileActivity : AppCompatActivity() {
 
         val font = ResourcesCompat.getFont(this, R.font.font_gangwon)
 
+
         val backButton: ImageView = findViewById(R.id.back_iv)
+        saveButton = findViewById(R.id.save_button)
+        saveButton.isEnabled = false // 기본적으로 비활성화
+
 
         // 비밀번호 가시성 상태를 저장하는 변수
         var isPasswordVisible = false
@@ -57,6 +69,7 @@ EditProfileActivity : AppCompatActivity() {
             profileImgFragment.show(supportFragmentManager, profileImgFragment.tag)
         }
 
+
         supportFragmentManager.setFragmentResultListener("profileImgKey", this, FragmentResultListener { requestKey, bundle ->
             if (requestKey == "profileImgKey") {
                 val selectedImgResId = bundle.getInt("selectedImgResId", R.drawable.ic_profile_01_s)
@@ -64,6 +77,7 @@ EditProfileActivity : AppCompatActivity() {
                 profileIMG.setImageResource(selectedImgResId)
 
                 saveProfileImage(selectedImgResId)
+
             }
         })
 
@@ -105,6 +119,33 @@ EditProfileActivity : AppCompatActivity() {
             }
         })
 
+        nicknameET.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // 내용이 변경되었을 때 확인 버튼 활성화
+                saveButton.isEnabled = true
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        emailET.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // 내용이 변경되었을 때 확인 버튼 활성화
+                saveButton.isEnabled = true
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        saveButton.setOnClickListener {
+            updateUserProfile()
+            saveButton.isEnabled = false // 업데이트 후 버튼 비활성화
+
+        }
 
         backButton.setOnClickListener {
             //MyPageFragment로 이동하기
@@ -115,6 +156,80 @@ EditProfileActivity : AppCompatActivity() {
             finish()
         }
     }
+
+
+
+    private fun updateUserProfile() {
+        val user = auth.currentUser
+
+        if (user != null) {
+            // Firestore의 사용자 문서 참조
+            val userRef = firestore.collection("users").document(user.uid)
+
+            // 변경된 데이터만 업데이트
+            val updates = hashMapOf<String, Any>()
+
+            val newNickname = nicknameET.text.toString()
+            if (newNickname != initialNickname) {
+                updates["nickname"] = newNickname
+            }
+
+            val newEmail = emailET.text.toString()
+            if (newEmail != initialEmail) {
+                updates["email"] = newEmail
+                user.updateEmail(newEmail)
+                    .addOnSuccessListener {
+                        Log.d("EditProfileFB", "이메일 업데이트 성공.")
+                    }
+                    .addOnFailureListener { e ->
+                        Log.w("EditProfileFB", "이메일 업데이트 실패.", e)
+                    }
+            }
+
+            val newPassword = pwdET.text.toString()
+            if (newPassword != initialPassword) {
+                updates["password"] = newPassword
+                user.updatePassword(newPassword)
+                    .addOnSuccessListener {
+                        Log.d("EditProfileFB", "비밀번호 업데이트 성공.")
+                    }
+                    .addOnFailureListener { e ->
+                        Log.w("EditProfileFB", "비밀번호 업데이트 실패.", e)
+                    }
+            }
+
+            // 프로필 이미지가 변경된 경우
+            if (selectedProfileImage != initialProfileImage) {
+                updates["profileImage"] = selectedProfileImage
+            }
+
+            // Firestore 업데이트
+            if (updates.isNotEmpty()) {
+                userRef.update(updates)
+                    .addOnSuccessListener {
+                        Log.d("EditProfileFB", "프로필 업데이트 성공.")
+                        // 프로필 업데이트 성공 시 MyPageFragment로 이동
+                        val intent = Intent(this, MainActivity::class.java)
+                        intent.putExtra("fragmentToLoad", "MyPageFragment")
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                        startActivity(intent)
+                        finish() // 현재 Activity 종료
+                    }
+                    .addOnFailureListener { e ->
+                        Log.w("EditProfileFB", "프로필 업데이트 실패.", e)
+                    }
+            } else {
+                Log.d("EditProfileFB", "변경된 항목이 없습니다.")
+            }
+        }
+    }
+
+    private fun loadFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .commit()
+    }
+
 
     private fun saveProfileImage(imageResId: Int) {
         val user = auth.currentUser
@@ -150,16 +265,17 @@ EditProfileActivity : AppCompatActivity() {
                 .addOnSuccessListener { document ->
                     if (document != null && document.exists()) {
                         // Firestore에서 닉네임, 이메일, 비밀번호 가져오기
-                        val nickname = document.getString("nickname")
-                        val email = document.getString("email")
-                        val password = document.getString("password")
-                        val profileImage = document.getLong("profileImage")?.toInt() ?: R.drawable.ic_profile_01_s
+                        initialNickname  = document.getString("nickname") ?: ""
+                        initialEmail  = document.getString("email")?: ""
+                        initialPassword = document.getString("password")?: ""
+                        initialProfileImage  = document.getLong("profileImage")?.toInt() ?: R.drawable.ic_profile_01_s
 
                         // EditText에 값 설정
-                        nicknameET.setText(nickname)
-                        emailET.setText(email)
-                        pwdET.setText(password)
-                        profileIMG.setImageResource(profileImage)
+                        nicknameET.setText(initialNickname)
+                        emailET.setText(initialEmail)
+                        pwdET.setText(initialPassword)
+                        profileIMG.setImageResource(initialProfileImage )
+
                     }
                 }
                 .addOnFailureListener { e ->
