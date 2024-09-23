@@ -26,6 +26,7 @@ EditProfileActivity : AppCompatActivity() {
     private lateinit var nicknameET: EditText
     private lateinit var emailET: EditText
     private lateinit var pwdET: EditText
+    private lateinit var profileIMG: ImageView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +35,6 @@ EditProfileActivity : AppCompatActivity() {
 
         val font = ResourcesCompat.getFont(this, R.font.font_gangwon)
 
-        val profileimg: ImageView = findViewById(R.id.profile_img)
         val backButton: ImageView = findViewById(R.id.back_iv)
 
         // 비밀번호 가시성 상태를 저장하는 변수
@@ -48,10 +48,11 @@ EditProfileActivity : AppCompatActivity() {
         nicknameET = findViewById(R.id.nickname_et)
         emailET = findViewById(R.id.email_et)
         pwdET = findViewById(R.id.pwd_et)
+        profileIMG = findViewById(R.id.profile_img)
 
         loadUserProfile()
 
-        profileimg.setOnClickListener {
+        profileIMG.setOnClickListener {
             val profileImgFragment = ProfileImgFragment()
             profileImgFragment.show(supportFragmentManager, profileImgFragment.tag)
         }
@@ -60,11 +61,11 @@ EditProfileActivity : AppCompatActivity() {
             if (requestKey == "profileImgKey") {
                 val selectedImgResId = bundle.getInt("selectedImgResId", R.drawable.ic_profile_01_s)
                 Log.d("이미지","profileImgKey : $selectedImgResId")
-                profileimg.setImageResource(selectedImgResId)
+                profileIMG.setImageResource(selectedImgResId)
+
+                saveProfileImage(selectedImgResId)
             }
         })
-
-
 
 
         // pwdEye 클릭 시 비밀번호 가시성 토글
@@ -114,6 +115,30 @@ EditProfileActivity : AppCompatActivity() {
             finish()
         }
     }
+
+    private fun saveProfileImage(imageResId: Int) {
+        val user = auth.currentUser
+
+        if (user != null) {
+            // Firestore의 사용자 문서 참조
+            val userRef = firestore.collection("users").document(user.uid)
+
+            // 프로필 이미지 리소스 ID 저장
+            val updates = hashMapOf<String, Any>(
+                "profileImage" to imageResId
+            )
+
+            userRef.update(updates)
+                .addOnSuccessListener {
+                    Log.d("EditProfile", "프로필 이미지가 성공적으로 저장되었습니다.")
+                }
+                .addOnFailureListener { e ->
+                    Log.w("EditProfile", "프로필 이미지를 저장하지 못했습니다.", e)
+                }
+        }
+    }
+
+
     private fun loadUserProfile() {
         val user = auth.currentUser
 
@@ -128,11 +153,13 @@ EditProfileActivity : AppCompatActivity() {
                         val nickname = document.getString("nickname")
                         val email = document.getString("email")
                         val password = document.getString("password")
+                        val profileImage = document.getLong("profileImage")?.toInt() ?: R.drawable.ic_profile_01_s
 
                         // EditText에 값 설정
                         nicknameET.setText(nickname)
                         emailET.setText(email)
                         pwdET.setText(password)
+                        profileIMG.setImageResource(profileImage)
                     }
                 }
                 .addOnFailureListener { e ->
@@ -140,5 +167,6 @@ EditProfileActivity : AppCompatActivity() {
                 }
         }
     }
+
 
 }
