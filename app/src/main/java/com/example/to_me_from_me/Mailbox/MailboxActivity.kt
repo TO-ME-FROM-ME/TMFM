@@ -31,7 +31,6 @@ class MailboxActivity : AppCompatActivity(), MonthPickerDialogFragment.MonthSele
     }
 
 
-
     private fun initView(binding: ActivityMailboxBinding) {
         recyclerView = binding.calRecycler
         val position: Int = Int.MAX_VALUE / 2
@@ -39,7 +38,9 @@ class MailboxActivity : AppCompatActivity(), MonthPickerDialogFragment.MonthSele
         // 멤버 변수인 adapter 초기화
         adapter = MonthAdapter(
             onDayClickListener = { clickedDate ->
-                showNullMailboxFragment(clickedDate) // 날짜 클릭 시 바텀시트 표시
+                //showNullMailboxFragment(clickedDate) // 날짜 클릭 시 바텀시트 표시
+                showNotNullMailboxFragment(clickedDate)
+                Log.d("메일함/date", "clickedDate : $clickedDate")
             },
             fragmentManager = supportFragmentManager // FragmentManager 전달
         )
@@ -59,14 +60,22 @@ class MailboxActivity : AppCompatActivity(), MonthPickerDialogFragment.MonthSele
 
 
     private fun showNullMailboxFragment(selectedDate: Date) {
-        val nullMailboxFragment = MailBoxFragment()
-
+        val nullMailboxFragment = NullMailboxFragment()
         // 선택한 날짜를 전달하려면 Bundle 사용 가능
         val args = Bundle()
         args.putSerializable("selectedDate", selectedDate)
         nullMailboxFragment.arguments = args
-
         nullMailboxFragment.show(supportFragmentManager, nullMailboxFragment.tag)
+    }
+
+    private fun showNotNullMailboxFragment(selectedDate: Date) {
+        val mailboxFragment = MailBoxFragment()
+        // 선택한 날짜를 전달하려면 Bundle 사용 가능
+        val args = Bundle()
+        args.putSerializable("selectedDate", selectedDate)
+        mailboxFragment.arguments = args
+        mailboxFragment.show(supportFragmentManager, mailboxFragment.tag)
+        Log.d("메일함/date", "selectedDate : $selectedDate")
     }
 
 }

@@ -1,10 +1,15 @@
 package com.example.to_me_from_me.Mailbox
 
+import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
@@ -27,14 +32,20 @@ class DayAdapter(
     }
 
     override fun onBindViewHolder(holder: DayView, position: Int) {
+
+
         // 초기화
         val dayText = holder.layout.findViewById<TextView>(R.id.item_day_text)
         val todayIv = holder.layout.findViewById<ImageView>(R.id.today_iv)
+        val dayCv = holder.layout.findViewById<CardView>(R.id.item_day_cv)
+        val dayImg = holder.layout.findViewById<ImageView>(R.id.item_day_iv)
+
 
 
         // 날짜 표시
         val currentDate = dayList[position]
         dayText.text = currentDate.date.toString()
+
 
         // 현재 월과 비교하여 다른 월의 날짜는 반투명 처리
         if (tempMonth != currentDate.month) {
@@ -51,6 +62,10 @@ class DayAdapter(
         ) {
             dayText.setTextColor(ContextCompat.getColor(holder.layout.context, android.R.color.black))
             todayIv.isVisible=true
+            dayCv.isVisible=false
+            dayImg.setImageResource(R.drawable.ic_profile_01_s)
+            Log.d("DayAdapter", "Image set for today's date: $currentDate") // 로그 출력
+
 
         } else {
             dayText.setTextColor(ContextCompat.getColor(holder.layout.context, R.color.Gray1)) // 다른 날짜의 기본 색상

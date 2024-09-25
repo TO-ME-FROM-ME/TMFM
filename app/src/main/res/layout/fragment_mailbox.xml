@@ -15,6 +15,7 @@
         android:padding="20dp">
 
         <LinearLayout
+            android:id="@+id/send_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -35,6 +36,7 @@
                 android:text="보낸 편지"/>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/send_mail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
@@ -134,6 +136,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/receiv_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -154,6 +157,7 @@
                     android:text="받은 편지"/>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/receiv_mail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
@@ -253,6 +257,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/random_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -273,6 +278,7 @@
                 android:text="랜덤 편지"/>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/random_mail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
