@@ -17,7 +17,7 @@ import java.util.Calendar
 import java.util.Date
 
 class MonthAdapter(
-    private val onDayClickListener: (Date) -> Unit,
+    private val onDayClickListener: (Date, Boolean) -> Unit,
     private val fragmentManager: FragmentManager
 ) : RecyclerView.Adapter<MonthAdapter.Month>() {
 
@@ -76,8 +76,9 @@ class MonthAdapter(
 
         listLayout.layoutManager = GridLayoutManager(holder.view.context, 7)
         // DayAdapter에 클릭 리스너를 전달
-        listLayout.adapter = DayAdapter(tempMonth, dayList) { clickedDate ->
-            onDayClickListener(clickedDate) // 날짜 클릭 시 리스너 호출
+        listLayout.adapter = DayAdapter(tempMonth, dayList) { clickedDate, hasImage ->
+            onDayClickListener(clickedDate,hasImage) // 날짜 클릭 시 리스너 호출
+            Log.d("onDayClickListener","hasImage $hasImage")
         }
     }
 

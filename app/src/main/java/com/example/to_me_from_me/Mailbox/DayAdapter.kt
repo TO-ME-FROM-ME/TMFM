@@ -19,7 +19,7 @@ import java.util.*
 class DayAdapter(
     private val tempMonth: Int,
     private val dayList: MutableList<Date>,
-    private val onDayClickListener: (Date) -> Unit // 클릭 리스너 추가
+    private val onDayClickListener: (Date, Boolean) -> Unit // 클릭 리스너 추가
 ) : RecyclerView.Adapter<DayAdapter.DayView>() {
     val ROW = 5
 
@@ -56,16 +56,16 @@ class DayAdapter(
 
         // 시스템 날짜와 비교하여 색상 변경
         val today = Calendar.getInstance()
-        if (currentDate.date == today.get(Calendar.DAY_OF_MONTH) &&
-            currentDate.month == today.get(Calendar.MONTH) &&
-            currentDate.year == today.get(Calendar.YEAR) - 1900 // Date의 year는 1900부터 시작
-        ) {
+        val hasImage = currentDate.date == today.get(Calendar.DAY_OF_MONTH) &&
+                currentDate.month == today.get(Calendar.MONTH) &&
+                currentDate.year == today.get(Calendar.YEAR) - 1900 // Date의 year는 1900부터 시작
+
+
+        if (hasImage) {
             dayText.setTextColor(ContextCompat.getColor(holder.layout.context, android.R.color.black))
             todayIv.isVisible=true
             dayCv.isVisible=false
             dayImg.setImageResource(R.drawable.ic_profile_01_s)
-            Log.d("DayAdapter", "Image set for today's date: $currentDate") // 로그 출력
-
 
         } else {
             dayText.setTextColor(ContextCompat.getColor(holder.layout.context, R.color.Gray1)) // 다른 날짜의 기본 색상
@@ -74,7 +74,7 @@ class DayAdapter(
 
         // 날짜 클릭 이벤트 설정
         holder.layout.setOnClickListener {
-            onDayClickListener(dayList[position]) // 클릭한 날짜를 리스너로 전달
+            onDayClickListener(dayList[position],hasImage) // 클릭한 날짜를 리스너로 전달
         }
     }
 

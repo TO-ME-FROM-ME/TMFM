@@ -37,10 +37,12 @@ class MailboxActivity : AppCompatActivity(), MonthPickerDialogFragment.MonthSele
 
         // 멤버 변수인 adapter 초기화
         adapter = MonthAdapter(
-            onDayClickListener = { clickedDate ->
-                //showNullMailboxFragment(clickedDate) // 날짜 클릭 시 바텀시트 표시
-                showNotNullMailboxFragment(clickedDate)
-                Log.d("메일함/date", "clickedDate : $clickedDate")
+            onDayClickListener = { clickedDate, hasImage ->
+                if(hasImage){
+                    showNotNullMailboxFragment(clickedDate)
+                }else {
+                    showNullMailboxFragment(clickedDate) // 날짜 클릭 시 바텀시트 표시
+                }
             },
             fragmentManager = supportFragmentManager // FragmentManager 전달
         )
