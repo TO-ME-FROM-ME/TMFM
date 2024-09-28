@@ -42,6 +42,10 @@ class EditProfileActivity : AppCompatActivity() {
     private var initialProfileImage: Int = R.drawable.ic_profile_01_s
     private var selectedProfileImage: Int = R.drawable.ic_profile_01_s
 
+
+    private var selectedProfileImageResId: Int? = null
+    private var initialProfileImageResId: Int = R.drawable.excited_s // 기본값 설정
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_editprofile)
@@ -70,6 +74,24 @@ class EditProfileActivity : AppCompatActivity() {
 
         loadUserProfile()
 
+        val user = auth.currentUser
+        if (user != null) {
+            val userRef = firestore.collection("users").document(user.uid)
+
+            // Firestore에서 사용자 데이터 가져오기
+            userRef.get().addOnSuccessListener { document ->
+                if (document != null) {
+                    // Firestore에서 프로필 이미지 ID 가져오기
+                    initialProfileImageResId = document.getLong("profileImage")?.toInt() ?: R.drawable.excited_s
+                    // 가져온 이미지로 ImageView 설정
+                    profileIMG.setImageResource(initialProfileImageResId)
+                }
+            }.addOnFailureListener { e ->
+                Log.w("EditProfileFB", "사용자 데이터를 가져오는 데 실패했습니다.", e)
+            }
+        }
+
+
         profileIMG.setOnClickListener {
             val profileImgFragment = ProfileImgFragment()
             profileImgFragment.show(supportFragmentManager, profileImgFragment.tag)
@@ -82,8 +104,7 @@ class EditProfileActivity : AppCompatActivity() {
                 Log.d("이미지","profileImgKey : $selectedImgResId")
                 profileIMG.setImageResource(selectedImgResId)
 
-                saveProfileImage(selectedImgResId)
-
+                selectedProfileImageResId = selectedImgResId
             }
         })
 
@@ -202,65 +223,44 @@ class EditProfileActivity : AppCompatActivity() {
 
             val newNickname = nicknameET.text.toString()
             if (newNickname.isNotEmpty() && newNickname != initialNickname) {
-                if(newNickname.length < 2) {
+                if (newNickname.length < 2) {
                     toastTv.text = "2글자 이상 작성해줘!"
                     showToast(toastLayout, nicknameET, 700)
-                }else if(newNickname.length > 6) {
+                } else if (newNickname.length > 6) {
                     toastTv4.text = "6글자 이하로 작성해줘!"
                     showToast(toastLayout4, nicknameET, 700)
-                }else{
+                } else {
                     updates["nickname"] = newNickname
-                    user.updateEmail(newNickname)
-                        .addOnSuccessListener {
-                            Log.d("EditProfileFB", "닉네임 업데이트 성공.")
-                        }
-                        .addOnFailureListener { e ->
-                            Log.w("EditProfileFB", "닉네임 업데이트 실패.", e)
-                        }
                 }
             }
 
             val newEmail = emailET.text.toString()
             if (newEmail.isNotEmpty() && newEmail != initialEmail) {
-                if(!isValidEmail(newEmail)){
-                    showToast2(toastLayout3,emailET,700)
+                if (!isValidEmail(newEmail)) {
+                    showToast2(toastLayout3, emailET, 700)
                     toastTv3.text = "이메일 형식으로 작성해줘!"
                     toastTv3.textAlignment = View.TEXT_ALIGNMENT_CENTER
-                }else{
+                } else {
                     updates["email"] = newEmail
-                    user.updateEmail(newEmail)
-                        .addOnSuccessListener {
-                            Log.d("EditProfileFB", "이메일 업데이트 성공.")
-                        }
-                        .addOnFailureListener { e ->
-                            Log.w("EditProfileFB", "이메일 업데이트 실패.", e)
-                        }
                 }
             }
 
             val newPassword = pwdET.text.toString()
             if (newPassword.isNotEmpty() && newPassword != initialPassword) {
-                if(newPassword.length < 8) {
+                if (newPassword.length < 8) {
                     toastTv.text = "8글자 이상 작성해줘!"
                     showToast(toastLayout, pwdET, 700)
-                }else if(newPassword.length > 12) {
+                } else if (newPassword.length > 12) {
                     toastTv2.text = "12글자 이하로 작성해줘!"
                     showToast(toastLayout2, pwdET, 700)
-                }else{
+                } else {
                     updates["password"] = newPassword
-                    user.updatePassword(newPassword)
-                        .addOnSuccessListener {
-                            Log.d("EditProfileFB", "비밀번호 업데이트 성공.")
-                        }
-                        .addOnFailureListener { e ->
-                            Log.w("EditProfileFB", "비밀번호 업데이트 실패.", e)
-                        }
                 }
             }
 
             // 프로필 이미지가 변경된 경우
-            if (selectedProfileImage != initialProfileImage) {
-                updates["profileImage"] = selectedProfileImage
+            if (selectedProfileImageResId != null && selectedProfileImageResId != initialProfileImageResId) {
+                updates["profileImage"] = selectedProfileImageResId!!
             }
 
             // Firestore 업데이트
@@ -271,7 +271,8 @@ class EditProfileActivity : AppCompatActivity() {
                         // 프로필 업데이트 성공 시 MyPageFragment로 이동
                         val intent = Intent(this, MainActivity::class.java)
                         intent.putExtra("fragmentToLoad", "MyPageFragment")
-                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                        intent.flags =
+                            Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
                         startActivity(intent)
                         finish() // 현재 Activity 종료
                     }
@@ -283,7 +284,6 @@ class EditProfileActivity : AppCompatActivity() {
             }
 
         }
-
     }
 
     private fun isValidEmail(newEmail: String): Boolean {
@@ -292,7 +292,7 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
 
-    private fun saveProfileImage(imageResId: Int) {
+    /*private fun saveProfileImage(imageResId: Int) {
         val user = auth.currentUser
 
         if (user != null) {
@@ -312,7 +312,7 @@ class EditProfileActivity : AppCompatActivity() {
                     Log.w("EditProfile", "프로필 이미지를 저장하지 못했습니다.", e)
                 }
         }
-    }
+    }*/
 
 
     private fun loadUserProfile() {
