@@ -20,16 +20,25 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import com.example.to_me_from_me.Mypage.SharedViewModel
 import com.example.to_me_from_me.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class SituationFragment : BottomSheetDialogFragment() {
 
+    private lateinit var firestore: FirebaseFirestore
     private val sharedViewModel: ViewModel by activityViewModels()
     private val tag = "SituationFragment"
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_situation, container, false)
+
+        firestore = FirebaseFirestore.getInstance()
 
         val writeEditText = view.findViewById<EditText>(R.id.write_et)
         val charCountTextView = view.findViewById<TextView>(R.id.char_count_tv)
@@ -67,6 +76,8 @@ class SituationFragment : BottomSheetDialogFragment() {
                 }
 
                 else -> {
+
+                    saveSituationToFirestore(textValue)
 
                     // 다음 Fragment화면으로 이동
                     val nextFragment = EmojiFragment()
@@ -178,6 +189,32 @@ class SituationFragment : BottomSheetDialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return BottomSheetDialog(requireActivity(), R.style.TransparentBottomSheetDialogTheme).apply {
             setTitle("오늘 무슨 일이 있었어?")
+        }
+    }
+
+    private fun saveSituationToFirestore(letterContent: String) {
+        val user = FirebaseAuth.getInstance().currentUser
+
+        if (user != null) {
+            val userDocumentRef = firestore.collection("users").document(user.uid)
+
+            // 날짜 생성 (문서 ID로 사용)
+            val currentDate = SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault()).format(Date())
+
+            // 저장할 데이터
+            val situationData = hashMapOf(
+                "situation" to letterContent,
+                "date" to currentDate
+            )
+
+            // Firestore에 데이터 저장
+            userDocumentRef.collection("letters")
+                .document(currentDate)
+                .set(situationData)
+                .addOnSuccessListener {
+                    // 성공 시 currentDate를 SharedViewModel에 저장
+                    sharedViewModel.setCurrentDate(currentDate)
+                }
         }
     }
 

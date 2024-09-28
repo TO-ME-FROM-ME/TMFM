@@ -24,6 +24,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.to_me_from_me.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class Q2Fragment : BottomSheetDialogFragment() {
 
@@ -92,6 +94,7 @@ class Q2Fragment : BottomSheetDialogFragment() {
                 }
 
                 else -> {
+                    saveLetterToFirestore(writeEditText.text.toString())
 
                     // 다음 Fragment화면으로 이동
                     val nextFragment = Q3Fragment()
@@ -171,6 +174,24 @@ class Q2Fragment : BottomSheetDialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return BottomSheetDialog(requireActivity(), R.style.TransparentBottomSheetDialogTheme).apply {
             setTitle("1. 왜 두려운, 불안한 감정을 느꼈어?")
+        }
+    }
+
+    private fun saveLetterToFirestore(letterContent: String) {
+        val user = FirebaseAuth.getInstance().currentUser
+        val currentDate = sharedViewModel.currentDate.value
+
+        if (user != null && currentDate != null) {
+            val userDocumentRef = FirebaseFirestore.getInstance()
+                .collection("users")
+                .document(user.uid)
+                .collection("letters")
+                .document(currentDate)
+
+            val letterData = mapOf<String, Any>(
+                "q2" to letterContent
+            )
+            userDocumentRef.update(letterData)
         }
     }
 

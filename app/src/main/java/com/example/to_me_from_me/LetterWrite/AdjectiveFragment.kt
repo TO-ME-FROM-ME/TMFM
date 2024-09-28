@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.to_me_from_me.R
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class AdjectiveFragment : BottomSheetDialogFragment(),
     AdjectiveButtonAdapter.OnButtonClickListener {
@@ -116,6 +118,29 @@ class AdjectiveFragment : BottomSheetDialogFragment(),
             ad2.visibility = View.VISIBLE
         } else {
             ad2.visibility = View.INVISIBLE
+        }
+        saveAdDataToFirestore(ad1Text, ad2Text)
+    }
+
+    private fun saveAdDataToFirestore(ad1Text: String?, ad2Text: String?) {
+        val user = FirebaseAuth.getInstance().currentUser
+        val currentDate = sharedViewModel.currentDate.value  // SharedViewModel에서 현재 문서 ID를 가져옴
+
+        if (user != null && currentDate != null) {
+            val userDocumentRef = FirebaseFirestore.getInstance()
+                .collection("users")
+                .document(user.uid)
+                .collection("letters")
+                .document(currentDate)
+
+            // Firestore에 저장할 데이터 (ad1, ad2)
+            val adData = hashMapOf<String, Any>(
+                "ad1" to (ad1Text ?: ""),
+                "ad2" to (ad2Text ?: "")
+            )
+
+            // Firestore 문서 업데이트
+            userDocumentRef.update(adData)
         }
     }
 
