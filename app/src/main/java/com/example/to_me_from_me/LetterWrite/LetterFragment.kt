@@ -28,12 +28,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.to_me_from_me.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class LetterFragment : BottomSheetDialogFragment() {
 
+    private lateinit var firestore: FirebaseFirestore
     private val sharedViewModel: ViewModel by activityViewModels()
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.fragment_letter, container, false)
+
+        firestore = FirebaseFirestore.getInstance()
 
         val layout = view.findViewById<LinearLayout>(R.id.custom_toast_container)
         val reservBtn = view.findViewById<Button>(R.id.reserve_btn)
@@ -55,11 +64,13 @@ class LetterFragment : BottomSheetDialogFragment() {
             Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
         )
 
-        val toastLayout = LayoutInflater.from(requireContext()).inflate(R.layout.toast, layout, false)
+        val toastLayout =
+            LayoutInflater.from(requireContext()).inflate(R.layout.toast, layout, false)
         val toastTv = toastLayout.findViewById<TextView>(R.id.toast_tv)
 
         //토스트 메세지 생성
-        view.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+        view.viewTreeObserver.addOnGlobalLayoutListener(object :
+            ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 toastTv.text = "수정하고 싶으면 클릭해줘!"
                 showToast(toastLayout, letterTV, 2000) // 토스트 메시지 표시 (2초 동안)
@@ -86,7 +97,8 @@ class LetterFragment : BottomSheetDialogFragment() {
 
         // RecyclerView 초기화
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view_buttons)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        recyclerView.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         recyclerView.adapter = AdjectiveQ1Adapter(requireContext(), buttonDataList) { buttonData ->
         }
 
@@ -115,21 +127,26 @@ class LetterFragment : BottomSheetDialogFragment() {
 
             when {
                 textLength < 150 -> {
-                    showToast(toastLayout,letterTV,700)
+                    showToast(toastLayout, letterTV, 700)
                     toastTv.text = "최소 150자 이상 작성해줘!"
-                    letterTV.background = ContextCompat.getDrawable(requireContext(),
+                    letterTV.background = ContextCompat.getDrawable(
+                        requireContext(),
                         R.drawable.solid_over_txt
                     )
                 }
+
                 textLength > 500 -> {
-                    showToast(toastLayout,letterTV,700)
+                    showToast(toastLayout, letterTV, 700)
                     toastTv.text = "500자 이하로 작성해줘!"
-                    letterTV.background = ContextCompat.getDrawable(requireContext(),
+                    letterTV.background = ContextCompat.getDrawable(
+                        requireContext(),
                         R.drawable.solid_over_txt
                     )
                 }
 
                 else -> {
+
+                    saveLetterToFirestore(letterTV.text.toString())
 
                     val nextFragment = RecorderFragment()
                     parentFragmentManager.beginTransaction()
@@ -143,11 +160,13 @@ class LetterFragment : BottomSheetDialogFragment() {
 
 
 // 실시간 글자 수
-        letterTV.addTextChangedListener(object  : TextWatcher {
+        letterTV.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
+
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
+
             override fun afterTextChanged(s: Editable?) {
                 val charCount = s?.length ?: 0
                 charCountTextView.text = "$charCount"
@@ -188,4 +207,21 @@ class LetterFragment : BottomSheetDialogFragment() {
 
     }
 
+    private fun saveLetterToFirestore(letterContent: String) {
+        val user = FirebaseAuth.getInstance().currentUser
+        val currentDate = sharedViewModel.currentDate.value  // SharedViewModel에서 현재 문서 ID를 가져옴
+
+        if (user != null && currentDate != null) {
+            val userDocumentRef = FirebaseFirestore.getInstance()
+                .collection("users")
+                .document(user.uid)
+                .collection("letters")
+                .document(currentDate)
+
+            val letterData = mapOf<String, Any>(
+                "letter" to letterContent
+            )
+            userDocumentRef.update(letterData)
+        }
+    }
 }

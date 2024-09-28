@@ -11,12 +11,15 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import com.example.to_me_from_me.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class EmojiFragment : BottomSheetDialogFragment() {
 
     private val sharedViewModel: ViewModel by activityViewModels()
+    private var firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
 
     private var activeButton: ImageView? = null
     private var isImageSelected = false // 이미지가 선택되었는지 여부를 저장하는 변수
@@ -69,6 +72,7 @@ class EmojiFragment : BottomSheetDialogFragment() {
 
         nextButton.setOnClickListener {
             if (isImageSelected) { // 이미지가 선택된 경우에만 다음 단계로 이동
+                saveEmojiToFirestore()
                 val nextFragment = AdjectiveFragment()
                 parentFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, nextFragment)
@@ -80,6 +84,34 @@ class EmojiFragment : BottomSheetDialogFragment() {
         }
         return view
     }
+
+
+    private fun saveEmojiToFirestore() {
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user != null) {
+            val userDocumentRef = firestore.collection("users").document(user.uid)
+            val currentDate = sharedViewModel.currentDate.value
+
+            val selectedEmojiResId = sharedViewModel.selectedImageResId.value
+
+            if (user != null && currentDate != null && selectedEmojiResId != null) {
+                val userDocumentRef = FirebaseFirestore.getInstance()
+                    .collection("users")
+                    .document(user.uid)
+                    .collection("letters")
+                    .document(currentDate)
+
+                // Firestore에 저장할 이모지 데이터
+                val emojiData = mapOf<String, Any>(
+                    "emoji" to selectedEmojiResId
+                )
+
+                // 기존 문서에 emoji 필드 업데이트
+                userDocumentRef.update(emojiData)
+            }
+        }
+    }
+
 
     private fun setActiveButton(button: ImageView, activeDrawable: Int, inactiveDrawables: List<Int>) {
         activeButton?.let {

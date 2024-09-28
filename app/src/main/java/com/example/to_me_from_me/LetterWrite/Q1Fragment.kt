@@ -27,6 +27,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.to_me_from_me.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class Q1Fragment : BottomSheetDialogFragment() {
 
@@ -111,6 +113,7 @@ class Q1Fragment : BottomSheetDialogFragment() {
 
                 else -> {
 
+                    saveLetterToFirestore(writeEditText.text.toString())
                     // 다음 Fragment화면으로 이동
                     val nextFragment = Q2Fragment()
 
@@ -200,6 +203,24 @@ class Q1Fragment : BottomSheetDialogFragment() {
     fun hideKeyboard(activity: Activity){
         val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(activity.window.decorView.applicationWindowToken, 0)
+    }
+
+    private fun saveLetterToFirestore(letterContent: String) {
+        val user = FirebaseAuth.getInstance().currentUser
+        val currentDate = sharedViewModel.currentDate.value
+
+        if (user != null && currentDate != null) {
+            val userDocumentRef = FirebaseFirestore.getInstance()
+                .collection("users")
+                .document(user.uid)
+                .collection("letters")
+                .document(currentDate)
+
+            val letterData = mapOf<String, Any>(
+                "q1" to letterContent
+            )
+            userDocumentRef.update(letterData)
+        }
     }
 
 }

@@ -14,6 +14,8 @@ class ViewModel : ViewModel() {
 
     private val _selectedButtonData = MutableLiveData<List<ButtonData>>()
 
+    private val _currentDate = MutableLiveData<String>()
+    val currentDate: LiveData<String> get() = _currentDate
 
     fun setSituationText(text: String) {
         _situationText.value = text
@@ -25,5 +27,9 @@ class ViewModel : ViewModel() {
 
     fun setSelectedButtonData(data: List<ButtonData>) {
         _selectedButtonData.value = data
+    }
+
+    fun setCurrentDate(date: String) {
+        _currentDate.value = date
     }
 }
