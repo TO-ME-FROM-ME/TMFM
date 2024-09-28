@@ -87,7 +87,11 @@
                 android:fontFamily="@font/notosans"
                 android:textColor="@color/black" />
         </LinearLayout>
-
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_static"
+            android:padding="10dp"/>
 
         <LinearLayout
             android:layout_width="wrap_content"

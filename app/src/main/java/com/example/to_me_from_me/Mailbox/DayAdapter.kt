@@ -32,8 +32,6 @@ class DayAdapter(
     }
 
     override fun onBindViewHolder(holder: DayView, position: Int) {
-
-
         // 초기화
         val dayText = holder.layout.findViewById<TextView>(R.id.item_day_text)
         val todayIv = holder.layout.findViewById<ImageView>(R.id.today_iv)

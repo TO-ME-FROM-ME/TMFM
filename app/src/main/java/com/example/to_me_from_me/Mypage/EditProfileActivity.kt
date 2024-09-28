@@ -281,7 +281,9 @@ class EditProfileActivity : AppCompatActivity() {
             } else {
                 Log.d("EditProfileFB", "변경된 항목이 없습니다.")
             }
+
         }
+
     }
 
     private fun isValidEmail(newEmail: String): Boolean {
@@ -341,6 +343,8 @@ class EditProfileActivity : AppCompatActivity() {
                     Log.w("EditProfile", "사용자 정보를 불러오지 못했습니다.", e)
                 }
         }
+
+
     }
     private fun showToast(layout: View, writeEditText: EditText, duration: Int) {
         val toast = Toast(this)

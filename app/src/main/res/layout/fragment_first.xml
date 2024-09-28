@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/main_home"
+    android:background="@drawable/home_bg"
     tools:context=".FirstFragment">
 
     <LinearLayout
@@ -19,13 +19,11 @@
             android:gravity="center">
 
 
-            <TextView
-                android:id="@+id/logo_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="LOGO"
-                android:textSize="20dp"
-                android:textStyle="bold"/>
+            <ImageView
+                android:id="@+id/logo_iv"
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:src="@drawable/main_logo"/>
 
             <View
                 android:layout_width="wrap_content"

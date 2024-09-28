@@ -49,20 +49,31 @@
             android:background="@drawable/rounded"
             android:layout_gravity="center">
 
-            <ImageView
-                android:id="@+id/user_img"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+            <FrameLayout
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_gravity="start|center_vertical"
-                android:layout_marginStart="15dp"
-                android:src="@drawable/ic_profile_ex"/>
+                android:layout_marginStart="10dp">
+                <ImageView
+                    android:id="@+id/user_img_bg"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_my_bg_v" />
+                <ImageView
+                    android:id="@+id/user_img"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_my_01_s" />
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="70dp"
+                android:layout_marginStart="75dp"
                 android:text="우리 동생"
                 android:fontFamily="@font/font_gangwon"
                 android:textSize="25dp"

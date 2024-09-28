@@ -3,11 +3,9 @@ package com.example.to_me_from_me.Mailbox
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.LinearLayout
 import com.example.to_me_from_me.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -26,15 +24,29 @@ class MailBoxFragment: BottomSheetDialogFragment()  {
 
         val sendMail_ll = view.findViewById<LinearLayout>(R.id.send_ll)
         val sendMail = view.findViewById<LinearLayout>(R.id.send_mail)
+        val receiveMail_ll = view.findViewById<LinearLayout>(R.id.receiv_ll)
+        val receiveMail = view.findViewById<LinearLayout>(R.id.receiv_mail)
+        val randomMail_ll = view.findViewById<LinearLayout>(R.id.random_ll)
+        val randomMail = view.findViewById<LinearLayout>(R.id.random_mail)
+
 
         sendMail.setOnClickListener{
-            //SendMailActivity로 이동하기
-            //val context = holder.layout.context
-            val intent = Intent(context, SendMailActivity::class.java)
-            //intent.putExtra("selectedDate", currentDate.time) // 선택한 날짜를 전달하고 싶다면 추가
+            val intent = Intent(context, DetailMailBoxActivity::class.java)
+            intent.putExtra("letter","send")
             startActivity(intent)
         }
 
+        receiveMail.setOnClickListener{
+            val intent = Intent(context, DetailMailBoxActivity::class.java)
+            intent.putExtra("letter","receive")
+            startActivity(intent)
+        }
+
+        randomMail.setOnClickListener{
+            val intent = Intent(context, DetailMailBoxActivity::class.java)
+            intent.putExtra("letter","random")
+            startActivity(intent)
+        }
 
 
         return view

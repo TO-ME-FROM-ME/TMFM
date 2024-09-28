@@ -72,7 +72,6 @@ class MailboxActivity : AppCompatActivity(), MonthPickerDialogFragment.MonthSele
 
     private fun showNotNullMailboxFragment(selectedDate: Date) {
         val mailboxFragment = MailBoxFragment()
-        // 선택한 날짜를 전달하려면 Bundle 사용 가능
         val args = Bundle()
         args.putSerializable("selectedDate", selectedDate)
         mailboxFragment.arguments = args

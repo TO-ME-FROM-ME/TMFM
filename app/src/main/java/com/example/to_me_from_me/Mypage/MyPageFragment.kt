@@ -82,7 +82,7 @@ class MyPageFragment : Fragment() {
                         // 닉네임 가져와서 TextView에 설정
                         val nickname = document.getString("nickname")
                         userNameTV.text = nickname
-                        val profileImage = document.getLong("profileImage")?.toInt() ?: R.drawable.ic_profile_01_s
+                        val profileImage = document.getLong("profileImage")?.toInt() ?: R.drawable.ic_my_01_s
                         profileIMG.setImageResource(profileImage)
                         Log.d("이미지","img : $profileImage")
 
