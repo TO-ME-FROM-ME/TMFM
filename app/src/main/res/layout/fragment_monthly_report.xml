@@ -205,7 +205,7 @@
                         android:progress="55"
                         android:max="100"
                         android:indeterminateOnly="false"
-                        android:progressDrawable="@drawable/circular_progress"/>
+                        android:progressDrawable="@drawable/progress_exited"/>
 
                     <ImageView
                         android:layout_width="100dp"
@@ -260,7 +260,7 @@
                                 android:progress="23"
                                 android:max="100"
                                 android:indeterminateOnly="false"
-                                android:progressDrawable="@drawable/circular_progress"/>
+                                android:progressDrawable="@drawable/progress_happy"/>
 
                             <ImageView
                                 android:layout_width="60dp"
@@ -298,7 +298,7 @@
                                 android:progress="45"
                                 android:max="100"
                                 android:indeterminateOnly="false"
-                                android:progressDrawable="@drawable/circular_progress"/>
+                                android:progressDrawable="@drawable/progress_normal"/>
 
                             <ImageView
                                 android:layout_width="60dp"
@@ -344,7 +344,7 @@
                                 android:progress="78"
                                 android:max="100"
                                 android:indeterminateOnly="false"
-                                android:progressDrawable="@drawable/circular_progress"/>
+                                android:progressDrawable="@drawable/progress_sad"/>
 
                             <ImageView
                                 android:layout_width="60dp"
@@ -382,7 +382,7 @@
                                 android:progress="90"
                                 android:max="100"
                                 android:indeterminateOnly="false"
-                                android:progressDrawable="@drawable/circular_progress"/>
+                                android:progressDrawable="@drawable/progress_upset"/>
 
                             <ImageView
                                 android:layout_width="60dp"
