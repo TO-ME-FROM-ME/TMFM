@@ -91,7 +91,6 @@ class EmojiFragment : BottomSheetDialogFragment() {
         if (user != null) {
             val userDocumentRef = firestore.collection("users").document(user.uid)
             val currentDate = sharedViewModel.currentDate.value
-
             val selectedEmojiResId = sharedViewModel.selectedImageResId.value
 
             if (user != null && currentDate != null && selectedEmojiResId != null) {
@@ -101,15 +100,23 @@ class EmojiFragment : BottomSheetDialogFragment() {
                     .collection("letters")
                     .document(currentDate)
 
-                // Firestore에 저장할 이모지 데이터
+                // 리소스 ID를 문자열로 변환 (리소스 이름)
+                val selectedEmojiResName = getResourceNameById(selectedEmojiResId)
+
+                // Firestore에 저장할 이모지 데이터 (문자열)
                 val emojiData = mapOf<String, Any>(
-                    "emoji" to selectedEmojiResId
+                    "emoji" to selectedEmojiResName
                 )
 
                 // 기존 문서에 emoji 필드 업데이트
                 userDocumentRef.update(emojiData)
             }
         }
+    }
+
+    // 리소스 ID를 리소스 이름으로 변환하는 함수
+    private fun getResourceNameById(resourceId: Int): String {
+        return resources.getResourceEntryName(resourceId)
     }
 
 
