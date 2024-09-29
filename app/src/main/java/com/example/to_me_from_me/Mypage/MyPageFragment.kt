@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import com.example.to_me_from_me.R
@@ -28,6 +29,7 @@ class MyPageFragment : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_mypage, container, false)
     }
+
     override fun onResume() {
         super.onResume()
         // 프로필 이미지와 닉네임을 다시 불러옴
@@ -42,7 +44,6 @@ class MyPageFragment : Fragment() {
 
         userNameTV = view.findViewById(R.id.user_name)
         profileIMG = view.findViewById(R.id.user_img)
-        loadUserNickname()
 
         val userProfile = view.findViewById<ImageView>(R.id.user_go)
         val userAlarm = view.findViewById<ImageView>(R.id.alarm_go)
@@ -59,9 +60,7 @@ class MyPageFragment : Fragment() {
 
         userLogout.setOnClickListener {
             val dialogFragment = LogoutDialogFragment()
-            dialogFragment.setStyle(DialogFragment.STYLE_NORMAL,
-                R.style.RoundedBottomSheetDialogTheme
-            )
+            dialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundedBottomSheetDialogTheme)
             dialogFragment.show(parentFragmentManager, "LogoutDialogFragment")
         }
 
@@ -69,26 +68,36 @@ class MyPageFragment : Fragment() {
             startActivity(Intent(activity, DeleteAccActivity::class.java))
         }
     }
+
     private fun loadUserNickname() {
         val user = auth.currentUser
+        val uid = user?.uid
 
-        if (user != null) {
-            // Firestore에서 사용자 문서 참조
-            val userRef = firestore.collection("users").document(user.uid)
+        // SharedPreferences에서 이메일 불러오기
+        val sharedPref = requireContext().getSharedPreferences("UserPref", AppCompatActivity.MODE_PRIVATE)
+        val email = sharedPref.getString("userEmail", null)
 
-            userRef.get()
+        if (uid != null) {
+            firestore.collection("users").document(uid)
+                .get()
                 .addOnSuccessListener { document ->
+                    Log.d("UserPref", "MyPageFragment ${document.id}")
                     if (document != null && document.exists()) {
                         // 닉네임 가져와서 TextView에 설정
-                        val nickname = document.getString("nickname")
+                        val nickname = document.getString("nickname") ?: "닉네임이 없습니다."
                         userNameTV.text = nickname
+
+                        // 프로필 이미지를 설정
                         val profileImage = document.getLong("profileImage")?.toInt() ?: R.drawable.ic_my_01_s
                         profileIMG.setImageResource(profileImage)
-                        Log.d("EditProfileFB","img : $profileImage")
 
+                        Log.d("UserPref", "nickname : $nickname, img : $profileImage")
+                    } else {
+                        Toast.makeText(activity, "사용자 데이터가 존재하지 않습니다.", Toast.LENGTH_SHORT).show()
                     }
                 }
                 .addOnFailureListener { e ->
+                    Log.e("FirestoreError", "데이터 로드 실패: ${e.message}")
                     Toast.makeText(activity, "데이터 로드 실패: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
         } else {

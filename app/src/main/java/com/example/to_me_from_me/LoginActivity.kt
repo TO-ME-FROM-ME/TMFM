@@ -40,6 +40,9 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+        // 이전 사용자 정보 초기화
+        val emailEditText = findViewById<EditText>(R.id.login_input_id_et)
         val pwdEye = findViewById<ImageView>(R.id.eye_off)
         var isPasswordVisible = false
         val pwdEditText =findViewById<EditText>(R.id.login_input_pwd_et)
@@ -48,6 +51,9 @@ class LoginActivity : AppCompatActivity() {
         FirebaseApp.initializeApp(this)
         val providerFactory = PlayIntegrityAppCheckProviderFactory.getInstance()
         FirebaseAppCheck.getInstance().installAppCheckProviderFactory(providerFactory)
+
+        emailEditText.text.clear()
+        pwdEditText.text.clear()
 
         auth = Firebase.auth
 

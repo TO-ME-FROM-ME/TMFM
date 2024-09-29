@@ -21,17 +21,24 @@ class LogoutDialogFragment : DialogFragment() {
     private val tag = "LogoutDialogFragment"
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.logout_dialog, container, false)
-        auth = Firebase.auth
+        auth = FirebaseAuth.getInstance()
 
 
         val logoutButton : Button = view.findViewById<Button>(R.id.logout_btn)
 
         logoutButton.setOnClickListener {
             // 로그아웃
-            FirebaseAuth.getInstance().signOut()
+            auth.signOut()
             Toast.makeText(requireContext(), "로그아웃 성공", Toast.LENGTH_LONG).show()
             val intent = Intent(requireContext(), LoginActivity::class.java)
             startActivity(intent)
+
+            // 현재 사용자 상태 확인
+            if (auth.currentUser == null) {
+                Toast.makeText(requireContext(), "사용자가 로그아웃되었습니다.", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "로그아웃 실패", Toast.LENGTH_SHORT).show()
+            }
 
             // 다이얼로그 닫기
             dismiss()

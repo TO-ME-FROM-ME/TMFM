@@ -1,11 +1,13 @@
 package com.example.to_me_from_me.SetTest
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
+import com.example.to_me_from_me.MainActivity
 import com.example.to_me_from_me.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -26,7 +28,7 @@ class SETestFinActivity : AppCompatActivity() {
 
         val saveButton = findViewById<ImageView>(R.id.save_iv)
         val dialog = TestquitDialogFragment()
-        dialog.show(supportFragmentManager, "TestDialogFragment")
+       // dialog.show(supportFragmentManager, "TestDialogFragment")
 
 
         val backButton = findViewById<ImageView>(R.id.back_iv)
@@ -38,6 +40,7 @@ class SETestFinActivity : AppCompatActivity() {
         val finButton = findViewById<Button>(R.id.test_fin)
         finButton.setOnClickListener{
             saveTotalScoreToFirestore(totalScore)
+
         }
     }
     private fun saveTotalScoreToFirestore(totalScore: Int) {
@@ -53,6 +56,8 @@ class SETestFinActivity : AppCompatActivity() {
                     // 저장 성공 시 로그 및 토스트 메시지
                     Log.d("Firestore", "totalScore successfully updated!")
                     Toast.makeText(this, "검사결과가 저장되었습니다!", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
                 }
                 .addOnFailureListener { e ->
                     // 저장 실패 시 로그 및 토스트 메시지
