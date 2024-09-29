@@ -36,7 +36,7 @@ class MonthPickerDialogFragment(private var selectedYear: Int, private var selec
         val monthText = view.findViewById<TextView>(R.id.year_month_text)
 
         // 초기 연도와 월 표시
-        monthText.text = "${selectedYear}년 ${selectedMonth}월"
+        monthText.text = "${selectedYear}년 ${selectedMonth+1}월"
 
 
         monthTextViews.forEach { textView ->

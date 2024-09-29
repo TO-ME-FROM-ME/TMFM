@@ -25,17 +25,19 @@
                 android:paddingRight="10dp"/>
 
             <TextView
+                android:id="@+id/year_month_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/dark"
-                android:text="2024년 1월"
+                android:text="날짜"
                 android:textSize="20dp"
                 android:fontFamily="@font/bnotosans"
                 android:paddingRight="10dp"/>
 
             <ImageView
+                android:id="@+id/month_down_iv"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:src="@drawable/ic_down"/>
         </LinearLayout>
 

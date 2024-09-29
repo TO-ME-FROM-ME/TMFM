@@ -1,6 +1,5 @@
 package com.example.to_me_from_me
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -79,14 +78,14 @@ class HomeDialogFragment2 : DialogFragment() {
         when (emoji) {
             2131165351 -> {
                 excitedIv.setImageResource(R.drawable.ic_main_y_01)
-                setEmojiClickListener(excitedIv, R.drawable.ic_main_y_01, R.drawable.emoji_test)
+                setEmojiClickListener(excitedIv, R.drawable.ic_main_y_01, R.drawable.ic_main_s_01)
             }
             2131165355 -> {
                 Log.d("UserPref", "0")
                 happyIv.setImageResource(R.drawable.ic_main_y_02)
                 Log.d("UserPref", "1")
                 happyIv.setOnClickListener {
-                    setEmojiClickListener(happyIv, R.drawable.ic_main_y_02, R.drawable.emoji_test)
+                    setEmojiClickListener(happyIv, R.drawable.ic_main_y_02, R.drawable.ic_main_s_02)
                     Log.d("UserPref", "2")
                 }
                 Log.d("UserPref", "3")
@@ -94,15 +93,15 @@ class HomeDialogFragment2 : DialogFragment() {
             }
             2131165565 -> {
                 normalIv.setImageResource(R.drawable.ic_main_y_03)
-                setEmojiClickListener(normalIv, R.drawable.ic_main_y_03, R.drawable.emoji_test)
+                setEmojiClickListener(normalIv, R.drawable.ic_main_y_03, R.drawable.ic_main_s_03)
             }
             2131165612 -> {
                 sadIv.setImageResource(R.drawable.ic_main_y_04)
-                setEmojiClickListener(sadIv, R.drawable.ic_main_y_04, R.drawable.emoji_test)
+                setEmojiClickListener(sadIv, R.drawable.ic_main_y_04, R.drawable.ic_main_s_04)
             }
             2131165312 -> {
                 upsetIv.setImageResource(R.drawable.ic_main_y_05)
-                setEmojiClickListener(upsetIv, R.drawable.ic_main_y_05, R.drawable.emoji_test)
+                setEmojiClickListener(upsetIv, R.drawable.ic_main_y_05, R.drawable.ic_main_s_05)
             }
             else -> Log.d("UserPref", "Unknown emoji: $emoji")
         }
