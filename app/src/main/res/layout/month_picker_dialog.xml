@@ -36,6 +36,7 @@
             android:layout_weight="2"
             android:padding="8dp" />
         <ImageView
+            android:id="@+id/year_next_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right|center_vertical"

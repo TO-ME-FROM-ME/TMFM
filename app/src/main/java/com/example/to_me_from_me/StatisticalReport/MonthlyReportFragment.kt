@@ -1,5 +1,6 @@
 package com.example.to_me_from_me.StatisticalReport
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -7,13 +8,20 @@ import android.view.ContextMenu
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import com.example.to_me_from_me.LetterWrite.LetterFragment
+import com.example.to_me_from_me.LetterWrite.WriteLetterActivity
 import com.example.to_me_from_me.Mailbox.MonthPickerDialogFragment
+import com.example.to_me_from_me.Mypage.DeleteAccActivity
 import com.example.to_me_from_me.R
 import com.example.to_me_from_me.databinding.FragmentMonthlyReportBinding
 import com.github.mikephil.charting.charts.BarChart
@@ -42,7 +50,12 @@ class MonthlyReportFragment : Fragment(), MonthPickerDialogFragment2.MonthSelect
     private var selectedDate: Date = calendar.time
 
     private lateinit var monthTv: TextView
+    private lateinit var letterBtn : Button
 
+
+    private lateinit var cardView1Tv : TextView
+    private lateinit var cardView2Tv : TextView
+    private lateinit var cardView3Tv : TextView
 
     val user = FirebaseAuth.getInstance().currentUser
     val uid = user?.uid
@@ -53,6 +66,7 @@ class MonthlyReportFragment : Fragment(), MonthPickerDialogFragment2.MonthSelect
 
     private lateinit var report2Tv: TextView
 
+    private lateinit var adjectiveFl : FrameLayout
 
 
     override fun onCreateView(
@@ -62,12 +76,20 @@ class MonthlyReportFragment : Fragment(), MonthPickerDialogFragment2.MonthSelect
         _binding = FragmentMonthlyReportBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        monthTv = view.findViewById<TextView>(R.id.year_month_text)
+        adjectiveFl = view.findViewById(R.id.adjective_fl)
+        letterBtn = view.findViewById(R.id.letter_btn)
 
+        monthTv = view.findViewById<TextView>(R.id.year_month_text)
         monthTv.text = "${calendar.get(Calendar.YEAR)}년 ${calendar.get(Calendar.MONTH) + 1}월"
 
 
+        cardView1Tv = view.findViewById(R.id.adjective1_tv)
+        cardView2Tv = view.findViewById(R.id.adjective2_tv)
+        cardView3Tv = view.findViewById(R.id.adjective3_tv)
 
+        letterBtn.setOnClickListener {
+            startActivity(Intent(activity, WriteLetterActivity::class.java))
+        }
 
         val datePicker = view.findViewById<ImageView>(R.id.month_down_iv)
         datePicker.setOnClickListener {
@@ -150,9 +172,6 @@ class MonthlyReportFragment : Fragment(), MonthPickerDialogFragment2.MonthSelect
 //    자아존중감 검사결과
     private fun loadUserScore() {
         val user = auth.currentUser
-        val selectedMonth = calendar.get(Calendar.MONTH) + 1
-        val selectedYear = calendar.get(Calendar.YEAR)
-
 
     if (user != null) {
             // Firestore에서 사용자 문서 참조
@@ -216,6 +235,7 @@ class MonthlyReportFragment : Fragment(), MonthPickerDialogFragment2.MonthSelect
                         val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                         val emojiCounts = IntArray(5)
                         var totalCount = 0
+                        val adCounts = mutableMapOf<String, Int>()
 
                         for (document in documents) {
                             val dateString = document.getString("date")
@@ -230,6 +250,9 @@ class MonthlyReportFragment : Fragment(), MonthPickerDialogFragment2.MonthSelect
 
                                     // 선택된 연도와 월에 맞는 데이터만 필터링
                                     if (docYear == selectedYear && docMonth == selectedMonth) {
+                                        adjectiveFl.isVisible = true
+                                        letterBtn.isVisible = false // 데이터가 있을 경우 버튼 숨기기
+
                                         val emoji = document.getLong("emoji")?.toInt()
                                         if (emoji != null) {
                                             when (emoji) {
@@ -240,6 +263,17 @@ class MonthlyReportFragment : Fragment(), MonthPickerDialogFragment2.MonthSelect
                                                 2131165312 -> emojiCounts[4]++ // upset
                                             }
                                             totalCount++
+
+                                            val ad1 = document.getString("ad1")
+                                            val ad2 = document.getString("ad2")
+
+                                            if (ad1 != null) {
+                                                adCounts[ad1] = adCounts.getOrDefault(ad1, 0) + 1
+                                            }
+
+                                            if (ad2 != null) {
+                                                adCounts[ad2] = adCounts.getOrDefault(ad2, 0) + 1
+                                            }
                                         }
                                     }
                                 } catch (e: Exception) {
@@ -248,8 +282,50 @@ class MonthlyReportFragment : Fragment(), MonthPickerDialogFragment2.MonthSelect
                             }
                         }
 
-                        // 비율 계산 및 ProgressBar 업데이트
-                        updateProgressBars(emojiCounts, totalCount)
+                        // 데이터가 없으면 버튼 보여주기
+                        if (totalCount == 0) {
+                            adjectiveFl.isVisible = false // adjectiveFl 숨기기
+                            letterBtn.isVisible = true // 버튼 보여주기
+                        } else {
+                            // 비율 계산 및 ProgressBar 업데이트
+                            updateProgressBars(emojiCounts, totalCount)
+                            // 버튼 숨기기
+                            letterBtn.isVisible = false
+                        }
+
+                        // 빈도수를 기준으로 정렬
+                        val sortedAds = adCounts.toList().sortedByDescending { it.second }
+                        // 상위 3개 선택
+                        val topThreeAds = sortedAds.take(3)
+
+                        // 각 TextView에 결과 표시
+                        when (topThreeAds.size) {
+                            0 -> {
+                                cardView1Tv.text = ""
+                                cardView2Tv.text = ""
+                                cardView3Tv.text = ""
+                            }
+                            1 -> {
+                                cardView1Tv.text = topThreeAds[0].first
+                                cardView2Tv.text = ""
+                                cardView3Tv.text = ""
+                            }
+                            2 -> {
+                                cardView1Tv.text = topThreeAds[0].first
+                                cardView2Tv.text = topThreeAds[1].first
+                                cardView3Tv.text = ""
+                            }
+                            else -> {
+                                cardView1Tv.text = topThreeAds[0].first
+                                cardView2Tv.text = topThreeAds[1].first
+                                cardView3Tv.text = topThreeAds[2].first
+                            }
+                        }
+                        Log.d("topThreeAds", " $topThreeAds")
+                    } else {
+                        // 문서가 없는 경우 버튼 보여주기
+                        adjectiveFl.isVisible = false // adjectiveFl 숨기기
+                        letterBtn.isVisible = true // 버튼 보여주기
                     }
                 }
                 .addOnFailureListener { e ->
@@ -257,6 +333,8 @@ class MonthlyReportFragment : Fragment(), MonthPickerDialogFragment2.MonthSelect
                 }
         }
     }
+
+
 
     private fun updateProgressBars(emojiCounts: IntArray, totalCount: Int) {
         // 퍼센트 계산

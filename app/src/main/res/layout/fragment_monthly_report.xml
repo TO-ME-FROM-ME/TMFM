@@ -148,6 +148,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_line"/>
         <FrameLayout
+            android:id="@+id/adjective_fl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="20dp"
@@ -447,7 +448,7 @@
                                 android:layout_marginStart="10dp"
                                 android:src="@drawable/ic_01"/>
                             <TextView
-                                android:id="@+id/adjective1"
+                                android:id="@+id/adjective1_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="자랑스러운"
@@ -480,7 +481,7 @@
                                 android:layout_marginStart="10dp"
                                 android:src="@drawable/ic_02"/>
                             <TextView
-                                android:id="@+id/adjective2"
+                                android:id="@+id/adjective2_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="자랑스러운"
@@ -513,7 +514,7 @@
                                 android:layout_marginStart="10dp"
                                 android:src="@drawable/ic_03"/>
                             <TextView
-                                android:id="@+id/adjective3"
+                                android:id="@+id/adjective3_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="자랑스러운"
@@ -538,7 +539,7 @@
             android:visibility="gone"
             android:layout_marginTop="20dp"/>
         <Button
-            android:id="@+id/next_btn"
+            android:id="@+id/letter_btn"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginTop="30dp"
