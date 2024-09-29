@@ -48,7 +48,7 @@ class ProfileImgFragment : BottomSheetDialogFragment() {
 
         // 초기 이미지 설정 및 클릭 리스너
         imageViews.forEach { imageView ->
-            imageView.setImageResource(imageResourceMap[imageView.id] ?: R.drawable.ic_my_01)
+            //imageView.setImageResource(imageResourceMap[imageView.id] ?: R.drawable.ic_my_01)
             imageView.setOnClickListener { updateImageSelection(imageView) }
         }
 
@@ -60,12 +60,24 @@ class ProfileImgFragment : BottomSheetDialogFragment() {
 
     // 선택된 이미지를 업데이트하는 함수
     private fun updateImageSelection(newImageView: ImageView) {
-        selectedImageView?.setImageResource(imageResourceMap[selectedImageView?.id] ?: R.drawable.ic_my_01)
+        // 선택된 이미지가 있다면 기본 상태로 되돌리기
+        selectedImageView?.let {
+            it.setImageResource(imageResourceMap[it.id] ?: R.drawable.ic_my_01)
+            it.visibility = View.VISIBLE // 원래 이미지를 다시 보이게 함
 
+        }
+
+        // 새로운 이미지를 강조하고 숨기기
         newImageView.setImageResource(selectedImageResourceMap[newImageView.id] ?: R.drawable.ic_my_01_s)
+        selectedImageView = newImageView
+
+        // 현재 선택된 이미지 뷰 및 리소드 ID 업데이트
         selectedImageView = newImageView
         selectedImgResId = selectedImageResourceMap[newImageView.id] ?: R.drawable.ic_my_01_s
     }
+
+
+
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return BottomSheetDialog(requireActivity(), R.style.TransparentBottomSheetDialogTheme2).apply {

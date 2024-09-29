@@ -100,6 +100,16 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // 로그인에 성공한 경우 버튼 색상을 변경
                     binding.loginBtn.background = mainColor
+
+                    // 로그인 성공 시 현재 사용자 정보에서 UID를 가져옴
+                    val user = auth.currentUser
+                    val uid = user?.uid
+
+                    // UID가 null이 아닌 경우 SharedPreferences에 UID 저장
+                    if (uid != null) {
+                        saveUserUid(uid)
+                    }
+
                     Toast.makeText(this, "로그인 성공", Toast.LENGTH_LONG).show()
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
@@ -111,6 +121,14 @@ class LoginActivity : AppCompatActivity() {
                     Log.e("로그인오류", "${task.exception?.message}")
                 }
             }
+    }
+
+    private fun saveUserUid(uid: String) {
+        val sharedPref = getSharedPreferences("UserPref", MODE_PRIVATE)
+        val editor = sharedPref.edit()
+        editor.putString("userUid", uid)
+        editor.apply()
+
     }
 
     private fun showToast(layout: View, editText: EditText, duration: Int) {

@@ -38,7 +38,7 @@
             android:textSize="16dp"
             android:textStyle="bold"
             android:textColor="@color/dark"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="75dp"
             android:layout_centerHorizontal="true" />
     </RelativeLayout>
 
@@ -61,7 +61,7 @@
             android:textSize="16dp"
             android:textStyle="bold"
             android:textColor="@color/dark"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="75dp"
             android:layout_centerHorizontal="true"/>
     </RelativeLayout>
     </LinearLayout>

@@ -62,11 +62,6 @@ class AnnualReportFragment : Fragment() {
 
 
 
-        val barChart = binding.barChart
-        val barText = view.findViewById<TextView>(R.id.bar_chart_tv) // TextView 찾기
-        configureChartAppearanceBar(barChart, barText)
-
-
 
         return view
     }
@@ -147,103 +142,6 @@ class AnnualReportFragment : Fragment() {
 
     }
 
-    private fun configureChartAppearanceBar(
-        barChart: HorizontalBarChart,
-        barText1: TextView,
-
-    ) {
-        // Stacked BarEntry 데이터 생성
-        val entries = listOf(
-            BarEntry(1f, floatArrayOf(10f, 90f)) // 10%와 90% 비율로 스택된 막대
-        )
-
-        // BarDataSet 생성 및 설정
-        val barDataSet = BarDataSet(entries, "감정 데이터")
-        barDataSet.setDrawValues(true) // 막대 위의 값 숨기기
-        barDataSet.color = Color.parseColor("#FFBC9B") // 첫 번째 막대 색상 설정
-        barDataSet.setColors(listOf(Color.parseColor("#FFBC9B"), Color.parseColor("#4CAF50"))) // 두 번째 색상 설정
-
-
-
-        //barChart.renderer = RoundedBarChartRenderer(barChart, barChart.animator, barChart.viewPortHandler)
-
-        // BarData 생성
-        val barData = BarData(barDataSet)
-        barChart.data = barData
-        barChart.notifyDataSetChanged() // 데이터 갱신을 알려줌
-        barChart.invalidate() // 데이터 갱신 및 차트 리프레시
-
-
-        // 첫 번째 막대의 값을 TextView에 표시
-        val firstBarValue = entries[0].yVals[0].toInt() // 스택의 첫 번째 값 가져오기
-        val secondBarValue = entries[0].yVals[1].toInt() // 스택의 두 번째 값 가져오기
-
-        barText1.text = "$firstBarValue%  $secondBarValue%"
-
-
-        // BarChart 설정
-        barChart.isDragEnabled = false
-        barChart.setTouchEnabled(false) // 터치 유무
-        barChart.setScaleEnabled(false) // 확대 불가능
-        barChart.setDrawGridBackground(false)   // 차트의 배경 그리드 비활성화
-        barChart.setDrawBorders(false)  // 차트의 경계선 비활성화
-        barChart.setPinchZoom(false)
-        barChart.legend.isEnabled = false
-        barChart.isEnabled = true
-        //barChart.setExtraOffsets(10f, 0f, 40f, 0f)
-
-        // Description 숨기기
-        barChart.description.isEnabled = false
-
-        // XAxis 설정
-        val xAxis: XAxis = barChart.xAxis
-        xAxis.setDrawAxisLine(false)
-        xAxis.setDrawGridLines(false)
-        xAxis.granularity = 1f
-        xAxis.gridLineWidth = 15f
-        xAxis.textSize = 0f
-        xAxis.gridColor = Color.parseColor("#80E5E5E5")
-        barData.setDrawValues(false) // 막대 위의 값 숨기기
-        xAxis.valueFormatter = object : ValueFormatter() {
-            override fun getFormattedValue(value: Float): String {
-                return "" // 레이블 숨기기
-            }
-        }
-
-        // YAxis(Left) 설정
-        val yAxisLeft = barChart.axisLeft
-        yAxisLeft.setDrawGridLines(false)
-        yAxisLeft.setDrawAxisLine(false)
-        yAxisLeft.axisMinimum = 0f // 최솟값
-        yAxisLeft.axisMaximum = 50f // 최댓값
-        yAxisLeft.granularity = 0f // 값만큼 라인선 설정
-        yAxisLeft.isEnabled = false
-        yAxisLeft.setDrawLabels(false)
-
-        // YAxis(Right) 설정
-        val yAxisRight = barChart.axisRight
-        yAxisRight.setDrawLabels(false)
-        yAxisRight.setDrawAxisLine(false)
-        yAxisRight.isEnabled = false
-        yAxisRight.setDrawLabels(false)
-
-        // ValueFormatter를 사용하여 값 숨기기
-        barChart.axisLeft.valueFormatter = object : ValueFormatter() {
-            override fun getFormattedValue(value: Float): String {
-                return "" // 값 숨기기
-            }
-        }
-        barChart.axisRight.valueFormatter = object : ValueFormatter() {
-            override fun getFormattedValue(value: Float): String {
-                return "" // 값 숨기기
-            }
-        }
-
-        // 데이터 갱신 및 차트 리프레시
-        //barChart.invalidate()
-
-
-    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

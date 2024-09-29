@@ -66,9 +66,6 @@ class MonthlyReportFragment : Fragment() {
             dialog.show(parentFragmentManager, "StatisticalTipDialogFragment")
         }
 
-        val barChart = binding.barChart
-        val barText = view.findViewById<TextView>(R.id.bar_chart_tv) // TextView 찾기
-        configureChartAppearance(barChart, barText)
 
 
         return view
@@ -90,85 +87,6 @@ class MonthlyReportFragment : Fragment() {
         report2Tv= view.findViewById<TextView>(R.id.report2_tv)
 
         loadUserScore()
-    }
-
-    private fun configureChartAppearance(barChart: BarChart, barText: TextView) {
-        // BarEntry 데이터 생성 (x, y 값을 설정)
-        val entries = ArrayList<BarEntry>()
-        entries.add(BarEntry(1f, 100f)) // BarEntry 사용
-
-        // BarDataSet 생성 및 설정
-        val barDataSet = BarDataSet(entries, "감정 데이터")
-        barDataSet.color = Color.parseColor("#FFBC9B") // 막대 색상 설정
-        // BarData 생성 및 BarChart에 설정
-        val barData = BarData(barDataSet)
-        barChart.data = barData
-        barChart.invalidate() // 데이터 갱신 및 차트 리프레시
-
-        // 첫 번째 막대의 값을 TextView에 표시
-        val firstBarValue = entries[0].y.toInt()
-        barText.text = "$firstBarValue%"
-
-        // BarChart 설정
-        barChart.isDragEnabled = false
-        barChart.setTouchEnabled(false) // 터치 유무
-        barChart.setScaleEnabled(false) // 확대 불가능
-        barChart.setDrawGridBackground(false)   // 차트의 배경 그리드 비활성화
-        barChart.setDrawBorders(false)  // 차트의 경계선 비활성화
-        barChart.setPinchZoom(false)
-        barChart.legend.isEnabled = false
-        barChart.isEnabled = false
-        barChart.setExtraOffsets(10f, 0f, 40f, 0f)
-
-        // Description 숨기기
-        barChart.description.isEnabled = false
-
-        // XAxis 설정
-        val xAxis: XAxis = barChart.xAxis
-        xAxis.setDrawAxisLine(false)
-        xAxis.setDrawGridLines(false)
-        xAxis.granularity = 1f
-        xAxis.gridLineWidth = 15f
-        xAxis.textSize = 0f
-        xAxis.gridColor = Color.parseColor("#80E5E5E5")
-        barDataSet.setDrawValues(false) // 막대 위의 값 숨기기
-        xAxis.valueFormatter = object : ValueFormatter() {
-            override fun getFormattedValue(value: Float): String {
-                return "" // 레이블 숨기기
-            }
-        }
-
-        // YAxis(Left) 설정
-        val yAxisLeft = barChart.axisLeft
-        yAxisLeft.setDrawGridLines(false)
-        yAxisLeft.setDrawAxisLine(false)
-        yAxisLeft.axisMinimum = 0f // 최솟값
-        yAxisLeft.axisMaximum = 50f // 최댓값
-        yAxisLeft.granularity = 0f // 값만큼 라인선 설정
-        yAxisLeft.isEnabled = false
-        yAxisLeft.setDrawLabels(false)
-
-        // YAxis(Right) 설정
-        val yAxisRight = barChart.axisRight
-        yAxisRight.setDrawLabels(false)
-        yAxisRight.setDrawAxisLine(false)
-        yAxisRight.isEnabled = false
-        yAxisRight.setDrawLabels(false)
-
-        // ValueFormatter를 사용하여 값 숨기기
-        barChart.axisLeft.valueFormatter = object : ValueFormatter() {
-            override fun getFormattedValue(value: Float): String {
-                return "" // 값 숨기기
-            }
-        }
-        barChart.axisRight.valueFormatter = object : ValueFormatter() {
-            override fun getFormattedValue(value: Float): String {
-                return "" // 값 숨기기
-            }
-        }
-
-        // 데이터 갱신 및 차트 리프레시
-        barChart.invalidate()
     }
 
 
@@ -193,27 +111,24 @@ class MonthlyReportFragment : Fragment() {
                         if (score != null) {
                             if(score<20){
                                 reportTv.text = "낮은"
-                                reportTv.setTextColor(Color.parseColor("#FF7377"))
-                                report2Tv.text = " 자존감을 갖고 있어."
+                                report2Tv.text = " 자존감을 갖고 있어"
                                 userScoreTv.text = "${score.toString()}점"
                                 reportEmoTv.text="\uD83D\uDE22"
-                                scoreImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_graph1))
+                                scoreImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_graph_01))
 
                             }
                            else if(score<30) {
                                 reportTv.text = "보통수준"
-                                reportTv.setTextColor(Color.parseColor("#E1B735"))
-                                report2Tv.text = "의 자존감을 갖고 있어."
+                                report2Tv.text = "의 자존감을 갖고 있어"
                                 userScoreTv.text = "${score.toString()}점"
                                 reportEmoTv.text = "\uD83D\uDE03"
-                                scoreImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_graph2))
+                                scoreImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_graph_02))
                             }else{
                                 reportTv.text = "매우 높은"
-                                reportTv.setTextColor(Color.parseColor("#45826B"))
-                                report2Tv.text = " 자존감을 갖고 있어."
+                                report2Tv.text = " 자존감을 갖고 있어"
                                 userScoreTv.text = "${score.toString()}점"
                                 reportEmoTv.text = "\uD83E\uDD70"
-                                scoreImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_graph3))
+                                scoreImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_graph_03))
                             }
                         } else {
                             userScoreTv.text = " "

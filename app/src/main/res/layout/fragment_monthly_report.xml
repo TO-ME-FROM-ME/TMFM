@@ -83,11 +83,12 @@
             <ImageView
                 android:id="@+id/score_iv"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="100dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="60dp"
-                android:layout_marginBottom="60dp"
-                android:src="@drawable/ic_graph" />
+                android:layout_marginStart="5dp"
+                android:layout_marginBottom="65dp"
+                android:src="@drawable/ic_graph_03" />
 
             <TextView
                 android:id="@+id/user_score_tv"
@@ -96,10 +97,11 @@
                 android:text="00점"
                 android:textColor="@color/black"
                 android:textSize="18dp"
+                android:textStyle="bold"
                 android:layout_marginStart="5dp"
-                android:fontFamily="@font/notosans"
+                android:fontFamily="@font/bnotosans"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp"/>
+                android:layout_marginTop="25dp"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -113,15 +115,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="낮은"
-                    android:textColor="#FF7377"
                     android:textSize="15dp"
                     android:textStyle="bold"
+                    android:textColor="@color/black"
                     android:fontFamily="@font/notosans" />
                 <TextView
                     android:id="@+id/report2_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=" 자존감을 갖고 있어."
+                    android:text=" 자존감을 갖고 있어"
                     android:textColor="@color/Gray3"
                     android:fontFamily="@font/notosans"
                     android:textSize="15dp"
@@ -183,146 +185,236 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="60dp"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
                 android:gravity="center">
-                <TextView
-                    android:id="@+id/bar_chart_tv"
-                    android:layout_width="wrap_content"
+
+                <!-- 왼쪽에 큰 ProgressBar와 퍼센트 텍스트 -->
+                <RelativeLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="100%"
-                    android:gravity="center"/>
+                    android:layout_weight="1"
+                    android:padding="20dp"
+                    android:layout_gravity="center">
 
-                <com.github.mikephil.charting.charts.HorizontalBarChart
-                    android:id="@+id/bar_chart"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:gravity="center"
-                    android:layout_gravity="center" />
+                    <ProgressBar
+                        android:id="@+id/pb_l"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:progress="55"
+                        android:max="100"
+                        android:indeterminateOnly="false"
+                        android:progressDrawable="@drawable/circular_progress"/>
 
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_above="@+id/percentTextLarge"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="-100dp"
+                        android:src="@drawable/ic_my_01_s" />
+
+                    <TextView
+                        android:id="@+id/pb_l_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/progressBarLarge"
+                        android:layout_marginTop="85dp"
+                        android:layout_centerHorizontal="true"
+                        android:fontFamily="@font/bnotosans"
+                        android:textColor="@color/Gray1"
+                        android:text="55%"
+                        android:textSize="23dp" />
+
+                </RelativeLayout>
+
+                <!-- 오른쪽에 4개의 작은 ProgressBar와 퍼센트 텍스트 -->
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="20dp"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginEnd="10dp"
                     android:gravity="center">
 
                     <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:gravity="center"
-                        android:layout_marginEnd="10dp"
-                        android:orientation="vertical">
-                        <ImageView
-                            android:id="@+id/excited_btn"
-                            android:layout_width="60dp"
-                            android:layout_height="70dp"
-                            android:background="@drawable/ic_exc_report"
-                            android:clickable="true"
-                            android:focusable="true"/>
-                        <TextView
-                            android:layout_width="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
+                        <!-- 첫 번째 행: 작은 ProgressBar 1과 2 -->
+                        <RelativeLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/Gray4"
-                            android:fontFamily="@font/bnotosans"
-                            android:text="매우기쁨"/>
-                    </LinearLayout>
+                            android:padding="3dp"
+                            android:layout_weight="1">
 
+                            <ProgressBar
+                                android:id="@+id/pb_1"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:progress="23"
+                                android:max="100"
+                                android:indeterminateOnly="false"
+                                android:progressDrawable="@drawable/circular_progress"/>
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:layout_marginEnd="10dp"
-                        android:orientation="vertical">
-                        <ImageView
-                            android:id="@+id/happy_btn"
-                            android:layout_width="60dp"
-                            android:layout_height="70dp"
-                            android:background="@drawable/ic_happy_report"
-                            android:clickable="true"
-                            android:focusable="true"/>
-                        <TextView
-                            android:layout_width="wrap_content"
+                            <ImageView
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_alignParentTop="true"
+                                android:layout_marginTop="-5dp"
+                                android:src="@drawable/ic_my_02_s" />
+
+                            <TextView
+                                android:id="@+id/pb_1_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerInParent="true"
+                                android:layout_marginTop="45dp"
+                                android:fontFamily="@font/notosans"
+                                android:text="23%"
+                                android:textColor="@color/Gray1"
+                                android:textSize="12sp" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/Gray4"
-                            android:fontFamily="@font/bnotosans"
-                            android:text="기쁨"/>
-                    </LinearLayout>
+                            android:layout_weight="1"
+                            android:padding="3dp"
+                            android:layout_marginStart="8dp">
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:layout_marginEnd="10dp"
-                        android:orientation="vertical">
-                        <ImageView
-                            android:id="@+id/normal_btn"
-                            android:layout_width="60dp"
-                            android:layout_height="70dp"
-                            android:background="@drawable/ic_normal_report"
-                            android:clickable="true"
-                            android:focusable="true"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/Gray4"
-                            android:fontFamily="@font/bnotosans"
-                            android:text="보통"/>
-                    </LinearLayout>
+                            <ProgressBar
+                                android:id="@+id/pb_2"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:progress="45"
+                                android:max="100"
+                                android:indeterminateOnly="false"
+                                android:progressDrawable="@drawable/circular_progress"/>
 
+                            <ImageView
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_alignParentTop="true"
+                                android:layout_marginTop="-5dp"
+                                android:src="@drawable/ic_my_03_s" />
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:layout_marginEnd="10dp"
-                        android:orientation="vertical">
-                        <ImageView
-                            android:id="@+id/sad_btn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="60dp"
-                            android:background="@drawable/ic_sad_report"
-                            android:clickable="true"
-                            android:focusable="true"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/Gray4"
-                            android:fontFamily="@font/bnotosans"
-                            android:text="슬픔"/>
+                            <TextView
+                                android:id="@+id/pb_2_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerInParent="true"
+                                android:layout_marginTop="45dp"
+                                android:fontFamily="@font/notosans"
+                                android:text="23%"
+                                android:textColor="@color/Gray1"
+                                android:textSize="12sp" />
+                        </RelativeLayout>
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:gravity="center"
-                        android:layout_marginEnd="10dp"
-                        android:orientation="vertical">
-                        <ImageView
-                            android:id="@+id/angry_btn"
-                            android:layout_width="60dp"
-                            android:layout_height="70dp"
-                            android:background="@drawable/ic_upset_report"
-                            android:clickable="true"
-                            android:focusable="true"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/Gray4"
-                            android:fontFamily="@font/bnotosans"
-                            android:text="분노"/>
-                    </LinearLayout>
+                        android:orientation="horizontal"
+                        android:gravity="center">
 
+                        <!-- 두 번째 행: 작은 ProgressBar 3과 4 -->
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:padding="3dp"
+                            android:layout_weight="1">
+
+                            <ProgressBar
+                                android:id="@+id/pb_3"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:progress="78"
+                                android:max="100"
+                                android:indeterminateOnly="false"
+                                android:progressDrawable="@drawable/circular_progress"/>
+
+                            <ImageView
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_alignParentTop="true"
+                                android:layout_marginTop="-5dp"
+                                android:src="@drawable/ic_my_04_s" />
+
+                            <TextView
+                                android:id="@+id/pb_3_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerInParent="true"
+                                android:layout_marginTop="45dp"
+                                android:fontFamily="@font/notosans"
+                                android:text="23%"
+                                android:textColor="@color/Gray1"
+                                android:textSize="12sp" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="3dp"
+                            android:layout_marginStart="8dp">
+
+                            <ProgressBar
+                                android:id="@+id/pb_4"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:progress="90"
+                                android:max="100"
+                                android:indeterminateOnly="false"
+                                android:progressDrawable="@drawable/circular_progress"/>
+
+                            <ImageView
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_alignParentTop="true"
+                                android:layout_marginTop="-5dp"
+                                android:src="@drawable/ic_my_05_s" />
+
+                            <TextView
+                                android:id="@+id/pb_4_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerInParent="true"
+                                android:layout_marginTop="45dp"
+                                android:fontFamily="@font/notosans"
+                                android:text="23%"
+                                android:textColor="@color/Gray1"
+                                android:textSize="12sp" />
+                        </RelativeLayout>
+                    </LinearLayout>
                 </LinearLayout>
+            </LinearLayout>
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="250dp"
+                android:gravity="center">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -335,9 +427,9 @@
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cardView1"
-                        android:layout_width="wrap_content"
+                        android:layout_width="100dp"
                         android:layout_height="30dp"
-                        app:cardCornerRadius="100dp"
+                        app:cardCornerRadius="80dp"
                         android:layout_marginEnd="15dp"
                         android:backgroundTint="#FBDDCF"
                         app:cardElevation="5dp">
@@ -357,20 +449,22 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="자랑스러운"
-                                android:textSize="11dp"
-                                android:layout_marginStart="5dp"
-                                android:layout_marginEnd="15dp"
+                                android:textSize="12dp"
+                                android:gravity="center"
+                                android:layout_marginEnd="10dp"
                                 android:textColor="@color/black"
                                 android:fontFamily="@font/notosans" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
+
+
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cardView2"
-                        android:layout_width="wrap_content"
+                        android:layout_width="100dp"
                         android:layout_height="30dp"
-                        app:cardCornerRadius="100dp"
+                        app:cardCornerRadius="80dp"
                         android:layout_marginEnd="15dp"
-                        android:backgroundTint="#FBDDCF"
+                        android:backgroundTint="#CFE8DF"
                         app:cardElevation="5dp">
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -388,20 +482,22 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="자랑스러운"
-                                android:textSize="11dp"
-                                android:layout_marginStart="5dp"
-                                android:layout_marginEnd="15dp"
+                                android:textSize="12dp"
+                                android:gravity="center"
+                                android:layout_marginEnd="10dp"
                                 android:textColor="@color/black"
                                 android:fontFamily="@font/notosans" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
+
+
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cardView3"
-                        android:layout_width="wrap_content"
+                        android:layout_width="100dp"
                         android:layout_height="30dp"
-                        app:cardCornerRadius="100dp"
+                        app:cardCornerRadius="80dp"
                         android:layout_marginEnd="15dp"
-                        android:backgroundTint="#FBDDCF"
+                        android:backgroundTint="#FEF2CC"
                         app:cardElevation="5dp">
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -419,9 +515,9 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="자랑스러운"
-                                android:textSize="11dp"
-                                android:layout_marginStart="5dp"
-                                android:layout_marginEnd="15dp"
+                                android:textSize="12dp"
+                                android:gravity="center"
+                                android:layout_marginEnd="10dp"
                                 android:textColor="@color/black"
                                 android:fontFamily="@font/notosans" />
                         </LinearLayout>
@@ -433,9 +529,11 @@
             </LinearLayout>
         </FrameLayout>
         <ImageView
+            android:id="@+id/line_iv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_line"
+            android:visibility="gone"
             android:layout_marginTop="20dp"/>
         <Button
             android:id="@+id/next_btn"

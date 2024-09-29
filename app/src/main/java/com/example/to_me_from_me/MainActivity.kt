@@ -23,6 +23,18 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         setContentView(binding.root)
 
 
+        // SharedPreferences에서 이메일 불러오기
+        val sharedPref = getSharedPreferences("UserPref", MODE_PRIVATE)
+        val email = sharedPref.getString("userEmail", null) // 저장된 이메일 불러오기
+        if (email != null) {
+            Log.d("UserPref", "사용자 이메일: $email")
+
+        } else {
+            Log.d("UserPref", "저장된 이메일이 없습니다.")
+        }
+
+
+
         // 리스너 연결
         bottomNavigation.setOnNavigationItemSelectedListener(this)
 
@@ -32,6 +44,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         bottomNavigation.itemIconTintList = null
         bottomNavigation.itemTextColor = colorStateList
         bottomNavigation.setOnNavigationItemSelectedListener(this)
+
 
 
     }

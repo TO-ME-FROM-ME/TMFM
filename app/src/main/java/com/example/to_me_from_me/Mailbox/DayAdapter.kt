@@ -63,7 +63,7 @@ class DayAdapter(
             dayText.setTextColor(ContextCompat.getColor(holder.layout.context, android.R.color.black))
             todayIv.isVisible=true
             dayCv.isVisible=false
-            dayImg.setImageResource(R.drawable.ic_profile_01_s)
+            dayImg.setImageResource(R.drawable.ic_mailbox_01)
 
         } else {
             dayText.setTextColor(ContextCompat.getColor(holder.layout.context, R.color.Gray1)) // 다른 날짜의 기본 색상

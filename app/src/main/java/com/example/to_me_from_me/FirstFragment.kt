@@ -28,6 +28,13 @@ class FirstFragment : Fragment() {
             dialogFragment.show(parentFragmentManager, "HomeDialogFragment")
 
         }
+
+        val mailIv = view.findViewById<ImageView>(R.id.mail_iv)
+        mailIv.setOnClickListener {
+            val dialogFragment2 = HomeDialogFragment2()
+            dialogFragment2.show(parentFragmentManager, "HomeDialogFragment2")
+
+        }
         return view
     }
 

@@ -30,11 +30,15 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import org.w3c.dom.Text
 
 class LetterFragment : BottomSheetDialogFragment() {
 
     private lateinit var firestore: FirebaseFirestore
+    private lateinit var auth: FirebaseAuth
     private val sharedViewModel: ViewModel by activityViewModels()
+    private lateinit var nicknameText : TextView
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -48,8 +52,10 @@ class LetterFragment : BottomSheetDialogFragment() {
         val reservBtn = view.findViewById<Button>(R.id.reserve_btn)
         val sendBtn = view.findViewById<Button>(R.id.send_btn)
         val letterTV = view.findViewById<EditText>(R.id.letter_tv)
+        val nicknameText = "사랑하는 우리동생"
         val combinedTextValue = arguments?.getString("combinedTextValue")
-        val nicknameText = "사랑하는 우리동생에게"
+
+        
         val letterFull = "$nicknameText\n\n$combinedTextValue"
 
         // SpannableString을 생성합니다.
@@ -173,8 +179,10 @@ class LetterFragment : BottomSheetDialogFragment() {
             }
         })
 
+
         return view
     }
+
 
 
     private fun showToast(layout: View, writeEditText: EditText, duration: Int) {
@@ -206,6 +214,7 @@ class LetterFragment : BottomSheetDialogFragment() {
         return BottomSheetDialog(requireActivity(), R.style.TransparentBottomSheetDialogTheme)
 
     }
+
 
     private fun saveLetterToFirestore(letterContent: String) {
         val user = FirebaseAuth.getInstance().currentUser

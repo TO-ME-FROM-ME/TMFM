@@ -46,11 +46,24 @@
     <!-- write_iv를 화면의 제일 아래에 배치 -->
     <ImageView
         android:id="@+id/write_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_home_icon"
-        android:alpha="0"
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="200dp"
+        android:alpha="0"
+        android:src="@drawable/ic_home_icon" />
+
+    <ImageView
+        android:id="@+id/mail_iv"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="200dp"
+        android:layout_marginStart="40dp"
+        android:alpha="0"
+        android:src="@drawable/ic_home_icon" />
 
 </RelativeLayout>

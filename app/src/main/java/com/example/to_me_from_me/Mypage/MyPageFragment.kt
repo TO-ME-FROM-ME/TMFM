@@ -84,7 +84,7 @@ class MyPageFragment : Fragment() {
                         userNameTV.text = nickname
                         val profileImage = document.getLong("profileImage")?.toInt() ?: R.drawable.ic_my_01_s
                         profileIMG.setImageResource(profileImage)
-                        Log.d("이미지","img : $profileImage")
+                        Log.d("EditProfileFB","img : $profileImage")
 
                     }
                 }
