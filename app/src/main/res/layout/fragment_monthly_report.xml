@@ -211,6 +211,7 @@
                         android:progressDrawable="@drawable/progress_exited"/>
 
                     <ImageView
+                        android:id="@+id/pb_l_iv"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_above="@+id/percentTextLarge"
@@ -266,6 +267,7 @@
                                 android:progressDrawable="@drawable/progress_happy"/>
 
                             <ImageView
+                                android:id="@+id/pb_1_iv"
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
                                 android:layout_centerHorizontal="true"
@@ -304,6 +306,7 @@
                                 android:progressDrawable="@drawable/progress_normal"/>
 
                             <ImageView
+                                android:id="@+id/pb_2_iv"
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
                                 android:layout_centerHorizontal="true"
@@ -350,6 +353,7 @@
                                 android:progressDrawable="@drawable/progress_sad"/>
 
                             <ImageView
+                                android:id="@+id/pb_3_iv"
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
                                 android:layout_centerHorizontal="true"
@@ -388,6 +392,7 @@
                                 android:progressDrawable="@drawable/progress_upset"/>
 
                             <ImageView
+                                android:id="@+id/pb_4_iv"
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
                                 android:layout_centerHorizontal="true"

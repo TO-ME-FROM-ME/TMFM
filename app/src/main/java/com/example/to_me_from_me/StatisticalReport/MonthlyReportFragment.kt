@@ -42,12 +42,12 @@ class MonthlyReportFragment : Fragment(), MonthPickerDialogFragment2.MonthSelect
     private var _binding: FragmentMonthlyReportBinding? = null
     private val binding get() = _binding!!
 
+
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
     private lateinit var userScoreTv: TextView
 
     private var calendar: Calendar = Calendar.getInstance()
-    private var selectedDate: Date = calendar.time
 
     private lateinit var monthTv: TextView
     private lateinit var letterBtn : Button
@@ -68,6 +68,11 @@ class MonthlyReportFragment : Fragment(), MonthPickerDialogFragment2.MonthSelect
 
     private lateinit var adjectiveFl : FrameLayout
 
+    private lateinit var pbLIv : ImageView
+    private lateinit var pb1Iv : ImageView
+    private lateinit var pb2Iv : ImageView
+    private lateinit var pb3Iv : ImageView
+    private lateinit var pb4Iv : ImageView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -82,6 +87,12 @@ class MonthlyReportFragment : Fragment(), MonthPickerDialogFragment2.MonthSelect
         monthTv = view.findViewById<TextView>(R.id.year_month_text)
         monthTv.text = "${calendar.get(Calendar.YEAR)}년 ${calendar.get(Calendar.MONTH) + 1}월"
 
+
+        pbLIv = view.findViewById(R.id.pb_l_iv)
+        pb1Iv = view.findViewById(R.id.pb_1_iv)
+        pb2Iv = view.findViewById(R.id.pb_2_iv)
+        pb3Iv = view.findViewById(R.id.pb_3_iv)
+        pb4Iv = view.findViewById(R.id.pb_4_iv)
 
         cardView1Tv = view.findViewById(R.id.adjective1_tv)
         cardView2Tv = view.findViewById(R.id.adjective2_tv)
@@ -253,14 +264,14 @@ class MonthlyReportFragment : Fragment(), MonthPickerDialogFragment2.MonthSelect
                                         adjectiveFl.isVisible = true
                                         letterBtn.isVisible = false // 데이터가 있을 경우 버튼 숨기기
 
-                                        val emoji = document.getLong("emoji")?.toInt()
+                                        val emoji = document.getString("emoji")
                                         if (emoji != null) {
                                             when (emoji) {
-                                                2131165351 -> emojiCounts[0]++ // excited
-                                                2131165355 -> emojiCounts[1]++ // happy
-                                                2131165565 -> emojiCounts[2]++ // normal
-                                                2131165612 -> emojiCounts[3]++ // sad
-                                                2131165312 -> emojiCounts[4]++ // upset
+                                                "excited_s" -> emojiCounts[0]++ // excited
+                                                "happy_s" -> emojiCounts[1]++ // happy
+                                                "normal_s" -> emojiCounts[2]++ // normal
+                                                "sad_s" -> emojiCounts[3]++ // sad
+                                                "upset_s" -> emojiCounts[4]++ // upset
                                             }
                                             totalCount++
 
@@ -335,28 +346,79 @@ class MonthlyReportFragment : Fragment(), MonthPickerDialogFragment2.MonthSelect
     }
 
 
-
     private fun updateProgressBars(emojiCounts: IntArray, totalCount: Int) {
-        // 퍼센트 계산
+        // 퍼센티지 계산
         val percentages = emojiCounts.map { if (totalCount > 0) (it.toFloat() / totalCount) * 100 else 0f }
 
-        // 큰 ProgressBar 업데이트
-        binding.pbL.progress = percentages[0].toInt() // excited에 대한 ProgressBar
-        binding.pbLTv.text = "${percentages[0].toInt()}%" // 텍스트 업데이트
+        // 이모지 순서 정의 (excited_s, happy_s, normal_s, sad_s, upset_s 순)
+        val emojiOrder = listOf("excited_s", "happy_s", "normal_s", "sad_s", "upset_s")
 
-        // 작은 ProgressBar 업데이트
-        binding.pb1.progress = percentages[1].toInt() // happy에 대한 ProgressBar
-        binding.pb1Tv.text = "${percentages[1].toInt()}%" // 텍스트 업데이트
+        // 이모지 이름과 퍼센티지 값 쌍으로 만들기
+        val emojiPercentagePairs = emojiOrder.zip(percentages)
 
-        binding.pb2.progress = percentages[2].toInt() // normal에 대한 ProgressBar
-        binding.pb2Tv.text = "${percentages[2].toInt()}%" // 텍스트 업데이트
+        // 퍼센티지 내림차순으로 정렬, 동일 퍼센티지일 경우 emojiOrder 순서에 맞춰 정렬
+        val sortedEmojiPercentagePairs = emojiPercentagePairs.sortedWith(compareByDescending<Pair<String, Float>> { it.second }.thenBy { emojiOrder.indexOf(it.first) })
+        Log.d("ProgressList"," $sortedEmojiPercentagePairs")
 
-        binding.pb3.progress = percentages[3].toInt() // sad에 대한 ProgressBar
-        binding.pb3Tv.text = "${percentages[3].toInt()}%" // 텍스트 업데이트
 
-        binding.pb4.progress = percentages[4].toInt() // upset에 대한 ProgressBar
-        binding.pb4Tv.text = "${percentages[4].toInt()}%" // 텍스트 업데이트
+
+        // 각 ProgressBar, TextView, ImageView에 순서대로 적용
+        sortedEmojiPercentagePairs.forEachIndexed { index, (emojiName, percentage) ->
+            val progressBar = when (index) {
+                0 -> binding.pbL
+                1 -> binding.pb1
+                2 -> binding.pb2
+                3 -> binding.pb3
+                4 -> binding.pb4
+                else -> null
+            }
+
+            val progressTextView = when (index) {
+                0 -> binding.pbLTv
+                1 -> binding.pb1Tv
+                2 -> binding.pb2Tv
+                3 -> binding.pb3Tv
+                4 -> binding.pb4Tv
+                else -> null
+            }
+
+            val processImg = when (index) {
+                0 -> binding.pbLIv
+                1 -> binding.pb1Iv
+                2 -> binding.pb2Iv
+                3 -> binding.pb3Iv
+                4 -> binding.pb4Iv
+                else -> null
+            }
+
+            // ProgressBar와 TextView 업데이트
+            progressBar?.progress = percentage.toInt()
+            progressTextView?.text = "${percentage.toInt()}%"
+
+            // 각 emoji에 맞는 이미지 설정
+            val emojiResId = when (emojiName) {
+                "excited_s" -> R.drawable.ic_my_01_s
+                "happy_s" -> R.drawable.ic_my_02_s
+                "normal_s" -> R.drawable.ic_my_03_s
+                "sad_s" -> R.drawable.ic_my_04_s
+                "upset_s" -> R.drawable.ic_my_05_s
+                else -> R.drawable.ic_my_01_s
+            }
+            processImg?.setImageResource(emojiResId)
+
+            // ProgressBar의 Drawable 설정
+            val drawableResId = when (emojiName) {
+                "excited_s" -> R.drawable.progress_exited
+                "happy_s" -> R.drawable.progress_happy
+                "normal_s" -> R.drawable.progress_normal
+                "sad_s" -> R.drawable.progress_sad
+                "upset_s" -> R.drawable.progress_upset
+                else -> R.drawable.progress_exited
+            }
+            progressBar?.progressDrawable = requireContext().getDrawable(drawableResId)
+        }
     }
+
 
 
 }

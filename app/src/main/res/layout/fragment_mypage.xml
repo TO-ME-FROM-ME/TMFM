@@ -12,25 +12,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!-- 마진을 주기 위한 빈 View -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="20dp" />
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="My page"
-                android:fontFamily="@font/notosans"
-                android:textStyle="bold"
-                android:textSize="25dp"
-                android:textColor="@color/black"
-                android:layout_marginLeft="20dp"/>
+            <ImageView
+                android:id="@+id/title_tv"
+                android:layout_width="200dp"
+                android:layout_height="120dp"
+                android:src="@drawable/mypage_logo"
+                android:scaleType="fitXY" />
 
         </LinearLayout>
 
@@ -74,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="75dp"
-                android:text="우리 동생"
+                android:text=" "
                 android:fontFamily="@font/font_gangwon"
                 android:textSize="25dp"
                 android:textStyle="bold"

@@ -1,22 +1,18 @@
 package com.example.to_me_from_me.StatisticalReport
 
+
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import com.example.to_me_from_me.R
 import com.example.to_me_from_me.databinding.FragmentAnnualReportBinding
-import com.github.mikephil.charting.charts.HorizontalBarChart
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.data.BarData
-import com.github.mikephil.charting.data.BarDataSet
-import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
@@ -62,13 +58,13 @@ class AnnualReportFragment : Fragment() {
 
 
 
-
         return view
     }
 
     private fun setChartData(lineChart: LineChart) {
         // y축 데이터 설정
         val entries = ArrayList<Entry>()
+
         entries.add(Entry(1f, 10f))
         entries.add(Entry(2f, 18f))
         entries.add(Entry(3f, 13f))
@@ -102,9 +98,11 @@ class AnnualReportFragment : Fragment() {
 
         // XAxis 설정
         val xAxis = lineChart.xAxis
-        xAxis.setDrawAxisLine(false)
+        xAxis.setDrawAxisLine(true)
         xAxis.setDrawGridLines(false)
         xAxis.position = XAxis.XAxisPosition.BOTTOM
+        xAxis.axisLineWidth = 3f
+        xAxis.axisLineColor = Color.rgb(163, 163, 163)
         xAxis.granularity = 1f
         xAxis.textSize = 14f
         xAxis.textColor = Color.rgb(118, 118, 118)
@@ -127,18 +125,33 @@ class AnnualReportFragment : Fragment() {
         }
         // YAxis 설정
         val yAxisLeft = lineChart.axisLeft
-        yAxisLeft.setDrawAxisLine(false)
-        yAxisLeft.setDrawGridLines(false)
+        yAxisLeft.setDrawAxisLine(true)
+        yAxisLeft.axisLineColor = Color.rgb(163, 163, 163) // Y축 테두리 색상 설정
+        yAxisLeft.axisLineWidth = 3f // Y축 테두리 두께 설정
+        yAxisLeft.setDrawGridLines(true)
         yAxisLeft.textSize = 14f
         yAxisLeft.textColor = Color.rgb(163, 163, 163)
-        yAxisLeft.axisLineWidth = 2f
         yAxisLeft.axisMinimum = 0f // 최솟값
-        yAxisLeft.axisMaximum = 100f // 최댓값 설정
+        yAxisLeft.axisMaximum = 37f // 최댓값 설정
         yAxisLeft.granularity = 10f // 간격 설정
 
-        val yAxis = lineChart.axisRight
-        yAxis.setDrawLabels(false)
-        yAxis.setDrawAxisLine(false)
+
+        // Y축 레이블에서 0을 숨기기 위한 설정
+        yAxisLeft.valueFormatter = object : ValueFormatter() {
+            override fun getFormattedValue(value: Float): String {
+                return when (value.toInt()) {
+                    10 -> "10"
+                    20 -> "20"
+                    30 -> "30"
+                    else -> "" // 0은 숨김
+                }
+            }
+        }
+
+        val yAxisRight = lineChart.axisRight
+        yAxisRight.setDrawLabels(false)
+        yAxisRight.setDrawAxisLine(false)
+        yAxisRight.setDrawGridLines(false)
 
     }
 

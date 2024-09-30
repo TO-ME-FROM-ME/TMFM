@@ -84,7 +84,7 @@
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/line_chart"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="200dp"
                 android:layout_marginTop="60dp" />
         </FrameLayout>
 
@@ -92,6 +92,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
+            android:layout_marginTop="20dp"
             android:src="@drawable/ic_line"/>
 
         <FrameLayout
@@ -129,7 +130,231 @@
                     android:src="@drawable/ic_error" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:gravity="center">
 
+                <!-- 왼쪽에 큰 ProgressBar와 퍼센트 텍스트 -->
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="20dp"
+                    android:layout_gravity="center">
+
+                    <ProgressBar
+                        android:id="@+id/pb_l"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:progress="55"
+                        android:max="100"
+                        android:indeterminateOnly="false"
+                        android:progressDrawable="@drawable/progress_exited"/>
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_above="@+id/percentTextLarge"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="-100dp"
+                        android:src="@drawable/ic_my_01_s" />
+
+                    <TextView
+                        android:id="@+id/pb_l_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/progressBarLarge"
+                        android:layout_marginTop="85dp"
+                        android:layout_centerHorizontal="true"
+                        android:fontFamily="@font/bnotosans"
+                        android:textColor="@color/Gray1"
+                        android:text="55%"
+                        android:textSize="23dp" />
+
+                </RelativeLayout>
+
+                <!-- 오른쪽에 4개의 작은 ProgressBar와 퍼센트 텍스트 -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
+                        <!-- 첫 번째 행: 작은 ProgressBar 1과 2 -->
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:padding="3dp"
+                            android:layout_weight="1">
+
+                            <ProgressBar
+                                android:id="@+id/pb_1"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:progress="23"
+                                android:max="100"
+                                android:indeterminateOnly="false"
+                                android:progressDrawable="@drawable/progress_happy"/>
+
+                            <ImageView
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_alignParentTop="true"
+                                android:layout_marginTop="-5dp"
+                                android:src="@drawable/ic_my_02_s" />
+
+                            <TextView
+                                android:id="@+id/pb_1_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerInParent="true"
+                                android:layout_marginTop="45dp"
+                                android:fontFamily="@font/notosans"
+                                android:text="23%"
+                                android:textColor="@color/Gray1"
+                                android:textSize="12sp" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="3dp"
+                            android:layout_marginStart="8dp">
+
+                            <ProgressBar
+                                android:id="@+id/pb_2"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:progress="45"
+                                android:max="100"
+                                android:indeterminateOnly="false"
+                                android:progressDrawable="@drawable/progress_normal"/>
+
+                            <ImageView
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_alignParentTop="true"
+                                android:layout_marginTop="-5dp"
+                                android:src="@drawable/ic_my_03_s" />
+
+                            <TextView
+                                android:id="@+id/pb_2_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerInParent="true"
+                                android:layout_marginTop="45dp"
+                                android:fontFamily="@font/notosans"
+                                android:text="23%"
+                                android:textColor="@color/Gray1"
+                                android:textSize="12sp" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
+                        <!-- 두 번째 행: 작은 ProgressBar 3과 4 -->
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:padding="3dp"
+                            android:layout_weight="1">
+
+                            <ProgressBar
+                                android:id="@+id/pb_3"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:progress="78"
+                                android:max="100"
+                                android:indeterminateOnly="false"
+                                android:progressDrawable="@drawable/progress_sad"/>
+
+                            <ImageView
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_alignParentTop="true"
+                                android:layout_marginTop="-5dp"
+                                android:src="@drawable/ic_my_04_s" />
+
+                            <TextView
+                                android:id="@+id/pb_3_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerInParent="true"
+                                android:layout_marginTop="45dp"
+                                android:fontFamily="@font/notosans"
+                                android:text="23%"
+                                android:textColor="@color/Gray1"
+                                android:textSize="12sp" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="3dp"
+                            android:layout_marginStart="8dp">
+
+                            <ProgressBar
+                                android:id="@+id/pb_4"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:progress="90"
+                                android:max="100"
+                                android:indeterminateOnly="false"
+                                android:progressDrawable="@drawable/progress_upset"/>
+
+                            <ImageView
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_alignParentTop="true"
+                                android:layout_marginTop="-5dp"
+                                android:src="@drawable/ic_my_05_s" />
+
+                            <TextView
+                                android:id="@+id/pb_4_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:layout_centerInParent="true"
+                                android:layout_marginTop="45dp"
+                                android:fontFamily="@font/notosans"
+                                android:text="23%"
+                                android:textColor="@color/Gray1"
+                                android:textSize="12sp" />
+                        </RelativeLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
 
         </FrameLayout>
         <View
