@@ -45,6 +45,10 @@ class MonthlyReportFragment : Fragment(), MonthPickerDialogFragment2.MonthSelect
 
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
+    val user = FirebaseAuth.getInstance().currentUser
+    val uid = user?.uid
+
+
     private lateinit var userScoreTv: TextView
 
     private var calendar: Calendar = Calendar.getInstance()
@@ -56,9 +60,6 @@ class MonthlyReportFragment : Fragment(), MonthPickerDialogFragment2.MonthSelect
     private lateinit var cardView1Tv : TextView
     private lateinit var cardView2Tv : TextView
     private lateinit var cardView3Tv : TextView
-
-    val user = FirebaseAuth.getInstance().currentUser
-    val uid = user?.uid
 
     private lateinit var reportTv: TextView
     private lateinit var reportEmoTv: TextView

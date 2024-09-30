@@ -11,6 +11,7 @@
         android:layout_height="70dp">
 
 
+
         <ImageView
             android:id="@+id/today_iv"
             android:layout_width="wrap_content"
@@ -19,14 +20,6 @@
             android:gravity="center"
             android:src="@drawable/ic_today"/>
 
-        <ImageView
-            android:id="@+id/item_day_iv"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            app:cardCornerRadius="60dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/ic_profile_01_s"/>
         <androidx.cardview.widget.CardView
             android:id="@+id/item_day_cv"
             android:layout_width="40dp"
@@ -45,6 +38,14 @@
             android:text="9"
             android:layout_marginLeft="10dp"
             android:textColor="@color/Gray1"/>
+        <ImageView
+            android:id="@+id/item_day_iv"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:cardCornerRadius="60dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/ic_mailbox_01"/>
 
     </FrameLayout>
 

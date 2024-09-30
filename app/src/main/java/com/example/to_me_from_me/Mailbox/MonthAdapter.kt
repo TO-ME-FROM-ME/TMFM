@@ -13,8 +13,16 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.to_me_from_me.MainActivity
 import com.example.to_me_from_me.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.firestore.FirebaseFirestore
+import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
+import java.util.Locale
 
 class MonthAdapter(
     private val onDayClickListener: (Date, Boolean) -> Unit,
@@ -23,6 +31,14 @@ class MonthAdapter(
 
     private var calendar: Calendar = Calendar.getInstance()
     private var selectedDate: Date = calendar.time
+
+    private lateinit var auth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
+    val user = FirebaseAuth.getInstance().currentUser
+    val uid = user?.uid
+
+    private val emojiMap = mutableMapOf<String, String>()
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Month {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_mailbox_month, parent, false)
@@ -33,6 +49,12 @@ class MonthAdapter(
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
             parent.context.startActivity(intent)
         }
+
+        auth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
+
+
+        val selectedMonth = calendar.get(Calendar.MONTH) + 1
 
         return Month(view)
     }
@@ -75,11 +97,12 @@ class MonthAdapter(
         }
 
         listLayout.layoutManager = GridLayoutManager(holder.view.context, 7)
-        // DayAdapter에 클릭 리스너를 전달
         listLayout.adapter = DayAdapter(tempMonth, dayList) { clickedDate, hasImage ->
-            onDayClickListener(clickedDate,hasImage) // 날짜 클릭 시 리스너 호출
-            Log.d("onDayClickListener","hasImage $hasImage")
+            onDayClickListener(clickedDate, hasImage) // 날짜 클릭 시 리스너 호출
+            Log.d("DayAdapter", "Clicked: $clickedDate, HasImage: $hasImage")
         }
+
+        
     }
 
     override fun getItemCount(): Int {
