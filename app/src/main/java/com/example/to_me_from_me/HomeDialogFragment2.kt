@@ -51,15 +51,14 @@ class HomeDialogFragment2 : DialogFragment() {
             firestore.collection("users").document(uid).collection("letters")
                 .get()
                 .addOnSuccessListener { documents ->
-                    Log.d("UserPref", "Firestore 쿼리 성공. 문서 수: ${documents.size()}")
                     if (documents.isEmpty) {
                         Log.d("UserPref", "Firebase : 해당 문서가 없습니다.")
                     } else {
                         for (document in documents) {
-                            Log.d("UserPref", "Firebase : ${document.id} => ${document.data}")
-                            val emoji = document.getLong("emoji")?.toInt()
+                            // Firestore에서 가져온 emoji 필드를 문자열로 처리
+                            val emojiString = document.getString("emoji") // 문자열로 가져오기
                             titleTv.text = "받고 싶은 편지의 감정을 선택해줘!"
-                            updateEmojiView(emoji)
+                            updateEmojiView(emojiString) // 문자열로 updateEmojiView에 전달
                         }
                     }
                 }
@@ -73,33 +72,26 @@ class HomeDialogFragment2 : DialogFragment() {
         return view
     }
 
-    private fun updateEmojiView(emoji: Int?) {
+    private fun updateEmojiView(emoji: String?) {
         // emoji 값에 따라 해당 ImageView 보이기
         when (emoji) {
-            2131165351 -> {
+            "excited_s" -> {
                 excitedIv.setImageResource(R.drawable.ic_main_y_01)
                 setEmojiClickListener(excitedIv, R.drawable.ic_main_y_01, R.drawable.ic_main_s_01)
             }
-            2131165355 -> {
-                Log.d("UserPref", "0")
+            "happy_s" -> {
                 happyIv.setImageResource(R.drawable.ic_main_y_02)
-                Log.d("UserPref", "1")
-                happyIv.setOnClickListener {
-                    setEmojiClickListener(happyIv, R.drawable.ic_main_y_02, R.drawable.ic_main_s_02)
-                    Log.d("UserPref", "2")
-                }
-                Log.d("UserPref", "3")
-
+                setEmojiClickListener(happyIv, R.drawable.ic_main_y_02, R.drawable.ic_main_s_02)
             }
-            2131165565 -> {
+            "normal_s" -> {
                 normalIv.setImageResource(R.drawable.ic_main_y_03)
                 setEmojiClickListener(normalIv, R.drawable.ic_main_y_03, R.drawable.ic_main_s_03)
             }
-            2131165612 -> {
+            "sad_s" -> {
                 sadIv.setImageResource(R.drawable.ic_main_y_04)
                 setEmojiClickListener(sadIv, R.drawable.ic_main_y_04, R.drawable.ic_main_s_04)
             }
-            2131165312 -> {
+            "upset_s" -> {
                 upsetIv.setImageResource(R.drawable.ic_main_y_05)
                 setEmojiClickListener(upsetIv, R.drawable.ic_main_y_05, R.drawable.ic_main_s_05)
             }
