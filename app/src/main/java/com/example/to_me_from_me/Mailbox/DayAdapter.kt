@@ -54,10 +54,20 @@ class DayAdapter(
         firestore = FirebaseFirestore.getInstance()
 
         val currentDate = dayList[position]
-        //val daySdf = SimpleDateFormat("MM-dd", Locale.getDefault())
         val daySdf = SimpleDateFormat("d", Locale.getDefault()).format(currentDate)
         val dayDateString = daySdf.format(currentDate) // 현재 날짜의 일 부분
         holder.dayText.text = dayDateString
+
+
+        // 현재 날짜와 비교
+        val today = Calendar.getInstance().time
+        if (currentDate.date == today.date && currentDate.month == today.month && currentDate.year == today.year) {
+            holder.dayText.setTextColor(Color.BLACK)  // 현재 날짜면 텍스트를 검정색으로 설정
+            holder.todayIv.isVisible = true             // dayCv를 true로 설정
+        } else {
+            holder.dayText.setTextColor(Color.GRAY)   // 다른 날짜는 기본 회색 설정
+            holder.todayIv.isVisible = false            // dayCv를 false로 설정
+        }
 
 
         if(uid != null ){
