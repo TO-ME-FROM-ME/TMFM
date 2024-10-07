@@ -98,6 +98,7 @@
             android:src="@drawable/ic_line"/>
 
         <FrameLayout
+            android:id="@+id/annual_fl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="20dp"
@@ -158,7 +159,7 @@
                         android:progressDrawable="@drawable/progress_exited"/>
 
                     <ImageView
-                        android:id="@+id/pb_l_iv"
+                        android:id="@+id/pb_l_iva"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_above="@+id/percentTextLarge"
@@ -214,7 +215,7 @@
                                 android:progressDrawable="@drawable/progress_happy"/>
 
                             <ImageView
-                                android:id="@+id/pb_1_iv"
+                                android:id="@+id/pb_1_iva"
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
                                 android:layout_centerHorizontal="true"
@@ -253,7 +254,7 @@
                                 android:progressDrawable="@drawable/progress_normal"/>
 
                             <ImageView
-                                android:id="@+id/pb_2_iv"
+                                android:id="@+id/pb_2_iva"
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
                                 android:layout_centerHorizontal="true"
@@ -300,7 +301,7 @@
                                 android:progressDrawable="@drawable/progress_sad"/>
 
                             <ImageView
-                                android:id="@+id/pb_3_iv"
+                                android:id="@+id/pb_3_iva"
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
                                 android:layout_centerHorizontal="true"
@@ -339,7 +340,7 @@
                                 android:progressDrawable="@drawable/progress_upset"/>
 
                             <ImageView
-                                android:id="@+id/pb_4_iv"
+                                android:id="@+id/pb_4_iva"
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
                                 android:layout_centerHorizontal="true"
@@ -362,7 +363,124 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="250dp"
+                android:gravity="center">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:gravity="center"
+                    android:layout_marginTop="30dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardView1"
+                        android:layout_width="100dp"
+                        android:layout_height="30dp"
+                        app:cardCornerRadius="80dp"
+                        android:layout_marginEnd="15dp"
+                        android:backgroundTint="#FBDDCF"
+                        app:cardElevation="5dp">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginStart="10dp"
+                                android:src="@drawable/ic_01"/>
+                            <TextView
+                                android:id="@+id/adjective1_tva"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="자랑스러운"
+                                android:textSize="12dp"
+                                android:gravity="center"
+                                android:layout_gravity="center"
+                                android:layout_marginEnd="10dp"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/notosans" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardView2"
+                        android:layout_width="100dp"
+                        android:layout_height="30dp"
+                        app:cardCornerRadius="80dp"
+                        android:layout_marginEnd="15dp"
+                        android:backgroundTint="#CFE8DF"
+                        app:cardElevation="5dp">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginStart="10dp"
+                                android:src="@drawable/ic_02"/>
+                            <TextView
+                                android:id="@+id/adjective2_tva"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="자랑스러운"
+                                android:textSize="12dp"
+                                android:gravity="center"
+                                android:layout_gravity="center"
+                                android:layout_marginEnd="10dp"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/notosans" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardView3"
+                        android:layout_width="100dp"
+                        android:layout_height="30dp"
+                        app:cardCornerRadius="80dp"
+                        android:layout_marginEnd="15dp"
+                        android:backgroundTint="#FEF2CC"
+                        app:cardElevation="5dp">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginStart="10dp"
+                                android:src="@drawable/ic_03"/>
+                            <TextView
+                                android:id="@+id/adjective3_tva"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="자랑스러운"
+                                android:textSize="12dp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:layout_marginEnd="10dp"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/notosans" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
         </FrameLayout>
         <View
             android:layout_width="match_parent"

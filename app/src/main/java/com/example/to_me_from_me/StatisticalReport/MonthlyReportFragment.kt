@@ -333,7 +333,7 @@ class MonthlyReportFragment : Fragment(), MonthPickerDialogFragment2.MonthSelect
                                 cardView3Tv.text = topThreeAds[2].first
                             }
                         }
-                        Log.d("topThreeAds", " $topThreeAds")
+                        Log.d("MtopThreeAds", " $topThreeAds")
                     } else {
                         // 문서가 없는 경우 버튼 보여주기
                         adjectiveFl.isVisible = false // adjectiveFl 숨기기
