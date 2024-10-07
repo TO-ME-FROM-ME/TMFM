@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Signup.SignupEmailActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:id="@+id/linear_ll"
@@ -33,7 +31,7 @@
             android:layout_weight="4"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="회원가입"
+            android:text="비밀번호 찾기"
             android:textColor="@color/black"
             android:fontFamily="@font/bnotosans"
             android:textStyle="bold"
@@ -45,26 +43,19 @@
             android:layout_weight="1"/>
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/pbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="25dp"
-        android:src="@drawable/ic_signup1"
-        app:layout_constraintTop_toBottomOf="@id/linear_ll"/>
 
     <TextView
         android:id="@+id/email_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="130dp"
         android:text="사용할 이메일을 적어줘."
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
         android:layout_marginLeft="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pbar" />
+        app:layout_constraintTop_toBottomOf="@id/linear_ll" />
 
     <EditText
         android:id="@+id/email_et"
@@ -84,7 +75,7 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <Button
-        android:id="@+id/email_code_btn"
+        android:id="@+id/send_btn"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:layout_marginTop="20dp"
@@ -96,9 +87,8 @@
         android:elevation="6dp"
         android:textSize="17sp"
         android:textColor="@color/white"
-        android:text="확인"
+        android:text="인증 메일 받기"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

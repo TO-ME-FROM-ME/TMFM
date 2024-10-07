@@ -78,6 +78,11 @@ class LoginActivity : AppCompatActivity() {
         }
 
 
+        binding.searchPwdTv.setOnClickListener {
+            startActivity(Intent(this, FindPwdActivity::class.java))
+            finish() // 현재 화면 종료
+        }
+
         pwdEye.setOnClickListener {
             isPasswordVisible = !isPasswordVisible
 

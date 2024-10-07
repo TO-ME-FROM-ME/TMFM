@@ -75,7 +75,6 @@ class MyPageFragment : Fragment() {
 
         // SharedPreferences에서 이메일 불러오기
         val sharedPref = requireContext().getSharedPreferences("UserPref", AppCompatActivity.MODE_PRIVATE)
-        val email = sharedPref.getString("userEmail", null)
 
         if (uid != null) {
             firestore.collection("users").document(uid)
