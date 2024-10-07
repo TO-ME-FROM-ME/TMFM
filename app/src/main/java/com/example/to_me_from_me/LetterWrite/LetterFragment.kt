@@ -52,17 +52,18 @@ class LetterFragment : BottomSheetDialogFragment() {
         val reservBtn = view.findViewById<Button>(R.id.reserve_btn)
         val sendBtn = view.findViewById<Button>(R.id.send_btn)
         val letterTV = view.findViewById<EditText>(R.id.letter_tv)
-        val nicknameText = "사랑하는 우리동생"
+        //val nicknameText = "사랑하는 우리동생"
         val combinedTextValue = arguments?.getString("combinedTextValue")
 
+        val nickname = arguments?.getString("nickname") ?: "우리 동생"  // 기본값 설정
         
-        val letterFull = "$nicknameText\n\n$combinedTextValue"
+        val letterFull = "사랑하는 $nickname\n\n$combinedTextValue"
 
         // SpannableString을 생성합니다.
         val spannableString = SpannableString(letterFull)
 
         // prefixText의 길이를 계산하여 RelativeSizeSpan을 적용합니다.
-        val prefixLength = nicknameText.length
+        val prefixLength = "사랑하는 $nickname".length
         spannableString.setSpan(
             RelativeSizeSpan(1.3f), // 글자 크기를 1.5배로 설정
             0, // 시작 인덱스

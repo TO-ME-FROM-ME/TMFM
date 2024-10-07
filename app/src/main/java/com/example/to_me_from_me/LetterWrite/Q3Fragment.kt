@@ -30,6 +30,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 class Q3Fragment : BottomSheetDialogFragment() {
 
     private val sharedViewModel: ViewModel by activityViewModels()
+    private lateinit var firestore: FirebaseFirestore
+    private lateinit var auth: FirebaseAuth
+    private lateinit var nicknameTextView: TextView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_q3, container, false)
@@ -39,6 +42,18 @@ class Q3Fragment : BottomSheetDialogFragment() {
         sharedViewModel.situationText.observe(viewLifecycleOwner) { text ->
             textView.text = text
         }
+
+
+
+        firestore = FirebaseFirestore.getInstance()
+        auth = FirebaseAuth.getInstance()
+
+        // 닉네임을 표시할 TextView 초기화
+        nicknameTextView = view.findViewById(R.id.nickname_tv)
+
+        // Firebase에서 닉네임을 불러와 설정
+        loadNickname()
+
 
         val imageView = view.findViewById<ImageView>(R.id.user_emo_iv)
 
@@ -102,11 +117,16 @@ class Q3Fragment : BottomSheetDialogFragment() {
 
                     val combinedTextValue = "$q1TextValue\n$q2TextValue\n$q3TextValue"
 
+                    val nickname = nicknameTextView.text.toString()
+
+
                     val nextFragment = LetterFragment().apply {
                         val bundle = Bundle().apply {
                             putString("combinedTextValue", combinedTextValue)
                             putStringArrayList("selectedButtonTexts", ArrayList(selectedButtonTexts))
+                            putString("nickname", nickname)
                         }
+
                         arguments = bundle
                     }
 
@@ -146,6 +166,26 @@ class Q3Fragment : BottomSheetDialogFragment() {
 
         return view
     }
+
+    private fun loadNickname() {
+        val user = auth.currentUser
+        if (user != null) {
+            val userRef = firestore.collection("users").document(user.uid)
+
+            userRef.get().addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    val nickname = document.getString("nickname") ?: "우리 동생" // 기본 닉네임 설정
+                    //updateLetterTextWithNickname(nickname)
+                    nicknameTextView.text = nickname
+                } else {
+                    Log.d("LetterFragment", "No such document")
+                }
+            }.addOnFailureListener { exception ->
+                Log.d("LetterFragment", "get failed with ", exception)
+            }
+        }
+    }
+
 
 
     private fun showToast(layout: View, writeEditText: EditText, duration: Int) {
