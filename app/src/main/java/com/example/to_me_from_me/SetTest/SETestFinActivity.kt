@@ -7,8 +7,9 @@ import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
-import com.example.to_me_from_me.MainActivity
+import com.example.to_me_from_me.CoachMarkActivity
 import com.example.to_me_from_me.R
+import com.example.to_me_from_me.Signup.SignupEmailActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -56,8 +57,9 @@ class SETestFinActivity : AppCompatActivity() {
                     // 저장 성공 시 로그 및 토스트 메시지
                     Log.d("Firestore", "totalScore successfully updated!")
                     Toast.makeText(this, "검사결과가 저장되었습니다!", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
+                    startActivity(Intent(this, CoachMarkActivity::class.java))
+                    finish() // 현재 화면 종료
+
                 }
                 .addOnFailureListener { e ->
                     // 저장 실패 시 로그 및 토스트 메시지
