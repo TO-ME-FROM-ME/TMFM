@@ -121,8 +121,8 @@ class DayAdapter(
             "excited_s" -> R.drawable.ic_mailbox_01  // excited_s에 해당하는 drawable
             "happy_s" -> R.drawable.ic_mailbox_02_s      // happy_s에 해당하는 drawable
             "normal_s" -> R.drawable.ic_mailbox_03_s    // normal_s에 해당하는 drawable
-            "sad_s" -> R.drawable.ic_mailbox_04_s          // sad_s에 해당하는 drawable
-            "upset_s" -> R.drawable.ic_mailbox_05_s       // upset_s에 해당하는 drawable
+            "upset_s" -> R.drawable.ic_mailbox_04_s          // sad_s에 해당하는 drawable
+            "angry_s" -> R.drawable.ic_mailbox_05_s       // upset_s에 해당하는 drawable
             else -> R.drawable.ic_mailbox_01 // 기본 이미지
         }
     }

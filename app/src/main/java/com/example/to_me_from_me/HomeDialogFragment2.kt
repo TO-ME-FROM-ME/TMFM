@@ -20,6 +20,8 @@ class HomeDialogFragment2 : DialogFragment() {
     private lateinit var sadIv: ImageView
     private lateinit var upsetIv: ImageView
 
+    private var currentSelectedEmoji: ImageView? = null
+
     override fun onStart() {
         super.onStart()
         // 다이얼로그 위치 조정
@@ -100,22 +102,26 @@ class HomeDialogFragment2 : DialogFragment() {
     }
 
     private fun setEmojiClickListener(emojiView: ImageView, originalImageResId: Int, newImageResId: Int) {
-        // 상태를 저장할 변수
-        var isOriginalImage = true // 초기값을 원래 이미지로 설정
-        Log.d("UserPref", "현재 상태: $isOriginalImage")
-
         emojiView.setOnClickListener {
-            // 현재 이미지가 원래 이미지인지 확인
-            if (isOriginalImage) {
-                emojiView.setImageResource(newImageResId)
-                isOriginalImage = false // 현재 이미지를 새로운 이미지로 설정
-            } else {
-                emojiView.setImageResource(originalImageResId)
-                isOriginalImage = true // 다시 원래 이미지로 설정
-            }
+            // 현재 선택된 이모지가 있으면 원래 이미지로 복원
+            currentSelectedEmoji?.setImageResource(getOriginalResId(currentSelectedEmoji!!))
 
-            // 로그 추가하여 현재 상태 확인
-            Log.d("UserPref", "현재 상태: ${if (isOriginalImage) "원래 이미지" else "새로운 이미지"}")
+            // 선택한 이모지의 이미지를 새로운 이미지로 변경
+            emojiView.setImageResource(newImageResId)
+
+            // 현재 선택된 이모지를 업데이트
+            currentSelectedEmoji = emojiView
+        }
+    }
+
+    private fun getOriginalResId(emojiView: ImageView): Int {
+        return when (emojiView) {
+            excitedIv -> R.drawable.ic_main_y_01
+            happyIv -> R.drawable.ic_main_y_02
+            normalIv -> R.drawable.ic_main_y_03
+            sadIv -> R.drawable.ic_main_y_04
+            upsetIv -> R.drawable.ic_main_y_05
+            else -> R.drawable.ic_main_y_01 // 기본값
         }
     }
 
