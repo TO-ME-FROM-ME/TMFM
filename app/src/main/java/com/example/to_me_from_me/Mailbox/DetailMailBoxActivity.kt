@@ -6,9 +6,18 @@ import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.example.to_me_from_me.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 class DetailMailBoxActivity : AppCompatActivity() {
+    private var selectedDate: Date? = null // Date 타입의 변수 선언
+
     private lateinit var titleTextView: TextView // 텍스트뷰 초기화
     private lateinit var detailFragment: DetailMailBoxFragment
 
@@ -20,20 +29,33 @@ class DetailMailBoxActivity : AppCompatActivity() {
 
         // Intent에서 데이터 수신
         val sendValue = intent.getStringExtra("letter")
-        detailFragment = DetailMailBoxFragment() // Fragment 인스턴스 생성
+        val selectedDateMillis = intent.getLongExtra("selectedDate", -1)
+        if (selectedDateMillis != -1L) {
+            selectedDate = Date(selectedDateMillis) // Long을 Date로 변환
+        }
+
+
 
         // 수신한 값에 따라 TextView 업데이트 및 Fragment 설정
         when (sendValue) {
             "send" -> {
-                titleTextView.text = "보낸 편지"
-                Log.d("sendValue", "$sendValue")
+                titleTextView.text = "흘러간 편지"
+                detailFragment = DetailMailBoxFragment()
+
+                val bundle = Bundle()
+                // Date를 Long으로 변환하여 저장
+                selectedDate?.let {
+                    bundle.putLong("selectedDate", it.time) // Date 객체의 시간을 Long으로 저장
+                }
+                detailFragment.arguments = bundle // Fragment에 인자 설정
+
             }
             "random" -> {
-                titleTextView.text = "랜덤 편지"
+                titleTextView.text = "우연한 편지"
                 Log.d("sendValue", "$sendValue")
             }
             else -> {
-                titleTextView.text = "받은 편지"
+                titleTextView.text = "흘러온 편지"
                 Log.d("sendValue", "$sendValue")
             }
         }

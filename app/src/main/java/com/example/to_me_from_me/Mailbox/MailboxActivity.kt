@@ -76,7 +76,7 @@ class MailboxActivity : AppCompatActivity(), MonthPickerDialogFragment.MonthSele
         args.putSerializable("selectedDate", selectedDate)
         mailboxFragment.arguments = args
         mailboxFragment.show(supportFragmentManager, mailboxFragment.tag)
-        Log.d("메일함/date", "selectedDate : $selectedDate")
+        Log.d("selectedDate", "selectedDate : $selectedDate")
     }
 
 }

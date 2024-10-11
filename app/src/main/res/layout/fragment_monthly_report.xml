@@ -442,8 +442,8 @@
                         android:backgroundTint="#FBDDCF"
                         app:cardElevation="5dp">
                         <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:orientation="horizontal">
 
@@ -456,12 +456,17 @@
                                 android:id="@+id/adjective1_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="2"
                                 android:text="자랑스러운"
                                 android:textSize="12dp"
                                 android:gravity="center"
                                 android:layout_marginEnd="10dp"
                                 android:textColor="@color/black"
                                 android:fontFamily="@font/notosans" />
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"/>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -475,8 +480,8 @@
                         android:backgroundTint="#CFE8DF"
                         app:cardElevation="5dp">
                         <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:orientation="horizontal">
 
@@ -489,12 +494,17 @@
                                 android:id="@+id/adjective2_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="2"
                                 android:text="자랑스러운"
                                 android:textSize="12dp"
                                 android:gravity="center"
                                 android:layout_marginEnd="10dp"
                                 android:textColor="@color/black"
                                 android:fontFamily="@font/notosans" />
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"/>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -508,8 +518,8 @@
                         android:backgroundTint="#FEF2CC"
                         app:cardElevation="5dp">
                         <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:orientation="horizontal">
 
@@ -522,12 +532,17 @@
                                 android:id="@+id/adjective3_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="2"
                                 android:text="자랑스러운"
                                 android:textSize="12dp"
                                 android:gravity="center"
                                 android:layout_marginEnd="10dp"
                                 android:textColor="@color/black"
                                 android:fontFamily="@font/notosans" />
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"/>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 

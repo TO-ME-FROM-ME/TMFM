@@ -271,8 +271,8 @@ class MonthlyReportFragment : Fragment(), MonthPickerDialogFragment2.MonthSelect
                                                 "excited_s" -> emojiCounts[0]++ // excited
                                                 "happy_s" -> emojiCounts[1]++ // happy
                                                 "normal_s" -> emojiCounts[2]++ // normal
-                                                "sad_s" -> emojiCounts[3]++ // sad
-                                                "upset_s" -> emojiCounts[4]++ // upset
+                                                "upset_s" -> emojiCounts[3]++ // sad
+                                                "angry_s" -> emojiCounts[4]++ // upset
                                             }
                                             totalCount++
 
@@ -352,7 +352,7 @@ class MonthlyReportFragment : Fragment(), MonthPickerDialogFragment2.MonthSelect
         val percentages = emojiCounts.map { if (totalCount > 0) (it.toFloat() / totalCount) * 100 else 0f }
 
         // 이모지 순서 정의 (excited_s, happy_s, normal_s, sad_s, upset_s 순)
-        val emojiOrder = listOf("excited_s", "happy_s", "normal_s", "sad_s", "upset_s")
+        val emojiOrder = listOf("excited_s", "happy_s", "normal_s", "upset_s", "angry_s")
 
         // 이모지 이름과 퍼센티지 값 쌍으로 만들기
         val emojiPercentagePairs = emojiOrder.zip(percentages)
@@ -401,8 +401,8 @@ class MonthlyReportFragment : Fragment(), MonthPickerDialogFragment2.MonthSelect
                 "excited_s" -> R.drawable.ic_my_01_s
                 "happy_s" -> R.drawable.ic_my_02_s
                 "normal_s" -> R.drawable.ic_my_03_s
-                "sad_s" -> R.drawable.ic_my_04_s
-                "upset_s" -> R.drawable.ic_my_05_s
+                "upset_s" -> R.drawable.ic_my_04_s
+                "angry_s" -> R.drawable.ic_my_05_s
                 else -> R.drawable.ic_my_01_s
             }
             processImg?.setImageResource(emojiResId)
@@ -412,8 +412,8 @@ class MonthlyReportFragment : Fragment(), MonthPickerDialogFragment2.MonthSelect
                 "excited_s" -> R.drawable.progress_exited
                 "happy_s" -> R.drawable.progress_happy
                 "normal_s" -> R.drawable.progress_normal
-                "sad_s" -> R.drawable.progress_sad
-                "upset_s" -> R.drawable.progress_upset
+                "upset_s" -> R.drawable.progress_sad
+                "angry_s" -> R.drawable.progress_upset
                 else -> R.drawable.progress_exited
             }
             progressBar?.progressDrawable = requireContext().getDrawable(drawableResId)
