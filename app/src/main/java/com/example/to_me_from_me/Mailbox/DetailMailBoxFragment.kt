@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -34,6 +35,9 @@ import java.util.Locale
 class DetailMailBoxFragment : BottomSheetDialogFragment() {
 
     private var selectedDate: Date? = null
+    private var selectedEmoji: String? = null
+    private var letter : String? = null
+
 
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
@@ -67,15 +71,16 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
             if (selectedDateMillis != -1L) {
                 selectedDate = Date(selectedDateMillis) // Long을 Date로 변환
             }
+            letter = bundle.getString("letter")
+            Log.d("letter상태", "Received letter:  $letter")
         }
 
-        // Bundle로 전달된 emoji 값을 가져옵니다.
-//        arguments?.let { bundle ->
-//            val selectedEmoji = bundle.getString("selectedEmoji")
-//            if (selectedEmoji != null) {
-//                emojiIv.setImageResource(getEmojiDrawable(selectedEmoji)) // emoji 표시
-//            }
-//        }
+        arguments?.let {
+            selectedEmoji = it.getString("selectedEmoji")
+            letter = it.getString("letter")
+            Log.d("letter상태", "Received Emoji/letter: $selectedEmoji , $letter")
+
+        }
 
 
         dateTv1 = view.findViewById(R.id.date1_tv)
@@ -92,7 +97,12 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
 
 
         // send letter 부분
-        letterLoad()
+        if(letter=="send"){
+            Log.d("letter상태", "send letter:  $letter")
+            sendLetterLoad()
+        }else if (letter=="random"){
+            randomLetterLoad()
+        }
 
 
         charCountTextView = view.findViewById<TextView>(R.id.char_count_tv)
@@ -103,60 +113,43 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
         return view
     }
 
-
-    private fun letterLoad() {
+    private fun randomLetterLoad() {
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
 
-        // 선택된 날짜를 Date 형식으로 가져옴
-        val targetDate = selectedDate
-
-        if (uid != null && targetDate != null) {
+        if (uid != null) {
             firestore.collection("users").document(uid).collection("letters")
                 .get()
                 .addOnSuccessListener { documents ->
-
                     if (!documents.isEmpty) {
                         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                        val displayDateFormat = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
+                        val matchingLetters = documents.filter { document ->
+                            val emoji = document.getString("emoji")
+                            emoji == selectedEmoji // 선택된 이모지와 일치하는지 확인
+                        }.map { it.data }
 
-                        for (document in documents) {
-                            val dateString = document.getString("date") // Firebase에 저장된 날짜 String 값
-                            val firebaseDate =
-                                dateString?.let { dateFormat.parse(it) } // String -> Date 변환
-                            val newDateFormat = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
+                        if (matchingLetters.isNotEmpty()) {
+                            val randomLetter = matchingLetters.random()
+                            displayLetter(randomLetter, dateFormat)
 
+                            // 날짜 관련 UI 업데이트
+                            dateIv.visibility = View.VISIBLE
+                            dateTv2.visibility = View.VISIBLE
 
-                            // 선택된 날짜와 Firestore에서 가져온 날짜가 일치하는지 비교
-                            if (firebaseDate != null && isSameDate(firebaseDate, targetDate)) {
-                                // 문서에서 데이터를 가져와 UI에 표시
-                                val emoji = document.getString("emoji")
-                                val situation = document.getString("situation")
-                                val ad1 = document.getString("ad1")
-                                val ad2 = document.getString("ad2")
-                                val letter = document.getString("letter")
-                                val charCount = (letter?.length ?: 0) + 2
-
-                                if (emoji != null) {
-                                    emojiIv.setImageResource(getEmojiDrawable(emoji))
-                                    situationTv.text = situation.toString()
-                                    ad1Tv.text = ad1.toString()
-                                    ad2Tv.text = ad2.toString()
-                                    //letterTv.text = letter.toString()
-                                    dateTv1.text = firebaseDate?.let { newDateFormat.format(it) }
-                                    charCountTextView.text = "$charCount"
-
-                                    val letterLines = letter?.split("\n")?.toMutableList() // letter를 줄바꿈 기준으로 나눔
-                                    if (!letterLines.isNullOrEmpty()) {
-                                        letterLines[0] = letterLines[0] + "에게" // 첫 줄에 "에게" 추가
-                                    }
-                                    val modifiedLetter = letterLines?.joinToString("\n") // 다시 문자열로 결합
-                                    letterTv.text = modifiedLetter
-
-                                } else {
-                                    Log.d("letterLoad", "보낸 편지가 없습니다.")
-                                }
-                                break
+                            val selectedDate = randomLetter["date"] as? String
+                            if (selectedDate != null) {
+                                val formattedSelectedDate = displayDateFormat.format(dateFormat.parse(selectedDate)!!)
+                                dateTv1.text = formattedSelectedDate
                             }
+
+                            // 현재 날짜를 표시
+                            val currentDate = Date()
+                            val formattedCurrentDate = displayDateFormat.format(currentDate)
+                            dateTv2.text = formattedCurrentDate
+                            dateIv.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_mail_random))
+                        } else {
+                            Log.d("letterLoad", "선택한 이모지에 해당하는 편지가 없습니다.")
                         }
                     } else {
                         Log.d("letterLoad", "편지 데이터가 없습니다.")
@@ -164,6 +157,66 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
                 }
         }
     }
+
+    private fun sendLetterLoad() {
+        auth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
+
+        val targetDate = selectedDate
+
+        if (uid != null && targetDate != null) {
+            firestore.collection("users").document(uid).collection("letters")
+                .get()
+                .addOnSuccessListener { documents ->
+                    if (!documents.isEmpty) {
+                        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                        val matchingLetter = documents.firstOrNull { document ->
+                            val firebaseDate = document.getString("date")?.let { dateFormat.parse(it) }
+                            firebaseDate != null && isSameDate(firebaseDate, targetDate)
+                        }?.data
+
+                        if (matchingLetter != null) {
+                            displayLetter(matchingLetter, dateFormat)
+                        } else {
+                            Log.d("letterLoad", "선택된 날짜에 해당하는 편지가 없습니다.")
+                        }
+                    } else {
+                        Log.d("letterLoad", "편지 데이터가 없습니다.")
+                    }
+                }
+        }
+    }
+
+    private fun displayLetter(letterData: Map<String, Any?>, dateFormat: SimpleDateFormat) {
+        val emoji = letterData["emoji"] as? String
+        val situation = letterData["situation"] as? String
+        val ad1 = letterData["ad1"] as? String
+        val ad2 = letterData["ad2"] as? String
+        val letter = letterData["letter"] as? String
+        val firebaseDate = letterData["date"] as? String
+
+        // UI 업데이트
+        emoji?.let { emojiIv.setImageResource(getEmojiDrawable(it)) }
+        situationTv.text = situation ?: ""
+        ad1Tv.text = ad1 ?: ""
+        ad2Tv.text = ad2 ?: ""
+        firebaseDate?.let {
+            val parsedDate = dateFormat.parse(it)
+            val newDateFormat = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
+            dateTv1.text = parsedDate?.let { newDateFormat.format(it) }
+
+        }
+        charCountTextView.text = (letter?.length ?: 0 + 2).toString()
+
+        letter?.let {
+            val letterLines = it.split("\n").toMutableList()
+            if (letterLines.isNotEmpty()) {
+                letterLines[0] = letterLines[0] + "에게"
+            }
+            letterTv.text = letterLines.joinToString("\n")
+        }
+    }
+
 
     // 두 날짜가 같은 날인지 확인하는 함수 (시간 제외)
     private fun isSameDate(date1: Date, date2: Date): Boolean {

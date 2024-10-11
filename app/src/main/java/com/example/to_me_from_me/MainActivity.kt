@@ -76,7 +76,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
     }
 
-    // RandomDialogFragment 보여주기
 
     private fun showRandomDialog() {
         val randomDialogFragment = RandomDialogFragment().apply {
@@ -85,7 +84,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             }
         }
         randomDialogFragment.show(supportFragmentManager, "RandomDialogFragment")
-        Log.d("selectedEmoji", "222 : $selectedEmoji") // 여기에 로그 추가
+        Log.d("selectedEmoji", "showRandomDialog : $selectedEmoji")
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

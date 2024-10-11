@@ -36,7 +36,7 @@ class DetailMailBoxActivity : AppCompatActivity() {
 
 
         val selectedEmoji = intent.getStringExtra("selectedEmoji")
-        Log.d("selectedEmoji", "$selectedEmoji")
+        Log.d("selectedEmoji", "DetailMailBoxActivity  : $selectedEmoji")
 
 
         // 수신한 값에 따라 TextView 업데이트 및 Fragment 설정
@@ -44,11 +44,11 @@ class DetailMailBoxActivity : AppCompatActivity() {
             "send" -> {
                 titleTextView.text = "흘러간 편지"
                 detailFragment = DetailMailBoxFragment()
-
                 val bundle = Bundle()
                 // Date를 Long으로 변환하여 저장
                 selectedDate?.let {
-                    bundle.putLong("selectedDate", it.time) // Date 객체의 시간을 Long으로 저장
+                    bundle.putLong("selectedDate", it.time)
+                    bundle.putString("letter", "send")
                 }
                 detailFragment.arguments = bundle // Fragment에 인자 설정
 
@@ -56,6 +56,13 @@ class DetailMailBoxActivity : AppCompatActivity() {
             "random" -> {
                 titleTextView.text = "우연한 편지"
                 Log.d("sendValue", "$sendValue")
+                detailFragment = DetailMailBoxFragment()
+
+                // selectedEmoji를 Bundle에 추가
+                val bundle = Bundle()
+                bundle.putString("selectedEmoji", selectedEmoji)
+                bundle.putString("letter", "random")
+                detailFragment.arguments = bundle
             }
             else -> {
                 titleTextView.text = "흘러온 편지"
