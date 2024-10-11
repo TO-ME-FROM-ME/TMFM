@@ -21,10 +21,10 @@
         android:layout_height="wrap_content"
         android:paddingStart="50dp"
         android:paddingEnd="50dp"
-        android:text="검사를 그만둘거야?"
-        android:fontFamily="@font/bnotosans"
+        android:text="우연한 편지가 도착했어!"
         android:textSize="20dp"
         android:textStyle="bold"
+        android:fontFamily="@font/bnotosans"
         android:layout_gravity="center"
         android:gravity="center"
         android:textColor="@color/black"/>
@@ -35,16 +35,16 @@
         android:paddingStart="50dp"
         android:paddingEnd="50dp"
         android:layout_marginTop="20dp"
-        android:fontFamily="@font/notosans"
-        android:text="지금까지 검사한 내용이 저장이 안 돼 🥲\n나의 자존감을 판단하는 중요한 지표가 될 거야!"
+        android:text="너를 따뜻하게 해줬던 편지야.\n이번에도 힘이 되었으면 좋겠어."
         android:textSize="14dp"
+        android:fontFamily="@font/notosans"
         android:layout_gravity="center"
         android:gravity="center"/>
 
 
         <Button
-            android:id="@+id/save_btn"
-            android:layout_width="match_parent"
+            android:id="@+id/ok_btn"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="45dp"
@@ -52,11 +52,11 @@
             android:layout_marginEnd="10dp"
             android:paddingStart="30dp"
             android:paddingEnd="30dp"
-            android:text="나중에 할게!"
-            android:fontFamily="@font/notosans"
+            android:text="확인하기"
             android:textSize="16dp"
             android:layout_gravity="center"
             android:gravity="center"
+            android:fontFamily="@font/notosans"
             android:background="@drawable/solid_no_main"
             android:textColor="@color/white"/>
 

@@ -41,6 +41,10 @@
         </activity>
 
         <!-- Other -->
+        <activity android:name=".LoginActivity"/>
+        <activity android:name=".RandomLetterActivity"/>
+        <activity android:name=".FindPwdActivity"/>
+        <activity android:name=".SetTest.SETestFinActivity"/>
         <activity android:name=".Signup.SignupNicknameActivity" />
         <activity android:name=".Signup.SignupEmailActivity" />
         <activity android:name=".Signup.SignupFinishActivity" />
@@ -49,10 +53,9 @@
         <activity android:name=".Mypage.AlarmActivity" />
         <activity android:name=".Mypage.DeleteAccActivity" />
         <activity android:name=".Mailbox.MailboxActivity" />
-        <activity android:name=".LoginActivity"/>
         <activity android:name=".Mailbox.DetailMailBoxActivity"/>
         <activity android:name=".MainAlarm.MainAlarmActivity"/>
-        <activity android:name=".SetTest.SETestFinActivity" />
+        <activity android:name=".CoachMarkActivity" />
         <activity
             android:name=".LetterWrite.WriteLetterActivity"
             android:windowSoftInputMode="adjustResize" />

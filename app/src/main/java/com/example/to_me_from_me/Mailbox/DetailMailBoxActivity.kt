@@ -35,6 +35,9 @@ class DetailMailBoxActivity : AppCompatActivity() {
         }
 
 
+        val selectedEmoji = intent.getStringExtra("selectedEmoji")
+        Log.d("selectedEmoji", "$selectedEmoji")
+
 
         // 수신한 값에 따라 TextView 업데이트 및 Fragment 설정
         when (sendValue) {

@@ -12,6 +12,7 @@
         android:layout_width="200dp"
         android:layout_height="120dp"
         android:scaleType="fitXY"
+        android:layout_marginTop="-10dp"
         android:src="@drawable/report_logo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -20,6 +21,7 @@
         android:id="@+id/framll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="-20dp"
         android:background="@drawable/round_corner_top"
         app:layout_constraintTop_toBottomOf="@id/title_tv"
         app:layout_constraintStart_toStartOf="parent"

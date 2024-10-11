@@ -1,5 +1,6 @@
 package com.example.to_me_from_me
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -20,7 +21,10 @@ class HomeDialogFragment2 : DialogFragment() {
     private lateinit var sadIv: ImageView
     private lateinit var upsetIv: ImageView
 
+    private lateinit var titleTv: TextView
+
     private var currentSelectedEmoji: ImageView? = null
+    private var isEmojiSelected = false
 
     override fun onStart() {
         super.onStart()
@@ -36,7 +40,7 @@ class HomeDialogFragment2 : DialogFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.home_dialog2, container, false)
 
-        val titleTv = view.findViewById<TextView>(R.id.title_tv)
+        titleTv = view.findViewById<TextView>(R.id.title_tv)
         val user = FirebaseAuth.getInstance().currentUser
         val uid = user?.uid
 
@@ -78,50 +82,59 @@ class HomeDialogFragment2 : DialogFragment() {
         // emoji 값에 따라 해당 ImageView 보이기
         when (emoji) {
             "excited_s" -> {
-                excitedIv.setImageResource(R.drawable.ic_main_y_01)
-                setEmojiClickListener(excitedIv, R.drawable.ic_main_y_01, R.drawable.ic_main_s_01)
+                excitedIv.setImageResource(R.drawable.ic_main_s_01)
+                setEmojiClickListener(excitedIv, R.drawable.ic_main_s_01, R.drawable.ic_main_s_01,"excited_s")
             }
             "happy_s" -> {
-                happyIv.setImageResource(R.drawable.ic_main_y_02)
-                setEmojiClickListener(happyIv, R.drawable.ic_main_y_02, R.drawable.ic_main_s_02)
+                happyIv.setImageResource(R.drawable.ic_main_s_02)
+                setEmojiClickListener(happyIv, R.drawable.ic_main_s_02, R.drawable.ic_main_s_02,"happy_s")
             }
             "normal_s" -> {
-                normalIv.setImageResource(R.drawable.ic_main_y_03)
-                setEmojiClickListener(normalIv, R.drawable.ic_main_y_03, R.drawable.ic_main_s_03)
-            }
-            "sad_s" -> {
-                sadIv.setImageResource(R.drawable.ic_main_y_04)
-                setEmojiClickListener(sadIv, R.drawable.ic_main_y_04, R.drawable.ic_main_s_04)
+                normalIv.setImageResource(R.drawable.ic_main_s_03)
+                setEmojiClickListener(normalIv, R.drawable.ic_main_s_03, R.drawable.ic_main_s_03,"normal_s")
             }
             "upset_s" -> {
-                upsetIv.setImageResource(R.drawable.ic_main_y_05)
-                setEmojiClickListener(upsetIv, R.drawable.ic_main_y_05, R.drawable.ic_main_s_05)
+                sadIv.setImageResource(R.drawable.ic_main_s_04)
+                setEmojiClickListener(sadIv, R.drawable.ic_main_s_04, R.drawable.ic_main_s_04,"upset_s")
+            }
+            "angry_s" -> {
+                upsetIv.setImageResource(R.drawable.ic_main_s_05)
+                setEmojiClickListener(upsetIv, R.drawable.ic_main_s_05, R.drawable.ic_main_s_05,"angry_s")
             }
             else -> Log.d("UserPref", "Unknown emoji: $emoji")
         }
     }
 
-    private fun setEmojiClickListener(emojiView: ImageView, originalImageResId: Int, newImageResId: Int) {
+    private fun setEmojiClickListener(emojiView: ImageView, originalImageResId: Int, newImageResId: Int, emojiString: String) {
         emojiView.setOnClickListener {
-            // 현재 선택된 이모지가 있으면 원래 이미지로 복원
             currentSelectedEmoji?.setImageResource(getOriginalResId(currentSelectedEmoji!!))
 
-            // 선택한 이모지의 이미지를 새로운 이미지로 변경
             emojiView.setImageResource(newImageResId)
-
-            // 현재 선택된 이모지를 업데이트
             currentSelectedEmoji = emojiView
+            isEmojiSelected = true
+            titleTv.text = "선택이 맞다면 다시 한 번 클릭해줘~"
+
+            if (isEmojiSelected) {
+                // MainActivity에 emojiString을 전달
+                (activity as? MainActivity)?.selectedEmoji = emojiString
+                Log.d("selectedEmoji", "홈다이얼로그 : $emojiString")
+
+                (activity as? MainActivity)?.showOverlayAndStartActivity()
+                dismiss() // 다이얼로그 닫기
+            }
+
         }
     }
 
+
     private fun getOriginalResId(emojiView: ImageView): Int {
         return when (emojiView) {
-            excitedIv -> R.drawable.ic_main_y_01
-            happyIv -> R.drawable.ic_main_y_02
-            normalIv -> R.drawable.ic_main_y_03
-            sadIv -> R.drawable.ic_main_y_04
-            upsetIv -> R.drawable.ic_main_y_05
-            else -> R.drawable.ic_main_y_01 // 기본값
+            excitedIv -> R.drawable.ic_main_s_01
+            happyIv -> R.drawable.ic_main_s_02
+            normalIv -> R.drawable.ic_main_s_03
+            sadIv -> R.drawable.ic_main_s_04
+            upsetIv -> R.drawable.ic_main_s_05
+            else -> R.drawable.ic_main_s_01 // 기본값
         }
     }
 

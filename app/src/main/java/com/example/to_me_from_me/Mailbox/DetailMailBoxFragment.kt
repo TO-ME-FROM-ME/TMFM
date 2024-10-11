@@ -68,9 +68,14 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
                 selectedDate = Date(selectedDateMillis) // Long을 Date로 변환
             }
         }
-        Log.d(
-            "DetailLetterLoad", "selectedDate: $selectedDate"
-        )
+
+        // Bundle로 전달된 emoji 값을 가져옵니다.
+//        arguments?.let { bundle ->
+//            val selectedEmoji = bundle.getString("selectedEmoji")
+//            if (selectedEmoji != null) {
+//                emojiIv.setImageResource(getEmojiDrawable(selectedEmoji)) // emoji 표시
+//            }
+//        }
 
 
         dateTv1 = view.findViewById(R.id.date1_tv)
@@ -86,6 +91,7 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
         ad2Tv = view.findViewById(R.id.ad2_tv)
 
 
+        // send letter 부분
         letterLoad()
 
 

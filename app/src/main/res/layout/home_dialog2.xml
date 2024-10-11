@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="10dp"
             android:textColor="@color/black"
             android:fontFamily="@font/bnotosans"
             android:textSize="15dp"
@@ -32,10 +32,9 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-10dp"
-            android:padding="5dp"
+            android:layout_marginTop="-5dp"
+            android:layout_marginLeft="10dp"
             android:layout_gravity="center"
-            android:layout_marginLeft="5dp"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -43,31 +42,31 @@
                 android:id="@+id/excited_iv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_main_n_01"/>
+                android:src="@drawable/emotion_happy_color" />
 
             <ImageView
                 android:id="@+id/happy_iv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_main_n_02"/>
+                android:src="@drawable/emotion_great_color" />
 
             <ImageView
                 android:id="@+id/normal_iv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_main_n_03"/>
+                android:src="@drawable/emotion_good_color" />
 
             <ImageView
                 android:id="@+id/sad_iv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_main_n_04"/>
+                android:src="@drawable/emotion_upset_color" />
 
             <ImageView
                 android:id="@+id/upset_iv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_main_n_05"/>
+                android:src="@drawable/emotion_angry_color" />
 
         </LinearLayout>
     </LinearLayout>
