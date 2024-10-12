@@ -13,6 +13,8 @@ import androidx.fragment.app.DialogFragment
 import com.example.to_me_from_me.LetterWrite.SaveDialogFragment
 import com.example.to_me_from_me.LetterWrite.WriteLetterActivity
 import com.example.to_me_from_me.Mailbox.MailboxActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class HomeDialogFragment : DialogFragment() {
     private var fragmentTag: String? = null
@@ -42,28 +44,43 @@ class HomeDialogFragment : DialogFragment() {
 
         Log.d("BackStack", "1: $indexToShow, $fragmentTag")
 
+        val firestore = FirebaseFirestore.getInstance()
+        val user = FirebaseAuth.getInstance().currentUser
+        val uid = user?.uid
 
-        if (fragmentTag != null && indexToShow != null){
-            Log.d("BackStack", "2: $indexToShow, $fragmentTag")
-            writeMailIv.setOnClickListener{
-                Log.d("BackStack", "3: $indexToShow, $fragmentTag")
-                val saveDialogFragment = SaveDialogFragment().apply {
-                    arguments = Bundle().apply {
-                        putString("fragmentTag", fragmentTag)
-                        //putInt("indexToShow", indexToShow)
+
+        if (uid != null) {
+            firestore.collection("users").document(uid)
+                .get()
+                .addOnSuccessListener { document ->
+                    val storageField = document.getBoolean("storage")  // 'storage' 필드 값 가져오기
+
+                    // storage 필드가 true인 경우
+                    if (storageField == true) {
+                        Log.d("BackStack", "2: $indexToShow, $fragmentTag")
+                        writeMailIv.setOnClickListener {
+                            Log.d("BackStack", "3: $indexToShow, $fragmentTag")
+                            val saveDialogFragment = SaveDialogFragment().apply {
+                                arguments = Bundle().apply {
+                                    putString("fragmentTag", fragmentTag)
+                                }
+                            }
+                            saveDialogFragment.setStyle(
+                                DialogFragment.STYLE_NORMAL,
+                                R.style.RoundedBottomSheetDialogTheme
+                            )
+                            saveDialogFragment.show(parentFragmentManager, "SaveDialogFragment")
+                        }
+                    } else {
+                        // storage 필드가 true가 아니거나 없을 경우
+                        writeMailIv.setOnClickListener {
+                            Log.d("BackStack", "4: $indexToShow, $fragmentTag")
+                            val intent = Intent(activity, WriteLetterActivity::class.java)
+                            startActivity(intent)
+                        }
                     }
                 }
-                saveDialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundedBottomSheetDialogTheme)
-                saveDialogFragment.show(parentFragmentManager, "SaveDialogFragment")
-            }
-        } else{
-            writeMailIv.setOnClickListener{
-                Log.d("BackStack", "4: $indexToShow, $fragmentTag")
-                val intent = Intent(activity, WriteLetterActivity::class.java)
-                startActivity(intent)
-            }
         }
-
         return view
     }
 
