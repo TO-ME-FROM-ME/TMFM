@@ -86,6 +86,8 @@ class TimePickerDialogFragment : DialogFragment() {
                 val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
                 val date: Date = formatter.parse(dateTimeString) ?: throw IllegalArgumentException("잘못된 날짜 형식")
 
+                val reservedDate = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(date)
+
                 // Firestore에 업데이트
                 val userDocumentRef = FirebaseFirestore.getInstance()
                     .collection("users")
@@ -93,17 +95,14 @@ class TimePickerDialogFragment : DialogFragment() {
                     .collection("letters")
                     .document(currentDate)
 
-                // Date를 Timestamp로 변환
-                val timestamp = Timestamp(date)
-
                 // Firestore에 저장할 데이터
                 val letterData = mapOf<String, Any>(
-                    "timestamp" to timestamp.seconds
+                    "reservedate" to reservedDate
                 )
 
                 userDocumentRef.update(letterData)
                     .addOnSuccessListener {
-                        Log.d("FirestoreUpdate", "성공적으로 시간 저장됨: $timestamp")
+                        Log.d("FirestoreUpdate", "성공적으로 시간 저장됨: $reservedDate")
                     }
                     .addOnFailureListener { e ->
                         Log.e("FirestoreError", "시간 저장 실패: ", e)
