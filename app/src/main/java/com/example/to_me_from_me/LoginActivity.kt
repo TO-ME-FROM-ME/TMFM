@@ -66,8 +66,9 @@ class LoginActivity : AppCompatActivity() {
         binding.loginInputPwdEt.addTextChangedListener(loginTextWatcher)
 
         binding.loginBtn.setOnClickListener {
-            val email = binding.loginInputIdEt.text.toString()
-            val password = binding.loginInputPwdEt.text.toString()
+            val email = binding.loginInputIdEt.text.toString().trim()
+            val password = binding.loginInputPwdEt.text.toString().trim()
+
             signIn(email, password)
             performLogin()
         }

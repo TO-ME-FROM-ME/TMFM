@@ -24,7 +24,6 @@
         android:text="우연한 편지가 도착했어!"
         android:textSize="20dp"
         android:textStyle="bold"
-        android:fontFamily="@font/bnotosans"
         android:layout_gravity="center"
         android:gravity="center"
         android:textColor="@color/black"/>
@@ -48,15 +47,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="45dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
             android:paddingStart="30dp"
             android:paddingEnd="30dp"
             android:text="확인하기"
             android:textSize="16dp"
             android:layout_gravity="center"
             android:gravity="center"
-            android:fontFamily="@font/notosans"
             android:background="@drawable/solid_no_main"
             android:textColor="@color/white"/>
 

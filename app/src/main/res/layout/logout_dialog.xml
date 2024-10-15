@@ -55,7 +55,6 @@
             android:layout_height="wrap_content"
             android:text="돌아가기"
             android:textSize="17sp"
-            android:layout_marginLeft="10dp"
             android:paddingHorizontal="20dp"
             android:layout_gravity="center"
             android:gravity="center"

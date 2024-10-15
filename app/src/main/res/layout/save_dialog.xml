@@ -10,7 +10,6 @@
 
     <ImageView
         android:id="@+id/close_iv"
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
@@ -18,7 +17,6 @@
         android:src="@drawable/ic_cancel" />
 
     <TextView
-        android:id="@+id/storage_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingStart="50dp"
@@ -31,11 +29,8 @@
         android:textColor="@color/black"/>
 
     <TextView
-        android:id="@+id/storage_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingStart="50dp"
-        android:paddingEnd="50dp"
         android:layout_marginTop="20dp"
         android:text="지난 번에 간직해둔 편지를 이어서 쓸래? \n새로 쓰면, 기존 편지는 사라지니 주의해!"
         android:textSize="14dp"
@@ -43,33 +38,35 @@
         android:gravity="center"/>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginBottom="45dp"
+        android:layout_marginTop="30dp"
+        android:paddingHorizontal="20dp"
+        android:gravity="center">
 
         <Button
             android:id="@+id/new_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="45dp"
             android:text="새로운 편지쓰기"
-            android:textSize="16dp"
+            android:textSize="17sp"
+            android:paddingHorizontal="20dp"
             android:layout_gravity="center"
             android:gravity="center"
-            android:background="@drawable/solid_no_main10"
+            android:background="@drawable/solid_no_main"
             android:textColor="@color/white"/>
 
         <Button
             android:id="@+id/cwrite_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="45dp"
             android:text="이어쓰기"
-            android:textSize="16dp"
+            android:textSize="17sp"
+            android:layout_marginLeft="10dp"
+            android:paddingHorizontal="20dp"
             android:layout_gravity="center"
             android:gravity="center"
             android:background="@drawable/solid_no_gray"

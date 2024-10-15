@@ -10,7 +10,6 @@
 
     <ImageView
         android:id="@+id/close_iv"
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
@@ -18,7 +17,6 @@
         android:src="@drawable/ic_cancel" />
 
     <TextView
-        android:id="@+id/storage_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingStart="50dp"
@@ -31,7 +29,6 @@
         android:textColor="@color/black"/>
 
     <TextView
-        android:id="@+id/storage_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingStart="50dp"
@@ -39,6 +36,7 @@
         android:layout_marginTop="20dp"
         android:text="지금 작성하고 있던 편지를 \n 간직하고 있을게! 나중에 다시 와줘💙"
         android:textSize="14dp"
+        android:fontFamily="@font/notosans"
         android:layout_gravity="center"
         android:gravity="center"/>
 
@@ -49,14 +47,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="45dp"
-            android:paddingStart="30dp"
-            android:paddingEnd="30dp"
             android:text="저장하고 나가기"
             android:textSize="16dp"
             android:layout_gravity="center"
             android:gravity="center"
-            android:background="@drawable/solid_no_main10"
+            android:background="@drawable/solid_no_main"
             android:textColor="@color/white"/>
+
 
 
 </LinearLayout>
