@@ -1,5 +1,6 @@
 package com.example.to_me_from_me.LetterWrite
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,13 +10,25 @@ import android.widget.Button
 import android.widget.ImageView
 import androidx.fragment.app.DialogFragment
 import com.example.to_me_from_me.HomeDialogFragment
+import com.example.to_me_from_me.MainActivity
 import com.example.to_me_from_me.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class StorageDialogFragment : DialogFragment() {
 
+    private lateinit var firestore: FirebaseFirestore
+    private lateinit var auth: FirebaseAuth
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.storage_dialog, container, false)
+
+        auth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
 
         // 백 스택의 항목 수 가져오기
         val backStackCount = parentFragmentManager.backStackEntryCount
@@ -29,34 +42,48 @@ class StorageDialogFragment : DialogFragment() {
         // "저장하고 나가기" 버튼 클릭 이벤트 설정
         val saveBtn: Button = view.findViewById(R.id.save_btn)
         saveBtn.setOnClickListener {
-            val indexToShow = backStackCount - 2 // index-1 값
-            if (indexToShow >= 0) {
-                // 해당 인덱스에 해당하는 백 스택 항목 가져오기
-                val backStackEntry = parentFragmentManager.getBackStackEntryAt(indexToShow)
-                // 해당 백 스택 항목의 태그 가져오기
-                val fragmentTag = backStackEntry.name
-                // 해당 태그를 사용하여 프래그먼트 찾기
-                val fragmentToShow = parentFragmentManager.findFragmentByTag(fragmentTag)
-                // 프래그먼트가 null이 아니면 보여주기
-                Log.d("BackStack", "StorageDialogFragment ： $indexToShow , $fragmentTag")
+            Log.d("StorageDialogFragment", "저장하고 나가기 버튼 클릭됨")
 
-                // 값을 전달할 번들 생성
-                val bundle = Bundle().apply {
-                    putString("fragmentTag", fragmentTag)
-                    putInt("indexToShow", indexToShow)
-                }
-                // HomeDialogFragment로 번들 전달
-                val homeDialogFragment = HomeDialogFragment().apply {
-                    arguments = bundle
-                }
-                // HomeDialogFragment 표시
-                homeDialogFragment.show(parentFragmentManager, "HomeDialogFragment")
-                activity?.finish()
+            // Firebase에 저장할 데이터 준비
+            val user = auth.currentUser
+            val uid = user?.uid
+            if (uid != null) {
+                Log.d("StorageDialogFragment", "UID 확인: $uid")  // UID 로그 출력
+                // Firestore에 storage 필드 업데이트
+                firestore.collection("users").document(uid).get()
+                    .addOnSuccessListener { document ->
+                        if (document.exists()) {
+                            val currentStorageValue = document.getBoolean("storage") ?: false
+                            Log.d("StorageDialogFragment", "현재 storage 값: $currentStorageValue")
 
+                            if (!currentStorageValue) {
+                                // storage 필드가 false일 경우 true로 업데이트
+                                firestore.collection("users").document(uid)
+                                    .update("storage", true)
+                                    .addOnSuccessListener {
+                                        Log.d("StorageDialogFragment", "storage 필드가 true로 업데이트됨")
+
+                                        // 메인 화면으로 이동
+                                        val intent = Intent(activity, MainActivity::class.java)
+                                        intent.flags =
+                                            Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+                                        startActivity(intent)
+                                        activity?.finish()
+                                    }
+                            }
+                        }
+                    }
+                    .addOnFailureListener { e ->
+                        Log.e("StorageDialogFragment", "Firestore 데이터 가져오기 실패", e)
+                    }
+            } else {
+                Log.d("StorageDialogFragment", "UID가 null입니다.")
             }
         }
-
         return view
     }
 }
+
+
+
 
