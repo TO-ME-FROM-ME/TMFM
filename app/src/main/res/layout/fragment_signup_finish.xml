@@ -41,6 +41,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="18dp"
+            android:fontFamily="@font/notosans"
             android:text="스스로에게 따뜻한 편지를\n쓰도록 우리가 많~이 도와줄게 ♥"/>
 
         <View
@@ -57,6 +58,7 @@
             android:elevation="2dp"
             android:textSize="17sp"
             android:textColor="@color/white"
+            android:fontFamily="@font/bnotosans"
             android:text="TO ME FROM ME 시작하기!"/>
 
     </LinearLayout>

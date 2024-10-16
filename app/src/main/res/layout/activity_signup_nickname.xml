@@ -33,8 +33,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="4"
+            android:layout_gravity="center"
             android:gravity="center"
             android:text="회원가입"
+            android:fontFamily="@font/bnotosans"
+            android:textColor="@color/black"
             android:textStyle="bold"
             android:textSize="18sp" />
 
@@ -66,6 +69,7 @@
         android:textColor="@color/black"
         android:layout_marginLeft="20dp"
         android:text="너에게 가장\n소중한 존재의 이름을 적어줘."
+        android:fontFamily="@font/bnotosans"
         app:layout_constraintTop_toBottomOf="@id/signup_image"
         app:layout_constraintStart_toStartOf="parent" />
 

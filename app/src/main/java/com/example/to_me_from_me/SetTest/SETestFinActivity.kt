@@ -7,9 +7,8 @@ import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
-import com.example.to_me_from_me.CoachMarkActivity
+import com.example.to_me_from_me.CoachMark.CoachMarkActivity
 import com.example.to_me_from_me.R
-import com.example.to_me_from_me.Signup.SignupEmailActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 

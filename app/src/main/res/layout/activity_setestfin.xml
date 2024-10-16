@@ -68,10 +68,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="고생많았어!\n\n 이제 검사를 끝낼까?"
-            android:fontFamily="@font/notosans"
+            android:text="고생많았어!\n\n이제 검사를 끝낼까?"
+            android:fontFamily="@font/bnotosans"
             android:textColor="@color/black"
-            android:textSize="18dp" />
+            android:textSize="20dp" />
     </FrameLayout>
 
     <Button
@@ -88,6 +88,7 @@
         android:textSize="17sp"
         android:textColor="@color/white"
         android:text="투미프롬미 둘러보기"
+        android:fontFamily="@font/notosans"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

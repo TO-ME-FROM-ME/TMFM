@@ -1,4 +1,4 @@
-package com.example.to_me_from_me
+package com.example.to_me_from_me.CoachMark
 
 
 
@@ -8,10 +8,11 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.to_me_from_me.LetterWrite.WriteLetterActivity
-import com.example.to_me_from_me.Signup.SignupEmailActivity
+import com.example.to_me_from_me.MainActivity
+import com.example.to_me_from_me.R
+import com.example.to_me_from_me.SetTest.TestquitDialogFragment
 
 class CoachMarkActivity : AppCompatActivity()  {
 
@@ -50,6 +51,11 @@ class CoachMarkActivity : AppCompatActivity()  {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_coachmark)
 
+        val cancelButton = findViewById<ImageView>(R.id.cancel_iv)
+        cancelButton.setOnClickListener {
+            val dialog = CoachMarkDialogFragment()
+            dialog.show(supportFragmentManager, "CoachMarkDialogFragment")
+        }
 
         coachImageView = findViewById(R.id.coach_iv)
         stepTv = findViewById(R.id.step_tv)

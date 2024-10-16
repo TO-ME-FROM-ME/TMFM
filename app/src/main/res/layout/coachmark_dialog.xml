@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:paddingStart="50dp"
         android:paddingEnd="50dp"
-        android:text="검사를 그만둘거야?"
+        android:text="잠깐만 기다려봐!"
         android:fontFamily="@font/bnotosans"
         android:textSize="20dp"
         android:textStyle="bold"
@@ -32,33 +32,50 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingStart="50dp"
-        android:paddingEnd="50dp"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/notosans"
-        android:text="지금까지 검사한 내용이 저장이 안 돼 🥲\n나의 자존감을 판단하는 중요한 지표가 될 거야!"
-        android:textSize="13dp"
+        android:text="투미프롬미와 친해지기 위해\n꼭 필요한 단계야 💙"
+        android:textSize="14dp"
         android:layout_gravity="center"
         android:gravity="center"/>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginBottom="45dp"
+        android:layout_marginTop="30dp"
+        android:paddingHorizontal="20dp"
+        android:gravity="center">
 
         <Button
-            android:id="@+id/save_btn"
-            android:layout_width="match_parent"
+            android:id="@+id/cancel_btn"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="45dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:paddingStart="30dp"
-            android:paddingEnd="30dp"
-            android:text="나중에 할게!"
+            android:text="그래도 나갈래"
+            android:textSize="17sp"
+            android:paddingHorizontal="20dp"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:fontFamily="@font/notosans"
-            android:textSize="16dp"
+            android:background="@drawable/solid_stroke_gray"
+            android:textColor="@color/black"/>
+
+        <Button
+            android:id="@+id/next_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="계속 보기"
+            android:textSize="17sp"
+            android:layout_marginLeft="10dp"
+            android:paddingHorizontal="20dp"
             android:layout_gravity="center"
             android:gravity="center"
             android:background="@drawable/solid_no_main"
             android:textColor="@color/white"/>
+    </LinearLayout>
+
 
 
 </LinearLayout>
