@@ -2,6 +2,7 @@ package com.example.to_me_from_me.CoachMark
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,8 +30,8 @@ class CoachMarkDialogFragment : DialogFragment() {
         }
 
         // '계속 보기' 버튼
-        val saveButton = view.findViewById<Button>(R.id.save_btn)
-        saveButton.setOnClickListener {
+        val nextButton = view.findViewById<Button>(R.id.next_btn)
+        nextButton.setOnClickListener {
             dismiss()
         }
 

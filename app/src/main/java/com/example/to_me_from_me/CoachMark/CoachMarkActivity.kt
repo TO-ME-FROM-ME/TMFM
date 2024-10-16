@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
 import com.example.to_me_from_me.LetterWrite.WriteLetterActivity
 import com.example.to_me_from_me.MainActivity
 import com.example.to_me_from_me.R
@@ -47,15 +48,11 @@ class CoachMarkActivity : AppCompatActivity()  {
     private lateinit var coach10Iv: ImageView
     private lateinit var coach10Iv2: ImageView
 
+
+    private lateinit var cancelIv : ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_coachmark)
-
-        val cancelButton = findViewById<ImageView>(R.id.cancel_iv)
-        cancelButton.setOnClickListener {
-            val dialog = CoachMarkDialogFragment()
-            dialog.show(supportFragmentManager, "CoachMarkDialogFragment")
-        }
 
         coachImageView = findViewById(R.id.coach_iv)
         stepTv = findViewById(R.id.step_tv)
@@ -74,11 +71,15 @@ class CoachMarkActivity : AppCompatActivity()  {
         coach10Iv = findViewById(R.id.coach10_iv)
         coach10Iv2 = findViewById(R.id.coach10_iv2)
 
-        val cancelIv = findViewById<ImageView>(R.id.cancel_iv)
+
+
+        cancelIv = findViewById<ImageView>(R.id.cancel_iv)
         cancelIv.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
-            finish() // 현재 화면 종료
+            Log.d("cancelIv", "Cancel 버튼 클릭됨")
+            val dialogFragment = CoachMarkDialogFragment()
+            dialogFragment.show(supportFragmentManager, "CoachMarkDialogFragment")
         }
+
 
         nextButton.setOnClickListener {
             changeCoachMark()
