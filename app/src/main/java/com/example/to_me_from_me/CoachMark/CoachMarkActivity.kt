@@ -22,6 +22,9 @@ class CoachMarkActivity : AppCompatActivity()  {
     private lateinit var nextButton: ImageView // 다음 버튼
     private lateinit var backButton: ImageView // 뒤로 버튼
     private var currentStep = 1 // 현재 단계를 저장하는 변수
+
+    private lateinit var rootLayout: View
+
     private val coachImages = arrayOf( // 이미지를 배열로 저장
         R.drawable.coach1,
         R.drawable.coach2,
@@ -71,7 +74,7 @@ class CoachMarkActivity : AppCompatActivity()  {
         coach10Iv = findViewById(R.id.coach10_iv)
         coach10Iv2 = findViewById(R.id.coach10_iv2)
 
-
+        rootLayout = findViewById(R.id.root_layout)
 
         cancelIv = findViewById<ImageView>(R.id.cancel_iv)
         cancelIv.setOnClickListener {
@@ -88,6 +91,11 @@ class CoachMarkActivity : AppCompatActivity()  {
 
         backButton.setOnClickListener {
             goBackStep()
+        }
+
+
+        rootLayout.setOnClickListener {
+            changeCoachMark()
         }
 
         // 초기 UI 설정

@@ -23,6 +23,7 @@
         android:paddingEnd="50dp"
         android:text="우연한 편지가 도착했어!"
         android:textSize="20dp"
+        android:fontFamily="@font/bnotosans"
         android:textStyle="bold"
         android:layout_gravity="center"
         android:gravity="center"
