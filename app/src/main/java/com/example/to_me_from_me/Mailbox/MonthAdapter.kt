@@ -54,8 +54,6 @@ class MonthAdapter(
         firestore = FirebaseFirestore.getInstance()
 
 
-        val selectedMonth = calendar.get(Calendar.MONTH) + 1
-
         return Month(view)
     }
 
@@ -82,7 +80,7 @@ class MonthAdapter(
 
 
         val titleText: TextView = holder.view.findViewById(R.id.title)
-        titleText.text = "${calendar.get(Calendar.YEAR)}년 ${calendar.get(Calendar.MONTH) + 1}월"
+        titleText.text ="${calendar.get(Calendar.YEAR)}년 ${calendar.get(Calendar.MONTH) + 1}월"
 
         val tempMonth = calendar.get(Calendar.MONTH)
 

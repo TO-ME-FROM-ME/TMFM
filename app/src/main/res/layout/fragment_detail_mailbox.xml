@@ -158,22 +158,26 @@
     </LinearLayout>
 
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
         <LinearLayout
             android:id="@+id/text_ll"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@drawable/round_corner_top"
             android:padding="20dp">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp" />
+
 
             <FrameLayout
                 android:id="@+id/frame_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:id="@+id/custom_toast_container"
@@ -193,26 +197,23 @@
                     android:textColor="@color/black"
                     android:padding="10dp"/>
 
-                <LinearLayout
-                    android:layout_width="350dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_gravity="center">
-                    <LinearLayout
-                        android:layout_width="350dp"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:gravity="bottom|end">
-                        <TextView
-                            android:id="@id/char_count_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="10dp"
-                            android:textSize="20dp"
-                            android:fontFamily="@font/font_gangwon"
-                            android:text="500" />
-                    </LinearLayout>
-                </LinearLayout>
             </FrameLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="30dp"
+                android:layout_gravity="bottom">
+                    <TextView
+                        android:id="@id/char_count_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:textSize="20dp"
+                        android:layout_gravity="end"
+                        android:fontFamily="@font/font_gangwon"
+                        android:text="500" />
+            </LinearLayout>
         </LinearLayout>
+    </ScrollView>
 </LinearLayout>

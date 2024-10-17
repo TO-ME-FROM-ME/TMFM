@@ -53,9 +53,10 @@ class MailboxActivity : AppCompatActivity(), MonthPickerDialogFragment.MonthSele
         recyclerView.scrollToPosition(position)
     }
 
-    override fun onMonthSelected(month: Int) {
+    override fun onMonthSelected(month: Int, year: Int) {
         val calendar = Calendar.getInstance()
-        calendar.set(Calendar.MONTH, month - 1)
+        calendar.set(Calendar.MONTH, month)
+        calendar.set(Calendar.YEAR, year)
         adapter?.setCurrentMonth(calendar.time)
         Log.d("MonthPicker", "Mailbox Activity : ${calendar.time}")
     }

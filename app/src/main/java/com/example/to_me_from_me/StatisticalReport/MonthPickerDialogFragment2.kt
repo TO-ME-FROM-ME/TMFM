@@ -55,7 +55,6 @@ class MonthPickerDialogFragment2
                 // 선택된 월 저장
                 selectedMonth = monthTextViews.indexOf(textView)+1
                 monthText.text="${selectedYear}년 ${selectedMonth}월"
-                Log.d("MonthPicker","$selectedMonth")
             }
         }
 
@@ -80,7 +79,7 @@ class MonthPickerDialogFragment2
         val okButton: Button = view.findViewById(R.id.ok_btn)
         okButton.setOnClickListener {
             (targetFragment as? MonthSelectionListener2)?.onMonthSelected2(selectedMonth, selectedYear)
-            Log.d("MonthPicker","MonthPickerDialog2 $selectedMonth,  $selectedYear")
+            Log.d("MonthPicker2","MonthPickerDialog2 $selectedMonth,  $selectedYear")
             dismiss()
         }
 

@@ -29,6 +29,8 @@ class MonthPickerDialogFragment(private var selectedYear: Int, private var selec
         super.onViewCreated(view, savedInstanceState)
 
         val yearBackIv = view.findViewById<ImageView>(R.id.year_back_iv)
+        val yearNextIv = view.findViewById<ImageView>(R.id.year_next_iv)
+
 
         val mainDrawable: Drawable? = ContextCompat.getDrawable(requireContext(), R.drawable.select_solid)
         val gridLayout: GridLayout = view.findViewById(R.id.month_grid)
@@ -49,7 +51,7 @@ class MonthPickerDialogFragment(private var selectedYear: Int, private var selec
 
                 // 선택된 월 저장
                 selectedMonth = monthTextViews.indexOf(textView)+1
-                monthText.text="2024년 ${selectedMonth}월"
+                monthText.text="${selectedYear}년 ${selectedMonth}월"
 
                 Log.d("MonthPicker","$selectedMonth")
             }
@@ -60,6 +62,10 @@ class MonthPickerDialogFragment(private var selectedYear: Int, private var selec
             monthText.text = "${selectedYear}년 ${selectedMonth}월"
         }
 
+        yearNextIv.setOnClickListener {
+            selectedYear += 1 // 연도 증가
+            monthText.text = "${selectedYear}년 ${selectedMonth}월"
+        }
 
         val cancelButton: Button = view.findViewById(R.id.cancel_btn)
         cancelButton.setOnClickListener {
@@ -69,14 +75,14 @@ class MonthPickerDialogFragment(private var selectedYear: Int, private var selec
         val okButton: Button = view.findViewById(R.id.ok_btn)
         okButton.setOnClickListener {
             // 선택 된 월 MonthAdapter에 넘긴 후 해당 월 보여주기
-            (activity  as? MonthSelectionListener)?.onMonthSelected(selectedMonth)
-            Log.d("MonthPicker","MonthPickerDialog $selectedMonth")
+            (activity  as? MonthSelectionListener)?.onMonthSelected(selectedMonth, selectedYear)
+            Log.d("MonthPicker","MonthPickerDialog $selectedMonth,  $selectedYear")
             dismiss()
         }
 
     }
 
     interface MonthSelectionListener {
-        fun onMonthSelected(month: Int)
+        fun onMonthSelected(month: Int, year: Int)
     }
 }
