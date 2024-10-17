@@ -18,6 +18,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.to_me_from_me.MainActivity
 import com.example.to_me_from_me.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -25,6 +27,8 @@ import java.util.Locale
 class AlarmActivity : AppCompatActivity() {
     lateinit var timeSetTextview: TextView
     private lateinit var viewModel: SharedViewModel
+    private lateinit var firestore: FirebaseFirestore
+    private lateinit var auth: FirebaseAuth
 
     companion object {
         private const val REQUEST_NOTIFICATION_PERMISSION = 2001
@@ -37,6 +41,9 @@ class AlarmActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
 
         checkNotificationPermission() // 권한 체크 호출
+
+        auth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
 
         val backButton: ImageView = findViewById(R.id.back_iv)
         val alarmTime = findViewById<ImageView>(R.id.time_set_iv)
@@ -80,8 +87,30 @@ class AlarmActivity : AppCompatActivity() {
             switchLetter.isChecked = true
             switchRemind.isChecked = true
 
+            updateAlarmInFirestore(isChecked)
         }
 
+    }
+
+    private fun updateAlarmInFirestore(isChecked: Boolean) {
+        val user = FirebaseAuth.getInstance().currentUser
+
+        if (user != null) {
+            val userDocumentRef = FirebaseFirestore.getInstance()
+                .collection("users")
+                .document(user.uid)
+
+            // Firestore에 alarm 값을 업데이트
+            val alarmData = mapOf("alarm" to isChecked)
+
+            userDocumentRef.update(alarmData)
+                .addOnSuccessListener {
+                    Log.d("FirestoreUpdate", "Alarm 값이 성공적으로 업데이트되었습니다: $isChecked")
+                }
+                .addOnFailureListener { e ->
+                    Log.e("FirestoreError", "Alarm 값 업데이트 실패: ", e)
+                }
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
