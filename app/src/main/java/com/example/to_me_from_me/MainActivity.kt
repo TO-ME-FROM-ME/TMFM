@@ -1,6 +1,9 @@
 package com.example.to_me_from_me
 
 import android.animation.ObjectAnimator
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -13,10 +16,15 @@ import com.example.to_me_from_me.RandomLetter.RandomDialogFragment
 import com.example.to_me_from_me.RandomLetter.RandomLetterActivity
 import com.example.to_me_from_me.StatisticalReport.StatisticalReportFragment
 import com.example.to_me_from_me.databinding.ActivityMainBinding
+import com.example.to_me_from_me.services.NotificationService
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
-
+    private lateinit var firestore: FirebaseFirestore
     private lateinit var binding: ActivityMainBinding
     private lateinit var overlay: View
     var selectedEmoji: String? = null
@@ -29,6 +37,11 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         setContentView(binding.root)
 
         overlay = findViewById(R.id.overlay) // 오버레이 뷰 초기화
+
+
+        scheduleNotification()
+        Log.d("main알람", "scheduleNotification() 실행완료")
+
 
         // SharedPreferences에서 이메일 불러오기
         val sharedPref = getSharedPreferences("UserPref", MODE_PRIVATE)
@@ -75,6 +88,45 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             }
 
     }
+
+    private fun scheduleNotification() {
+        Log.d("main알람", "scheduleNotification()")
+        val user = FirebaseAuth.getInstance().currentUser
+        val uid = user?.uid
+
+        if (uid != null) {
+            firestore = FirebaseFirestore.getInstance()
+            firestore.collection("users").document(uid).collection("letters")
+                .get()
+                .addOnSuccessListener { documents ->
+                    if (!documents.isEmpty) {
+                        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+                        for (document in documents) {
+                            val reservedDateString = document.getString("reservedate")
+                            if (reservedDateString != null) {
+                                val date = dateFormat.parse(reservedDateString)
+                                Log.d("main알람", "date: $date")
+
+                                // 알람 매니저 설정
+                                val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                                val intent = Intent(this, NotificationService::class.java).apply {
+                                    putExtra("message", "편지 알림이 도착했습니다!") // 알림에 사용할 메시지
+                                    putExtra("reservedDate", reservedDateString)
+                                }
+                                val pendingIntent = PendingIntent.getService(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+
+                                // 예약된 시간에 알림 설정
+                                alarmManager.setExact(AlarmManager.RTC_WAKEUP, date.time, pendingIntent)
+                                Log.d("main알람", "알림 예약: ${date.time} (formatted: $reservedDateString)")
+                            }
+                        }
+                    } else {
+                        Log.d("main알람", "Firebase : 해당 문서가 없습니다.")
+                    }
+                }
+        }
+    }
+
 
 
     private fun showRandomDialog() {
