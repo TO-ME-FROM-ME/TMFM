@@ -23,6 +23,7 @@
         android:paddingEnd="50dp"
         android:text="작성 중인 편지가 있어."
         android:textSize="20dp"
+        android:fontFamily="@font/bnotosans"
         android:textStyle="bold"
         android:layout_gravity="center"
         android:gravity="center"
@@ -34,6 +35,7 @@
         android:layout_marginTop="20dp"
         android:text="지난 번에 간직해둔 편지를 이어서 쓸래? \n새로 쓰면, 기존 편지는 사라지니 주의해!"
         android:textSize="14dp"
+        android:fontFamily="@font/notosans"
         android:layout_gravity="center"
         android:gravity="center"/>
 
@@ -56,6 +58,7 @@
             android:paddingHorizontal="20dp"
             android:layout_gravity="center"
             android:gravity="center"
+            android:fontFamily="@font/notosans"
             android:background="@drawable/solid_no_main"
             android:textColor="@color/white"/>
 
@@ -69,6 +72,7 @@
             android:paddingHorizontal="20dp"
             android:layout_gravity="center"
             android:gravity="center"
+            android:fontFamily="@font/notosans"
             android:background="@drawable/solid_no_gray"
             android:textColor="@color/white"/>
     </LinearLayout>

@@ -1,4 +1,4 @@
-package com.example.to_me_from_me
+package com.example.to_me_from_me.CoachMark
 
 
 
@@ -8,10 +8,12 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
 import com.example.to_me_from_me.LetterWrite.WriteLetterActivity
-import com.example.to_me_from_me.Signup.SignupEmailActivity
+import com.example.to_me_from_me.MainActivity
+import com.example.to_me_from_me.R
+import com.example.to_me_from_me.SetTest.TestquitDialogFragment
 
 class CoachMarkActivity : AppCompatActivity()  {
 
@@ -20,6 +22,9 @@ class CoachMarkActivity : AppCompatActivity()  {
     private lateinit var nextButton: ImageView // 다음 버튼
     private lateinit var backButton: ImageView // 뒤로 버튼
     private var currentStep = 1 // 현재 단계를 저장하는 변수
+
+    private lateinit var rootLayout: View
+
     private val coachImages = arrayOf( // 이미지를 배열로 저장
         R.drawable.coach1,
         R.drawable.coach2,
@@ -46,10 +51,11 @@ class CoachMarkActivity : AppCompatActivity()  {
     private lateinit var coach10Iv: ImageView
     private lateinit var coach10Iv2: ImageView
 
+
+    private lateinit var cancelIv : ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_coachmark)
-
 
         coachImageView = findViewById(R.id.coach_iv)
         stepTv = findViewById(R.id.step_tv)
@@ -68,11 +74,15 @@ class CoachMarkActivity : AppCompatActivity()  {
         coach10Iv = findViewById(R.id.coach10_iv)
         coach10Iv2 = findViewById(R.id.coach10_iv2)
 
-        val cancelIv = findViewById<ImageView>(R.id.cancel_iv)
+        rootLayout = findViewById(R.id.root_layout)
+
+        cancelIv = findViewById<ImageView>(R.id.cancel_iv)
         cancelIv.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
-            finish() // 현재 화면 종료
+            Log.d("cancelIv", "Cancel 버튼 클릭됨")
+            val dialogFragment = CoachMarkDialogFragment()
+            dialogFragment.show(supportFragmentManager, "CoachMarkDialogFragment")
         }
+
 
         nextButton.setOnClickListener {
             changeCoachMark()
@@ -81,6 +91,11 @@ class CoachMarkActivity : AppCompatActivity()  {
 
         backButton.setOnClickListener {
             goBackStep()
+        }
+
+
+        rootLayout.setOnClickListener {
+            changeCoachMark()
         }
 
         // 초기 UI 설정

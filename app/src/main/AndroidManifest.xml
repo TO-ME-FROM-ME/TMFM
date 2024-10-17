@@ -16,6 +16,9 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
+    <!-- 정확한 알람 설정을 위한 권한 추가 -->
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -30,7 +33,7 @@
 
         <!-- Main Activity -->
         <activity
-            android:name=".MainActivity"
+            android:name=".CoachMark.CoachMarkActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.TO_ME_FROM_ME">
@@ -42,7 +45,7 @@
 
         <!-- Other -->
         <activity android:name=".LoginActivity"/>
-        <activity android:name=".RandomLetterActivity"/>
+        <activity android:name=".RandomLetter.RandomLetterActivity"/>
         <activity android:name=".FindPwdActivity"/>
         <activity android:name=".SetTest.SETestFinActivity"/>
         <activity android:name=".Signup.SignupNicknameActivity" />
@@ -55,17 +58,23 @@
         <activity android:name=".Mailbox.MailboxActivity" />
         <activity android:name=".Mailbox.DetailMailBoxActivity"/>
         <activity android:name=".MainAlarm.MainAlarmActivity"/>
-        <activity android:name=".CoachMarkActivity" />
+        <activity android:name=".MainActivity" />
         <activity
             android:name=".LetterWrite.WriteLetterActivity"
             android:windowSoftInputMode="adjustResize" />
 
         <activity android:name=".SetTest.SETestActivity" />
 
+<!--        <service-->
+<!--            android:name=".Mypage.AlarmNotificationService"-->
+<!--            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"-->
+<!--            android:exported="true" />-->
+
         <service
             android:name=".Mypage.AlarmNotificationService"
-            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
-            android:exported="true" />
+            android:permission="android.permission.FOREGROUND_SERVICE" />
+        <receiver android:name=".Mypage.AlarmReceiver" android:exported="true" />
+
 
     </application>
 </manifest>

@@ -7,10 +7,10 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.example.to_me_from_me.Mailbox.DetailMailBoxFragment
 import com.example.to_me_from_me.Mypage.MyPageFragment
+import com.example.to_me_from_me.RandomLetter.RandomDialogFragment
+import com.example.to_me_from_me.RandomLetter.RandomLetterActivity
 import com.example.to_me_from_me.StatisticalReport.StatisticalReportFragment
 import com.example.to_me_from_me.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
