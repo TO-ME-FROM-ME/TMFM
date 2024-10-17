@@ -31,13 +31,13 @@ class AnnualPickerDialogFragment(private var selectedYear: Int) : DialogFragment
         yearText.text = "${selectedYear}년"
 
         val currentYear = Calendar.getInstance().get(Calendar.YEAR)
-        val yearPicker = view.findViewById<NumberPicker>(R.id.yearPicker)
+//        val yearPicker = view.findViewById<NumberPicker>(R.id.yearPicker)
+        val yearPicker :CustomYearPicker = view.findViewById(R.id.yearPicker)
 
         // 여기서 minValue와 maxValue를 설정합니다.
         yearPicker.minValue = 2021
         yearPicker.maxValue = currentYear
         yearPicker.value = currentYear
-
 
 
 

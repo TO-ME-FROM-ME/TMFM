@@ -53,5 +53,10 @@ class LogoutDialogFragment : DialogFragment() {
 
         return view
     }
+
+    override fun onResume() {
+        super.onResume()
+        dialog?.window?.setBackgroundDrawableResource(R.drawable.round_corner_all) // 배경으로 round_corner.xml 설정
+    }
 }
 

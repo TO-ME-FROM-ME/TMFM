@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
@@ -43,6 +44,8 @@ class AnnualReportFragment : Fragment(), AnnualPickerDialogFragment.YearSelectio
 
 
     private lateinit var framelayout : FrameLayout
+    private lateinit var textlayout : LinearLayout
+
 
     private lateinit var firestore: FirebaseFirestore
     private val user = FirebaseAuth.getInstance().currentUser
@@ -70,6 +73,7 @@ class AnnualReportFragment : Fragment(), AnnualPickerDialogFragment.YearSelectio
         cardView2Tv = view.findViewById(R.id.adjective2_tva)
         cardView3Tv = view.findViewById(R.id.adjective3_tva)
 
+        textlayout = view.findViewById(R.id.year_ll)
 
         yearTv = view.findViewById<TextView>(R.id.year_text) // yearTextView의 ID를 사용해야 합니다.
         yearTv.text = "${calendar.get(Calendar.YEAR)}년"
@@ -105,10 +109,10 @@ class AnnualReportFragment : Fragment(), AnnualPickerDialogFragment.YearSelectio
         super.onViewCreated(view, savedInstanceState)
         firestore = FirebaseFirestore.getInstance()
 
-        val yearIv = view.findViewById<ImageView>(R.id.year_iv)
+        //val yearIv = view.findViewById<ImageView>(R.id.year_iv)
         loadUserGraph()
 
-        yearIv.setOnClickListener {
+        textlayout.setOnClickListener {
             val dialogFragment = AnnualPickerDialogFragment(
                 selectedYear = calendar.get(Calendar.YEAR)
             )

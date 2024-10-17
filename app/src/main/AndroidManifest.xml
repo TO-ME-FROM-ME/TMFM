@@ -19,6 +19,7 @@
     <!-- 정확한 알람 설정을 위한 권한 추가 -->
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
 
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -33,7 +34,7 @@
 
         <!-- Main Activity -->
         <activity
-            android:name=".CoachMark.CoachMarkActivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.TO_ME_FROM_ME">
@@ -44,6 +45,8 @@
         </activity>
 
         <!-- Other -->
+        <activity android:name=".Mypage.AlarmActivity"/>
+        <receiver android:name=".Mypage.AlarmReceiver" android:exported="true" />
         <activity android:name=".LoginActivity"/>
         <activity android:name=".RandomLetter.RandomLetterActivity"/>
         <activity android:name=".FindPwdActivity"/>
@@ -53,12 +56,11 @@
         <activity android:name=".Signup.SignupFinishActivity" />
         <activity android:name=".Signup.SignupPwdActivity"/>
         <activity android:name=".Mypage.EditProfileActivity" />
-        <activity android:name=".Mypage.AlarmActivity" />
         <activity android:name=".Mypage.DeleteAccActivity" />
         <activity android:name=".Mailbox.MailboxActivity" />
         <activity android:name=".Mailbox.DetailMailBoxActivity"/>
         <activity android:name=".MainAlarm.MainAlarmActivity"/>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".CoachMark.CoachMarkActivity" />
         <activity
             android:name=".LetterWrite.WriteLetterActivity"
             android:windowSoftInputMode="adjustResize" />
@@ -69,11 +71,6 @@
 <!--            android:name=".Mypage.AlarmNotificationService"-->
 <!--            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"-->
 <!--            android:exported="true" />-->
-
-        <service
-            android:name=".Mypage.AlarmNotificationService"
-            android:permission="android.permission.FOREGROUND_SERVICE" />
-        <receiver android:name=".Mypage.AlarmReceiver" android:exported="true" />
 
 
     </application>

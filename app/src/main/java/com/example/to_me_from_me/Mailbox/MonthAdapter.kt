@@ -26,7 +26,7 @@ import java.util.Locale
 
 class MonthAdapter(
     private val onDayClickListener: (Date, Boolean) -> Unit,
-    private val fragmentManager: FragmentManager
+    private val fragmentManager: FragmentManager,
 ) : RecyclerView.Adapter<MonthAdapter.Month>() {
 
     private var calendar: Calendar = Calendar.getInstance()

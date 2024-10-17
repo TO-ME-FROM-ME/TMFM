@@ -127,7 +127,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
                         android:fontFamily="@font/font_gangwon"
-                        android:text="/500" />
+                        android:alpha="0"
+                        android:text="/5" />
                 </LinearLayout>
 
             </LinearLayout>

@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
@@ -68,6 +69,7 @@ class MonthlyReportFragment : Fragment(), MonthPickerDialogFragment2.MonthSelect
     private lateinit var report2Tv: TextView
 
     private lateinit var adjectiveFl : FrameLayout
+    private lateinit var monthlayout : LinearLayout
 
     private lateinit var pbLIv : ImageView
     private lateinit var pb1Iv : ImageView
@@ -88,6 +90,7 @@ class MonthlyReportFragment : Fragment(), MonthPickerDialogFragment2.MonthSelect
         monthTv = view.findViewById<TextView>(R.id.year_month_text)
         monthTv.text = "${calendar.get(Calendar.YEAR)}년 ${calendar.get(Calendar.MONTH) + 1}월"
 
+        monthlayout =view.findViewById(R.id.month_ll)
 
         pbLIv = view.findViewById(R.id.pb_l_iv)
         pb1Iv = view.findViewById(R.id.pb_1_iv)
@@ -103,8 +106,8 @@ class MonthlyReportFragment : Fragment(), MonthPickerDialogFragment2.MonthSelect
             startActivity(Intent(activity, WriteLetterActivity::class.java))
         }
 
-        val datePicker = view.findViewById<ImageView>(R.id.month_down_iv)
-        datePicker.setOnClickListener {
+        //val datePicker = view.findViewById<ImageView>(R.id.month_down_iv)
+        monthlayout.setOnClickListener {
             val dialogFragment = MonthPickerDialogFragment2(
                 selectedYear = calendar.get(Calendar.YEAR),
                 selectedMonth = calendar.get(Calendar.MONTH)

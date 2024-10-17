@@ -30,7 +30,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="18dp"
-            android:text="이달에 작성한 편지가 없어😢"/>
+            android:fontFamily="@font/notosans"
+            android:text="작성한 편지가 없어😢"/>
 
         <View
             android:layout_width="match_parent"
@@ -45,6 +46,7 @@
             android:background="@drawable/ok_btn_main"
             android:elevation="2dp"
             android:textSize="17sp"
+            android:fontFamily="@font/bnotosans"
             android:textColor="@color/white"
             android:text="편지 작성하러 가기"/>
 

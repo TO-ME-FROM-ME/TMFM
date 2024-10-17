@@ -77,6 +77,7 @@ class DetailMailBoxActivity : AppCompatActivity() {
                 .commit()
         }
 
+
         val backButton: ImageView = findViewById(R.id.back_iv)
         backButton.setOnClickListener {
             supportFragmentManager.popBackStack()

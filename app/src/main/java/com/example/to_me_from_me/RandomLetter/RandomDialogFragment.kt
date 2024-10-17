@@ -1,4 +1,4 @@
-package com.example.to_me_from_me
+package com.example.to_me_from_me.RandomLetter
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,9 +10,7 @@ import android.widget.Button
 import android.widget.ImageView
 import androidx.fragment.app.DialogFragment
 import com.example.to_me_from_me.Mailbox.DetailMailBoxActivity
-import com.example.to_me_from_me.Mailbox.DetailMailBoxFragment
 import com.example.to_me_from_me.R
-import java.util.Date
 
 class RandomDialogFragment : DialogFragment() {
     private lateinit var emojiString: String

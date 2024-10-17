@@ -33,6 +33,7 @@ import java.util.Date
 import java.util.Locale
 
 class DetailMailBoxFragment : BottomSheetDialogFragment() {
+    private val mailboxViewModel: MailboxViewModel by activityViewModels()
 
     private var selectedDate: Date? = null
     private var selectedEmoji: String? = null
@@ -131,8 +132,12 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
 
                         if (matchingLetters.isNotEmpty()) {
                             val randomLetter = matchingLetters.random()
+                            saveLetterToViewModel(randomLetter) // 편지를 저장
+                            
                             displayLetter(randomLetter, dateFormat)
-
+                            // 랜덤 편지가 로드되었음을 ViewModel에 설정
+                            mailboxViewModel.setRandomLetterLoaded(true)
+                            Log.d("mailboxViewModel", "mailboxViewModel1: $mailboxViewModel")
                             // 날짜 관련 UI 업데이트
                             dateIv.visibility = View.VISIBLE
                             dateTv2.visibility = View.VISIBLE
@@ -148,6 +153,7 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
                             val formattedCurrentDate = displayDateFormat.format(currentDate)
                             dateTv2.text = formattedCurrentDate
                             dateIv.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_mail_random))
+
                         } else {
                             Log.d("letterLoad", "선택한 이모지에 해당하는 편지가 없습니다.")
                         }
@@ -156,6 +162,12 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
                     }
                 }
         }
+    }
+
+    // 랜덤으로 선택한 편지 값을 ViewModel에 저장
+    private fun saveLetterToViewModel(letterData: Map<String, Any?>) {
+        mailboxViewModel.setRandomLetterData(letterData)
+        Log.d("RandomLetter", "랜덤 편지 저장 완료: $letterData")
     }
 
     private fun sendLetterLoad() {

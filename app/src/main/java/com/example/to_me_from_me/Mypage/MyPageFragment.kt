@@ -60,7 +60,6 @@ class MyPageFragment : Fragment() {
 
         userLogout.setOnClickListener {
             val dialogFragment = LogoutDialogFragment()
-            dialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.RoundedBottomSheetDialogTheme)
             dialogFragment.show(parentFragmentManager, "LogoutDialogFragment")
         }
 

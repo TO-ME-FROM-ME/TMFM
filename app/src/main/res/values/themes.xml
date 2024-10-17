@@ -54,6 +54,11 @@
         <item name="colorControlNormal">@color/main</item>
     </style>
 
+    <style name="CustomYearPicker" parent="android:Widget.Material.NumberPicker">
+        <item name="colorControlNormal">@color/main</item>
+    </style>
+
+
     <style name="RoundedBottomSheetDialogTheme" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/RoundedBottomSheetStyle</item>
     </style>

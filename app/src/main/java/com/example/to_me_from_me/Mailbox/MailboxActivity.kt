@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.to_me_from_me.MainActivity
@@ -25,8 +26,6 @@ class MailboxActivity : AppCompatActivity(), MonthPickerDialogFragment.MonthSele
 
         binding = ActivityMailboxBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
         initView(binding)
     }
 
@@ -44,7 +43,8 @@ class MailboxActivity : AppCompatActivity(), MonthPickerDialogFragment.MonthSele
                     showNullMailboxFragment(clickedDate) // 날짜 클릭 시 바텀시트 표시
                 }
             },
-            fragmentManager = supportFragmentManager // FragmentManager 전달
+            fragmentManager = supportFragmentManager
+
         )
 
         // 커스텀 LinearLayoutManager 생성 및 설정

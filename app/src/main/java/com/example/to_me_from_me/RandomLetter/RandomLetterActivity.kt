@@ -1,4 +1,4 @@
-package com.example.to_me_from_me
+package com.example.to_me_from_me.RandomLetter
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,8 @@ import android.os.Looper
 import android.util.Log
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.to_me_from_me.MainActivity
+import com.example.to_me_from_me.R
 import com.example.to_me_from_me.databinding.ActivityRandomletterBinding
 
 class RandomLetterActivity : AppCompatActivity() {
@@ -69,8 +71,21 @@ class RandomLetterActivity : AppCompatActivity() {
             startActivity(intent)
             finish() // 현재 Activity 종료
         }
+
+
+        //
         binding.letterIv.setOnClickListener {
+            // MainActivity로 이동
+            val intent = Intent(this, MainActivity::class.java).apply {
+                putExtra("selectedEmoji", selectedEmoji) // 여기에 selectedEmoji 추가
+                putExtra("showDialog", true)
+            }
+            startActivity(intent)
+            finish() // 현재 Activity 종료
         }
+
+
+
     }
 
     private fun letterClick() {
@@ -87,7 +102,7 @@ class RandomLetterActivity : AppCompatActivity() {
 
     private fun updateSkipButtonVisibility() {
         // currentIndex가 0일 때 skipIv 숨기기
-        binding.skipIv.visibility = if (currentIndex == 0) {
+        binding.skipIv.visibility = if (currentIndex == 0 && currentIndex == 4 ) {
             ImageView.GONE
         } else {
             ImageView.VISIBLE

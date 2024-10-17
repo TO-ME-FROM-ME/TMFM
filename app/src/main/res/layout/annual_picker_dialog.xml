@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/round_corner_all"
-    android:layout_margin="0dp"
     android:orientation="vertical">
 
     <LinearLayout
@@ -33,16 +32,17 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
+            android:visibility="gone"
             android:src="@drawable/ic_year_drop"/>
     </LinearLayout>
 
-    <NumberPicker
+    <com.example.to_me_from_me.StatisticalReport.CustomYearPicker
         android:id="@+id/yearPicker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:selectionDividerHeight="0dp"
-        android:orientation="vertical" />
+        android:orientation="vertical"
+        android:theme="@style/CustomYearPicker"/>
 
     <ImageView
         android:layout_width="match_parent"

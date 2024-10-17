@@ -101,7 +101,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="우리 동생"
+                        android:text="Nickname"
                         android:fontFamily="@font/bnotosans"
                         android:textSize="20dp"
                         android:textColor="@color/dark"/>
@@ -171,7 +171,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
                         android:fontFamily="@font/font_gangwon"
-                        android:text="/150" />
+                        android:alpha="0"
+                        android:text="/5" />
                 </LinearLayout>
 
             </LinearLayout>
