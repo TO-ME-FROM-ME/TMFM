@@ -30,11 +30,11 @@ class DayAdapter(
     private val onDayClickListener: (Date, Boolean) -> Unit
 ) : RecyclerView.Adapter<DayAdapter.DayView>() {
     val ROW = 5
-
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
     val user = FirebaseAuth.getInstance().currentUser
     val uid = user?.uid
+    private var selectedDate: Date? = null // 선택된 날짜를 저장할 변수
 
     class DayView(val layout: View) : RecyclerView.ViewHolder(layout) {
         val dayText: TextView = layout.findViewById(R.id.item_day_text)
@@ -50,80 +50,84 @@ class DayAdapter(
     }
 
     override fun onBindViewHolder(holder: DayView, position: Int) {
-
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
 
         val currentDate = dayList[position]
         val daySdf = SimpleDateFormat("d", Locale.getDefault()).format(currentDate)
-        val dayDateString = daySdf.format(currentDate) // 현재 날짜의 일 부분
-        holder.dayText.text = dayDateString
+        holder.dayText.text = daySdf
 
-
-        // 현재 날짜와 비교
+        // 오늘 날짜와 비교
         val today = Calendar.getInstance().time
+
+        // todayIv 초기화: 기본적으로 숨김
+        holder.todayIv.isVisible = false
+
+        // 오늘 날짜일 경우
         if (currentDate.date == today.date && currentDate.month == today.month && currentDate.year == today.year) {
-            holder.dayText.setTextColor(Color.BLACK)  // 현재 날짜면 텍스트를 검정색으로 설정
-            holder.todayIv.isVisible = true             // dayCv를 true로 설정
+            holder.dayText.setTextColor(Color.BLACK)
+            holder.todayIv.isVisible = true // 오늘 날짜의 아이콘 보이기
         } else {
-            holder.dayText.setTextColor(Color.GRAY)   // 다른 날짜는 기본 회색 설정
-            holder.todayIv.isVisible = false            // dayCv를 false로 설정
+            holder.dayText.setTextColor(Color.GRAY) // 다른 날짜는 기본 회색 설정
         }
 
-
-        if(uid != null ){
+        // Firestore에서 데이터 가져오기
+        if (uid != null) {
             firestore.collection("users").document(uid).collection("letters")
                 .get()
                 .addOnSuccessListener { documents ->
-                    holder.dayImg.isVisible = false // 기본적으로 숨김 처리
-                    holder.hasImage = false // 기본적으로 false 설정
+                    holder.dayImg.isVisible = false
+                    holder.hasImage = false
 
-                    if (!documents.isEmpty){
+                    if (!documents.isEmpty) {
                         for (document in documents) {
-                            val dateString = document.getString("date") // Firebase 값
-
-                            Log.d("DayAdapter","dateString : $dateString")
-
-                            if (dateString!=null) {
+                            val dateString = document.getString("date")
+                            if (dateString != null) {
                                 val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                                 val firebaseDate = dateFormat.parse(dateString)
 
-
                                 if (firebaseDate != null && firebaseDate.date == currentDate.date && firebaseDate.month == currentDate.month && firebaseDate.year == currentDate.year) {
                                     val emoji = document.getString("emoji")
-                                    Log.d("DayAdapter","emoji : $emoji")
-                                    if (emoji !=null) { // emoji가 null이 아닐 경우만 호출
+                                    if (emoji != null) {
                                         holder.dayImg.setImageResource(getEmojiDrawable(emoji))
-                                        holder.dayImg.isVisible = true // 이미지가 있는 경우 보이기
-                                        holder.dayCv.isVisible=false
-                                        holder.hasImage = true // 이미지를 보유
-                                    }else{
-                                        holder.dayImg.isVisible = false // 이미지가 있는 경우 보이기
-                                        holder.dayCv.isVisible=true
-                                        holder.hasImage = false // 이미지를 보유
+                                        holder.dayImg.isVisible = true
+                                        holder.dayCv.isVisible = false
+                                        holder.hasImage = true
+                                    } else {
+                                        holder.dayImg.isVisible = false
+                                        holder.dayCv.isVisible = true
+                                        holder.hasImage = false
                                     }
                                 }
                             }
                         }
-
                     }
                 }
         }
 
-
-
+        // 날짜 클릭 리스너
         holder.itemView.setOnClickListener {
+            // 클릭된 날짜를 선택된 날짜로 저장
+            selectedDate = currentDate
             onDayClickListener(currentDate, holder.hasImage)
+
+            // 선택된 날짜에 대해 todayIv의 가시성 설정
+            notifyDataSetChanged() // 모든 항목을 업데이트하여 새로 고침
         }
 
+        // 선택된 날짜에 대해 todayIv의 가시성 설정
+        holder.todayIv.isVisible = selectedDate?.let {
+            currentDate.date == it.date && currentDate.month == it.month && currentDate.year == it.year
+        } ?: (currentDate.date == today.date && currentDate.month == today.month && currentDate.year == today.year)
     }
+
     private fun getEmojiDrawable(emoji: String): Int {
         return when (emoji) {
-            "excited_s" -> R.drawable.ic_mailbox_01  // excited_s에 해당하는 drawable
-            "happy_s" -> R.drawable.ic_mailbox_02_s      // happy_s에 해당하는 drawable
-            "normal_s" -> R.drawable.ic_mailbox_03_s    // normal_s에 해당하는 drawable
-            "upset_s" -> R.drawable.ic_mailbox_04_s          // sad_s에 해당하는 drawable
-            "angry_s" -> R.drawable.ic_mailbox_05_s       // upset_s에 해당하는 drawable
+            "excited_s" -> R.drawable.ic_mailbox_01
+            "happy_s" -> R.drawable.ic_mailbox_02_s
+            "normal_s" -> R.drawable.ic_mailbox_03_s
+            "upset_s" -> R.drawable.ic_mailbox_04_s
+            "angry_s" -> R.drawable.ic_mailbox_05_s
             else -> R.drawable.ic_mailbox_01 // 기본 이미지
         }
     }
@@ -131,6 +135,4 @@ class DayAdapter(
     override fun getItemCount(): Int {
         return ROW * 7
     }
-
-
 }
