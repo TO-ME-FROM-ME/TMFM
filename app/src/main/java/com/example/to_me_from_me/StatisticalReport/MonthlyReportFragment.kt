@@ -166,11 +166,13 @@ class MonthlyReportFragment : Fragment(), MonthPickerDialogFragment2.MonthSelect
     }
 
 
-    override fun onMonthSelected2(month: Int) {
-        calendar.set(Calendar.MONTH, month - 1)
+    override fun onMonthSelected2(month: Int, year: Int) {
 
-        monthTv.text = "${calendar.get(Calendar.YEAR)}년 ${month}월"
-        Log.d("MonthPicker", "월이 업데이트되었습니다: ${month}월") // 로그 추가
+        calendar.set(Calendar.MONTH, month)
+        calendar.set(Calendar.YEAR, year) // 선택한 연도 설정 추가
+
+        monthTv.text = "${calendar.get(Calendar.YEAR)}년 ${month+1}월"
+        Log.d("MonthPicker","monthTv $monthTv")
         // 선택된 월에 맞는 데이터를 불러옴
         loadUserScore()
         loadUserGraph()

@@ -17,8 +17,11 @@ import androidx.fragment.app.DialogFragment
 import com.example.to_me_from_me.R
 import java.util.Calendar
 
-class MonthPickerDialogFragment2(private var selectedYear: Int, private var selectedMonth: Int) : DialogFragment() {
+class MonthPickerDialogFragment2
+    (private var selectedYear: Int, private var selectedMonth: Int) : DialogFragment() {
 
+    private lateinit var monthTextViews: List<TextView>
+    private var selectedMonthIndex: Int = selectedMonth // 인덱스를 따로 유지
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,9 +44,6 @@ class MonthPickerDialogFragment2(private var selectedYear: Int, private var sele
         monthText.text = "${selectedYear}년 ${selectedMonth+1}월"
 
 
-        yearBackIv.isVisible=false
-        yearNextIv.isVisible=false
-
         monthTextViews.forEach { textView ->
             textView.setOnClickListener {
                 // 모든 TextView의 배경색상을 기본 색상으로 변경
@@ -54,14 +54,21 @@ class MonthPickerDialogFragment2(private var selectedYear: Int, private var sele
 
                 // 선택된 월 저장
                 selectedMonth = monthTextViews.indexOf(textView)+1
-                monthText.text="2024년 ${selectedMonth}월"
+                monthText.text="${selectedYear}년 ${selectedMonth}월"
                 Log.d("MonthPicker","$selectedMonth")
             }
         }
 
         yearBackIv.setOnClickListener {
-//            selectedYear -= 1 // 연도 감소
-//            monthText.text = "${selectedYear}년 ${selectedMonth}월"
+            selectedYear -= 1 // 연도 감소
+            monthText.text = "${selectedYear}년 ${selectedMonth}월"
+
+        }
+
+
+        yearNextIv.setOnClickListener {
+            selectedYear += 1 // 연도 증가
+            monthText.text = "${selectedYear}년 ${selectedMonth}월"
         }
 
 
@@ -72,18 +79,15 @@ class MonthPickerDialogFragment2(private var selectedYear: Int, private var sele
 
         val okButton: Button = view.findViewById(R.id.ok_btn)
         okButton.setOnClickListener {
-            // 선택 된 월 MonthlyReportFragment 넘긴 후 해당 월 보여주기
-//            (activity as? MonthSelectionListener2)?.onMonthSelected2(selectedMonth)
-//            Log.d("MonthPicker","MonthPickerDialog2 $selectedMonth")
-//            dismiss()
-            (targetFragment as? MonthSelectionListener2)?.onMonthSelected2(selectedMonth)
-            Log.d("MonthPicker","MonthPickerDialog2 $selectedMonth")
+            (targetFragment as? MonthSelectionListener2)?.onMonthSelected2(selectedMonth, selectedYear)
+            Log.d("MonthPicker","MonthPickerDialog2 $selectedMonth,  $selectedYear")
             dismiss()
         }
 
     }
 
+
     interface MonthSelectionListener2 {
-        fun onMonthSelected2(month: Int)
+        fun onMonthSelected2(month: Int,  year: Int)
     }
 }
