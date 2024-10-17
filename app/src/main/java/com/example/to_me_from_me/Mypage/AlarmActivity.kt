@@ -2,6 +2,7 @@ package com.example.to_me_from_me.Mypage
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
@@ -26,7 +27,7 @@ import java.util.Locale
 
 class AlarmActivity : AppCompatActivity() {
     lateinit var timeSetTextview: TextView
-    private lateinit var viewModel: SharedViewModel
+
     private lateinit var firestore: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
 
@@ -38,9 +39,9 @@ class AlarmActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_alarm)
-        viewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
 
-        checkNotificationPermission() // 권한 체크 호출
+
+        Log.d("알람", "onCreate 호출됨")
 
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
@@ -63,20 +64,35 @@ class AlarmActivity : AppCompatActivity() {
             finish()
         }
 
+
+        // SharedPreferences에서 알람 시간 읽기
+        val sharedPref = getSharedPreferences("AlarmPrefs", Context.MODE_PRIVATE)
+        val hour = sharedPref.getInt("selected_hour", -1)
+        val minute = sharedPref.getInt("selected_minute", -1)
         timeSetTextview = findViewById<TextView>(R.id.time_set_tv)
         alarmTime.setOnClickListener {
             val dialogFragment = AlarmTimeDialogFragment()
             dialogFragment.show(supportFragmentManager, "AlarmTimeDialogFragment")
         }
 
-        // ViewModel의 selectedTime을 관찰
-        viewModel.selectedTime.observe(this, Observer { timeInMillis ->
-            val formattedTime = convertMillisToTime(timeInMillis)
-            timeSetTextview.text = formattedTime
-            Log.d("selectedTime", "formattedTime: $formattedTime")
-            startAlarmService(formattedTime)
-        })
 
+        // 시간을 포맷하고 TextView에 설정
+        if (hour != -1 && minute != -1) {
+            val period = if (hour < 12) "오전" else "오후"
+            val displayHour = if (hour % 12 == 0) 12 else hour % 12
+            val formattedTime = String.format("%s %02d시 %02d분", period, displayHour, minute)
+            timeSetTextview.text = formattedTime // TextView 업데이트
+        }
+
+        Log.d("AlarmActivity", "받은 알람 시간: $hour 시 $minute 분")
+
+
+
+        // Firestore에서 alarm 값을 가져와 초기 가시성 설정
+        getAlarmStatusFromFirestore { isChecked ->
+            switchAll.isChecked = isChecked
+            switchAllOnLayout.visibility = if (isChecked) LinearLayout.VISIBLE else LinearLayout.GONE
+        }
 
 
         switchAll.setOnCheckedChangeListener { _, isChecked ->
@@ -90,6 +106,36 @@ class AlarmActivity : AppCompatActivity() {
             updateAlarmInFirestore(isChecked)
         }
 
+    }
+
+    private fun convertHourMinuteToTime(hour: Int, minute: Int): String {
+        val period = if (hour < 12) "오전" else "오후"
+        val displayHour = if (hour % 12 == 0) 12 else hour % 12
+        return String.format("%s %02d시 %02d분", period, displayHour, minute)
+    }
+
+    private fun getAlarmStatusFromFirestore(callback: (Boolean) -> Unit) {
+        val user = FirebaseAuth.getInstance().currentUser
+
+        if (user != null) {
+            val userDocumentRef = FirebaseFirestore.getInstance()
+                .collection("users")
+                .document(user.uid)
+
+            userDocumentRef.get()
+                .addOnSuccessListener { documentSnapshot ->
+                    if (documentSnapshot.exists()) {
+                        val isChecked = documentSnapshot.getBoolean("alarm") ?: false
+                        callback(isChecked)
+                    } else {
+                        callback(false) // 문서가 없으면 기본값 false로 설정
+                    }
+                }
+                .addOnFailureListener { e ->
+                    Log.e("FirestoreError", "Alarm 상태 가져오기 실패: ", e)
+                    callback(false)
+                }
+        }
     }
 
     private fun updateAlarmInFirestore(isChecked: Boolean) {
@@ -106,6 +152,7 @@ class AlarmActivity : AppCompatActivity() {
             userDocumentRef.update(alarmData)
                 .addOnSuccessListener {
                     Log.d("FirestoreUpdate", "Alarm 값이 성공적으로 업데이트되었습니다: $isChecked")
+
                 }
                 .addOnFailureListener { e ->
                     Log.e("FirestoreError", "Alarm 값 업데이트 실패: ", e)
@@ -113,36 +160,6 @@ class AlarmActivity : AppCompatActivity() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_TIME_PICKER && resultCode == Activity.RESULT_OK) {
-            data?.getLongExtra("selected_time", System.currentTimeMillis())?.let { timeInMillis ->
-                // ViewModel을 통해 선택한 시간 저장
-                viewModel.setSelectedTime(timeInMillis)
-            }
-        }
-    }
-
-    private fun convertMillisToTime(timeInMillis: Long): String {
-        val dateFormat = SimpleDateFormat("a hh시 mm분", Locale.getDefault())
-        val date = Date(timeInMillis)
-        return dateFormat.format(date)
-    }
-    private fun checkNotificationPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.POST_NOTIFICATIONS), REQUEST_NOTIFICATION_PERMISSION)
-            }
-        }
-    }
-
-    private fun startAlarmService(time: String) {
-        val serviceIntent = Intent(this, AlarmNotificationService::class.java).apply {
-            putExtra("alarm_time", time) // 알림 시간 추가
-        }
-        Log.d("selectedTime", "startAlarmService: $time")
-        ContextCompat.startForegroundService(this, serviceIntent) // 포그라운드 서비스 시작
-    }
 
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
