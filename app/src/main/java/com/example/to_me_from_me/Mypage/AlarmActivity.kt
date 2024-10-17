@@ -108,11 +108,6 @@ class AlarmActivity : AppCompatActivity() {
 
     }
 
-    private fun convertHourMinuteToTime(hour: Int, minute: Int): String {
-        val period = if (hour < 12) "오전" else "오후"
-        val displayHour = if (hour % 12 == 0) 12 else hour % 12
-        return String.format("%s %02d시 %02d분", period, displayHour, minute)
-    }
 
     private fun getAlarmStatusFromFirestore(callback: (Boolean) -> Unit) {
         val user = FirebaseAuth.getInstance().currentUser
