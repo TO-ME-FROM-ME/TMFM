@@ -40,6 +40,9 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
     private var letter : String? = null
 
 
+    private var letterContent: String? = null
+    private var reservedate: String? = null
+
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
     val user = FirebaseAuth.getInstance().currentUser
@@ -84,6 +87,14 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
         }
 
 
+        arguments?.let {
+            reservedate = it.getString("reservedate")
+            letter = it.getString("letter")
+            Log.d("받는 메일", "reservedate/letter: $reservedate , $letter")
+        }
+
+
+
         dateTv1 = view.findViewById(R.id.date1_tv)
         dateTv2 = view.findViewById(R.id.date2_tv)
         dateIv = view.findViewById(R.id.date_iv)
@@ -103,6 +114,8 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
             sendLetterLoad()
         }else if (letter=="random"){
             randomLetterLoad()
+        }else if(letter=="receive"){
+            receiveLetterLoad()
         }
 
 
@@ -114,7 +127,51 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
         return view
     }
 
-    private fun randomLetterLoad() {
+    private fun receiveLetterLoad() {
+        auth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
+
+        Log.d("받는 메일", "receiveLetterLoad() 실행")
+
+        // 오늘 날짜를 가져옵니다.
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val targetDate = dateFormat.format(Date()) // 오늘 날짜 문자열
+
+        if (uid != null) {
+            firestore.collection("users").document(uid).collection("letters")
+                .get()
+                .addOnSuccessListener { documents ->
+                    if (!documents.isEmpty) {
+                        // 모든 문서에서 reservedate 필드가 오늘 날짜인지 확인
+                        var hasLetterToday = false
+                        for (document in documents) {
+                            val reservedate = document.getString("reservedate")
+                            if (reservedate != null) {
+                                // reservedate에서 yyyy-MM-dd 형식으로 변환
+                                val reservedateDate = reservedate.substring(0, 10) // yyyy-MM-dd 부분 추출
+                                if (reservedateDate == targetDate) { // reservedate가 오늘 날짜와 일치하는지 확인
+                                    hasLetterToday = true
+                                    displayLetter(document.data, dateFormat) // 편지 표시
+                                    break // 오늘 날짜의 편지를 찾았으므로 루프 종료
+                                }
+                            }
+                        }
+
+                        if (!hasLetterToday) {
+                            Log.d("letterLoad", "오늘 날짜에 해당하는 편지가 없습니다.")
+                        }
+                    } else {
+                        Log.d("letterLoad", "편지 데이터가 없습니다.")
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.d("letterLoad", "오류 발생: ${exception.message}")
+                }
+        }
+    }
+
+
+ private fun randomLetterLoad() {
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
 
@@ -133,7 +190,7 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
                         if (matchingLetters.isNotEmpty()) {
                             val randomLetter = matchingLetters.random()
                             saveLetterToViewModel(randomLetter) // 편지를 저장
-                            
+
                             displayLetter(randomLetter, dateFormat)
                             // 랜덤 편지가 로드되었음을 ViewModel에 설정
                             mailboxViewModel.setRandomLetterLoaded(true)

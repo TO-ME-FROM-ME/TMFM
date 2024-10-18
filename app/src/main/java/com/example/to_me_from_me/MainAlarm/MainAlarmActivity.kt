@@ -95,14 +95,15 @@ class MainAlarmActivity : AppCompatActivity() {
                         if (reservedDate != null && reservedDate == clickedAt) {
                             Log.d("main알람", "예약된 편지 내용의 reservedDate와 clickedAt이 일치합니다: $reservedDate")
 
+
                             val situation = document.getString("situation")
 
-                            loadFragment(MainAlarmFragment(), situation)
+                            loadFragment(MainAlarmFragment(), situation, reservedDate)
                         }
                     }
                 } else {
                     Log.d("main알람", "일치하는 예약된 편지가 없습니다.")
-                    loadFragment(MainNoAlarmFragment(), null)
+                    loadFragment(MainNoAlarmFragment(), null,null)
                 }
             }
 
@@ -111,9 +112,10 @@ class MainAlarmActivity : AppCompatActivity() {
 
 
 
-    private fun loadFragment(fragment: Fragment, situation:String?) {
+    private fun loadFragment(fragment: Fragment, situation:String?, reservedate:String?) {
         val bundle = Bundle().apply {
             putString("situation", situation) // 값을 Bundle에 추가
+            putString("reservedate", reservedate)
         }
         fragment.arguments = bundle // Fragment에 arguments 설정
 

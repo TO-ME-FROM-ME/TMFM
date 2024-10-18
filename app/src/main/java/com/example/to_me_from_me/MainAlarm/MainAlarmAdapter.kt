@@ -1,7 +1,10 @@
 package com.example.to_me_from_me.MainAlarm
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
+import android.os.Bundle
+import android.provider.Settings.Secure.putString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,10 +12,13 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.to_me_from_me.LetterWrite.ButtonData
+import com.example.to_me_from_me.Mailbox.DetailMailBoxActivity
+import com.example.to_me_from_me.Mailbox.DetailMailBoxFragment
 import com.example.to_me_from_me.R
 
 class MainAlarmAdapter(
@@ -34,11 +40,24 @@ class MainAlarmAdapter(
 
     inner class AlarmViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private val img : ImageView = itemView.findViewById(R.id.icon_iv)
-        private val title : TextView = itemView.findViewById(R.id.title_tv)
-        private val letter : TextView = itemView.findViewById(R.id.letter_tv)
-        private val time : TextView = itemView.findViewById(R.id.time_tv)
+        private val img: ImageView = itemView.findViewById(R.id.icon_iv)
+        private val title: TextView = itemView.findViewById(R.id.title_tv)
+        private val letter: TextView = itemView.findViewById(R.id.letter_tv)
+        private val time: TextView = itemView.findViewById(R.id.time_tv)
 
+        init {
+            // 클릭 이벤트 설정
+            itemView.setOnClickListener {
+                // 클릭된 항목의 reservedate 가져오기
+                val reservedate = alarmDataList[adapterPosition].reservedate
+                val intent = Intent(context, DetailMailBoxActivity::class.java).apply {
+                    putExtra("situation", letter.text.toString())
+                    putExtra("letter", "receive")
+                    putExtra("reservedate", reservedate) // reservedate 추가
+                }
+                context.startActivity(intent) // Activity 전환
+            }
+        }
 
         fun bind(alarmData: AlarmData) {
             img.setImageResource(alarmData.imgResId)

@@ -34,6 +34,10 @@ class DetailMailBoxActivity : AppCompatActivity() {
             selectedDate = Date(selectedDateMillis) // Long을 Date로 변환
         }
 
+        // 인텐트에서 데이터 받기
+        val situation = intent.getStringExtra("situation")
+        val reservedate = intent.getStringExtra("reservedate")
+        Log.d("받는 메일", "situation  : $situation \n reservedate : $reservedate")
 
         val selectedEmoji = intent.getStringExtra("selectedEmoji")
         Log.d("selectedEmoji", "DetailMailBoxActivity  : $selectedEmoji")
@@ -64,9 +68,14 @@ class DetailMailBoxActivity : AppCompatActivity() {
                 bundle.putString("letter", "random")
                 detailFragment.arguments = bundle
             }
-            else -> {
+            "receive" -> {
                 titleTextView.text = "흘러온 편지"
                 Log.d("sendValue", "$sendValue")
+                detailFragment = DetailMailBoxFragment()
+                val bundle = Bundle()
+                bundle.putString("letter", "receive")
+                bundle.putString("reservedate",reservedate)
+                detailFragment.arguments = bundle
             }
         }
 
