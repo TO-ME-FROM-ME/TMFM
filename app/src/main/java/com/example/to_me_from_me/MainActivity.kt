@@ -31,6 +31,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
     private val bottomNavigation by lazy { findViewById<BottomNavigationView>(R.id.bottom_navigation) }
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -90,7 +92,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     }
 
     private fun scheduleNotification() {
-        Log.d("main알람", "scheduleNotification()")
+
         val user = FirebaseAuth.getInstance().currentUser
         val uid = user?.uid
 
@@ -110,15 +112,21 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                                 // 알람 매니저 설정
                                 val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
                                 val intent = Intent(this, NotificationService::class.java).apply {
-                                    putExtra("message", "편지 알림이 도착했습니다!") // 알림에 사용할 메시지
+                                    putExtra("message", " ") // 알림에 사용할 메시지
                                     putExtra("reservedDate", reservedDateString)
                                 }
-                                val pendingIntent = PendingIntent.getService(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
-
-                                // 예약된 시간에 알림 설정
-                                alarmManager.setExact(AlarmManager.RTC_WAKEUP, date.time, pendingIntent)
-                                Log.d("main알람", "알림 예약: ${date.time} (formatted: $reservedDateString)")
+                                // 고유 ID를 사용하여 PendingIntent 생성
+                                val pendingIntent = PendingIntent.getService(this, reservedDateString.hashCode(), intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+                                // 이미 설정된 알림이 있는지 확인
+                                if (date.time > System.currentTimeMillis()) {
+                                    // 예약된 시간에 알림 설정
+                                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, date.time, pendingIntent)
+                                    Log.d("main알람", "알림 예약: ${date.time} (formatted: $reservedDateString)")
+                                } else {
+                                    Log.d("main알람", "예약된 시간이 현재 시간보다 이전입니다. 알림을 예약하지 않습니다.")
+                                }
                             }
+                            //isNotificationScheduled = true // 알림 설정 완료 플래그 업데이트
                         }
                     } else {
                         Log.d("main알람", "Firebase : 해당 문서가 없습니다.")
