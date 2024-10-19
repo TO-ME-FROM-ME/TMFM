@@ -152,7 +152,23 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
                                 if (reservedateDate == targetDate) { // reservedate가 오늘 날짜와 일치하는지 확인
                                     hasLetterToday = true
                                     displayLetter(document.data, dateFormat) // 편지 표시
-                                    break // 오늘 날짜의 편지를 찾았으므로 루프 종료
+//                                    break // 오늘 날짜의 편지를 찾았으므로 루프 종료
+                                    val displayDateFormat = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
+                                    // 날짜 관련 UI 업데이트
+                                    dateIv.visibility = View.VISIBLE
+                                    dateTv2.visibility = View.VISIBLE
+
+                                    if (reservedateDate != null) {
+                                        val formattedSelectedDate = displayDateFormat.format(dateFormat.parse(reservedateDate)!!)
+                                        dateTv1.text = formattedSelectedDate
+                                    }
+
+                                    // 현재 날짜를 표시
+                                    val currentDate = Date()
+                                    val formattedCurrentDate = displayDateFormat.format(currentDate)
+                                    dateTv2.text = formattedCurrentDate
+                                    dateIv.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_mail_re))
+
                                 }
                             }
                         }
