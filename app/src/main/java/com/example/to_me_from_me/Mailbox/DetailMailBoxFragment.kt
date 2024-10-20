@@ -27,6 +27,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -188,8 +189,6 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
         }
     }
 
-
-
     private fun randomLetterLoad() {
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
@@ -258,18 +257,40 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
                 .addOnSuccessListener { documents ->
                     if (!documents.isEmpty) {
                         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                        val displayDateFormat = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
+
                         val matchingLetter = documents.firstOrNull { document ->
                             val firebaseDate = document.getString("date")?.let { dateFormat.parse(it) }
+                            val reservedate = document.getString("reservedate")
+
+                            if(reservedate!=null){
+                                try {
+                                    val reservedateDate = dateFormat.parse(reservedate) // 문자열을 Date로 변환
+                                    val formattedSelectedDate = displayDateFormat.format(reservedateDate!!) // 원하는 형식으로 변환
+
+                                    // UI 업데이트
+                                    dateTv2.text = formattedSelectedDate
+                                    dateIv.visibility = View.VISIBLE
+                                    dateTv2.visibility = View.VISIBLE
+                                    dateTv2.setTextColor(ContextCompat.getColor(requireContext(),R.color.Gray3))
+                                    dateIv.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_mail_send))
+
+                                    Log.d("send편지", "Formatted reservedate: $formattedSelectedDate")
+                                } catch (e: ParseException) {
+                                    Log.e("sendLetter", "Error parsing reservedate", e)
+                                }
+                        }
                             firebaseDate != null && isSameDate(firebaseDate, targetDate)
                         }?.data
 
                         if (matchingLetter != null) {
                             displayLetter(matchingLetter, dateFormat)
+
                         } else {
-                            Log.d("letterLoad", "선택된 날짜에 해당하는 편지가 없습니다.")
+                            Log.d("sendLetter", "선택된 날짜에 해당하는 편지가 없습니다.")
                         }
                     } else {
-                        Log.d("letterLoad", "편지 데이터가 없습니다.")
+                        Log.d("sendLetter", "편지 데이터가 없습니다.")
                     }
                 }
         }
