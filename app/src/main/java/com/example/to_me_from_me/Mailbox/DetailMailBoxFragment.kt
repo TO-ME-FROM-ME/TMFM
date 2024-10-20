@@ -136,39 +136,41 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
         // 오늘 날짜를 가져옵니다.
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val targetDate = dateFormat.format(Date()) // 오늘 날짜 문자열
+        var firstDateShown = false // 첫 번째 date가 표시되었는지 여부를 추적
 
         if (uid != null) {
             firestore.collection("users").document(uid).collection("letters")
                 .get()
                 .addOnSuccessListener { documents ->
                     if (!documents.isEmpty) {
-                        // 모든 문서에서 reservedate 필드가 오늘 날짜인지 확인
                         var hasLetterToday = false
                         for (document in documents) {
                             val reservedate = document.getString("reservedate")
+                            val date = document.getString("date")
                             if (reservedate != null) {
                                 // reservedate에서 yyyy-MM-dd 형식으로 변환
                                 val reservedateDate = reservedate.substring(0, 10) // yyyy-MM-dd 부분 추출
                                 if (reservedateDate == targetDate) { // reservedate가 오늘 날짜와 일치하는지 확인
                                     hasLetterToday = true
-                                    displayLetter(document.data, dateFormat) // 편지 표시
-//                                    break // 오늘 날짜의 편지를 찾았으므로 루프 종료
-                                    val displayDateFormat = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
-                                    // 날짜 관련 UI 업데이트
-                                    dateIv.visibility = View.VISIBLE
-                                    dateTv2.visibility = View.VISIBLE
 
-                                    if (reservedateDate != null) {
-                                        val formattedSelectedDate = displayDateFormat.format(dateFormat.parse(reservedateDate)!!)
-                                        dateTv1.text = formattedSelectedDate
+                                    val displayDateFormat = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
+                                    // 첫 번째 date를 찾았을 때만 UI 업데이트
+                                    if (!firstDateShown && date != null) {
+                                        Log.d("받는 메일", "첫 번째 date: $date")
+                                        val formattedSelectedDate = displayDateFormat.format(dateFormat.parse(date)!!)
+                                        Log.d("받는 메일", "formattedSelectedDate: $formattedSelectedDate")
+                                        dateTv2.text = formattedSelectedDate
+                                        firstDateShown = true // 첫 번째 date가 표시되었음을 기록
                                     }
 
                                     // 현재 날짜를 표시
                                     val currentDate = Date()
                                     val formattedCurrentDate = displayDateFormat.format(currentDate)
                                     dateTv2.text = formattedCurrentDate
+                                    dateIv.visibility = View.VISIBLE
+                                    dateTv2.visibility = View.VISIBLE
                                     dateIv.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_mail_re))
-
+                                    displayLetter(document.data, dateFormat) // 편지 표시
                                 }
                             }
                         }
@@ -187,7 +189,8 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
     }
 
 
- private fun randomLetterLoad() {
+
+    private fun randomLetterLoad() {
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
 
