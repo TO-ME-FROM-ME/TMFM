@@ -126,6 +126,7 @@ class LetterFragment : BottomSheetDialogFragment() {
         reservBtn.setOnClickListener {
             val dialogFragment = CalendarDialogFragment()
             dialogFragment.show(parentFragmentManager, "CalendarDialogFragment")
+            saveLetterToFirestore(letterTV.text.toString())
         }
 
         sendBtn.setOnClickListener {
