@@ -23,6 +23,7 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -60,6 +61,8 @@ class AnnualReportFragment : Fragment(), AnnualPickerDialogFragment.YearSelectio
     ): View? {
         _binding = FragmentAnnualReportBinding.inflate(inflater, container, false)
         val view = binding.root
+
+        firestore = FirebaseFirestore.getInstance()
 
         framelayout = view.findViewById(R.id.annual_fl)
 
@@ -101,7 +104,7 @@ class AnnualReportFragment : Fragment(), AnnualPickerDialogFragment.YearSelectio
 
         val lineChart = binding.lineChart
         configureChartAppearance(lineChart, 0) // 범위 값을 설정하여 차트 구성
-        setChartData(lineChart) // 차트에 데이터 설정
+        fetchScoresFromFirestore(lineChart) // 차트에 데이터 설정
         return view
     }
 
@@ -126,18 +129,9 @@ class AnnualReportFragment : Fragment(), AnnualPickerDialogFragment.YearSelectio
         }
     }
 
-    private fun setChartData(lineChart: LineChart) {
-        val entries = ArrayList<Entry>()
-
-        entries.add(Entry(1f, 10f))
-        entries.add(Entry(2f, 18f))
-        entries.add(Entry(3f, 13f))
-        entries.add(Entry(4f, 15f))
-        entries.add(Entry(5f, 25f))
-        entries.add(Entry(6f, 17f))
-
-        // 데이터 설정 - 필요한 데이터 세트 객체 생성
-        val lineDataSet = LineDataSet(entries, "Sample Data")
+    private fun setChartData(lineChart: LineChart, entries: ArrayList<Entry>) {
+        // 데이터 세트를 설정
+        val lineDataSet = LineDataSet(entries, "Scores Data")
         lineDataSet.color = Color.rgb(244, 146, 146)
         lineDataSet.setDrawCircles(false)
         lineDataSet.lineWidth = 3f
@@ -145,11 +139,46 @@ class AnnualReportFragment : Fragment(), AnnualPickerDialogFragment.YearSelectio
         val lineData = LineData(lineDataSet)
         lineChart.data = lineData
 
-        // 차트 업데이트
+        // 차트를 업데이트하여 반영
         lineChart.notifyDataSetChanged()
         lineChart.invalidate()
-
     }
+
+    private fun fetchScoresFromFirestore(lineChart: LineChart) {
+        val user = FirebaseAuth.getInstance().currentUser
+        val firestore = FirebaseFirestore.getInstance()
+        if (uid == null) {
+            Log.e("Firestore", "User UID is null")
+            return
+        }
+        if (user != null) {
+            val scoresRef = firestore.collection("users").document(user.uid).collection("scores")
+
+            // Firestore에서 데이터를 가져옴
+            scoresRef.orderBy("timestamp", Query.Direction.ASCENDING) // 월별로 정렬을 위해 timestamp 기준으로 정렬
+                .get()
+                .addOnSuccessListener { documents ->
+                    val entries = ArrayList<Entry>()
+
+                    // Firestore에서 가져온 각 문서를 처리
+                    for (document in documents) {
+                        val month = document.id.toFloat()-1 // 문서 ID를 월(month)로 사용
+                        val score = document.getDouble("score")?.toFloat() ?: 0f
+
+                        // Entry 객체에 x축: month, y축: score 값으로 추가
+                        entries.add(Entry(month, score))
+                    }
+
+                    // 차트에 데이터 설정
+                    setChartData(lineChart, entries)
+                }
+                .addOnFailureListener { exception ->
+                    Log.e("Firestore", "Error getting documents: ", exception)
+                }
+        }
+    }
+
+
 
     private fun configureChartAppearance(lineChart: LineChart, range: Int) {
         lineChart.extraBottomOffset = 15f

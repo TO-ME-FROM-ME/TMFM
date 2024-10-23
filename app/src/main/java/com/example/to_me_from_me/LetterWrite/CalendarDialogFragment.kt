@@ -51,6 +51,7 @@ class CalendarDialogFragment : DialogFragment() {
             } ?: run {
                 //Toast.makeText(requireContext(), "날짜를 먼저 선택하세요.", Toast.LENGTH_SHORT).show()
             }
+            //saveDateToFirestore
         }
 
         val cancelButton: Button = view.findViewById(R.id.cancel_btn)

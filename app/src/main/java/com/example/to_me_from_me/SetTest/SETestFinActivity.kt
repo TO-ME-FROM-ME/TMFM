@@ -10,7 +10,11 @@ import android.widget.Toast
 import com.example.to_me_from_me.CoachMark.CoachMarkActivity
 import com.example.to_me_from_me.R
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class SETestFinActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
@@ -58,8 +62,21 @@ class SETestFinActivity : AppCompatActivity() {
                     Toast.makeText(this, "검사결과가 저장되었습니다!", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this, CoachMarkActivity::class.java))
                     finish() // 현재 화면 종료
-
                 }
+            val currentMonth = SimpleDateFormat("M", Locale.getDefault()).format(Date()).toInt()
+            // 새로운 컬렉션에 totalScore 추가
+            val scoreData = hashMapOf(
+                "score" to totalScore,
+                "timestamp" to FieldValue.serverTimestamp()
+            )
+
+            // scores 컬렉션에 새 문서 추가
+            firestore.collection("users")
+                .document(user.uid)
+                .collection("scores")
+                .document(currentMonth.toString()) // 문서 이름을 월 정보로 설정
+                .set(scoreData)
+
                 .addOnFailureListener { e ->
                     // 저장 실패 시 로그 및 토스트 메시지
                     Log.w("Firestore", "Error updating totalScore", e)
@@ -69,6 +86,6 @@ class SETestFinActivity : AppCompatActivity() {
             // 사용자가 로그인되어 있지 않을 경우 처리
             Toast.makeText(this, "로그인이 필요합니다.", Toast.LENGTH_SHORT).show()
         }
-        }
+    }
 
 }
