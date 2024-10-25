@@ -15,7 +15,6 @@ class MailboxViewModel : ViewModel() {
     val randomLetterData: LiveData<Map<String, Any?>> get() = _randomLetterData
 
 
-
     fun setRandomLetterLoaded(loaded: Boolean) {
         _randomLetterLoaded.value = loaded
     }
@@ -23,6 +22,16 @@ class MailboxViewModel : ViewModel() {
     fun setRandomLetterData(letterData: Map<String, Any?>) {
         _randomLetterData.value = letterData
         setRandomLetterLoaded(true) // 편지 데이터가 로드되었음을 표시
+    }
+
+
+
+    // 받은 편지
+    private val _hasLetterToday = MutableLiveData<Boolean>()
+    val hasLetterToday: LiveData<Boolean> get() = _hasLetterToday
+
+    fun setHasLetterToday(hasLetter: Boolean) {
+        _hasLetterToday.value = hasLetter
     }
 
 }

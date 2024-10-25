@@ -82,25 +82,48 @@ class MonthAdapter(
         val titleText: TextView = holder.view.findViewById(R.id.title)
         titleText.text ="${calendar.get(Calendar.YEAR)}년 ${calendar.get(Calendar.MONTH) + 1}월"
 
+        // 현재 월의 첫 번째 날
+        val firstDayOfMonth = calendar.get(Calendar.DAY_OF_WEEK) - 1 // 일요일: 1 -> 배열 인덱스로 변경 (0부터 시작)
+
+        // 현재 월의 마지막 날
+        val maxDayInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
+        // 빈 날짜와 해당 월 날짜 리스트 생성
+        //val dayList: MutableList<Date?> = MutableList(42) { null } // 총 6주를 표시하기 위해 42칸 (빈 칸을 포함)
+
+        // MonthAdapter에서 dayList를 생성할 때 null 없이 Date 객체만 포함하도록 설정
+
+        val dayList: MutableList<Date?> = MutableList(42) { null } // 최대 6주 표시를 위한 42칸
+
+        // 해당 월 날짜 추가
+        for (i in 0 until maxDayInMonth) {
+            calendar.set(Calendar.DAY_OF_MONTH, i + 1) // i번째 날
+            dayList[firstDayOfMonth + i] = calendar.time // 시작 요일 이후에 날짜 추가
+        }
+
+
+
         val tempMonth = calendar.get(Calendar.MONTH)
 
-        // 5주 7일로 날짜를 표시
-        val dayList: MutableList<Date> = MutableList(5 * 7) { Date() }
-        for (i in 0..4) { // 주
-            for (k in 0..6) { // 요일
-                calendar.add(Calendar.DAY_OF_MONTH, (1 - calendar.get(Calendar.DAY_OF_WEEK)) + k)
-                dayList[i * 7 + k] = calendar.time // 배열 인덱스만큼 요일 데이터 저장
-            }
-            calendar.add(Calendar.WEEK_OF_MONTH, 1)
-        }
+//        // 5주 7일로 날짜를 표시
+//        val dayList: MutableList<Date> = MutableList(5 * 7) { Date() }
+//        for (i in 0..4) { // 주
+//            for (k in 0..6) { // 요일
+//                calendar.add(Calendar.DAY_OF_MONTH, (1 - calendar.get(Calendar.DAY_OF_WEEK)) + k)
+//                dayList[i * 7 + k] = calendar.time // 배열 인덱스만큼 요일 데이터 저장
+//            }
+//            calendar.add(Calendar.WEEK_OF_MONTH, 1)
+//        }
 
+        // RecyclerView에 데이터를 설정
         listLayout.layoutManager = GridLayoutManager(holder.view.context, 7)
         listLayout.adapter = DayAdapter(tempMonth, dayList) { clickedDate, hasImage ->
-            onDayClickListener(clickedDate, hasImage) // 날짜 클릭 시 리스너 호출
-            Log.d("DayAdapter", "Clicked: $clickedDate, HasImage: $hasImage")
+            if (clickedDate != null) {
+                onDayClickListener(clickedDate, hasImage) // 날짜 클릭 시 리스너 호출
+                Log.d("DayAdapter", "Clicked: $clickedDate, HasImage: $hasImage")
+            }
         }
 
-        
+
     }
 
     override fun getItemCount(): Int {

@@ -143,6 +143,7 @@ class AlarmActivity : AppCompatActivity() {
 
             // Firestore에 alarm 값을 업데이트
             val alarmData = mapOf("alarm" to isChecked)
+            val alarmTime = mapOf("alarmTime" to String)
 
             userDocumentRef.update(alarmData)
                 .addOnSuccessListener {

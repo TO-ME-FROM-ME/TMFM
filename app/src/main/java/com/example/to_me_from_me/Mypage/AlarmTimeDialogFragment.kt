@@ -41,7 +41,7 @@ class AlarmTimeDialogFragment : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        createNotificationChannel()
+        //createNotificationChannel()
 
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
@@ -98,6 +98,7 @@ class AlarmTimeDialogFragment : DialogFragment() {
 
             Toast.makeText(requireContext(), "알람 :  $formattedTime", Toast.LENGTH_SHORT).show()
             dismiss()
+
         }
 
         return view
@@ -145,20 +146,20 @@ class AlarmTimeDialogFragment : DialogFragment() {
         Log.d("알람", "$tag 알람이 설정되었습니다. 시간: ${calendar.time}")
     }
 
-    private fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                "ALARM_CHANNEL",
-                "알람 채널",
-                NotificationManager.IMPORTANCE_HIGH
-            ).apply {
-                description = "알람을 위한 채널"
-            }
-            val notificationManager: NotificationManager =
-                requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
-        }
-    }
+//    private fun createNotificationChannel() {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            val channel = NotificationChannel(
+//                "ALARM_CHANNEL",
+//                "알람 채널",
+//                NotificationManager.IMPORTANCE_HIGH
+//            ).apply {
+//                description = "알람을 위한 채널"
+//            }
+//            val notificationManager: NotificationManager =
+//                requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+//            notificationManager.createNotificationChannel(channel)
+//        }
+//    }
 
     override fun onResume() {
         super.onResume()

@@ -75,6 +75,18 @@ class MailBoxFragment: BottomSheetDialogFragment()  {
                 Log.d("RandomLetter", "letterData: $letterData")
             }
         }
+
+        mailboxViewModel.hasLetterToday.observe(viewLifecycleOwner) { hasLetterToday ->
+            if (hasLetterToday) {
+                receiveMail.visibility = View.VISIBLE
+                receiveMailLl.visibility = View.VISIBLE
+                Log.d("send편지", "hasLetterToday: $hasLetterToday")
+            } else {
+                receiveMail.visibility = View.GONE
+                receiveMailLl.visibility = View.GONE
+            }
+        }
+
         loadLetters()
 
 
@@ -86,6 +98,7 @@ class MailBoxFragment: BottomSheetDialogFragment()  {
         initializeUI(view)
         
         letterLoad()
+
 
         sendMail.setOnClickListener{
             val intent = Intent(context, DetailMailBoxActivity::class.java)
@@ -115,10 +128,10 @@ class MailBoxFragment: BottomSheetDialogFragment()  {
         return view
     }
 
+
     private fun loadLetters() {
         val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
         firestore = FirebaseFirestore.getInstance()
-
         firestore.collection("users").document(uid).collection("letters")
             .get()
             .addOnSuccessListener { documents ->

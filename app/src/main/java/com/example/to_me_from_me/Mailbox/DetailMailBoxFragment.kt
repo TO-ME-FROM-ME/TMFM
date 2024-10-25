@@ -152,14 +152,10 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
                                 // reservedate에서 yyyy-MM-dd 형식으로 변환
                                 val reservedateDate = reservedate.substring(0, 10) // yyyy-MM-dd 부분 추출
                                 if (reservedateDate == targetDate) { // reservedate가 오늘 날짜와 일치하는지 확인
-                                    hasLetterToday = true
-
                                     val displayDateFormat = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
                                     // 첫 번째 date를 찾았을 때만 UI 업데이트
                                     if (!firstDateShown && date != null) {
-                                        Log.d("받는 메일", "첫 번째 date: $date")
                                         val formattedSelectedDate = displayDateFormat.format(dateFormat.parse(date)!!)
-                                        Log.d("받는 메일", "formattedSelectedDate: $formattedSelectedDate")
                                         dateTv2.text = formattedSelectedDate
                                         firstDateShown = true // 첫 번째 date가 표시되었음을 기록
                                     }
@@ -350,14 +346,6 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
             else -> 0 // 기본 이미지
         }
     }
-
-    private fun updateDateVisibility() {
-        val visibility = if (dateVisible) View.VISIBLE else View.GONE
-        dateTv1.visibility = visibility
-        dateTv2.visibility = visibility
-        dateIv.visibility = visibility
-    }
-
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return BottomSheetDialog(requireActivity(), R.style.TransparentBottomSheetDialogTheme)

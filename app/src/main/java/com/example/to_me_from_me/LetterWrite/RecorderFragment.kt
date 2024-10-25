@@ -81,11 +81,10 @@ class RecorderFragment : BottomSheetDialogFragment() {
                 val writeExternalStoragePermissionGranted = if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
                     ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
                 } else {
-                    true // Android 10 이상에서는 WRITE_EXTERNAL_STORAGE 권한 필요 없음
+                    true
                 }
 
                 if (!recordAudioPermissionGranted || !writeExternalStoragePermissionGranted) {
-                    // 권한이 없으면 요청
                     val permissionsToRequest = mutableListOf(Manifest.permission.RECORD_AUDIO)
                     if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
                         permissionsToRequest.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -132,7 +131,7 @@ class RecorderFragment : BottomSheetDialogFragment() {
     override fun onPause() {
         super.onPause()
         if (isRecording) {
-            stopRecording() // 화면 종료 시 녹음 중단
+            stopRecording()
         }
     }
 

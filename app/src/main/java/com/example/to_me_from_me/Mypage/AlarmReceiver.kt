@@ -37,6 +37,15 @@ class AlarmReceiver : BroadcastReceiver() {
 
     private fun showNotification(context: Context, formattedTime: String) {
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        // Android 8.0 이상에서는 NotificationChannel 필요
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            val channelId = "ALARM_CHANNEL"
+            val channelName = "알람 채널"
+            val importance = NotificationManager.IMPORTANCE_HIGH
+            val notificationChannel = NotificationChannel(channelId, channelName, importance)
+            notificationChannel.description = "알람을 위한 채널"
+            notificationManager.createNotificationChannel(notificationChannel)
+        }
 
         val notificationIntent = Intent(context, MainActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)

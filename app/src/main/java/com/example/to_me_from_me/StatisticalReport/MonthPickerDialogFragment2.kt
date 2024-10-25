@@ -53,8 +53,8 @@ class MonthPickerDialogFragment2
                 textView.background = mainDrawable
 
                 // 선택된 월 저장
-                selectedMonth = monthTextViews.indexOf(textView)+1
-                monthText.text="${selectedYear}년 ${selectedMonth}월"
+                selectedMonth = monthTextViews.indexOf(textView)
+                monthText.text="${selectedYear}년 ${selectedMonth+1}월"
             }
         }
 

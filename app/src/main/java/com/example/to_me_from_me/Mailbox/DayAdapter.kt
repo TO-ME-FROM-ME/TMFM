@@ -26,7 +26,7 @@ import java.util.*
 
 class DayAdapter(
     private val tempMonth: Int,
-    private val dayList: MutableList<Date>,
+    private val dayList: MutableList<Date?>,
     private val onDayClickListener: (Date, Boolean) -> Unit
 ) : RecyclerView.Adapter<DayAdapter.DayView>() {
     val ROW = 5
@@ -54,8 +54,18 @@ class DayAdapter(
         firestore = FirebaseFirestore.getInstance()
 
         val currentDate = dayList[position]
-        val daySdf = SimpleDateFormat("d", Locale.getDefault()).format(currentDate)
-        holder.dayText.text = daySdf
+
+        // currentDate가 null이면 해당 View를 숨기기
+        if (currentDate == null) {
+            holder.itemView.visibility = View.INVISIBLE
+            holder.dayText.text = ""
+            holder.todayIv.isVisible = false
+            return
+        } else {
+            holder.itemView.visibility = View.VISIBLE
+            val daySdf = SimpleDateFormat("d", Locale.getDefault()).format(currentDate)
+            holder.dayText.text = daySdf
+        }
 
         // 오늘 날짜와 비교
         val today = Calendar.getInstance().time
@@ -68,7 +78,7 @@ class DayAdapter(
             holder.dayText.setTextColor(Color.BLACK)
             holder.todayIv.isVisible = true // 오늘 날짜의 아이콘 보이기
         } else {
-            holder.dayText.setTextColor(Color.GRAY) // 다른 날짜는 기본 회색 설정
+            holder.dayText.setTextColor(Color.BLACK)
         }
 
         // Firestore에서 데이터 가져오기
@@ -82,11 +92,20 @@ class DayAdapter(
                     if (!documents.isEmpty) {
                         for (document in documents) {
                             val dateString = document.getString("date")
+
+                            val date = document.id
+                            val reservedate = document.getString("reservedDate")
+
                             if (dateString != null) {
                                 val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                                 val firebaseDate = dateFormat.parse(dateString)
 
-                                if (firebaseDate != null && firebaseDate.date == currentDate.date && firebaseDate.month == currentDate.month && firebaseDate.year == currentDate.year) {
+                                val reservedDateString = reservedate?.substring(0, 10) // yyyy-MM-dd 부분 추출
+                                val firebaseReservedate = reservedDateString?.let { dateFormat.parse(it) }
+
+
+                                // Firebase Date와 Current Date 비교
+                                if (firebaseDate != null && isSameDate(firebaseDate, currentDate)) {
                                     val emoji = document.getString("emoji")
                                     if (emoji != null) {
                                         holder.dayImg.setImageResource(getEmojiDrawable(emoji))
@@ -97,6 +116,12 @@ class DayAdapter(
                                         holder.dayImg.isVisible = false
                                         holder.dayCv.isVisible = true
                                         holder.hasImage = false
+                                    }
+
+                                    // reservedDate가 일치하면 receiveMail 보이기 로직 추가
+                                    if (firebaseReservedate != null && isSameDate(firebaseReservedate, currentDate)) {
+                                        Log.d("DayAdapter", "receiveMail의 가시성을 조정하는 로직을 호출")
+                                        onDayClickListener(currentDate, true) // true는 이미지를 표시하라는 의미
                                     }
                                 }
                             }
@@ -117,22 +142,30 @@ class DayAdapter(
 
         // 선택된 날짜에 대해 todayIv의 가시성 설정
         holder.todayIv.isVisible = selectedDate?.let {
-            currentDate.date == it.date && currentDate.month == it.month && currentDate.year == it.year
-        } ?: (currentDate.date == today.date && currentDate.month == today.month && currentDate.year == today.year)
+            isSameDate(currentDate, it)
+        } ?: (isSameDate(currentDate, today))
+    }
+
+    private fun isSameDate(date1: Date, date2: Date): Boolean {
+        val calendar1 = Calendar.getInstance().apply { time = date1 }
+        val calendar2 = Calendar.getInstance().apply { time = date2 }
+        return calendar1.get(Calendar.YEAR) == calendar2.get(Calendar.YEAR) &&
+                calendar1.get(Calendar.MONTH) == calendar2.get(Calendar.MONTH) &&
+                calendar1.get(Calendar.DAY_OF_MONTH) == calendar2.get(Calendar.DAY_OF_MONTH)
     }
 
     private fun getEmojiDrawable(emoji: String): Int {
         return when (emoji) {
-            "excited_s" -> R.drawable.ic_mailbox_01
-            "happy_s" -> R.drawable.ic_mailbox_02_s
-            "normal_s" -> R.drawable.ic_mailbox_03_s
-            "upset_s" -> R.drawable.ic_mailbox_04_s
-            "angry_s" -> R.drawable.ic_mailbox_05_s
-            else -> R.drawable.ic_mailbox_01 // 기본 이미지
+            "excited_s" -> R.drawable.ic_mailbox_e
+            "happy_s" -> R.drawable.ic_mailbox_h
+            "normal_s" -> R.drawable.ic_mailbox_n
+            "upset_s" -> R.drawable.ic_mailbox_u
+            "angry_s" -> R.drawable.ic_mailbox_a
+            else -> R.drawable.ic_mailbox_e // 기본 이미지
         }
     }
 
     override fun getItemCount(): Int {
-        return ROW * 7
+        return dayList.size
     }
 }
