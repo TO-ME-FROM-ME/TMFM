@@ -72,7 +72,6 @@ class MailBoxFragment: BottomSheetDialogFragment()  {
             letterData?.let {
                 // UI 업데이트
                 loadRandom(it)
-                Log.d("RandomLetter", "letterData: $letterData")
             }
         }
 
@@ -127,27 +126,45 @@ class MailBoxFragment: BottomSheetDialogFragment()  {
 
         return view
     }
-
-
     private fun loadLetters() {
         val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
         firestore = FirebaseFirestore.getInstance()
+
+
         firestore.collection("users").document(uid).collection("letters")
             .get()
             .addOnSuccessListener { documents ->
                 if (!documents.isEmpty) {
                     for (document in documents) {
-                        val letterData = document.data // Firestore에서 가져온 데이터
-                        saveLetterToViewModel(letterData) // ViewModel에 데이터 저장
+                        val letterData = document.data  // 오늘의 랜덤 편지 데이터
+                        val createdDate = letterData["createdDate"] as? String
+                        val randomDate = letterData["randomDate"] as? String
+
+                        // createdDate와 randomDate가 존재하는 경우
+                        if (createdDate != null && randomDate != null) {
+                            saveLetterToViewModel(letterData)  // ViewModel에 데이터 저장
+                            loadRandom(letterData)  // 편지 내용을 UI에 표시
+
+                            Log.d("랜덤편지", "오늘 받은 랜덤 편지: ${document.id} - $letterData")
+
+                            randomMailLl.isVisible = true  // 랜덤 편지 레이아웃 표시
+                            randomMail.isVisible = true
+
+                            break  // 오늘의 랜덤 편지를 찾았으므로 반복 종료
+                        }
                     }
                 } else {
-                    Log.d("RandomLetter", "편지가 없습니다.")
+                    Log.d("RandomLetter", "오늘 받은 랜덤 편지가 없습니다.")
+                    randomMailLl.isVisible = false  // 없으면 레이아웃 숨김
+                    randomMail.isVisible = false
                 }
             }
             .addOnFailureListener { exception ->
                 Log.w("RandomLetter", "Error getting documents: ", exception)
             }
     }
+
+
 
     private fun initializeUI(view: View) {
         sendMailLl = view.findViewById(R.id.send_ll)
@@ -207,8 +224,13 @@ class MailBoxFragment: BottomSheetDialogFragment()  {
 
     // 랜덤으로 선택한 편지 값을 ViewModel에 저장
     private fun saveLetterToViewModel(letterData: Map<String, Any?>) {
-        mailboxViewModel.setRandomLetterData(letterData)
-        Log.d("RandomLetter", "랜덤 편지 저장 완료222: $letterData")
+        // readStatus를 false로 설정
+        val updatedLetterData = letterData.toMutableMap().apply {
+            this["readStatus"] = false // readStatus 값을 false로 설정
+        }
+        Log.d("readStatus", "readStatus : $updatedLetterData")
+
+        mailboxViewModel.setRandomLetterData(updatedLetterData)
     }
     private fun loadRandom(letterData: Map<String, Any?>) {
 
@@ -222,13 +244,26 @@ class MailBoxFragment: BottomSheetDialogFragment()  {
         // UI 업데이트
         emoji?.let {
             sendIv.setImageResource(getEmojiDrawable(it))
+            randomIv.setImageResource(getEmojiDrawable(it))
         }
         sendTv.text = situation ?: ""
         sendAdTv1.text = ad1 ?: ""
         sendAdTv2.text = ad2 ?: ""
 
+
+        randomTv.text = situation ?: ""
+        randomAdTv1.text = ad1 ?: ""
+        randomAdTv2.text = ad2 ?: ""
+
         // 배경 설정
         sendMail.setBackgroundResource(if (readStatus) R.drawable.rounded else R.drawable.rounded_false)
+
+        // 랜덤 편지 레이아웃의 배경 설정
+        randomMail.setBackgroundResource(if (readStatus) R.drawable.rounded else R.drawable.rounded_false)
+
+        // 랜덤 편지가 있을 경우 랜덤 레이아웃을 보이도록 설정
+        randomMailLl.isVisible = true
+        randomMail.isVisible = true
     }
 
     private fun letterLoad() {
@@ -259,30 +294,47 @@ class MailBoxFragment: BottomSheetDialogFragment()  {
                                 val ad2 = document.getString("ad2")
                                 val readStatus = document.getBoolean("readStatus") ?: false
 
-                                if (emoji != null) { // emoji가 null이 아닐 경우만 호출
-                                    sendIv.setImageResource(getEmojiDrawable(emoji))
-                                    sendTv.text = situation.toString()
-                                    sendAdTv1.text = ad1.toString()
-                                    sendAdTv2.text = ad2.toString()
+                                val createdDate = document.getString("createdDate")
+                                val randomDate = document.getString("randomDate")
+
+
+                                if (emoji != null) {
+                                    if(createdDate != null && randomDate != null){
+                                        document.reference.update("readStatus", false)
+
+                                        randomIv.setImageResource(getEmojiDrawable(emoji))
+                                        randomTv.text = situation.toString()
+                                        randomAdTv1.text = ad1.toString()
+                                        randomAdTv2.text = ad2.toString()
+
+                                        randomMailLl.visibility=View.VISIBLE
+                                        randomMail.visibility=View.VISIBLE
+
+
+                                    }else{
+
+                                        sendIv.setImageResource(getEmojiDrawable(emoji))
+                                        sendTv.text = situation.toString()
+                                        sendAdTv1.text = ad1.toString()
+                                        sendAdTv2.text = ad2.toString()
+
+                                        sendMailLl.visibility=View.VISIBLE
+                                        sendMail.visibility=View.VISIBLE
+
+
+                                    }
 
                                     // 배경 설정
                                     if (readStatus) {
                                         sendMail.setBackgroundResource(R.drawable.rounded)
+                                        randomMail.setBackgroundResource(R.drawable.rounded)
                                     } else {
                                         sendMail.setBackgroundResource(R.drawable.rounded_false)
+                                        randomMail.setBackgroundResource(R.drawable.rounded_false)
                                     }
 
 
-                                    // 다른 항목 숨기기
-                                    receiveMailLl.isVisible = false
-                                    receiveMail.isVisible = false
-                                    randomMailLl.isVisible =false
-                                    randomMail.isVisible=false
-                                } else {
-                                    sendMailLl.isVisible = false
-                                    sendMail.isVisible = false
                                 }
-
                                 // readStatus 필드 추가 또는 업데이트
                                 if (document.get("readStatus") == null) {
                                     // readStatus 필드가 존재하지 않을 경우 추가

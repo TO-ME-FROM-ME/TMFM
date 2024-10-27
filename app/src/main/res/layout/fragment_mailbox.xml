@@ -20,6 +20,7 @@
             android:id="@+id/send_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:orientation="horizontal">
             <ImageView
                 android:layout_width="wrap_content"
@@ -39,6 +40,7 @@
         </LinearLayout>
         <LinearLayout
             android:id="@+id/send_mail"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
@@ -144,6 +146,7 @@
             android:id="@+id/receiv_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:orientation="horizontal">
             <ImageView
                 android:layout_width="wrap_content"
@@ -171,6 +174,7 @@
             android:layout_marginBottom="20dp"
             android:background="@drawable/rounded"
             android:elevation="6dp"
+            android:visibility="gone"
             android:orientation="horizontal">
 
             <ImageView
@@ -266,7 +270,7 @@
         <!--  랜덤 편지-->
         <LinearLayout
             android:id="@+id/random_ll"
-
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -288,6 +292,7 @@
         </LinearLayout>
         <LinearLayout
             android:id="@+id/random_mail"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
@@ -296,7 +301,7 @@
             android:layout_marginEnd="3dp"
             android:layout_marginBottom="20dp"
             android:background="@drawable/rounded"
-            android:elevation="6dp"
+            android:elevation="3dp"
             android:orientation="horizontal">
 
             <ImageView
