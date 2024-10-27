@@ -64,8 +64,12 @@ class DetailMailBoxActivity : AppCompatActivity() {
 
                 // selectedEmoji를 Bundle에 추가
                 val bundle = Bundle()
-                bundle.putString("selectedEmoji", selectedEmoji)
-                bundle.putString("letter", "random")
+                // randomMail에서 전달한 데이터 가져오기
+                bundle.putString("situation", intent.getStringExtra("situation"))
+                bundle.putString("selectedEmoji", intent.getStringExtra("selectedEmoji"))
+                bundle.putString("ad1", intent.getStringExtra("ad1"))
+                bundle.putString("ad2", intent.getStringExtra("ad2"))
+                bundle.putString("letter", "random") // 랜덤 편지라는 플래그 설정
                 detailFragment.arguments = bundle
             }
             "receive" -> {

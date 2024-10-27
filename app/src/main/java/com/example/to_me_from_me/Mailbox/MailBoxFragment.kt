@@ -119,6 +119,17 @@ class MailBoxFragment: BottomSheetDialogFragment()  {
         randomMail.setOnClickListener{
             val intent = Intent(context, DetailMailBoxActivity::class.java)
             intent.putExtra("letter","random")
+            // 랜덤 편지의 데이터를 가져와서 Intent에 추가
+            mailboxViewModel.randomLetterData.value?.let { letterData ->
+                intent.putExtra("situation", letterData["situation"] as? String)
+                intent.putExtra("selectedEmoji", letterData["emoji"] as? String)
+                intent.putExtra("ad1", letterData["ad1"] as? String)
+                intent.putExtra("ad2", letterData["ad2"] as? String)
+                // 필요한 경우 추가 필드도 여기에 추가
+            }
+
+
+
             updateReadStatus("send")
             startActivity(intent)
         }

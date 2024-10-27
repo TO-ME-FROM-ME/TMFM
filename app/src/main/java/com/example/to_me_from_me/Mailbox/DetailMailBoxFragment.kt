@@ -110,14 +110,12 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
         ad2Tv = view.findViewById(R.id.ad2_tv)
 
 
-        // send letter 부분
-        if(letter=="send"){
-            Log.d("letter상태", "send letter:  $letter")
-            sendLetterLoad()
-        }else if (letter=="random"){
-            randomLetterLoad()
-        }else if(letter=="receive"){
-            receiveLetterLoad()
+
+        // 편지 로드
+        when (letter) {
+            "send" -> sendLetterLoad()
+            "random" -> randomLetterLoad()
+            "receive" -> receiveLetterLoad()
         }
 
 

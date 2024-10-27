@@ -49,7 +49,9 @@ class RandomDialogFragment : DialogFragment() {
         // 저장 버튼 클릭 리스너 설정
         val okButton = view.findViewById<Button>(R.id.ok_btn)
         okButton.setOnClickListener {
-            Log.d("selectedEmoji", "Selected Emoji: $emojiString")
+            // 현재 사용자 ID 가져오기
+            val uid = auth.currentUser?.uid
+
             val intent = Intent(requireContext(), DetailMailBoxActivity::class.java).apply {
                 putExtra("selectedEmoji", emojiString)
                 putExtra("letter", "random")
