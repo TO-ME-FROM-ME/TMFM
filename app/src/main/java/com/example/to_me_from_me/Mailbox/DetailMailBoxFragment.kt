@@ -241,7 +241,7 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
                                     Log.w("randomLetterLoad", "랜덤 편지의 'random' 필드 업데이트에 실패했습니다.", e)
                                 }
 
-                            // 현재 날짜와 랜덤 편지 날짜를 Firestore에 저장
+                            // 현재 날짜와 랜덤 편지 정보 저장
                             saveRandomLetterWithDateToFirestore(randomLetterData, formattedCurrentDate, selectedDate)
                         } else {
                             Log.d("randomLetterLoad", "선택한 이모지에 해당하는 편지가 없습니다.")
@@ -252,6 +252,7 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
                 }
         }
     }
+
 
     private fun saveRandomLetterWithDateToFirestore(randomLetterData: Map<String, Any?>, currentDate: String, selectedDate: String?) {
         val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
