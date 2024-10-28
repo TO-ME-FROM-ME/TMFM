@@ -59,7 +59,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:fontFamily="@font/notosans"
-            android:background="@drawable/solid_no_main"
+            android:background="@drawable/solid_no_gray"
             android:textColor="@color/white"/>
 
         <Button
@@ -73,7 +73,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:fontFamily="@font/notosans"
-            android:background="@drawable/solid_no_gray"
+            android:background="@drawable/solid_no_main"
             android:textColor="@color/white"/>
     </LinearLayout>
 
