@@ -104,7 +104,8 @@ class AnnualReportFragment : Fragment(), AnnualPickerDialogFragment.YearSelectio
 
         val lineChart = binding.lineChart
         configureChartAppearance(lineChart, 0) // 범위 값을 설정하여 차트 구성
-        fetchScoresFromFirestore(lineChart) // 차트에 데이터 설정
+        val currentYear = Calendar.getInstance().get(Calendar.YEAR)
+        fetchScoresFromFirestore(lineChart, currentYear)
         return view
     }
 
@@ -144,38 +145,48 @@ class AnnualReportFragment : Fragment(), AnnualPickerDialogFragment.YearSelectio
         lineChart.invalidate()
     }
 
-    private fun fetchScoresFromFirestore(lineChart: LineChart) {
+    private fun fetchScoresFromFirestore(lineChart: LineChart, selectedYear: Int) {
         val user = FirebaseAuth.getInstance().currentUser
         val firestore = FirebaseFirestore.getInstance()
-        if (uid == null) {
+
+        if (user == null) {
             Log.e("Firestore", "User UID is null")
             return
         }
-        if (user != null) {
-            val scoresRef = firestore.collection("users").document(user.uid).collection("scores")
 
-            // Firestore에서 데이터를 가져옴
-            scoresRef.orderBy("timestamp", Query.Direction.ASCENDING) // 월별로 정렬을 위해 timestamp 기준으로 정렬
-                .get()
-                .addOnSuccessListener { documents ->
-                    val entries = ArrayList<Entry>()
+        val scoresRef = firestore.collection("users").document(user.uid).collection("scores")
 
-                    // Firestore에서 가져온 각 문서를 처리
-                    for (document in documents) {
-                        val month = document.id.toFloat()-1 // 문서 ID를 월(month)로 사용
-                        val score = document.getDouble("score")?.toFloat() ?: 0f
+        // Firestore에서 데이터를 가져옴
+        scoresRef.orderBy("timestamp", Query.Direction.ASCENDING)
+            .get()
+            .addOnSuccessListener { documents ->
+                val entries = ArrayList<Entry>()
 
+                // Firestore에서 가져온 각 문서를 처리
+                for (document in documents) {
+                    val documentId = document.id // "YYYY-MM" 형식
+                    val score = document.getDouble("score")?.toFloat() ?: 0f
+
+                    // 문서 ID에서 연도와 월을 추출
+                    val parts = documentId.split("-")
+                    val year = parts[0].toInt()
+                    val month = parts[1].toFloat() - 1 // 0부터 시작하도록 -1
+
+                    // 선택된 연도에 맞는 데이터만 추가
+                    if (year == selectedYear) {
                         // Entry 객체에 x축: month, y축: score 값으로 추가
                         entries.add(Entry(month, score))
+                        // 로그 확인
+                        Log.d("Firestore", "Year: $year, Month: $month, Score: $score")
                     }
+                }
 
-                    // 차트에 데이터 설정
-                    setChartData(lineChart, entries)
-                }
-                .addOnFailureListener { exception ->
-                    Log.e("Firestore", "Error getting documents: ", exception)
-                }
-        }
+                // 차트에 데이터 설정
+                setChartData(lineChart, entries)
+            }
+            .addOnFailureListener { exception ->
+                Log.e("Firestore", "Error getting documents: ", exception)
+            }
     }
 
 
@@ -258,6 +269,7 @@ class AnnualReportFragment : Fragment(), AnnualPickerDialogFragment.YearSelectio
         Log.d("annual", "년이 업데이트되었습니다: ${yearTv.text}년")
         // 차트 데이터 업데이트 메서드 호출
         //setChartData(binding.lineChart)
+        fetchScoresFromFirestore(binding.lineChart, year)
         loadUserGraph()
     }
 

@@ -22,9 +22,6 @@ class WriteLetterActivity : AppCompatActivity() {
         val backButton: ImageView = findViewById(R.id.back_iv)
         backButton.setOnClickListener {
             supportFragmentManager.popBackStack()
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
         }
 
         val saveButton: ImageView = findViewById(R.id.save_iv)

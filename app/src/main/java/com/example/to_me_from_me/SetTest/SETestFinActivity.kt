@@ -63,7 +63,10 @@ class SETestFinActivity : AppCompatActivity() {
                     startActivity(Intent(this, CoachMarkActivity::class.java))
                     finish() // 현재 화면 종료
                 }
-            val currentMonth = SimpleDateFormat("M", Locale.getDefault()).format(Date()).toInt()
+            val currentYear = SimpleDateFormat("YYYY", Locale.getDefault()).format(Date()).toInt()
+            val currentMonth = SimpleDateFormat("MM", Locale.getDefault()).format(Date())
+            val documentName = "$currentYear-$currentMonth" // 문서 이름을 "YYYY-MM" 형식으로 설정
+
             // 새로운 컬렉션에 totalScore 추가
             val scoreData = hashMapOf(
                 "score" to totalScore,
@@ -74,7 +77,7 @@ class SETestFinActivity : AppCompatActivity() {
             firestore.collection("users")
                 .document(user.uid)
                 .collection("scores")
-                .document(currentMonth.toString()) // 문서 이름을 월 정보로 설정
+                .document(documentName) // 문서 이름을 월 정보로 설정
                 .set(scoreData)
 
                 .addOnFailureListener { e ->

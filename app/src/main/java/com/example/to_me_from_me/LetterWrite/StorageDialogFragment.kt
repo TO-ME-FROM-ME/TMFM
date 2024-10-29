@@ -43,7 +43,6 @@ class StorageDialogFragment : DialogFragment() {
 
         val exitBtn: Button = view.findViewById(R.id.exit_btn)
         exitBtn.setOnClickListener {
-            Log.d("StorageDialogFragment", "문서 삭제 버튼 클릭됨")
 
             val user = auth.currentUser
             val uid = user?.uid
@@ -52,32 +51,34 @@ class StorageDialogFragment : DialogFragment() {
             if (uid != null && currentDate != null) {
                 Log.d("StorageDialogFragment", "UID 확인: $uid, 현재 날짜 확인: $currentDate")
 
-                // Firestore에서 현재 작성 중인 문서 삭제
+                // Firestore에서 현재 작성 중인 문서 참조
                 val letterDocRef = firestore.collection("users").document(uid)
                     .collection("letters").document(currentDate)
 
-                letterDocRef.delete()
-                    .addOnSuccessListener {
-                        Log.d("StorageDialogFragment", "문서가 성공적으로 삭제됨")
-
-                        // 메인 화면으로 이동
-                        val intent = Intent(activity, MainActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-                        startActivity(intent)
-                        activity?.finish()
-                    }
-                    .addOnFailureListener { e ->
-                        Log.e("StorageDialogFragment", "문서 삭제 실패", e)
+                // 문서 존재 여부 확인 후 삭제
+                letterDocRef.get()
+                    .addOnSuccessListener { document ->
+                        if (document.exists()) {
+                            // 문서가 존재할 경우 삭제
+                            letterDocRef.delete()
+                                .addOnSuccessListener {
+                                    navigateToMainActivity()
+                                }
+                        } else {
+                            // 문서가 존재하지 않을 경우
+                            Log.d("StorageDialogFragment", "삭제할 문서가 없습니다. 메인 화면으로 이동합니다.")
+                            navigateToMainActivity()
+                        }
                     }
             } else {
                 Log.d("StorageDialogFragment", "UID 또는 현재 날짜가 null입니다.")
+                navigateToMainActivity()
             }
         }
 
         // "저장하고 나가기" 버튼 클릭 이벤트 설정
         val saveBtn: Button = view.findViewById(R.id.save_btn)
         saveBtn.setOnClickListener {
-            Log.d("StorageDialogFragment", "저장하고 나가기 버튼 클릭됨")
 
             // Firebase에 저장할 데이터 준비
             val user = auth.currentUser
@@ -96,16 +97,9 @@ class StorageDialogFragment : DialogFragment() {
                                 firestore.collection("users").document(uid)
                                     .update("storage", true)
                                     .addOnSuccessListener {
-                                        Log.d("StorageDialogFragment", "storage 필드가 true로 업데이트됨")
 
                                         saveStorageToFirestore()
-
-                                        // 메인 화면으로 이동
-                                        val intent = Intent(activity, MainActivity::class.java)
-                                        intent.flags =
-                                            Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-                                        startActivity(intent)
-                                        activity?.finish()
+                                        navigateToMainActivity()
                                     }
                             }
                         }
@@ -118,6 +112,14 @@ class StorageDialogFragment : DialogFragment() {
             }
         }
         return view
+    }
+
+    // 메인 화면으로 이동하는 메서드
+    private fun navigateToMainActivity() {
+        val intent = Intent(activity, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
+        activity?.finish()
     }
 
     private fun saveStorageToFirestore() {
