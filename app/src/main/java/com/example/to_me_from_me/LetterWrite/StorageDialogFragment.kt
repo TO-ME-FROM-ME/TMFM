@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
 import com.example.to_me_from_me.HomeDialogFragment
 import com.example.to_me_from_me.MainActivity
 import com.example.to_me_from_me.R
@@ -19,6 +20,7 @@ class StorageDialogFragment : DialogFragment() {
 
     private lateinit var firestore: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
+    private val sharedViewModel: ViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,6 +39,39 @@ class StorageDialogFragment : DialogFragment() {
         val closeIv: ImageView = view.findViewById(R.id.close_iv)
         closeIv.setOnClickListener {
             dismiss()
+        }
+
+        val exitBtn: Button = view.findViewById(R.id.exit_btn)
+        exitBtn.setOnClickListener {
+            Log.d("StorageDialogFragment", "문서 삭제 버튼 클릭됨")
+
+            val user = auth.currentUser
+            val uid = user?.uid
+            val currentDate = sharedViewModel.currentDate.value
+
+            if (uid != null && currentDate != null) {
+                Log.d("StorageDialogFragment", "UID 확인: $uid, 현재 날짜 확인: $currentDate")
+
+                // Firestore에서 현재 작성 중인 문서 삭제
+                val letterDocRef = firestore.collection("users").document(uid)
+                    .collection("letters").document(currentDate)
+
+                letterDocRef.delete()
+                    .addOnSuccessListener {
+                        Log.d("StorageDialogFragment", "문서가 성공적으로 삭제됨")
+
+                        // 메인 화면으로 이동
+                        val intent = Intent(activity, MainActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+                        startActivity(intent)
+                        activity?.finish()
+                    }
+                    .addOnFailureListener { e ->
+                        Log.e("StorageDialogFragment", "문서 삭제 실패", e)
+                    }
+            } else {
+                Log.d("StorageDialogFragment", "UID 또는 현재 날짜가 null입니다.")
+            }
         }
 
         // "저장하고 나가기" 버튼 클릭 이벤트 설정
@@ -63,6 +98,8 @@ class StorageDialogFragment : DialogFragment() {
                                     .addOnSuccessListener {
                                         Log.d("StorageDialogFragment", "storage 필드가 true로 업데이트됨")
 
+                                        saveStorageToFirestore()
+
                                         // 메인 화면으로 이동
                                         val intent = Intent(activity, MainActivity::class.java)
                                         intent.flags =
@@ -82,6 +119,26 @@ class StorageDialogFragment : DialogFragment() {
         }
         return view
     }
+
+    private fun saveStorageToFirestore() {
+        val user = FirebaseAuth.getInstance().currentUser
+        val currentDate = sharedViewModel.currentDate.value
+
+        if (user != null && currentDate != null) {
+            val userDocumentRef = FirebaseFirestore.getInstance()
+                .collection("users")
+                .document(user.uid)
+                .collection("letters")
+                .document(currentDate)
+
+            val storageData = mapOf(
+                "storage" to true
+            )
+
+            userDocumentRef.update(storageData)
+        }
+    }
+
 }
 
 
