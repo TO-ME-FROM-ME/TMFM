@@ -22,6 +22,7 @@
         android:paddingStart="50dp"
         android:paddingEnd="50dp"
         android:text="저장하고 나중에 쓸까?"
+        android:fontFamily="@font/bnotosans"
         android:textSize="20dp"
         android:textStyle="bold"
         android:layout_gravity="center"
@@ -41,18 +42,43 @@
         android:gravity="center"/>
 
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginBottom="45dp"
+        android:layout_marginTop="30dp"
+        android:paddingHorizontal="20dp"
+        android:gravity="center">
+
         <Button
-            android:id="@+id/save_btn"
-            android:layout_width="200dp"
+            android:id="@+id/exit_btn"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="45dp"
-            android:text="저장하고 나가기"
-            android:textSize="16dp"
+            android:text="나가기"
+            android:textSize="17sp"
+            android:paddingHorizontal="20dp"
             android:layout_gravity="center"
             android:gravity="center"
+            android:fontFamily="@font/notosans"
+            android:background="@drawable/solid_stroke_q"
+            android:textColor="@color/black"/>
+
+        <Button
+            android:id="@+id/save_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="저장하고 나가기"
+            android:textSize="17sp"
+            android:layout_marginLeft="10dp"
+            android:paddingHorizontal="20dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:fontFamily="@font/notosans"
             android:background="@drawable/solid_no_main"
             android:textColor="@color/white"/>
+    </LinearLayout>
 
 
 

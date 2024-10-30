@@ -59,8 +59,8 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:fontFamily="@font/notosans"
-            android:background="@drawable/solid_no_gray"
-            android:textColor="@color/white"/>
+            android:background="@drawable/solid_stroke_q"
+            android:textColor="@color/black"/>
 
         <Button
             android:id="@+id/cwrite_btn"
