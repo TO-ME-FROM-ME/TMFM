@@ -65,12 +65,17 @@ class MailboxActivity : AppCompatActivity(), MonthPickerDialogFragment.MonthSele
 
 
     private fun showNullMailboxFragment(selectedDate: Date) {
-        if (nullMailboxFragment == null) {  // Fragment가 없을 때만 새로 생성
+        // nullMailboxFragment가 이미 열려있지 않은 경우에만 새로 생성
+        if (nullMailboxFragment == null) {
             nullMailboxFragment = NullMailboxFragment()
             val args = Bundle()
             args.putSerializable("selectedDate", selectedDate)
             nullMailboxFragment?.arguments = args
             nullMailboxFragment?.show(supportFragmentManager, nullMailboxFragment?.tag)
+        } else {
+            // 이미 열린 경우는 dismiss
+            nullMailboxFragment?.dismiss()
+            nullMailboxFragment = null // null로 설정하여 다음 호출 시 새로 생성
         }
     }
 
