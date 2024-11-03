@@ -118,7 +118,22 @@ class MailBoxFragment: BottomSheetDialogFragment()  {
         receiveMail.setOnClickListener{
             val intent = Intent(context, DetailMailBoxActivity::class.java)
             intent.putExtra("letter","receive")
+            // 선택된 날짜를 Long 형식으로 변환하여 추가
+            selectedDate?.let {
+                intent.putExtra("selectedDate", it.time) // Date를 Long으로 변환
+            }
+            // 안전한 호출을 사용하여 letterData2의 값을 가져옵니다.
+            receiveLetterData?.let { letterData2 ->
+                intent.putExtra("emoji", letterData2["emoji"] as? String)
+                intent.putExtra("situation", letterData2["situation"] as? String)
+                intent.putExtra("ad1", letterData2["ad1"] as? String)
+                intent.putExtra("ad2", letterData2["ad2"] as? String)
+                intent.putExtra("reservedate", letterData2["reservedate"] as? String)
+                intent.putExtra("readStatus", letterData2["readStatus"] as? Boolean ?: false)
+            }
+            updateReadStatus("send")
             startActivity(intent)
+            Log.d("흘러온 편지", "receiveLetterData.arguments : ${receiveLetterData}")
         }
 
         randomMail.setOnClickListener{
@@ -299,18 +314,19 @@ class MailBoxFragment: BottomSheetDialogFragment()  {
                             // targetDate와 formattedReservedate가 일치하는 경우
                             if (formattedReservedate != null && formattedReservedate == selectedDateString) {
                                 // 사용자에게 보여주기 위해 Letter 객체 생성
-                                val letterData: Map<String, Any?> = mapOf(
+                                val letterData2: Map<String, Any?> = mapOf(
                                     "emoji" to document.getString("emoji"),
                                     "situation" to document.getString("situation"),
                                     "ad1" to document.getString("ad1"),
                                     "ad2" to document.getString("ad2"),
                                     "readStatus" to (document.getBoolean("readStatus") ?: false)
                                 )
+                                receiveLetterData = letterData2 // 랜덤 편지 데이터 저장
 
-                                Log.d("보낸편지", "일치하는 편지 데이터: $letterData")
+                                Log.d("보낸편지", "일치하는 편지 데이터: $letterData2")
 
                                 // UI를 업데이트하는 함수 호출
-                                loadReceiveLetterUI(letterData) // Map을 전달합니다.
+                                loadReceiveLetterUI(letterData2) // Map을 전달합니다.
                             }
                         }
                     } else {
@@ -323,12 +339,12 @@ class MailBoxFragment: BottomSheetDialogFragment()  {
         }
     }
 
-    private fun loadReceiveLetterUI(letterData: Map<String, Any?>) {
-        val emoji = letterData["emoji"] as? String
-        val situation = letterData["situation"] as? String
-        val ad1 = letterData["ad1"] as? String
-        val ad2 = letterData["ad2"] as? String
-        val readStatus = letterData["readStatus"] as? Boolean ?: false
+    private fun loadReceiveLetterUI(letterData2: Map<String, Any?>) {
+        val emoji = letterData2["emoji"] as? String
+        val situation = letterData2["situation"] as? String
+        val ad1 = letterData2["ad1"] as? String
+        val ad2 = letterData2["ad2"] as? String
+        val readStatus = letterData2["readStatus"] as? Boolean ?: false
 
         // UI 요소 업데이트
         emoji?.let {  receiveIv.setImageResource(getEmojiDrawable(it)) }

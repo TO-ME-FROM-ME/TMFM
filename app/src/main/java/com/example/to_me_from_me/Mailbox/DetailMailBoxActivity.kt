@@ -56,7 +56,6 @@ class DetailMailBoxActivity : AppCompatActivity() {
                 selectedDate?.let {
                     bundle.putLong("selectedDate", it.time)
                 }
-
                 bundle.putString("situation", intent.getStringExtra("situation"))
                 bundle.putString("emoji", intent.getStringExtra("emoji"))
                 bundle.putString("ad1", intent.getStringExtra("ad1"))
@@ -69,10 +68,18 @@ class DetailMailBoxActivity : AppCompatActivity() {
             "receive" -> {
                 titleTextView.text = "흘러온 편지"
                 Log.d("sendValue", "$sendValue")
+
                 detailFragment = DetailMailBoxFragment()
                 val bundle = Bundle()
+                selectedDate?.let {
+                    bundle.putLong("selectedDate", it.time)
+                }
+                bundle.putString("reservedate", intent.getStringExtra("reservedate"))
+                bundle.putString("situation", intent.getStringExtra("situation"))
+                bundle.putString("emoji", intent.getStringExtra("emoji"))
+                bundle.putString("ad1", intent.getStringExtra("ad1"))
+                bundle.putString("ad2", intent.getStringExtra("ad2"))
                 bundle.putString("letter", "receive")
-                bundle.putString("reservedate",reservedate)
                 detailFragment.arguments = bundle
                 Log.d("흘러온 편지", "detailFragment.arguments : ${detailFragment.arguments}")
             }
