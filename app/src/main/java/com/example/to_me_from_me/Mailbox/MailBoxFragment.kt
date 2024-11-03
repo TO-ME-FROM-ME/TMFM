@@ -331,7 +331,7 @@ class MailBoxFragment: BottomSheetDialogFragment()  {
         val readStatus = letterData["readStatus"] as? Boolean ?: false
 
         // UI 요소 업데이트
-        emoji?.let { randomIv.setImageResource(getEmojiDrawable(it)) }
+        emoji?.let {  receiveIv.setImageResource(getEmojiDrawable(it)) }
         receiveTv.text = situation.toString()
         receiveAdTv1.text = ad1.toString()
         receiveAdTv2.text = ad2.toString()
