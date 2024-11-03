@@ -6,14 +6,25 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.DocumentSnapshot
 
 class MailboxViewModel : ViewModel() {
     private val _randomLetterLoaded = MutableLiveData<Boolean>()
     val randomLetterLoaded: LiveData<Boolean> get() = _randomLetterLoaded
 
+
+    // 랜덤 날짜 편지 목록
+    private val _randomDateLetters = MutableLiveData<List<DocumentSnapshot>>()
+
+
+
+
+
     private val _randomLetterData = MutableLiveData<Map<String, Any?>>()
     val randomLetterData: LiveData<Map<String, Any?>> get() = _randomLetterData
 
+    private val _hasLetterToday = MutableLiveData<Boolean>()
+    val hasLetterToday: LiveData<Boolean> get() = _hasLetterToday
 
     fun setRandomLetterLoaded(loaded: Boolean) {
         _randomLetterLoaded.value = loaded
@@ -21,17 +32,19 @@ class MailboxViewModel : ViewModel() {
 
     fun setRandomLetterData(letterData: Map<String, Any?>) {
         _randomLetterData.value = letterData
-        setRandomLetterLoaded(true) // 편지 데이터가 로드되었음을 표시
     }
 
+    // 랜덤 날짜 편지 목록 설정
+    fun setRandomDateLetters(letters: List<DocumentSnapshot>) {
+        _randomDateLetters.value = letters
+    }
 
+    fun getRandomDateLetters(): List<DocumentSnapshot> {
+        return _randomDateLetters.value ?: emptyList()
+    }
 
-    // 받은 편지
-    private val _hasLetterToday = MutableLiveData<Boolean>()
-    val hasLetterToday: LiveData<Boolean> get() = _hasLetterToday
-
-    fun setHasLetterToday(hasLetter: Boolean) {
+    fun checkLetterToday(hasLetter: Boolean) {
         _hasLetterToday.value = hasLetter
     }
-
 }
+

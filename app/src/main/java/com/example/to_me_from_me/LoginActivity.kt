@@ -19,13 +19,10 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.example.to_me_from_me.Signup.SignupEmailActivity
 import com.example.to_me_from_me.databinding.ActivityLoginBinding
-import com.google.firebase.Firebase
 import com.google.firebase.FirebaseApp
 import com.google.firebase.appcheck.FirebaseAppCheck
 import com.google.firebase.appcheck.playintegrity.PlayIntegrityAppCheckProviderFactory
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.auth
 
 class LoginActivity : AppCompatActivity() {
 
@@ -40,22 +37,25 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-        // 이전 사용자 정보 초기화
-        val emailEditText = findViewById<EditText>(R.id.login_input_id_et)
-        val pwdEye = findViewById<ImageView>(R.id.eye_off)
-        var isPasswordVisible = false
-        val pwdEditText =findViewById<EditText>(R.id.login_input_pwd_et)
-        val font = ResourcesCompat.getFont(this, R.font.font_gangwon)
-
+        // Firebase 초기화
         FirebaseApp.initializeApp(this)
         val providerFactory = PlayIntegrityAppCheckProviderFactory.getInstance()
         FirebaseAppCheck.getInstance().installAppCheckProviderFactory(providerFactory)
 
+        auth = FirebaseAuth.getInstance()
+
+        // 자동 로그아웃
+        auth.signOut()
+
+        // 이메일과 비밀번호 입력 필드 초기화
+        val emailEditText = findViewById<EditText>(R.id.login_input_id_et)
+        val pwdEye = findViewById<ImageView>(R.id.eye_off)
+        var isPasswordVisible = false
+        val pwdEditText = findViewById<EditText>(R.id.login_input_pwd_et)
+        val font = ResourcesCompat.getFont(this, R.font.font_gangwon)
+
         emailEditText.text.clear()
         pwdEditText.text.clear()
-
-        auth = Firebase.auth
 
         // Drawable 초기화
         mainColor = ContextCompat.getDrawable(this, R.drawable.solid_no_main)!!
@@ -70,14 +70,12 @@ class LoginActivity : AppCompatActivity() {
             val password = binding.loginInputPwdEt.text.toString().trim()
 
             signIn(email, password)
-            performLogin()
         }
 
         binding.signupTv.setOnClickListener {
             startActivity(Intent(this, SignupEmailActivity::class.java))
             finish() // 현재 화면 종료
         }
-
 
         binding.searchPwdTv.setOnClickListener {
             startActivity(Intent(this, FindPwdActivity::class.java))
@@ -140,7 +138,6 @@ class LoginActivity : AppCompatActivity() {
         val editor = sharedPref.edit()
         editor.putString("userUid", uid)
         editor.apply()
-
     }
 
     private fun showToast(layout: View, editText: EditText, duration: Int) {
@@ -156,10 +153,6 @@ class LoginActivity : AppCompatActivity() {
         toast.duration = Toast.LENGTH_SHORT
 
         toast.show()
-    }
-
-    private fun performLogin() {
-        // 아이디 비번 확인
     }
 
     // TextWatcher를 활용한 이메일, 비밀번호 입력 실시간 확인
@@ -190,4 +183,3 @@ class LoginActivity : AppCompatActivity() {
         override fun afterTextChanged(s: Editable?) {}
     }
 }
-

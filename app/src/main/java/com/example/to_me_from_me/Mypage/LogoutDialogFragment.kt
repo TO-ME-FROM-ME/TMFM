@@ -11,39 +11,23 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.example.to_me_from_me.LoginActivity
 import com.example.to_me_from_me.R
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
 
 class LogoutDialogFragment : DialogFragment() {
     private lateinit var auth: FirebaseAuth
+    private lateinit var authStateListener: FirebaseAuth.AuthStateListener
 
-    private val tag = "LogoutDialogFragment"
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.logout_dialog, container, false)
         auth = FirebaseAuth.getInstance()
 
-
-        val logoutButton : Button = view.findViewById<Button>(R.id.logout_btn)
-
+        // 로그아웃 버튼 설정
+        val logoutButton: Button = view.findViewById(R.id.logout_btn)
         logoutButton.setOnClickListener {
             // 로그아웃
             auth.signOut()
             Toast.makeText(requireContext(), "로그아웃 성공", Toast.LENGTH_LONG).show()
-            val intent = Intent(requireContext(), LoginActivity::class.java)
-            startActivity(intent)
-
-            // 현재 사용자 상태 확인
-            if (auth.currentUser == null) {
-                Toast.makeText(requireContext(), "사용자가 로그아웃되었습니다.", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(requireContext(), "로그아웃 실패", Toast.LENGTH_SHORT).show()
-            }
-
-            // 다이얼로그 닫기
-            dismiss()
         }
-
 
         // 다이얼로그의 닫기 버튼 설정
         val closeIv: ImageView = view.findViewById(R.id.close_iv)
@@ -57,6 +41,29 @@ class LogoutDialogFragment : DialogFragment() {
     override fun onResume() {
         super.onResume()
         dialog?.window?.setBackgroundDrawableResource(R.drawable.round_corner_all) // 배경으로 round_corner.xml 설정
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        // AuthStateListener 정의: 인증 상태가 변경될 때 호출됨
+        authStateListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
+            if (firebaseAuth.currentUser == null) {
+                // 로그아웃 상태일 때 로그인 화면으로 이동
+                val intent = Intent(requireContext(), LoginActivity::class.java)
+                startActivity(intent)
+                dismiss()  // 다이얼로그 닫기
+            }
+        }
+
+        // 리스너 추가
+        auth.addAuthStateListener(authStateListener)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        // 리스너 제거
+        auth.removeAuthStateListener(authStateListener)
     }
 }
 

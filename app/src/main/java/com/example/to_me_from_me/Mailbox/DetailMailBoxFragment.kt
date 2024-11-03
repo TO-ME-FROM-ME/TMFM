@@ -228,19 +228,22 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
                             dateTv2.text = formattedCurrentDate
                             dateIv.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_mail_random))
 
-                            // 랜덤 편지의 'random' 필드를 true로 업데이트
+                            // 랜덤 편지의 'random' 필드를 true로 업데이트하고 createdDate와 randomDate를 저장
                             val randomLetterId = randomLetterDocument.id
+                            val updates = mapOf(
+                                "random" to true,
+                                "createdDate" to selectedDate, // 기존의 date를 createdDate로 저장
+                                "randomDate" to dateFormat.format(currentDate) // 현재 날짜를 randomDate로 저장
+                            )
                             firestore.collection("users").document(uid).collection("letters").document(randomLetterId)
-                                .update("random", true)
+                                .update(updates)
                                 .addOnSuccessListener {
-                                    Log.d("randomLetterLoad", "랜덤 편지의 'random' 필드를 true로 성공적으로 업데이트했습니다.")
+                                    Log.d("randomLetterLoad", "랜덤 편지의 'random', 'createdDate', 'randomDate' 필드를 성공적으로 업데이트했습니다.")
                                 }
                                 .addOnFailureListener { e ->
-                                    Log.w("randomLetterLoad", "랜덤 편지의 'random' 필드 업데이트에 실패했습니다.", e)
+                                    Log.w("randomLetterLoad", "랜덤 편지의 필드 업데이트에 실패했습니다.", e)
                                 }
 
-                            // 현재 날짜와 랜덤 편지 정보 저장
-                            saveRandomLetterWithDateToFirestore(randomLetterData, formattedCurrentDate, selectedDate)
                         } else {
                             Log.d("randomLetterLoad", "선택한 이모지에 해당하는 편지가 없습니다.")
                         }
@@ -252,14 +255,22 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
     }
 
 
+
     private fun saveRandomLetterWithDateToFirestore(randomLetterData: Map<String, Any?>, currentDate: String, selectedDate: String?) {
         val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
         val firestore = FirebaseFirestore.getInstance()
 
+        // selectedDate를 yyyy.MM.dd 형식으로 변환
+        val formattedSelectedDate = selectedDate?.let {
+            val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            val outputFormat = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
+            inputFormat.parse(it)?.let { date -> outputFormat.format(date) }
+        }
+
         // 랜덤 편지 데이터 생성 (기존 데이터와 현재 날짜, 선택된 날짜 포함)
         val randomLetterWithDate = hashMapOf<String, Any?>(
             "createdDate" to currentDate, // 현재 날짜
-            "randomDate" to selectedDate, // 랜덤 편지 날짜
+            "randomDate" to formattedSelectedDate // yyyy.MM.dd 형식의 랜덤 편지 날짜
         ).apply {
             putAll(randomLetterData) // 랜덤 편지의 모든 정보 추가
         }
@@ -273,7 +284,6 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
                 Log.w("랜덤편지", "랜덤 편지 데이터 저장 실패", e)
             }
     }
-
 
 
 
@@ -317,7 +327,10 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
                                 } catch (e: ParseException) {
                                     Log.e("sendLetter", "Error parsing reservedate", e)
                                 }
-                        }
+                        }else{
+                                dateTv2.visibility = View.GONE
+                                dateIv.visibility = View.GONE
+                            }
                             firebaseDate != null && isSameDate(firebaseDate, targetDate)
                         }?.data
 

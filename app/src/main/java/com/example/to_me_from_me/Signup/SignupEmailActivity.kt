@@ -18,6 +18,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
+import com.example.to_me_from_me.LoginActivity
+import com.example.to_me_from_me.MainActivity
 import com.example.to_me_from_me.R
 import com.google.firebase.auth.ActionCodeSettings
 import com.google.firebase.auth.FirebaseAuth
@@ -47,6 +49,8 @@ class SignupEmailActivity : AppCompatActivity() {
         val backButton = findViewById<ImageView>(R.id.back_iv)
         backButton.setOnClickListener {
             // 이전 Activity로 이동
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
             finish()
         }
 
