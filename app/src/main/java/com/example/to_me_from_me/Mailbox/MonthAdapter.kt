@@ -37,7 +37,6 @@ class MonthAdapter(
     val user = FirebaseAuth.getInstance().currentUser
     val uid = user?.uid
 
-    private val emojiMap = mutableMapOf<String, String>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Month {

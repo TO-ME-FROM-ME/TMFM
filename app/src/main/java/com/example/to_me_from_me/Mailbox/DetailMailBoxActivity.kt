@@ -6,14 +6,8 @@ import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import com.example.to_me_from_me.R
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import java.text.SimpleDateFormat
-import java.util.Calendar
 import java.util.Date
-import java.util.Locale
 
 class DetailMailBoxActivity : AppCompatActivity() {
     private var selectedDate: Date? = null // Date 타입의 변수 선언
@@ -35,12 +29,7 @@ class DetailMailBoxActivity : AppCompatActivity() {
         }
 
         // 인텐트에서 데이터 받기
-        val situation = intent.getStringExtra("situation")
-        val reservedate = intent.getStringExtra("reservedate")
-        Log.d("받는 메일", "situation  : $situation \n reservedate : $reservedate")
-
-        val selectedEmoji = intent.getStringExtra("selectedEmoji")
-        Log.d("selectedEmoji", "DetailMailBoxActivity  : $selectedEmoji")
+         val reservedate = intent.getStringExtra("reservedate")
 
 
         // 수신한 값에 따라 TextView 업데이트 및 Fragment 설정
@@ -61,16 +50,21 @@ class DetailMailBoxActivity : AppCompatActivity() {
                 titleTextView.text = "우연한 편지"
                 Log.d("sendValue", "$sendValue")
                 detailFragment = DetailMailBoxFragment()
-
-                // selectedEmoji를 Bundle에 추가
                 val bundle = Bundle()
-                // randomMail에서 전달한 데이터 가져오기
+
+                Log.d("랜덤확인", "selectedDate: $selectedDate")
+                selectedDate?.let {
+                    bundle.putLong("selectedDate", it.time)
+                }
+
                 bundle.putString("situation", intent.getStringExtra("situation"))
-                bundle.putString("selectedEmoji", intent.getStringExtra("selectedEmoji"))
+                bundle.putString("emoji", intent.getStringExtra("emoji"))
                 bundle.putString("ad1", intent.getStringExtra("ad1"))
                 bundle.putString("ad2", intent.getStringExtra("ad2"))
-                bundle.putString("letter", "random") // 랜덤 편지라는 플래그 설정
+                bundle.putString("letter", "randomMail")
                 detailFragment.arguments = bundle
+
+                Log.d("랜덤확인", "detailFragment.arguments : ${detailFragment.arguments}")
             }
             "receive" -> {
                 titleTextView.text = "흘러온 편지"

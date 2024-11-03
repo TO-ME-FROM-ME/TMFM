@@ -48,7 +48,7 @@
             android:textSize="17sp"
             android:fontFamily="@font/bnotosans"
             android:textColor="@color/white"
-            android:text="편지 작성하러 가기"/>
+            android:text="오늘 편지 작성하러 가기"/>
 
     </LinearLayout>
 

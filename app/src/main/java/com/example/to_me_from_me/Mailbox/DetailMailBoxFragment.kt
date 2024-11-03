@@ -39,10 +39,15 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
 
     private var selectedDate: Date? = null
     private var selectedEmoji: String? = null
+    private var emoji: String? = null
     private var letter : String? = null
+    private var letters : String? = null
+    private var situation : String? = null
+    private var ad1 : String? = null
+    private var ad2 : String? = null
 
 
-    private var letterContent: String? = null
+
     private var reservedate: String? = null
 
     private lateinit var auth: FirebaseAuth
@@ -78,21 +83,30 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
                 selectedDate = Date(selectedDateMillis) // Long을 Date로 변환
             }
             letter = bundle.getString("letter")
-            Log.d("letter상태", "Received letter:  $letter")
         }
 
         arguments?.let {
             selectedEmoji = it.getString("selectedEmoji")
             letter = it.getString("letter")
-            Log.d("letter상태", "Received Emoji/letter: $selectedEmoji , $letter")
 
+        }
+
+        arguments?.let {bundle ->
+            val selectedDateMillis = bundle.getLong("selectedDate", -1L)
+            if (selectedDateMillis != -1L) {
+                selectedDate = Date(selectedDateMillis) // Long을 Date로 변환
+            }
+            situation = bundle.getString("situation")
+            emoji = bundle.getString("emoji")
+            ad1 = bundle.getString("ad1")
+            ad2 = bundle.getString("ad2")
+            letter = bundle.getString("letter")
         }
 
 
         arguments?.let {
             reservedate = it.getString("reservedate")
             letter = it.getString("letter")
-            Log.d("받는 메일", "reservedate/letter: $reservedate , $letter")
         }
 
 
@@ -116,6 +130,7 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
             "send" -> sendLetterLoad()
             "random" -> randomLetterLoad()
             "receive" -> receiveLetterLoad()
+            "randomMail" -> updateUI()
         }
 
 
@@ -126,6 +141,59 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
 
         return view
     }
+
+    private fun updateUI() {
+        auth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
+
+        val targetDate = selectedDate
+        Log.e("랜덤확인", "targetDate : $targetDate")
+
+        if (uid != null && targetDate != null) {
+            firestore.collection("users").document(uid).collection("letters")
+                .get()
+                .addOnSuccessListener { documents ->
+                    if (!documents.isEmpty) {
+                        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                        val displayDateFormat = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
+
+                        // targetDate를 YYYY.MM.dd 형식으로 변환
+                        val formattedTargetDate = displayDateFormat.format(targetDate)
+
+                        // randomDate와 targetDate가 일치하는 편지를 찾기
+                        val matchingLetter = documents.firstOrNull { document ->
+                            val randomdate = document.getString("randomDate") // Firestore에서 가져온 randomDate
+
+                            // randomDate가 targetDate와 일치하는지 확인
+                            randomdate != null && formattedTargetDate == displayDateFormat.format(dateFormat.parse(randomdate))
+                        }?.data
+
+                        if (matchingLetter != null) {
+                            // randomDate가 일치하는 경우 UI 업데이트 및 편지 표시
+                            dateIv.visibility = View.VISIBLE
+                            dateTv2.visibility = View.VISIBLE
+                            dateTv2.text = formattedTargetDate // 포맷된 targetDate 설정
+                            dateIv.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_mail_random))
+
+                            // 일치하는 편지 내용을 UI에 업데이트
+                            displayLetter(matchingLetter, dateFormat)
+                        } else {
+                            Log.d("random", "선택된 날짜에 해당하는 편지가 없습니다.")
+                            // 필요에 따라 UI 업데이트: 예를 들어, 빈 상태를 표시할 수 있습니다.
+                        }
+                    } else {
+                        Log.d("random", "편지 데이터가 없습니다.")
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.e("random", "Error getting documents: ", exception)
+                }
+        }
+    }
+
+
+
+
 
     private fun receiveLetterLoad() {
         auth = FirebaseAuth.getInstance()
@@ -255,35 +323,6 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
     }
 
 
-
-    private fun saveRandomLetterWithDateToFirestore(randomLetterData: Map<String, Any?>, currentDate: String, selectedDate: String?) {
-        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
-        val firestore = FirebaseFirestore.getInstance()
-
-        // selectedDate를 yyyy.MM.dd 형식으로 변환
-        val formattedSelectedDate = selectedDate?.let {
-            val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-            val outputFormat = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
-            inputFormat.parse(it)?.let { date -> outputFormat.format(date) }
-        }
-
-        // 랜덤 편지 데이터 생성 (기존 데이터와 현재 날짜, 선택된 날짜 포함)
-        val randomLetterWithDate = hashMapOf<String, Any?>(
-            "createdDate" to currentDate, // 현재 날짜
-            "randomDate" to formattedSelectedDate // yyyy.MM.dd 형식의 랜덤 편지 날짜
-        ).apply {
-            putAll(randomLetterData) // 랜덤 편지의 모든 정보 추가
-        }
-
-        firestore.collection("users").document(uid).collection("letters")
-            .add(randomLetterWithDate)
-            .addOnSuccessListener { documentReference ->
-                Log.d("랜덤편지", "현재 날짜와 랜덤 편지 정보 저장 완료: ${documentReference.id}")
-            }
-            .addOnFailureListener { e ->
-                Log.w("랜덤편지", "랜덤 편지 데이터 저장 실패", e)
-            }
-    }
 
 
 

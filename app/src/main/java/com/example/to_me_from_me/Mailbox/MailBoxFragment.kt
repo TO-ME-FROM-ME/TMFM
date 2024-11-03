@@ -27,6 +27,8 @@ import java.util.Locale
 class MailBoxFragment: BottomSheetDialogFragment()  {
     private lateinit var mailboxViewModel: MailboxViewModel
 
+    private var randomLetterData: Map<String, Any?>? = null
+
     private var selectedDate: Date? = null // Date 타입의 변수 선언
     private var sendValue: String? = null // sendValue 저장할 변수
 
@@ -106,7 +108,6 @@ class MailBoxFragment: BottomSheetDialogFragment()  {
 
         letterLoad()
 
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
 
         loadRandomDateLetters()
@@ -130,21 +131,26 @@ class MailBoxFragment: BottomSheetDialogFragment()  {
 
         randomMail.setOnClickListener{
             val intent = Intent(context, DetailMailBoxActivity::class.java)
-            intent.putExtra("letter","random")
-            // 랜덤 편지의 데이터를 가져와서 Intent에 추가
-            mailboxViewModel.randomLetterData.value?.let { letterData ->
-                intent.putExtra("situation", letterData["situation"] as? String)
-                intent.putExtra("selectedEmoji", letterData["emoji"] as? String)
-                intent.putExtra("ad1", letterData["ad1"] as? String)
-                intent.putExtra("ad2", letterData["ad2"] as? String)
-                // 필요한 경우 추가 필드도 여기에 추가
+            intent.putExtra("letter", "random")
+            // 랜덤 편지 데이터를 전달
+            // 선택된 날짜를 Long 형식으로 변환하여 추가
+            selectedDate?.let {
+                intent.putExtra("selectedDate", it.time) // Date를 Long으로 변환
             }
 
-
+            randomLetterData?.let { letterData ->
+                intent.putExtra("emoji", letterData["emoji"] as? String)
+                intent.putExtra("situation", letterData["situation"] as? String)
+                intent.putExtra("ad1", letterData["ad1"] as? String)
+                intent.putExtra("ad2", letterData["ad2"] as? String)
+                intent.putExtra("readStatus", letterData["readStatus"] as? Boolean ?: false)
+            }
 
             updateReadStatus("send")
             startActivity(intent)
+
         }
+
 
 
         return view
@@ -209,7 +215,6 @@ class MailBoxFragment: BottomSheetDialogFragment()  {
         }
     }
 
-    // 랜덤으로 선택한 편지 값을 ViewModel에 저장
     private fun saveLetterToViewModel(letterData: Map<String, Any?>) {
         // readStatus를 false로 설정
         val updatedLetterData = letterData.toMutableMap().apply {
@@ -245,10 +250,6 @@ class MailBoxFragment: BottomSheetDialogFragment()  {
                             if (firebaseDate != null && isSameDate(firebaseDate, targetDate)) {
                                 // 보낸 편지 표시
                                 loadSentLetterUI(emoji, situation, ad1, ad2, readStatus)
-                                // 로그 추
-
-                                //onDateSelected(dateFormat.format(selectedDate))
-
                                 // readStatus 필드 추가 또는 업데이트
                                 if (document.get("readStatus") == null) {
                                     document.reference.update("readStatus", false)
@@ -332,7 +333,7 @@ class MailBoxFragment: BottomSheetDialogFragment()  {
                 "ad2" to matchingLetter.getString("ad2"),
                 "readStatus" to (matchingLetter.getBoolean("readStatus") ?: false)
             )
-
+            randomLetterData = letterData // 랜덤 편지 데이터 저장
             loadRandomLetterUI(letterData) // Map을 전달합니다.
         } else {
             Log.d("랜덤편지", "선택한 날짜에 해당하는 랜덤 편지가 없습니다.")
