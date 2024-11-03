@@ -31,9 +31,6 @@ class MailBoxFragment: BottomSheetDialogFragment()  {
     private var receiveLetterData: Map<String, Any?>? = null
 
     private var selectedDate: Date? = null // Date 타입의 변수 선언
-    private var sendValue: String? = null // sendValue 저장할 변수
-
-
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
     val user = FirebaseAuth.getInstance().currentUser
@@ -89,9 +86,6 @@ class MailBoxFragment: BottomSheetDialogFragment()  {
                 randomMailLl.visibility = View.GONE
             }
         }
-
-        //loadLetters()
-
 
         // Bundle로 전달된 selectedDate 값을 받아옴
         selectedDate = arguments?.getSerializable("selectedDate") as? Date

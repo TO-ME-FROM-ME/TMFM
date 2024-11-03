@@ -54,7 +54,7 @@ class RandomDialogFragment : DialogFragment() {
 
             val intent = Intent(requireContext(), DetailMailBoxActivity::class.java).apply {
                 putExtra("selectedEmoji", emojiString)
-                putExtra("letter", "random")
+                putExtra("letter", "random2")
             }
             startActivity(intent) // Activity 시작
             dismiss() // 다이얼로그 닫기

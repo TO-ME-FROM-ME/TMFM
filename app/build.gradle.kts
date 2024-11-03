@@ -87,4 +87,7 @@ dependencies {
 
     // lifecycle
     implementation ("androidx.lifecycle:lifecycle-service:2.6.1")
+
+    //gson
+    implementation ("com.google.code.gson:gson:2.8.9")
 }

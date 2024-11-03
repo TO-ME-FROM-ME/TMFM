@@ -81,6 +81,7 @@
                     android:fontFamily="@font/font_gangwon"
                     android:text="시험 결과가 나왔는데 점수가 너무 나빠서 두려웠어."
                     android:textSize="20dp"
+                    android:textStyle="bold"
                     android:textColor="@color/black"/>
 
                 <LinearLayout
@@ -207,6 +208,7 @@
                     android:fontFamily="@font/font_gangwon"
                     android:text="시험 결과가 나왔는데 점수가 너무 나빠서 두려웠어."
                     android:textSize="20dp"
+                    android:textStyle="bold"
                     android:textColor="@color/black"/>
 
                 <LinearLayout
@@ -334,6 +336,7 @@
                     android:fontFamily="@font/font_gangwon"
                     android:text="시험 결과가 나왔는데 점수가 너무 나빠서 두려웠어."
                     android:textSize="20dp"
+                    android:textStyle="bold"
                     android:textColor="@color/black"/>
 
                 <LinearLayout

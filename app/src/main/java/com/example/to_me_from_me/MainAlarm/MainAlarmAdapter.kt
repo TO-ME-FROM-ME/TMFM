@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.provider.Settings.Secure.putString
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,6 +57,7 @@ class MainAlarmAdapter(
                     putExtra("reservedate", reservedate) // reservedate 추가
                 }
                 context.startActivity(intent) // Activity 전환
+                Log.d("메인알림", "intent : $intent ")
             }
         }
 

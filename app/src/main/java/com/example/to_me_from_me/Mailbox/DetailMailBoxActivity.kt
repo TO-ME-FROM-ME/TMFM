@@ -30,6 +30,10 @@ class DetailMailBoxActivity : AppCompatActivity() {
 
         // 인텐트에서 데이터 받기
          val reservedate = intent.getStringExtra("reservedate")
+        val selectedEmoji = intent.getStringExtra("selectedEmoji")
+
+
+        Log.d("메인알림", "sendValue : $sendValue ")
 
 
         // 수신한 값에 따라 TextView 업데이트 및 Fragment 설정
@@ -63,8 +67,20 @@ class DetailMailBoxActivity : AppCompatActivity() {
                 bundle.putString("letter", "randomMail")
                 detailFragment.arguments = bundle
 
+            }
+            "random2" -> {
+                titleTextView.text = "우연한 편지"
+                Log.d("sendValue", "$sendValue")
+                detailFragment = DetailMailBoxFragment()
+
+                // selectedEmoji를 Bundle에 추가
+                val bundle = Bundle()
+                bundle.putString("selectedEmoji", selectedEmoji)
+                bundle.putString("letter", "random")
+                detailFragment.arguments = bundle
                 Log.d("랜덤확인", "detailFragment.arguments : ${detailFragment.arguments}")
             }
+
             "receive" -> {
                 titleTextView.text = "흘러온 편지"
                 Log.d("sendValue", "$sendValue")
