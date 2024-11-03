@@ -28,6 +28,7 @@ class MailBoxFragment: BottomSheetDialogFragment()  {
     private lateinit var mailboxViewModel: MailboxViewModel
 
     private var randomLetterData: Map<String, Any?>? = null
+    private var receiveLetterData: Map<String, Any?>? = null
 
     private var selectedDate: Date? = null // Date 타입의 변수 선언
     private var sendValue: String? = null // sendValue 저장할 변수
@@ -78,19 +79,12 @@ class MailBoxFragment: BottomSheetDialogFragment()  {
             }
         }
 
+
         mailboxViewModel.hasLetterToday.observe(viewLifecycleOwner) { hasLetterToday ->
             if (hasLetterToday) {
-                // UI를 업데이트하여 편지가 존재할 때 보이게 함
-                receiveMail.visibility = View.VISIBLE
-                receiveMailLl.visibility = View.VISIBLE
-
-                randomMail.visibility = View.VISIBLE
-                randomMailLl.visibility = View.VISIBLE
+                randomMail.visibility = View.GONE
+                randomMailLl.visibility = View.GONE
             } else {
-                // 편지가 없을 때 UI를 업데이트
-                receiveMail.visibility = View.GONE
-                receiveMailLl.visibility = View.GONE
-
                 randomMail.visibility = View.GONE
                 randomMailLl.visibility = View.GONE
             }
@@ -107,10 +101,8 @@ class MailBoxFragment: BottomSheetDialogFragment()  {
         initializeUI(view)
 
         letterLoad()
-
-
-
         loadRandomDateLetters()
+        loadReceiveLetters()
 
         sendMail.setOnClickListener{
             val intent = Intent(context, DetailMailBoxActivity::class.java)
@@ -132,7 +124,6 @@ class MailBoxFragment: BottomSheetDialogFragment()  {
         randomMail.setOnClickListener{
             val intent = Intent(context, DetailMailBoxActivity::class.java)
             intent.putExtra("letter", "random")
-            // 랜덤 편지 데이터를 전달
             // 선택된 날짜를 Long 형식으로 변환하여 추가
             selectedDate?.let {
                 intent.putExtra("selectedDate", it.time) // Date를 Long으로 변환
@@ -275,6 +266,78 @@ class MailBoxFragment: BottomSheetDialogFragment()  {
                     Log.w("loadLetters", "편지 데이터 로드 실패", e)
                 }
         }
+    }
+
+    private fun loadReceiveLetters() {
+        auth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
+
+        val targetDate = selectedDate
+        Log.d("보낸편지", "targetDate: $targetDate")
+
+        val dateFormat = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
+        val selectedDateString = targetDate?.let { dateFormat.format(it) }
+
+        if (uid != null) {
+            firestore.collection("users").document(uid).collection("letters")
+                .get()
+                .addOnSuccessListener { documents ->
+                    if (!documents.isEmpty) {
+                        for (document in documents) {
+                            val reservedate = document.getString("reservedate")
+                            Log.d("보낸편지", "reservedate: $reservedate")
+
+                            // reservedate를 yyyy.MM.dd 형식으로 변환
+                            val formattedReservedate = reservedate?.let {
+                                val originalDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()) // Firestore에서 저장된 형식
+                                val date = originalDateFormat.parse(it) // String을 Date로 변환
+                                dateFormat.format(date) // 원하는 형식으로 변환
+                            }
+
+                            Log.d("보낸편지", "formattedReservedate: $formattedReservedate, selectedDate: $selectedDateString")
+
+                            // targetDate와 formattedReservedate가 일치하는 경우
+                            if (formattedReservedate != null && formattedReservedate == selectedDateString) {
+                                // 사용자에게 보여주기 위해 Letter 객체 생성
+                                val letterData: Map<String, Any?> = mapOf(
+                                    "emoji" to document.getString("emoji"),
+                                    "situation" to document.getString("situation"),
+                                    "ad1" to document.getString("ad1"),
+                                    "ad2" to document.getString("ad2"),
+                                    "readStatus" to (document.getBoolean("readStatus") ?: false)
+                                )
+
+                                Log.d("보낸편지", "일치하는 편지 데이터: $letterData")
+
+                                // UI를 업데이트하는 함수 호출
+                                loadReceiveLetterUI(letterData) // Map을 전달합니다.
+                            }
+                        }
+                    } else {
+                        Log.d("보낸편지", "편지 데이터가 없습니다.")
+                    }
+                }
+                .addOnFailureListener { e ->
+                    Log.w("보낸편지", "편지 데이터 로드 실패", e)
+                }
+        }
+    }
+
+    private fun loadReceiveLetterUI(letterData: Map<String, Any?>) {
+        val emoji = letterData["emoji"] as? String
+        val situation = letterData["situation"] as? String
+        val ad1 = letterData["ad1"] as? String
+        val ad2 = letterData["ad2"] as? String
+        val readStatus = letterData["readStatus"] as? Boolean ?: false
+
+        // UI 요소 업데이트
+        emoji?.let { randomIv.setImageResource(getEmojiDrawable(it)) }
+        receiveTv.text = situation.toString()
+        receiveAdTv1.text = ad1.toString()
+        receiveAdTv2.text = ad2.toString()
+        receiveMailLl.visibility = View.VISIBLE
+        receiveMail.visibility = View.VISIBLE
+        receiveMail.setBackgroundResource(if (readStatus) R.drawable.rounded else R.drawable.rounded_false)
     }
 
 

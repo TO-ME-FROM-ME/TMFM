@@ -12,6 +12,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.to_me_from_me.MainActivity
+import com.example.to_me_from_me.MainAlarm.MainAlarmFragment
+import com.example.to_me_from_me.MainAlarm.MainNoAlarmFragment
 import com.example.to_me_from_me.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -32,12 +34,11 @@ class MonthAdapter(
     private var calendar: Calendar = Calendar.getInstance()
     private var selectedDate: Date = calendar.time
 
+
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
     val user = FirebaseAuth.getInstance().currentUser
     val uid = user?.uid
-
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Month {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_mailbox_month, parent, false)
@@ -102,28 +103,69 @@ class MonthAdapter(
 
 
         val tempMonth = calendar.get(Calendar.MONTH)
-
-//        // 5주 7일로 날짜를 표시
-//        val dayList: MutableList<Date> = MutableList(5 * 7) { Date() }
-//        for (i in 0..4) { // 주
-//            for (k in 0..6) { // 요일
-//                calendar.add(Calendar.DAY_OF_MONTH, (1 - calendar.get(Calendar.DAY_OF_WEEK)) + k)
-//                dayList[i * 7 + k] = calendar.time // 배열 인덱스만큼 요일 데이터 저장
-//            }
-//            calendar.add(Calendar.WEEK_OF_MONTH, 1)
-//        }
-
         // RecyclerView에 데이터를 설정
         listLayout.layoutManager = GridLayoutManager(holder.view.context, 7)
         listLayout.adapter = DayAdapter(tempMonth, dayList) { clickedDate, hasImage ->
-            if (clickedDate != null) {
-                onDayClickListener(clickedDate, hasImage) // 날짜 클릭 시 리스너 호출
-                Log.d("DayAdapter", "Clicked: $clickedDate, HasImage: $hasImage")
+            if (!hasImage) {
+                loadReservedateForDay(clickedDate) // HasImage가 false인 경우 reservedate 확인
             }
+            onDayClickListener(clickedDate, hasImage) // 날짜 클릭 시 리스너 호출
+            Log.d("DayAdapter", "Clicked: $clickedDate, HasImage: $hasImage")
         }
 
 
     }
+
+    private fun loadReservedateForDay(clickedDate: Date) {
+        // clickedDate의 형식 지정 (yyyy-MM-dd)
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val formattedDate = dateFormat.format(clickedDate)
+
+        // Firestore에서 reservedate 확인
+        if (uid != null) {
+            firestore.collection("users").document(uid).collection("letters")
+                .get()
+                .addOnSuccessListener { documents ->
+                    var hasImage = false // hasImage 초기화
+
+                    if (!documents.isEmpty) {
+                        for (document in documents) {
+                            val reservedate = document.getString("reservedate") // 'reservedate' 필드 값 가져오기
+
+                            if (reservedate != null) {
+                                // reservedate를 yyyy-MM-dd 형식으로 포맷팅
+                                val originalDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                                val date = originalDateFormat.parse(reservedate)
+
+                                // yyyy-MM-dd 형식으로 변환
+                                val formattedReservedate = dateFormat.format(date)
+
+                                // formattedDate와 formattedReservedate 비교
+                                if (formattedDate == formattedReservedate) {
+                                    Log.d("Firestore", "Matched reservedate for date: $formattedDate, Document ID: ${document.id}")
+                                    hasImage = true
+                                    onDayClickListener(clickedDate, hasImage)
+                                    Log.d("Firestore", "Clicked: $clickedDate, HasImage: $hasImage")
+                                    break
+
+                                } else {
+                                    Log.d("Firestore", "No match for date: $formattedDate and reservedate: $formattedReservedate")
+                                }
+                            }
+                        }
+
+                    } else {
+                        Log.d("Firestore", "No documents found for date: $formattedDate")
+                    }
+                }
+                .addOnFailureListener { e ->
+                    Log.w("Firestore", "Error checking reservedate for date: $formattedDate", e)
+
+                }
+        }
+    }
+
+
 
     override fun getItemCount(): Int {
         return Int.MAX_VALUE / 2

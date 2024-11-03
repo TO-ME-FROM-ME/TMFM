@@ -6,6 +6,8 @@ import android.util.Log
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.to_me_from_me.Mailbox.DetailMailBoxActivity
+import com.example.to_me_from_me.Mailbox.DetailMailBoxFragment
 import com.example.to_me_from_me.MainActivity
 import com.example.to_me_from_me.R
 import com.google.firebase.auth.FirebaseAuth
@@ -63,7 +65,6 @@ class MainAlarmActivity : AppCompatActivity() {
                 .document(clickedAt!!) // clickedAt 값을 문서 이름으로 사용
                 .set(notificationData)
                 .addOnSuccessListener {
-                    //Log.d("main알람", "알림 클릭 정보가 users 컬렉션에 성공적으로 저장되었습니다.")
                     // 예약된 편지 내용 가져오기
                     fetchReservedLetter()
                 }
@@ -74,6 +75,8 @@ class MainAlarmActivity : AppCompatActivity() {
             Log.e("main알람", "clickedAt이 null입니다.")
         }
     }
+
+
 
     // 예약된 편지 내용 가져오기
     private fun fetchReservedLetter() {
@@ -88,17 +91,23 @@ class MainAlarmActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener { letterDocuments ->
                 if (!letterDocuments.isEmpty) {
+
                     for (document in letterDocuments) {
                         val reservedDate  = document.getString("reservedate")
                         Log.d("main알람", "reservedDate: $reservedDate \n currentDateString : $currentDateString")
+
                         // reservedDate가 null이 아니고 clickedAt과 같으면
                         if (reservedDate != null && reservedDate == clickedAt) {
                             Log.d("main알람", "예약된 편지 내용의 reservedDate와 clickedAt이 일치합니다: $reservedDate")
-
-
                             val situation = document.getString("situation")
-
+                            val emoji = document.getString("emoji") // 필요에 따라 추가
+                            val ad1 = document.getString("ad1") // 필요에 따라 추가
+                            val ad2 = document.getString("ad2") // 필요에 따라 추가
+                            val readStatus = document.getBoolean("readStatus")
+                            
                             loadFragment(MainAlarmFragment(), situation, reservedDate)
+                            // 데이터를 SharedPreferences에 저장
+                            saveDataToSharedPreferences(situation, reservedDate, emoji, ad1, ad2, readStatus)
                         }
                     }
                 } else {
@@ -110,6 +119,30 @@ class MainAlarmActivity : AppCompatActivity() {
 
     }
 
+    private fun saveDataToSharedPreferences(situation: String?, reservedate: String, emoji: String?, ad1: String?, ad2: String?, readStatus: Boolean?)
+    {
+        val sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("situation", situation)
+        editor.putString("reservedate", reservedate)
+        editor.putString("emoji", emoji)
+        editor.putString("ad1", ad1)
+        editor.putString("ad2", ad2)
+        editor.putBoolean("readStatus", readStatus ?: false)
+        editor.putString("letter", "receive")
+        editor.apply() // 비동기적으로 저장
+
+        // 한 번에 확인할 수 있는 로그 출력
+        Log.d("흘러온 편지", "Saving data: " +
+                "situation: $situation, " +
+                "reservedate: $reservedate, " +
+                "emoji: $emoji, " +
+                "ad1: $ad1, " +
+                "ad2: $ad2, " +
+                "readStatus: ${readStatus ?: false}"
+        )
+
+    }
 
 
     private fun loadFragment(fragment: Fragment, situation:String?, reservedate:String?) {

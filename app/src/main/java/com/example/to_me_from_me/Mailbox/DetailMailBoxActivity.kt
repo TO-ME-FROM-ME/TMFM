@@ -74,6 +74,7 @@ class DetailMailBoxActivity : AppCompatActivity() {
                 bundle.putString("letter", "receive")
                 bundle.putString("reservedate",reservedate)
                 detailFragment.arguments = bundle
+                Log.d("흘러온 편지", "detailFragment.arguments : ${detailFragment.arguments}")
             }
         }
 
