@@ -117,53 +117,46 @@ class MonthAdapter(
     }
 
     private fun loadReservedateForDay(clickedDate: Date) {
-        // clickedDate의 형식 지정 (yyyy-MM-dd)
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val formattedDate = dateFormat.format(clickedDate)
 
-        // Firestore에서 reservedate 확인
         if (uid != null) {
             firestore.collection("users").document(uid).collection("letters")
                 .get()
                 .addOnSuccessListener { documents ->
-                    var hasImage = false // hasImage 초기화
+                    var hasImage = false // 초기화
 
                     if (!documents.isEmpty) {
                         for (document in documents) {
-                            val reservedate = document.getString("reservedate") // 'reservedate' 필드 값 가져오기
-
+                            val reservedate = document.getString("reservedate")
                             if (reservedate != null) {
-                                // reservedate를 yyyy-MM-dd 형식으로 포맷팅
-                                val originalDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                                val date = originalDateFormat.parse(reservedate)
+                                val formattedReservedate = dateFormat.format(SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(reservedate))
 
-                                // yyyy-MM-dd 형식으로 변환
-                                val formattedReservedate = dateFormat.format(date)
-
-                                // formattedDate와 formattedReservedate 비교
                                 if (formattedDate == formattedReservedate) {
-                                    Log.d("Firestore", "Matched reservedate for date: $formattedDate, Document ID: ${document.id}")
+                                    Log.d("Firestore", "Matched reservedate for date: $formattedDate")
                                     hasImage = true
-                                    onDayClickListener(clickedDate, hasImage)
-                                    Log.d("Firestore", "Clicked: $clickedDate, HasImage: $hasImage")
-                                    break
-
-                                } else {
-                                    Log.d("Firestore", "No match for date: $formattedDate and reservedate: $formattedReservedate")
+                                    break // 일치하는 경우 반복문 종료
                                 }
                             }
                         }
-
+                    }
+                    // 결과에 따라 onDayClickListener 호출
+                    if (hasImage) {
+                        // 예약 날짜가 일치하면 showNotNullMailboxFragment 호출
+                        onDayClickListener(clickedDate, true)
                     } else {
-                        Log.d("Firestore", "No documents found for date: $formattedDate")
+                        // 예약 날짜가 일치하지 않으면 showNullMailboxFragment 호출
+                        onDayClickListener(clickedDate, false)
                     }
                 }
                 .addOnFailureListener { e ->
                     Log.w("Firestore", "Error checking reservedate for date: $formattedDate", e)
-
+                    // 에러 발생 시 false로 처리
+                    onDayClickListener(clickedDate, false)
                 }
         }
     }
+
 
 
 

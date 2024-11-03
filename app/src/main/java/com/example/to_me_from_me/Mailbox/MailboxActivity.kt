@@ -19,6 +19,7 @@ class MailboxActivity : AppCompatActivity(), MonthPickerDialogFragment.MonthSele
     private lateinit var binding: ActivityMailboxBinding
     private lateinit var recyclerView: RecyclerView
     private var adapter: MonthAdapter? = null
+    private var nullMailboxFragment: NullMailboxFragment? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,9 +39,10 @@ class MailboxActivity : AppCompatActivity(), MonthPickerDialogFragment.MonthSele
         adapter = MonthAdapter(
             onDayClickListener = { clickedDate, hasImage ->
                 if(hasImage){
+                    nullMailboxFragment?.dismiss()
                     showNotNullMailboxFragment(clickedDate)
                 }else {
-                    showNullMailboxFragment(clickedDate) // 날짜 클릭 시 바텀시트 표시
+                    showNullMailboxFragment(clickedDate)
                 }
             },
             fragmentManager = supportFragmentManager
@@ -63,12 +65,13 @@ class MailboxActivity : AppCompatActivity(), MonthPickerDialogFragment.MonthSele
 
 
     private fun showNullMailboxFragment(selectedDate: Date) {
-        val nullMailboxFragment = NullMailboxFragment()
-        // 선택한 날짜를 전달하려면 Bundle 사용 가능
-        val args = Bundle()
-        args.putSerializable("selectedDate", selectedDate)
-        nullMailboxFragment.arguments = args
-        nullMailboxFragment.show(supportFragmentManager, nullMailboxFragment.tag)
+        if (nullMailboxFragment == null) {  // Fragment가 없을 때만 새로 생성
+            nullMailboxFragment = NullMailboxFragment()
+            val args = Bundle()
+            args.putSerializable("selectedDate", selectedDate)
+            nullMailboxFragment?.arguments = args
+            nullMailboxFragment?.show(supportFragmentManager, nullMailboxFragment?.tag)
+        }
     }
 
     private fun showNotNullMailboxFragment(selectedDate: Date) {
