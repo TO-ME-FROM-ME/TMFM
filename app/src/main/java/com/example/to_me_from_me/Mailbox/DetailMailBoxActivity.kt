@@ -78,7 +78,6 @@ class DetailMailBoxActivity : AppCompatActivity() {
                 bundle.putString("selectedEmoji", selectedEmoji)
                 bundle.putString("letter", "random")
                 detailFragment.arguments = bundle
-                Log.d("랜덤확인", "detailFragment.arguments : ${detailFragment.arguments}")
             }
 
             "receive" -> {
@@ -97,8 +96,18 @@ class DetailMailBoxActivity : AppCompatActivity() {
                 bundle.putString("ad2", intent.getStringExtra("ad2"))
                 bundle.putString("letter", "receive")
                 detailFragment.arguments = bundle
-                Log.d("흘러온 편지", "detailFragment.arguments : ${detailFragment.arguments}")
             }
+            "receive2" -> {
+                titleTextView.text = "흘러온 편지"
+                Log.d("sendValue", "$sendValue")
+                detailFragment = DetailMailBoxFragment()
+                val bundle = Bundle()
+                bundle.putString("letter", "receive2")
+                bundle.putString("reservedate",reservedate)
+                detailFragment.arguments = bundle
+                Log.d("보낸편지", "detailFragment.arguments : ${detailFragment.arguments}")
+            }
+
         }
 
         // 초기 Fragment 설정

@@ -53,11 +53,11 @@ class MainAlarmAdapter(
                 val reservedate = alarmDataList[adapterPosition].reservedate
                 val intent = Intent(context, DetailMailBoxActivity::class.java).apply {
                     putExtra("situation", letter.text.toString())
-                    putExtra("letter", "receive")
+                    putExtra("letter", "receive2")
                     putExtra("reservedate", reservedate) // reservedate 추가
                 }
                 context.startActivity(intent) // Activity 전환
-                Log.d("메인알림", "intent : $intent ")
+                Log.d("보낸편지", "intent : $intent ")
             }
         }
 
