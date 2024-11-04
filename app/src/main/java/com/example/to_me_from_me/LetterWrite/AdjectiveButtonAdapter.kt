@@ -122,4 +122,14 @@ class AdjectiveButtonAdapter(
     fun getSelectedButtonTexts(): List<String> {
         return selectedTexts.toList()
     }
+
+    fun setSelectedButtonsByText(ad1Text: String?, ad2Text: String?) {
+        buttonDataList.forEach { buttonData ->
+            if (buttonData.buttonText == ad1Text || buttonData.buttonText == ad2Text) {
+                buttonData.isSelected = true
+                selectedTexts.add(buttonData.buttonText)
+            }
+        }
+        notifyDataSetChanged()
+    }
 }

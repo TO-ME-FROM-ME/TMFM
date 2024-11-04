@@ -70,8 +70,27 @@ class AdjectiveFragment : BottomSheetDialogFragment(),
         )
         adapter.setOnButtonClickListener(this)
         recyclerView.adapter = adapter
-
         nextButton = view.findViewById(R.id.next_btn)
+
+        /*val isFromCWriteBtn = arguments?.getBoolean("isFromCWriteBtn", false) ?: false
+        if (isFromCWriteBtn) {
+            val ad1Text = arguments?.getString("ad1")
+            val ad2Text = arguments?.getString("ad2")
+
+            adapter.setSelectedButtonsByText(ad1Text, ad2Text)
+            updateAdButtons()
+            nextButton.isEnabled = true // nextButton 활성화
+            nextButton.background = ContextCompat.getDrawable(
+                requireContext(), R.drawable.solid_no_main
+            )
+        }
+        else{
+            nextButton.isEnabled = false
+            nextButton.background = ContextCompat.getDrawable(
+                requireContext(), R.drawable.solid_no_gray
+            )
+        }*/
+
         nextButton.setOnClickListener {
             if (isAdjectiveSelected) {
                 selectedTexts.clear()
@@ -88,8 +107,6 @@ class AdjectiveFragment : BottomSheetDialogFragment(),
                     .replace(R.id.fragment_container, nextFragment)
                     .addToBackStack(null)
                     .commit()
-            } else {
-                // 감정 형용사가 선택되지 않았을 때의 처리를 여기에 추가할 수 있습니다.
             }
         }
         return view

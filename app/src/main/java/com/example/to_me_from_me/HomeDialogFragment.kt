@@ -10,7 +10,7 @@ import android.widget.Button
 import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
-import com.example.to_me_from_me.LetterWrite.SaveDialogFragment
+import SaveDialogFragment
 import com.example.to_me_from_me.LetterWrite.WriteLetterActivity
 import com.example.to_me_from_me.Mailbox.MailboxActivity
 import com.google.firebase.auth.FirebaseAuth
