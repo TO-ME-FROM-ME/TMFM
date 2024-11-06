@@ -57,13 +57,11 @@ class MainAlarmFragment : Fragment() {
         calendar.add(Calendar.DAY_OF_YEAR, 7) // 현재 날짜 기준으로 일주일 뒤 날짜
         val endDate = calendar.time
 
-        // Firestore에서 예약된 편지 가져오기
+        // Firestore에서 모든 예약된 편지 가져오기
         firestore.collection("users")
             .document(userId!!)
             .collection("letters")
-            .whereGreaterThanOrEqualTo("reservedate", SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(currentDate))
-            .whereLessThanOrEqualTo("reservedate", SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(endDate))
-            .get()
+            .get() // 모든 데이터를 가져옴
             .addOnSuccessListener { letterDocuments ->
                 if (!letterDocuments.isEmpty) {
                     for (document in letterDocuments) {
@@ -71,21 +69,38 @@ class MainAlarmFragment : Fragment() {
                         val letterContent = document.getString("situation") // 편지 내용 가져오기
                         val time = SimpleDateFormat("hh:mm", Locale.getDefault()).format(currentDate) // 예시로 현재 시간 설정
 
-                        // 알람 데이터 리스트에 추가
+                        // 'reservedate'가 1주일 이내인 알람만 필터링하여 표시
                         if (reservedDate != null && letterContent != null) {
-                            alarmDataList.add(
-                                AlarmData(
-                                    imgResId = R.drawable.ic_letter_alram,
-                                    title = "편지가 도착했어!",
-                                    letter = letterContent,
-                                    time = time,
-                                    reservedate=reservedDate,
-                                    clicked = false
-                                )
-                            )
+                            // 'reservedate'가 현재 날짜부터 1주일 내로 설정된 경우에만 추가
+                            val reservedDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+                            val reservedDateParsed = reservedDateFormat.parse(reservedDate)
+
+                            if (reservedDateParsed != null) {
+                                val isWithinOneWeek = reservedDateParsed.after(currentDate) && reservedDateParsed.before(endDate)
+                                if (isWithinOneWeek || reservedDateParsed.before(currentDate)) {
+                                    alarmDataList.add(
+                                        AlarmData(
+                                            imgResId = R.drawable.ic_letter_alram,
+                                            title = "편지가 도착했어!",
+                                            letter = letterContent,
+                                            time = time,
+                                            reservedate = reservedDate,
+                                            clicked = false
+                                        )
+                                    )
+                                }
+                            }
                         }
                     }
                 }
+
+                // 시간 기준 내림차순으로 정렬
+                alarmDataList.sortByDescending {
+                    val reservedDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+                    reservedDateFormat.parse(it.reservedate) ?: Date(0) // 날짜를 파싱하여 내림차순 정렬
+                }
+
+
                 // 콜백 호출하여 필터링된 알람 데이터 리스트 반환
                 callback(alarmDataList)
             }
@@ -93,4 +108,6 @@ class MainAlarmFragment : Fragment() {
                 Log.e("MainAlarmFragment", "예약된 편지 가져오기 실패", e)
             }
     }
+
+
 }

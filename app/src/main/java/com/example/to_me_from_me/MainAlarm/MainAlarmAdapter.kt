@@ -2,24 +2,15 @@ package com.example.to_me_from_me.MainAlarm
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
-import android.os.Bundle
-import android.provider.Settings.Secure.putString
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.to_me_from_me.LetterWrite.ButtonData
 import com.example.to_me_from_me.Mailbox.DetailMailBoxActivity
-import com.example.to_me_from_me.Mailbox.DetailMailBoxFragment
 import com.example.to_me_from_me.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -40,6 +31,8 @@ class MainAlarmAdapter(
     override fun onBindViewHolder(holder: AlarmViewHolder, position: Int) {
         val alarmData = alarmDataList[position]
         holder.bind(alarmData)
+        saveClickedStatusToSharedPreferences(alarmData)
+        logClickedStatus() // 저장된 데이터 확인
     }
 
     override fun getItemCount(): Int = alarmDataList.size
@@ -50,27 +43,32 @@ class MainAlarmAdapter(
         private val title: TextView = itemView.findViewById(R.id.title_tv)
         private val letter: TextView = itemView.findViewById(R.id.letter_tv)
         private val time: TextView = itemView.findViewById(R.id.time_tv)
-        private val container : ConstraintLayout =itemView.findViewById(R.id.linear_ll)
+        private val container: ConstraintLayout = itemView.findViewById(R.id.linear_ll)
 
         init {
-            // 클릭 이벤트 설정
             itemView.setOnClickListener {
+                val alarmData = alarmDataList[adapterPosition]
+                val reservedate = alarmData.reservedate
+
                 // 클릭된 항목의 reservedate 가져오기
-                val reservedate = alarmDataList[adapterPosition].reservedate
-
-                val alarmData = alarmDataList[adapterPosition] // 클릭된 항목의 알림 데이터
-
-                // Firestore에서 클릭 상태 업데이트
                 updateClickedStatusInFirestore(reservedate, alarmData)
 
+                // SharedPreferences에 클릭 상태 저장
+                val sharedPreferences = context.getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+                val editor = sharedPreferences.edit()
+                editor.putBoolean("clicked_${reservedate}", true) // 클릭된 상태로 업데이트
+                editor.commit()
 
+                // 배경색 변경
+                container.setBackgroundResource(R.drawable.rounded_gray) // 클릭 후 배경색 변경
+
+                // 상세 화면으로 데이터 전송
                 val intent = Intent(context, DetailMailBoxActivity::class.java).apply {
                     putExtra("situation", letter.text.toString())
                     putExtra("letter", "receive2")
-                    putExtra("reservedate", reservedate) // reservedate 추가
+                    putExtra("reservedate", reservedate)
                 }
                 context.startActivity(intent) // Activity 전환
-                Log.d("보낸편지", "intent : $intent ")
             }
         }
 
@@ -96,7 +94,7 @@ class MainAlarmAdapter(
             img.setImageResource(alarmData.imgResId)
             title.text = alarmData.title              // 제목 설정
             letter.text = alarmData.letter            // 본문 설정
-            time.text = getRelativeTimeString(alarmData.reservedate)                // 시간 설정
+            time.text = getRelativeTimeString(alarmData.reservedate) // 시간 설정
 
             // SharedPreferences에서 clicked 상태 확인
             val sharedPreferences = context.getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
@@ -106,14 +104,14 @@ class MainAlarmAdapter(
 
             // 클릭 여부에 따라 배경색 변경
             if (isClicked) {
-                container.setBackgroundResource(R.drawable.rounded_gray) //읽은 편지
+                container.setBackgroundResource(R.drawable.rounded_gray) // 읽은 편지
             } else {
-                container.setBackgroundResource(R.drawable.rounded_blue)
+                container.setBackgroundResource(R.drawable.rounded_blue) // 읽지 않은 편지
             }
-
         }
     }
 
+    // Firestore에서 클릭 상태 업데이트
     private fun updateClickedStatusInFirestore(reservedate: String, alarmData: AlarmData) {
         val firestore = FirebaseFirestore.getInstance()
         val auth = FirebaseAuth.getInstance()
@@ -131,7 +129,6 @@ class MainAlarmAdapter(
                         document.reference.update("clicked", true)
                             .addOnSuccessListener {
                                 Log.d("AlarmAdapter", "클릭 상태 Firestore 업데이트 성공")
-
                                 // 클릭된 상태를 SharedPreferences에 저장
                                 saveClickedStatusToSharedPreferences(alarmData)
                             }
@@ -151,10 +148,21 @@ class MainAlarmAdapter(
         val sharedPreferences = context.getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
 
-        editor.putBoolean("clicked_${alarmData.reservedate}", true) // 클릭된 상태 저장
+        // "clicked_" + reservedate + 다른 식별자 추가 (예: letterId 등)
+        val uniqueKey = "clicked_${alarmData.reservedate}_${alarmData.letter}"
+        editor.putBoolean(uniqueKey, true) // 클릭된 상태 저장
         editor.apply()
 
-        Log.d("AlarmAdapter", "SharedPreferences에 클릭 상태 저장: ${alarmData.reservedate}")
+        Log.d("AlarmAdapter", "SharedPreferences에 클릭 상태 저장: $uniqueKey")
     }
 
+    // SharedPreferences의 모든 상태 로그 확인
+    private fun logClickedStatus() {
+        val sharedPreferences = context.getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE)
+        // 모든 저장된 값을 확인하려면 SharedPreferences에 있는 모든 키와 값 출력
+        val allEntries = sharedPreferences.all
+        for ((key, value) in allEntries) {
+            Log.d("SharedPreferences", "Key: $key, Value: $value")
+        }
+    }
 }
