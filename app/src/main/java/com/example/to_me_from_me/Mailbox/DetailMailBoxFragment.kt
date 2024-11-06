@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
+import android.text.method.ScrollingMovementMethod
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.util.Log
@@ -132,7 +133,6 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
         dateTv1 = view.findViewById(R.id.date1_tv)
         dateTv2 = view.findViewById(R.id.date2_tv)
         dateIv = view.findViewById(R.id.date_iv)
-        val layout = view.findViewById<LinearLayout>(R.id.custom_toast_container)
 
 
         situationTv = view.findViewById(R.id.user_situation_tv)
@@ -141,7 +141,7 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
         ad1Tv = view.findViewById(R.id.ad1_tv)
         ad2Tv = view.findViewById(R.id.ad2_tv)
 
-
+        letterTv.movementMethod=ScrollingMovementMethod()
 
         // 편지 로드
         when (letter) {

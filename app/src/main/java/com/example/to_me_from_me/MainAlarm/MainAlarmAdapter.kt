@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.to_me_from_me.Mailbox.DetailMailBoxActivity
 import com.example.to_me_from_me.R
@@ -86,7 +87,7 @@ class MainAlarmAdapter(
                 minutesDiff < 60 -> "${minutesDiff}분 전"
                 hoursDiff < 24 -> "${hoursDiff}시간 전"
                 daysDiff < 7 -> "${daysDiff}일 전"
-                else -> alarmDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                else -> alarmDateTime.format(DateTimeFormatter.ofPattern("MM/dd"))
             }
         }
 
@@ -105,8 +106,15 @@ class MainAlarmAdapter(
             // 클릭 여부에 따라 배경색 변경
             if (isClicked) {
                 container.setBackgroundResource(R.drawable.rounded_gray) // 읽은 편지
+                container.alpha = 0.9f
+                img.alpha = 0.2f
+                title.setTextColor(ContextCompat.getColor(context, R.color.Gray3))
+                letter.setTextColor(ContextCompat.getColor(context, R.color.Gray3))
+                time.setTextColor(ContextCompat.getColor(context, R.color.Gray3))
+
             } else {
                 container.setBackgroundResource(R.drawable.rounded_blue) // 읽지 않은 편지
+                container.alpha = 0.7f
             }
         }
     }

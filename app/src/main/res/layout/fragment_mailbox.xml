@@ -40,10 +40,10 @@
         </LinearLayout>
         <LinearLayout
             android:id="@+id/send_mail"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
+            android:visibility="gone"
             android:layout_marginStart="3dp"
             android:layout_marginEnd="3dp"
             android:layout_marginBottom="20dp"
@@ -53,25 +53,19 @@
 
             <ImageView
                 android:id="@+id/user_emo_iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:src="@drawable/upset_s" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:layout_marginHorizontal="15dp"
-                android:src="@drawable/img_divider_gray" />
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/test2" />
 
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
+                android:layout_gravity="center"
                 android:orientation="vertical">
 
                 <TextView
@@ -107,6 +101,7 @@
                             android:layout_height="wrap_content"
                             android:text="두려운"
                             android:textSize="11dp"
+                            android:textStyle="bold"
                             android:layout_marginEnd="10dp"
                             android:layout_marginStart="10dp"
                             android:textColor="@color/dark"
@@ -128,6 +123,7 @@
                             android:layout_height="wrap_content"
                             android:text="두려운"
                             android:textSize="11dp"
+                            android:textStyle="bold"
                             android:layout_marginEnd="10dp"
                             android:layout_marginStart="10dp"
                             android:textColor="@color/dark"
@@ -169,36 +165,29 @@
             android:id="@+id/receiv_mail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:padding="10dp"
             android:layout_marginStart="3dp"
             android:layout_marginEnd="3dp"
             android:layout_marginBottom="20dp"
             android:background="@drawable/rounded"
             android:elevation="6dp"
-            android:visibility="gone"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/user_emo_iv2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:src="@drawable/upset_s" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:layout_marginHorizontal="15dp"
-                android:src="@drawable/img_divider_gray" />
-
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/angry_s2" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
+                android:layout_gravity="center"
                 android:orientation="vertical">
 
                 <TextView
@@ -206,7 +195,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/font_gangwon"
-                    android:text="시험 결과가 나왔는데 점수가 너무 나빠서 두려웠어."
+                    android:text="시험성적이 나왔는데 만족하지 못했어."
                     android:textSize="20dp"
                     android:textStyle="bold"
                     android:textColor="@color/black"/>
@@ -214,7 +203,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="20dp"
                     android:gravity="center"
                     android:orientation="horizontal">
 
@@ -234,6 +223,7 @@
                             android:layout_height="wrap_content"
                             android:text="두려운"
                             android:textSize="11dp"
+                            android:textStyle="bold"
                             android:layout_marginEnd="10dp"
                             android:layout_marginStart="10dp"
                             android:textColor="@color/dark"
@@ -254,6 +244,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="두려운"
+                            android:textStyle="bold"
                             android:textSize="11dp"
                             android:layout_marginEnd="10dp"
                             android:layout_marginStart="10dp"
@@ -308,25 +299,19 @@
 
             <ImageView
                 android:id="@+id/user_emo_iv3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:src="@drawable/upset_s" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:layout_marginHorizontal="15dp"
-                android:src="@drawable/img_divider_gray" />
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/test2" />
 
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
+                android:layout_gravity="center"
                 android:orientation="vertical">
 
                 <TextView
@@ -362,6 +347,7 @@
                             android:layout_height="wrap_content"
                             android:text="두려운"
                             android:textSize="11dp"
+                            android:textStyle="bold"
                             android:layout_marginEnd="10dp"
                             android:layout_marginStart="10dp"
                             android:textColor="@color/dark"
@@ -382,6 +368,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="두려운"
+                            android:textStyle="bold"
                             android:textSize="11dp"
                             android:layout_marginEnd="10dp"
                             android:layout_marginStart="10dp"

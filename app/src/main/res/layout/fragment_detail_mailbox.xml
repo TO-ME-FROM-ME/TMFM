@@ -56,6 +56,7 @@
 
     <!-- 고정된 콘텐츠 -->
     <LinearLayout
+        android:id="@+id/user_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -68,21 +69,13 @@
 
         <ImageView
             android:id="@+id/user_emoji_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="center"
             android:gravity="center"
+            android:layout_marginEnd="10dp"
             android:layout_marginStart="5dp"
-            android:src="@drawable/angry" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:alpha="0"
-            android:layout_marginHorizontal="5dp"
-            android:src="@drawable/img_divider" />
+            android:src="@drawable/angry_s2" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -100,7 +93,7 @@
                 android:textSize="20dp"
                 android:textStyle="bold"
                 android:gravity="start"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black" />
 
             <View
                 android:layout_width="0dp"
@@ -126,11 +119,11 @@
                         android:layout_height="wrap_content"
                         android:text="두려운"
                         android:textSize="11dp"
+                        android:textStyle="bold"
                         android:layout_marginEnd="10dp"
                         android:layout_marginStart="10dp"
                         android:textColor="@color/black"
                         android:fontFamily="@font/bnotosans" />
-
                 </androidx.cardview.widget.CardView>
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardView2"
@@ -147,94 +140,83 @@
                         android:layout_height="wrap_content"
                         android:text="두려운"
                         android:textSize="11dp"
+                        android:textStyle="bold"
                         android:layout_marginEnd="10dp"
                         android:layout_marginStart="10dp"
                         android:textColor="@color/black"
                         android:fontFamily="@font/bnotosans" />
-
                 </androidx.cardview.widget.CardView>
-
-
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
-
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:fillViewport="true">
+        android:layout_height="match_parent">
 
-        <FrameLayout
+        <LinearLayout
+            android:id="@+id/text_ll"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@drawable/letter1"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true"
+            android:paddingStart="10dp">
 
-            <!-- 배경 이미지 (맨 뒤에 위치) -->
-            <ImageView
-                android:layout_width="wrap_content"
+            <FrameLayout
+                android:id="@+id/frame_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/letter_s4"
+                android:layout_marginTop="40dp">
 
-                android:layout_gravity="center|bottom"/>
-
-            <!-- 앞쪽 콘텐츠를 담을 LinearLayout -->
-            <LinearLayout
-                android:id="@+id/text_ll"
-                android:orientation="vertical"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/letter4"
-                android:paddingStart="10dp"
-                android:paddingTop="40dp">
-
-                <FrameLayout
-                    android:id="@+id/frame_layout"
+                <ScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <LinearLayout
-                        android:id="@+id/custom_toast_container"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal" />
-
-                    <TextView
-                        android:id="@+id/letter_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="top"
-                        android:text="사랑하는 우리동생에게"
-                        android:textSize="25dp"
-                        android:inputType="textNoSuggestions|textMultiLine"
-                        android:fontFamily="@font/font_gangwon"
-                        android:textColor="@color/black"
                         android:layout_marginStart="10dp"
-                        android:padding="10dp"/>
-                </FrameLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginTop="30dp"
-                    android:layout_gravity="bottom">
-
-                    <TextView
-                        android:id="@id/char_count_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
-                        android:textSize="20dp"
-                        android:layout_gravity="end"
-                        android:fontFamily="@font/font_gangwon"
-                        android:text="500" />
-                </LinearLayout>
+                        android:orientation="vertical">
 
-            </LinearLayout>
-        </FrameLayout>
+                        <!-- 텍스트뷰 설정 -->
+                        <TextView
+                            android:id="@+id/letter_tv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/font_gangwon"
+                            android:gravity="top"
+                            android:lineSpacingExtra="7dp"
+                            android:inputType="textNoSuggestions|textMultiLine"
+                            android:maxLines="9"
+                            android:padding="10dp"
+                            android:scrollHorizontally="false"
+                            android:scrollbars="vertical"
+                            android:text="사랑하는 우리동생 \n사랑하는 우리동생 "
+                            android:textColor="@color/black"
+                            android:textSize="25dp" />
 
-    </ScrollView>
+                        <TextView
+                            android:id="@id/char_count_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:layout_marginEnd="30dp"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/font_gangwon"
+                            android:text="500"
+                            android:textSize="20dp" />
+                    </LinearLayout>
+                </ScrollView>
+
+            </FrameLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+
 
 </LinearLayout>
