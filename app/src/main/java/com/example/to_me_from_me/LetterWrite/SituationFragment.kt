@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -47,6 +48,20 @@ class SituationFragment : BottomSheetDialogFragment() {
         val mainColor = ContextCompat.getDrawable(requireContext(), R.drawable.solid_no_main)
         val defaultColor = ContextCompat.getDrawable(requireContext(), R.drawable.solid_no_gray)
 
+        val isFromCWriteBtn = arguments?.getBoolean("isFromCWriteBtn") ?: false
+        Log.d("SituationFragment", "isFromCWriteBtn: $isFromCWriteBtn") // 로그 추가
+
+        if (isFromCWriteBtn) {
+            // 상황 값을 ViewModel에 저장
+            val situation = arguments?.getString("situation") ?: ""
+            Log.d("SituationFragment", "Received situation: $situation") // 로그 추가
+            sharedViewModel.setSituation(situation)
+        }
+
+        sharedViewModel.situation.observe(viewLifecycleOwner) { situation ->
+            Log.d("SituationFragment", "Observed situationText: $situation") // 로그 추가
+            writeEditText.setText(situation)
+        }
 
         val nextButton = view.findViewById<Button>(R.id.next_btn)
         nextButton.setOnClickListener {
@@ -79,13 +94,41 @@ class SituationFragment : BottomSheetDialogFragment() {
 
                     saveSituationToFirestore(textValue)
 
-                    // 다음 Fragment화면으로 이동
-                    val nextFragment = EmojiFragment()
+                    if (isFromCWriteBtn){
+                        val emoji = arguments?.getString("emoji")
+                        val ad1 = arguments?.getString("ad1")
+                        val ad2 = arguments?.getString("ad2")
+                        val q1 = arguments?.getString("q1")
+                        val q2 = arguments?.getString("q2")
+                        val q3 = arguments?.getString("q3")
+                        val letter = arguments?.getString("letter")
 
-                    parentFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, nextFragment)
-                        .addToBackStack(tag)
-                        .commit()
+                        val emojiFragment = EmojiFragment().apply {
+                            arguments = Bundle().apply {
+                                putString("emoji", emoji)
+                                putString("ad1", ad1)
+                                putString("ad2", ad2)
+                                putString("q1", q1)
+                                putString("q2", q2)
+                                putString("q3", q3)
+                                putString("letter", letter)
+                                putBoolean("isFromCWriteBtn", true)
+                            }
+                        }
+                        parentFragmentManager.beginTransaction()
+                            .replace(R.id.fragment_container, emojiFragment)
+                            .addToBackStack(tag)
+                            .commit()
+                    }
+
+                    else {
+                        // isFromCWriteBtn이 false일 경우 다음 Fragment로 이동
+                        val nextFragment = EmojiFragment() // 이 경우의 사용 의도가 불분명하니 확인이 필요
+                        parentFragmentManager.beginTransaction()
+                            .replace(R.id.fragment_container, nextFragment)
+                            .addToBackStack(tag)
+                            .commit()
+                    }
                 }
 
             }

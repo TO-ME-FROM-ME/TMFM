@@ -34,11 +34,11 @@ class ViewModel : ViewModel() {
         _currentDate.value = date
     }
 
-    private val _situation = MutableLiveData<String?>(null) // 초기 값을 null로 설정
-    val situation: LiveData<String?> get() = _situation
+    private val _situation = MutableLiveData<String>()
+    val situation: LiveData<String> get() = _situation
 
-    private val _emoji = MutableLiveData<String?>()
-    val emoji: LiveData<String?> get() = _emoji
+    private val _emoji = MutableLiveData<String>()
+    val emoji: LiveData<String> get() = _emoji
 
     private val _ad1 = MutableLiveData<String>()
     val ad1: LiveData<String> get() = _ad1
@@ -58,41 +58,37 @@ class ViewModel : ViewModel() {
     private val _letter = MutableLiveData<String>()
     val letter: LiveData<String> get() = _letter
 
-
-    fun setSituationF(situation: String) {
-        _situation.value = situation
+    // 각 속성에 대한 설정 메서드
+    fun setSituation(value: String) {
+        _situation.value = value
     }
 
-    fun setEmojiF(emoji: String) {
-        _emoji.value = emoji
+    fun setEmoji(value: String) {
+        _emoji.value = value
     }
 
-    fun setAd1(ad1: String) {
-        _ad1.value = ad1
+    fun setAd1(value: String) {
+        _ad1.value = value
     }
 
-    fun setAd2(ad2: String) {
-        _ad2.value = ad2
+    fun setAd2(value: String) {
+        _ad2.value = value
     }
 
-    fun setQ1(q1: String) {
-        _q1.value = q1
+    fun setQ1(value: String) {
+        _q1.value = value
     }
 
-    fun setQ2(q2: String) {
-        _q2.value = q2
+    fun setQ2(value: String) {
+        _q2.value = value
     }
 
-    fun setQ3(q3: String) {
-        _q3.value = q3
+    fun setQ3(value: String) {
+        _q3.value = value
     }
 
-    fun setLetter(letter: String) {
-        _letter.value = letter
+    fun setLetter(value: String) {
+        _letter.value = value
     }
 
-
-    fun clearSituationText() {
-        _situation.value = null
-    }
 }

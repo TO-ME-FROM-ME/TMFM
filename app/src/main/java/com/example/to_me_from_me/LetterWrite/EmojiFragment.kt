@@ -32,8 +32,7 @@ class EmojiFragment : BottomSheetDialogFragment() {
         }
 
         val emojiView = view.findViewById<ImageView>(R.id.user_emo_iv)
-
-
+        val nextButton = view.findViewById<Button>(R.id.next_btn)
         val excitedButton = view.findViewById<ImageView>(R.id.excited_btn)
         val happyButton = view.findViewById<ImageView>(R.id.happy_btn)
         val normalButton = view.findViewById<ImageView>(R.id.normal_btn)
@@ -55,8 +54,66 @@ class EmojiFragment : BottomSheetDialogFragment() {
             R.drawable.upset,
             R.drawable.angry
         )
-        val nextButton = view.findViewById<Button>(R.id.next_btn)
 
+        val isFromCWriteBtn = arguments?.getBoolean("isFromCWriteBtn", false) ?: false
+        if (isFromCWriteBtn) {
+            val emojiName = arguments?.getString("emoji")
+            if (emojiName != null) {
+                val emojiResId = getResourceIdByName(emojiName)
+                if (emojiResId != 0) { // 유효한 리소스 ID인지 확인
+                    val index = when (emojiResId) {
+                        R.drawable.excited_s -> 0
+                        R.drawable.happy_s -> 1
+                        R.drawable.normal_s -> 2
+                        R.drawable.upset_s -> 3
+                        R.drawable.angry_s -> 4
+                        else -> -1 // 유효하지 않은 경우
+                    }
+                    if (index != -1) {
+                        setActiveButton(buttons[index], activeDrawables[index], inactiveDrawables) // buttons[index] 사용
+                    }
+
+                    sharedViewModel.setSelectedImageResId(emojiResId)
+                    emojiView.setImageResource(emojiResId)
+                    emojiView.visibility = View.VISIBLE
+                    isImageSelected = true
+                    nextButton.background =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.solid_no_main)
+
+                    when (emojiResId) {
+                        R.drawable.excited_s -> setActiveButton(
+                            excitedButton,
+                            activeDrawables[0],
+                            inactiveDrawables
+                        )
+
+                        R.drawable.happy_s -> setActiveButton(
+                            happyButton,
+                            activeDrawables[1],
+                            inactiveDrawables
+                        )
+
+                        R.drawable.normal_s -> setActiveButton(
+                            normalButton,
+                            activeDrawables[2],
+                            inactiveDrawables
+                        )
+
+                        R.drawable.upset_s -> setActiveButton(
+                            upsetButton,
+                            activeDrawables[3],
+                            inactiveDrawables
+                        )
+
+                        R.drawable.angry_s -> setActiveButton(
+                            angryButton,
+                            activeDrawables[4],
+                            inactiveDrawables
+                        )
+                    }
+                }
+            }
+        }
 
         buttons.forEachIndexed { index, button ->
             button.setOnClickListener {
@@ -64,7 +121,8 @@ class EmojiFragment : BottomSheetDialogFragment() {
                 sharedViewModel.setSelectedImageResId(activeDrawables[index])
                 emojiView.setImageResource(activeDrawables[index])
                 emojiView.visibility = View.VISIBLE
-                nextButton.background = ContextCompat.getDrawable(requireContext(),
+                nextButton.background = ContextCompat.getDrawable(
+                    requireContext(),
                     R.drawable.solid_no_main
                 )
             }
@@ -73,16 +131,45 @@ class EmojiFragment : BottomSheetDialogFragment() {
         nextButton.setOnClickListener {
             if (isImageSelected) { // 이미지가 선택된 경우에만 다음 단계로 이동
                 saveEmojiToFirestore()
-                val nextFragment = AdjectiveFragment()
-                parentFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, nextFragment)
-                    .addToBackStack(null)
-                    .commit()
-            } else {
-                //Toast.makeText(requireContext(), "이미지를 선택해주세요.", Toast.LENGTH_SHORT).show()
+
+                if (isFromCWriteBtn) {
+                    val ad1 = arguments?.getString("ad1")
+                    val ad2 = arguments?.getString("ad2")
+                    val q1 = arguments?.getString("q1")
+                    val q2 = arguments?.getString("q2")
+                    val q3 = arguments?.getString("q3")
+                    val letter = arguments?.getString("letter")
+
+                    val adjectiveFragment = AdjectiveFragment().apply {
+                        arguments = Bundle().apply {
+                            putString("ad1", ad1)
+                            putString("ad2", ad2)
+                            putString("q1", q1)
+                            putString("q2", q2)
+                            putString("q3", q3)
+                            putString("letter", letter)
+                            putBoolean("isFromCWriteBtn", true)
+                        }
+                    }
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, adjectiveFragment)
+                        .addToBackStack(tag)
+                        .commit()
+                } else {
+
+                    val nextFragment = AdjectiveFragment()
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, nextFragment)
+                        .addToBackStack(null)
+                        .commit()
+                }
             }
         }
         return view
+    }
+
+    private fun getResourceIdByName(resourceName: String): Int {
+        return resources.getIdentifier(resourceName, "drawable", requireContext().packageName)
     }
 
 
