@@ -40,8 +40,7 @@ class MonthPickerDialogFragment(private var selectedYear: Int, private var selec
         // 초기 연도와 월 표시
         monthText.text = "${selectedYear}년 ${selectedMonth+1}월"
 
-
-        monthTextViews.forEach { textView ->
+        monthTextViews.forEachIndexed { index, textView ->
             textView.setOnClickListener {
                 // 모든 TextView의 배경색상을 기본 색상으로 변경
                 monthTextViews.forEach { tv -> tv.setBackgroundResource(R.drawable.solid_no_stroke) }
@@ -49,11 +48,11 @@ class MonthPickerDialogFragment(private var selectedYear: Int, private var selec
                 // 클릭된 TextView의 배경색상을 main 색상으로 변경
                 textView.background = mainDrawable
 
-                // 선택된 월 저장
-                selectedMonth = monthTextViews.indexOf(textView)+1
-                monthText.text="${selectedYear}년 ${selectedMonth}월"
+                // 선택된 월 저장 및 표시 (index + 1로 월 계산)
+                selectedMonth = index
+                monthText.text = "${selectedYear}년 ${selectedMonth + 1}월" // 1부터 12로 표시
 
-                Log.d("MonthPicker","$selectedMonth")
+                Log.d("MonthPicker", "Selected month: $selectedMonth")
             }
         }
 

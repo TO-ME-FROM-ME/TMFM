@@ -70,7 +70,7 @@ class MonthAdapter(
                 selectedYear = calendar.get(Calendar.YEAR),
                 selectedMonth = calendar.get(Calendar.MONTH)
             )
-            Log.d("MonthPicker","넘길때 -> ${calendar.get(Calendar.YEAR)}, ${calendar.get(Calendar.MONTH)}")
+            Log.d("MonthPicker","넘길때 -> ${calendar.get(Calendar.YEAR)}, ${calendar.get(Calendar.MONTH)+1}")
             dialogFragment.setStyle(
                 DialogFragment.STYLE_NORMAL,
                 R.style.RoundedBottomSheetDialogTheme
@@ -80,7 +80,8 @@ class MonthAdapter(
 
 
         val titleText: TextView = holder.view.findViewById(R.id.title)
-        titleText.text ="${calendar.get(Calendar.YEAR)}년 ${calendar.get(Calendar.MONTH) + 1}월"
+        val currentMonth = calendar.get(Calendar.MONTH) + 1
+        titleText.text ="${calendar.get(Calendar.YEAR)}년 ${currentMonth}월"
 
         // 현재 월의 첫 번째 날
         val firstDayOfMonth = calendar.get(Calendar.DAY_OF_WEEK) - 1 // 일요일: 1 -> 배열 인덱스로 변경 (0부터 시작)
