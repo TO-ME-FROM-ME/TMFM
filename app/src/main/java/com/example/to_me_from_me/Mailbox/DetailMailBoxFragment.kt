@@ -213,9 +213,6 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
         }
     }
 
-
-
-
     private fun randomLetterUpdateUI() {
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
@@ -223,20 +220,16 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
         // 오늘 날짜를 가져옵니다.
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val displayDateFormat = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
-        val targetDate = dateFormat.format(Date()) // 오늘 날짜 문자열
+        val targetDate = Date() // 오늘 날짜 (Date 객체)
+        val formattedTargetDate = displayDateFormat.format(targetDate) // YYYY.MM.dd 형식으로 변환
+
         var firstDateShown = false // 첫 번째 date가 표시되었는지 여부를 추적
 
-        if (uid != null && targetDate != null) {
+        if (uid != null) {
             firestore.collection("users").document(uid).collection("letters")
                 .get()
                 .addOnSuccessListener { documents ->
                     if (!documents.isEmpty) {
-                        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                        val displayDateFormat = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
-
-                        // targetDate를 YYYY.MM.dd 형식으로 변환
-                        val formattedTargetDate = displayDateFormat.format(targetDate)
-
                         // randomDate와 targetDate가 일치하는 편지를 찾기
                         val matchingLetter = documents.firstOrNull { document ->
                             val randomdate = document.getString("randomDate") // Firestore에서 가져온 randomDate
@@ -267,6 +260,7 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
                 }
         }
     }
+
 
 
     private fun receiveLetterLoad() {

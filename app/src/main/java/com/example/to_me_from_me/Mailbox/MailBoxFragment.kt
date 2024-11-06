@@ -135,16 +135,33 @@ class MailBoxFragment: BottomSheetDialogFragment()  {
             intent.putExtra("letter", "random")
             // 선택된 날짜를 Long 형식으로 변환하여 추가
             selectedDate?.let {
-                intent.putExtra("selectedDate", it.time) // Date를 Long으로 변환
+                val selectedDateLong = it.time
+                intent.putExtra("selectedDate", selectedDateLong) // Date를 Long으로 변환
+                Log.d("IntentData", "Selected Date: $selectedDateLong")  // 로그 출력
             }
 
+
+
             randomLetterData?.let { letterData ->
-                intent.putExtra("emoji", letterData["emoji"] as? String)
-                intent.putExtra("situation", letterData["situation"] as? String)
-                intent.putExtra("ad1", letterData["ad1"] as? String)
-                intent.putExtra("ad2", letterData["ad2"] as? String)
-                intent.putExtra("readStatus", letterData["readStatus"] as? Boolean ?: false)
+                val emoji = letterData["emoji"] as? String
+                val situation = letterData["situation"] as? String
+                val ad1 = letterData["ad1"] as? String
+                val ad2 = letterData["ad2"] as? String
+                val readStatus = letterData["readStatus"] as? Boolean ?: false
+
+                intent.putExtra("emoji", emoji)
+                intent.putExtra("situation", situation)
+                intent.putExtra("ad1", ad1)
+                intent.putExtra("ad2", ad2)
+                intent.putExtra("readStatus", readStatus)
+
+                Log.d("IntentData", "Emoji: $emoji")          // 로그 출력
+                Log.d("IntentData", "Situation: $situation")  // 로그 출력
+                Log.d("IntentData", "Ad1: $ad1")              // 로그 출력
+                Log.d("IntentData", "Ad2: $ad2")              // 로그 출력
+                Log.d("IntentData", "Read Status: $readStatus")  // 로그 출력
             }
+
 
             updateReadStatus("send")
             startActivity(intent)

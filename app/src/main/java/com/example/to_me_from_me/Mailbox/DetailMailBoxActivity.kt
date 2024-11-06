@@ -29,7 +29,7 @@ class DetailMailBoxActivity : AppCompatActivity() {
         }
 
         // 인텐트에서 데이터 받기
-         val reservedate = intent.getStringExtra("reservedate")
+        val reservedate = intent.getStringExtra("reservedate")
         val selectedEmoji = intent.getStringExtra("selectedEmoji")
 
 
@@ -66,6 +66,7 @@ class DetailMailBoxActivity : AppCompatActivity() {
                 bundle.putString("ad2", intent.getStringExtra("ad2"))
                 bundle.putString("letter", "randomMail")
                 detailFragment.arguments = bundle
+                Log.d("IntentData", "Fragment arguments: ${detailFragment.arguments}")
 
             }
             "random2" -> {
@@ -127,4 +128,3 @@ class DetailMailBoxActivity : AppCompatActivity() {
         }
     }
 }
-
