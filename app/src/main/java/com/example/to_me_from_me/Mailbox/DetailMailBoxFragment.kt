@@ -161,10 +161,9 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
 
-        // 오늘 날짜를 가져옵니다.
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val targetDate = dateFormat.format(Date()) // 오늘 날짜 문자열
-        var firstDateShown = false // 첫 번째 date가 표시되었는지 여부를 추적
+        // 날짜 포맷 설정
+        val displayDateFormat = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
+        val inputDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
         if (uid != null) {
             firestore.collection("users").document(uid).collection("letters")
@@ -174,29 +173,30 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
                         var hasMatchingLetter = false
                         for (document in documents) {
                             val reservedateFromDb = document.getString("reservedate")
-                            val date = document.getString("date")
+                            val dateFromDb = document.getString("date")
 
-                            // onCreateView에서 받아온 reservedate와 Firestore의 reservedate 비교
+                            // onCreateView에서 받아온 reservedate와 Firestore의 reservedate를 비교
                             if (reservedateFromDb == reservedate) { // 일치하는 경우
                                 hasMatchingLetter = true
 
-                                // 날짜 형식 변환하여 표시
-                                val displayDateFormat = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
-                                if (!firstDateShown && date != null) {
-                                    val formattedDate = displayDateFormat.format(dateFormat.parse(date)!!)
-                                    dateTv2.text = formattedDate
-                                    Log.d("DetailMailBoxFragment", "표시된 날짜: $formattedDate")
-                                    firstDateShown = true
+                                // reservedate를 yyyy.MM.dd 형식으로 변환하여 dateTv2에 표시
+                                val formattedReservedate = displayDateFormat.format(inputDateFormat.parse(reservedateFromDb)!!)
+                                dateTv2.text = formattedReservedate // dateTv2에 reservedate 표시
+                                Log.d("DetailMailBoxFragment", "표시된 reservedate: $formattedReservedate")
+
+                                // date를 yyyy.MM.dd 형식으로 변환하여 dateTv1에 표시
+                                if (dateFromDb != null) {
+                                    val formattedDate = displayDateFormat.format(inputDateFormat.parse(dateFromDb)!!)
+                                    dateTv1.text = formattedDate // dateTv1에 date 표시
+                                    Log.d("DetailMailBoxFragment", "표시된 date: $formattedDate")
                                 }
 
-                                // 오늘 날짜를 표시
-                                val formattedCurrentDate = displayDateFormat.format(Date())
-                                dateTv2.text = formattedCurrentDate
                                 dateIv.visibility = View.VISIBLE
                                 dateTv2.visibility = View.VISIBLE
                                 dateIv.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_mail_re))
 
-                                displayLetter(document.data, dateFormat) // 일치하는 편지 표시
+                                displayLetter(document.data, inputDateFormat) // 일치하는 편지 표시
+                                break // 일치하는 편지를 찾았으므로 루프 종료
                             }
                         }
 
@@ -212,6 +212,7 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
                 }
         }
     }
+
 
 
 
