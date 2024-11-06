@@ -5,5 +5,6 @@ data class AlarmData(
     val title: String,    // 제목 텍스트
     val letter: String,   // 본문 텍스트
     val time: String,      // 시간 텍스트
-    val reservedate: String
+    val reservedate: String,
+    val clicked: Boolean
 )

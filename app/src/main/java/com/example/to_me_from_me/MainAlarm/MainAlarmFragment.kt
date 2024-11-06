@@ -79,7 +79,8 @@ class MainAlarmFragment : Fragment() {
                                     title = "편지가 도착했어!",
                                     letter = letterContent,
                                     time = time,
-                                    reservedate=reservedDate
+                                    reservedate=reservedDate,
+                                    clicked = false
                                 )
                             )
                         }

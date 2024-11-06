@@ -32,6 +32,25 @@ class MainAlarmActivity : AppCompatActivity() {
         userId = auth.currentUser?.uid
 
 
+        // SharedPreferences에서 저장된 값 확인
+        val sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
+        val situation = sharedPreferences.getString("situation", null)
+        val reservedate = sharedPreferences.getString("reservedate", null)
+        val emoji = sharedPreferences.getString("emoji", null)
+        val ad1 = sharedPreferences.getString("ad1", null)
+        val ad2 = sharedPreferences.getString("ad2", null)
+        val readStatus = sharedPreferences.getBoolean("readStatus", false)
+        Log.d("SharedPreferences", "situation: $situation, reservedate: $reservedate, emoji: $emoji, ad1: $ad1, ad2: $ad2, readStatus: $readStatus")
+
+
+        if (situation != null && reservedate != null) {
+            // 저장된 값이 있는 경우 MainAlarmFragment 로드
+            loadFragment(MainAlarmFragment(), situation, reservedate)
+        } else {
+            // 저장된 값이 없는 경우 MainNoAlarmFragment 로드
+            loadFragment(MainNoAlarmFragment(), null, null)
+        }
+
         // 예약 편지 알림을 통해 이동했는지 확인
         val fromNotification = intent.getBooleanExtra("fromNotification", false)
         if (fromNotification && userId != null) {
@@ -77,10 +96,9 @@ class MainAlarmActivity : AppCompatActivity() {
     }
 
 
-
     // 예약된 편지 내용 가져오기
     private fun fetchReservedLetter() {
-        // 현재 날짜를 "yyyy-MM-dd" 형식의 문자열로 변환
+        // 현재 날짜를 "yyyy-MM-dd HH:mm" 형식의 문자열로 변환
         val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
         val currentDateString = dateFormat.format(Date())
 
@@ -91,33 +109,33 @@ class MainAlarmActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener { letterDocuments ->
                 if (!letterDocuments.isEmpty) {
-
+                    // 모든 문서에서 reservedate가 있는 경우만 저장
                     for (document in letterDocuments) {
-                        val reservedDate  = document.getString("reservedate")
-                        Log.d("main알람", "reservedDate: $reservedDate \n currentDateString : $currentDateString")
+                        val reservedDate = document.getString("reservedate")
 
-                        // reservedDate가 null이 아니고 clickedAt과 같으면
-                        if (reservedDate != null && reservedDate == clickedAt) {
-                            Log.d("main알람", "예약된 편지 내용의 reservedDate와 clickedAt이 일치합니다: $reservedDate")
+                        if (reservedDate != null) {
+                            Log.d("main알람", "reservedDate: $reservedDate \n currentDateString : $currentDateString")
+
                             val situation = document.getString("situation")
                             val emoji = document.getString("emoji") // 필요에 따라 추가
                             val ad1 = document.getString("ad1") // 필요에 따라 추가
                             val ad2 = document.getString("ad2") // 필요에 따라 추가
                             val readStatus = document.getBoolean("readStatus")
-                            
-                            loadFragment(MainAlarmFragment(), situation, reservedDate)
-                            // 데이터를 SharedPreferences에 저장
+
+                            // SharedPreferences에 저장
                             saveDataToSharedPreferences(situation, reservedDate, emoji, ad1, ad2, readStatus)
                         }
                     }
                 } else {
                     Log.d("main알람", "일치하는 예약된 편지가 없습니다.")
-                    loadFragment(MainNoAlarmFragment(), null,null)
+                    loadFragment(MainNoAlarmFragment(), null, null)
                 }
             }
-
-
+            .addOnFailureListener { e ->
+                Log.e("main알람", "예약된 편지 가져오기 실패", e)
+            }
     }
+
 
     private fun saveDataToSharedPreferences(situation: String?, reservedate: String, emoji: String?, ad1: String?, ad2: String?, readStatus: Boolean?)
     {

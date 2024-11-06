@@ -57,7 +57,7 @@ class TimePickerDialogFragment : DialogFragment() {
             val minute = timePicker.minute
             val selectedTime = "$hour:$minute"
 
-            saveTimeToFirestore(hour, minute)
+            saveTimeToFirestore(hour, minute, isChecked = false)
 
             val nextFragment = RecorderFragment()
             parentFragmentManager.beginTransaction()
@@ -74,7 +74,7 @@ class TimePickerDialogFragment : DialogFragment() {
         }
     }
 
-    private fun saveTimeToFirestore(hour: Int, minute: Int) {
+    private fun saveTimeToFirestore(hour: Int, minute: Int, isChecked:Boolean) {
         val user = FirebaseAuth.getInstance().currentUser
         val currentDate = sharedViewModel.currentDate.value
         val selectedDateStr = selectedDate
@@ -97,7 +97,8 @@ class TimePickerDialogFragment : DialogFragment() {
 
                 // Firestore에 저장할 데이터
                 val letterData = mapOf<String, Any>(
-                    "reservedate" to reservedDate
+                    "reservedate" to reservedDate,
+                    "alramletter" to isChecked
                 )
 
                 userDocumentRef.update(letterData)
