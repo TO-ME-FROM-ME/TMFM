@@ -19,6 +19,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.to_me_from_me.LetterWrite.AdjectiveQ1Adapter
@@ -67,8 +68,8 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
     private lateinit var ad2Tv: TextView
     private lateinit var letterTv: TextView
 
+
     private lateinit var charCountTextView : TextView
-    private var dateVisible: Boolean = false // date_text 가시성 제어 변수
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -155,6 +156,26 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
         charCountTextView = view.findViewById<TextView>(R.id.char_count_tv)
 
         return view
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // 이미지 리소스 배열 생성
+        val letterImages = arrayOf(
+            R.drawable.letter1, R.drawable.letter2, R.drawable.letter3,
+            R.drawable.letter4, R.drawable.letter5, R.drawable.letter6,
+            R.drawable.letter7, R.drawable.letter8, R.drawable.letter9,
+            R.drawable.letter10, R.drawable.letter11
+        )
+
+        // 랜덤 이미지 선택
+        val randomImage = letterImages.random()
+
+        // ImageView에 랜덤 이미지 설정
+        val letterImage = view.findViewById<LinearLayout>(R.id.text_ll)
+        letterImage.setBackgroundResource(randomImage)
     }
 
     private fun receiveLetterLoad2() {
