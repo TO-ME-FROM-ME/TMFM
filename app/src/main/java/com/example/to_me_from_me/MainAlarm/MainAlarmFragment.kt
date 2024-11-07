@@ -55,7 +55,7 @@ class MainAlarmFragment : Fragment() {
         val calendar = Calendar.getInstance()
         calendar.time = currentDate
         calendar.add(Calendar.DAY_OF_YEAR, 7) // 현재 날짜 기준으로 일주일 뒤 날짜
-        val endDate = calendar.time
+        val oneWeekAgoDate  = calendar.time
 
         // Firestore에서 모든 예약된 편지 가져오기
         firestore.collection("users")
@@ -76,7 +76,7 @@ class MainAlarmFragment : Fragment() {
                             val reservedDateParsed = reservedDateFormat.parse(reservedDate)
 
                             if (reservedDateParsed != null) {
-                                val isWithinOneWeek = reservedDateParsed.after(currentDate) && reservedDateParsed.before(endDate)
+                                val isWithinOneWeek = reservedDateParsed.after(oneWeekAgoDate) && reservedDateParsed.before(currentDate)
                                 if (isWithinOneWeek || reservedDateParsed.before(currentDate)) {
                                     alarmDataList.add(
                                         AlarmData(

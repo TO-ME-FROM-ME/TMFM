@@ -114,7 +114,6 @@ class MainAlarmAdapter(
 
             } else {
                 container.setBackgroundResource(R.drawable.rounded_blue) // 읽지 않은 편지
-                container.alpha = 0.7f
             }
         }
     }

@@ -48,7 +48,6 @@ class ProfileImgFragment : BottomSheetDialogFragment() {
 
         // 초기 이미지 설정 및 클릭 리스너
         imageViews.forEach { imageView ->
-            //imageView.setImageResource(imageResourceMap[imageView.id] ?: R.drawable.ic_my_01)
             imageView.setOnClickListener { updateImageSelection(imageView) }
         }
 

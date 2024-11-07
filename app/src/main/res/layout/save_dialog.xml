@@ -59,7 +59,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:fontFamily="@font/notosans"
-            android:background="@drawable/solid_stroke_q"
+            android:background="@drawable/solid_stroke_q2"
             android:textColor="@color/black"/>
 
         <Button

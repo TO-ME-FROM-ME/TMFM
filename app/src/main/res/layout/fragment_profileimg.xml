@@ -41,8 +41,8 @@
 
                 <ImageView
                     android:id="@+id/excited_btn"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="68dp"
+                    android:layout_height="84dp"
                     android:layout_weight="1"
                     android:background="@drawable/ic_my_01"
                     android:clickable="true"
@@ -50,8 +50,8 @@
 
                 <ImageView
                     android:id="@+id/happy_btn"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="68dp"
+                    android:layout_height="84dp"
                     android:layout_weight="1"
                     android:layout_marginLeft="10dp"
                     android:background="@drawable/ic_my_02"
@@ -60,8 +60,8 @@
 
                 <ImageView
                     android:id="@+id/normal_btn"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="68dp"
+                    android:layout_height="84dp"
                     android:layout_weight="1"
                     android:layout_marginLeft="10dp"
                     android:background="@drawable/ic_my_03"
@@ -70,8 +70,8 @@
 
                 <ImageView
                     android:id="@+id/upset_btn"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="68dp"
+                    android:layout_height="84dp"
                     android:layout_weight="1"
                     android:layout_marginLeft="10dp"
                     android:background="@drawable/ic_my_04"
@@ -80,8 +80,8 @@
 
                 <ImageView
                     android:id="@+id/angry_btn"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="68dp"
+                    android:layout_height="84dp"
                     android:layout_weight="1"
                     android:layout_marginLeft="10dp"
                     android:background="@drawable/ic_my_05"
