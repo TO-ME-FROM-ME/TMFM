@@ -16,6 +16,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -38,6 +39,9 @@ class SituationFragment : BottomSheetDialogFragment() {
     private val tag = "SituationFragment"
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_situation, container, false)
+
+        val backButton: ImageView? = requireActivity().findViewById(R.id.back_iv)
+        backButton?.visibility = View.INVISIBLE
 
         firestore = FirebaseFirestore.getInstance()
 

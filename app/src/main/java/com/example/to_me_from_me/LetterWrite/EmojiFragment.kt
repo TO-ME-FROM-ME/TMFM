@@ -26,6 +26,9 @@ class EmojiFragment : BottomSheetDialogFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_emoji, container, false)
 
+        val backButton: ImageView? = requireActivity().findViewById(R.id.back_iv)
+        backButton?.visibility = View.VISIBLE
+
         val textView = view.findViewById<TextView>(R.id.user_situation_tv)
         sharedViewModel.situationText.observe(viewLifecycleOwner) { text ->
             textView.text = text

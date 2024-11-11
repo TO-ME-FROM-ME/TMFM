@@ -1,5 +1,6 @@
 package com.example.to_me_from_me.SetTest
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -15,6 +16,12 @@ import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
+import com.example.to_me_from_me.Mypage.AlarmReceiver
+import java.util.Calendar
+import android.provider.Settings
 
 class SETestFinActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
@@ -44,7 +51,7 @@ class SETestFinActivity : AppCompatActivity() {
         val finButton = findViewById<Button>(R.id.test_fin)
         finButton.setOnClickListener{
             saveTotalScoreToFirestore(totalScore)
-
+            setMonthlyAlarm()
         }
     }
     private fun saveTotalScoreToFirestore(totalScore: Int) {
@@ -66,6 +73,9 @@ class SETestFinActivity : AppCompatActivity() {
             val currentYear = SimpleDateFormat("YYYY", Locale.getDefault()).format(Date()).toInt()
             val currentMonth = SimpleDateFormat("MM", Locale.getDefault()).format(Date())
             val documentName = "$currentYear-$currentMonth" // 문서 이름을 "YYYY-MM" 형식으로 설정
+
+            val currentDate = System.currentTimeMillis()
+            userRef.update("testDate", currentDate)
 
             // 새로운 컬렉션에 totalScore 추가
             val scoreData = hashMapOf(
@@ -90,5 +100,43 @@ class SETestFinActivity : AppCompatActivity() {
             Toast.makeText(this, "로그인이 필요합니다.", Toast.LENGTH_SHORT).show()
         }
     }
+    @SuppressLint("ScheduleExactAlarm")
+    private fun setMonthlyAlarm() {
+        val user = auth.currentUser
+        if (user != null) {
+            val userRef = firestore.collection("users").document(user.uid)
+
+            // Firestore에서 testDate 필드 가져오기
+            userRef.get().addOnSuccessListener { document ->
+                if (document != null && document.contains("testDate")) {
+                    val testDate = document.getLong("testDate") ?: return@addOnSuccessListener
+                    Log.d("테스트알람", "Retrieved testDate: $testDate")
+                    val calendar = Calendar.getInstance().apply {
+                        timeInMillis = testDate
+                        add(Calendar.MINUTE, 1)  // 한 달 뒤로 설정
+                    }
+
+                    // AlarmManager로 알람 설정
+                    val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                    val intent = Intent(this, AlarmReceiver::class.java)
+                    val pendingIntent = PendingIntent.getBroadcast(
+                        this,
+                        0,
+                        intent,
+                        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                    )
+
+                    alarmManager.setExact(
+                        AlarmManager.RTC_WAKEUP,
+                        calendar.timeInMillis,
+                        pendingIntent
+                    )
+
+                    Log.d("테스트알람", "1달 뒤 알람 설정 완료")
+                }
+            }
+        }
+    }
+
 
 }
