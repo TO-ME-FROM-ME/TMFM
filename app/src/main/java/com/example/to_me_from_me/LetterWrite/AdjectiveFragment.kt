@@ -23,7 +23,6 @@ class AdjectiveFragment : BottomSheetDialogFragment(),
     private val sharedViewModel: ViewModel by activityViewModels()
     private lateinit var recyclerView: RecyclerView
     private var selectedCount = 0
-    private val maxSelection = 2
     private var isAdjectiveSelected = false
     private lateinit var nextButton: Button
     private lateinit var adapter: AdjectiveButtonAdapter
@@ -31,6 +30,9 @@ class AdjectiveFragment : BottomSheetDialogFragment(),
 
     private lateinit var ad1: Button
     private lateinit var ad2: Button
+
+
+    private var user_resId: Int? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_adjective, container, false)
@@ -67,29 +69,12 @@ class AdjectiveFragment : BottomSheetDialogFragment(),
             mutableListOf(),
             null,
             0
+
         )
         adapter.setOnButtonClickListener(this)
         recyclerView.adapter = adapter
         nextButton = view.findViewById(R.id.next_btn)
 
-        /*val isFromCWriteBtn = arguments?.getBoolean("isFromCWriteBtn", false) ?: false
-        if (isFromCWriteBtn) {
-            val ad1Text = arguments?.getString("ad1")
-            val ad2Text = arguments?.getString("ad2")
-
-            adapter.setSelectedButtonsByText(ad1Text, ad2Text)
-            updateAdButtons()
-            nextButton.isEnabled = true // nextButton 활성화
-            nextButton.background = ContextCompat.getDrawable(
-                requireContext(), R.drawable.solid_no_main
-            )
-        }
-        else{
-            nextButton.isEnabled = false
-            nextButton.background = ContextCompat.getDrawable(
-                requireContext(), R.drawable.solid_no_gray
-            )
-        }*/
 
         nextButton.setOnClickListener {
             if (isAdjectiveSelected) {
@@ -191,75 +176,75 @@ class AdjectiveFragment : BottomSheetDialogFragment(),
     private fun buttonDataList1(): List<ButtonData> {
         return listOf(
             ButtonData("감동적인"),
+            ButtonData("만족스러운"),
+            ButtonData("사랑스러운"),
+            ButtonData("열중한"),
+            ButtonData("놀라운"),
             ButtonData("든든한"),
             ButtonData("자랑스러운"),
-            ButtonData("홀가분한"),
-            ButtonData("깜짝놀란"),
-            ButtonData("혼란스러운"),
-            ButtonData("짜증나는"),
-            ButtonData("싸늘한"),
-            ButtonData("막막한"),
-            ButtonData("안타까운")
+            ButtonData("기대되는"),
+            ButtonData("평화로운"),
+            ButtonData("기쁜")
         )
     }
 
     private fun buttonDataList2(): List<ButtonData> {
         return listOf(
             ButtonData("감사한"),
-            ButtonData("만족스러운"),
             ButtonData("자신있는"),
+            ButtonData("재미있는"),
+            ButtonData("황홀한"),
+            ButtonData("신나는"),
+            ButtonData("홀가분한"),
             ButtonData("활기찬"),
-            ButtonData("당황한"),
-            ButtonData("답답한"),
-            ButtonData("귀찮은"),
-            ButtonData("지루한"),
-            ButtonData("미안한"),
-            ButtonData("외로운")
+            ButtonData("깜짝놀란"),
+            ButtonData("무관심한"),
+            ButtonData("편안한")
         )
     }
 
     private fun buttonDataList3(): List<ButtonData> {
         return listOf(
-            ButtonData("두려운"),
-            ButtonData("불안한"),
-            ButtonData("재미있는"),
-            ButtonData("황홀한"),
-            ButtonData("기대되는"),
+            ButtonData("긴장한"),
+            ButtonData("답답한"),
+            ButtonData("분한"),
+            ButtonData("부끄러운"),
+            ButtonData("부러운"),
+            ButtonData("짜증나는"),
+            ButtonData("귀찮은"),
             ButtonData("미운"),
-            ButtonData("무관심한"),
-            ButtonData("피곤한"),
-            ButtonData("서운한"),
-            ButtonData("우울한")
+            ButtonData("괴로운"),
+            ButtonData("혼란스러운")
         )
     }
 
     private fun buttonDataList4(): List<ButtonData> {
         return listOf(
-            ButtonData("기쁜"),
-            ButtonData("신나는"),
-            ButtonData("편안한"),
-            ButtonData("걱정스러운"),
+            ButtonData("싸늘한"),
+            ButtonData("당황한"),
+            ButtonData("두려운"),
             ButtonData("무서운"),
-            ButtonData("분한"),
-            ButtonData("부끄러운"),
-            ButtonData("괴로운"),
+            ButtonData("막막한"),
+            ButtonData("불안한"),
+            ButtonData("지루한"),
+            ButtonData("피곤한"),
             ButtonData("슬픈"),
-            ButtonData("좌절한")
+            ButtonData("걱정스러운")
         )
     }
 
     private fun buttonDataList5(): List<ButtonData> {
         return listOf(
-            ButtonData("놀라운"),
-            ButtonData("열중한"),
-            ButtonData("평화로운"),
-            ButtonData("건강한"),
-            ButtonData("사랑스러운"),
-            ButtonData("억울한"),
-            ButtonData("부러운"),
-            ButtonData("그리운"),
+            ButtonData("안타까운"),
+            ButtonData("미안한"),
+            ButtonData("서운한"),
+            ButtonData("외로운"),
             ButtonData("실망스러운"),
-            ButtonData("후회스러운")
+            ButtonData("그리운"),
+            ButtonData("억울한"),
+            ButtonData("우울한"),
+            ButtonData("후회스러운"),
+            ButtonData("좌절한")
         )
     }
 }
