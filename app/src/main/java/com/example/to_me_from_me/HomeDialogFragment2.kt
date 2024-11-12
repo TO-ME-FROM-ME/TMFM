@@ -32,7 +32,7 @@ class HomeDialogFragment2 : DialogFragment() {
         dialog?.window?.apply {
             val params = attributes
             params.x = 40
-            params.y = -450
+            params.y = -200
             attributes = params
         }
     }
