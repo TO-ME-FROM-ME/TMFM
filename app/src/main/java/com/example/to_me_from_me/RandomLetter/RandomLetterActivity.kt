@@ -35,9 +35,9 @@ class RandomLetterActivity : AppCompatActivity() {
                 currentIndex++
                 binding.imgIv.setImageResource(imageList[currentIndex])
                 updateSkipButtonVisibility()
-                letterClick()
+                //letterClick()
                 // 1초 후에 다시 실행
-                handler.postDelayed(this, 1500)
+                handler.postDelayed(this, 1000)
             } else {
                 // 끝에 도달하면 작업 중지
                 handler.removeCallbacks(this)
@@ -53,10 +53,9 @@ class RandomLetterActivity : AppCompatActivity() {
         // 초기 이미지 설정
         binding.imgIv.setImageResource(imageList[currentIndex])
         updateSkipButtonVisibility()
-        letterClick()
 
-        // 자동으로 1.5초마다 이미지 변경 시작
-        handler.postDelayed(imageSwitcher, 1500)
+        // 자동으로 1초마다 이미지 변경 시작
+        handler.postDelayed(imageSwitcher, 1000)
 
         val selectedEmoji = intent.getStringExtra("selectedEmoji")
 
@@ -88,21 +87,23 @@ class RandomLetterActivity : AppCompatActivity() {
 
     }
 
-    private fun letterClick() {
-        if (currentIndex == 4) {
-            binding.letterIv.visibility = ImageView.VISIBLE
-            binding.letterIv.setOnClickListener {
-                Log.d("letterIv", "letterIv clicked")
-            }
-        } else {
-            binding.letterIv.visibility = ImageView.GONE
-        }
-
-    }
+//    private fun letterClick() {
+//        if (currentIndex == 4) {
+//            binding.letterIv.visibility = ImageView.VISIBLE
+//            binding.skipIv.visibility = ImageView.GONE
+//            binding.letterIv.setOnClickListener {
+//                Log.d("letterIv", "letterIv clicked")
+//
+//            }
+//        } else {
+//            binding.letterIv.visibility = ImageView.GONE
+//        }
+//
+//    }
 
     private fun updateSkipButtonVisibility() {
         // currentIndex가 0일 때 skipIv 숨기기
-        binding.skipIv.visibility = if (currentIndex == 0 && currentIndex == 4 ) {
+        binding.skipIv.visibility = if (currentIndex == 0) {
             ImageView.GONE
         } else {
             ImageView.VISIBLE

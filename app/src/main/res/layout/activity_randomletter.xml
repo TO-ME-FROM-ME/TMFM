@@ -27,10 +27,10 @@
             android:src="@drawable/ic_home_icon"
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
-            android:layout_width="300dp"
-            android:layout_height="250dp"
-            android:visibility="gone"
-            android:alpha="0"/>
+            android:layout_width="400dp"
+            android:layout_height="550dp"
+            android:alpha="0"
+            />
 
 
         <ImageView
