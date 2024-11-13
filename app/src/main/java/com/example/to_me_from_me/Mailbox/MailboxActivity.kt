@@ -74,8 +74,8 @@ class MailboxActivity : AppCompatActivity(), MonthPickerDialogFragment.MonthSele
             nullMailboxFragment?.show(supportFragmentManager, nullMailboxFragment?.tag)
         } else {
             // 이미 열린 경우는 dismiss
-            nullMailboxFragment?.dismiss()
-            nullMailboxFragment = null // null로 설정하여 다음 호출 시 새로 생성
+            //nullMailboxFragment?.dismiss()
+            //nullMailboxFragment = null // null로 설정하여 다음 호출 시 새로 생성
         }
     }
 

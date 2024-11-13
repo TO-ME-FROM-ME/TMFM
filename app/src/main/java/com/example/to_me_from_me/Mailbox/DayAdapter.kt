@@ -59,7 +59,7 @@ class DayAdapter(
         if (currentDate == null) {
             holder.itemView.visibility = View.INVISIBLE
             holder.dayText.text = ""
-            holder.todayIv.isVisible = false
+            holder.todayIv.alpha = 0f
             return
         } else {
             holder.itemView.visibility = View.VISIBLE
@@ -86,7 +86,7 @@ class DayAdapter(
             firestore.collection("users").document(uid).collection("letters")
                 .get()
                 .addOnSuccessListener { documents ->
-                    holder.dayImg.isVisible = false
+                    holder.dayImg.alpha = 0f
                     holder.hasImage = false
 
                     if (!documents.isEmpty) {
@@ -109,12 +109,12 @@ class DayAdapter(
                                     val emoji = document.getString("emoji")
                                     if (emoji != null) {
                                         holder.dayImg.setImageResource(getEmojiDrawable(emoji))
-                                        holder.dayImg.isVisible = true
-                                        holder.dayCv.isVisible = false
+                                        holder.dayImg.alpha = 1f  // 아이콘을 보이도록 처리
+                                        holder.dayCv.alpha = 0f  // 카드뷰를 투명하게 처리
                                         holder.hasImage = true
                                     } else {
-                                        holder.dayImg.isVisible = false
-                                        holder.dayCv.isVisible = true
+                                        holder.dayImg.alpha = 0f  // 아이콘을 숨기고
+                                        holder.dayCv.alpha = 1f  // 카드뷰 보이게 처리
                                         holder.hasImage = false
                                     }
 
