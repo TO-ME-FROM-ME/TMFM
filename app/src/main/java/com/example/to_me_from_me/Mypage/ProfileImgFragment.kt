@@ -11,11 +11,15 @@ import androidx.fragment.app.setFragmentResult
 import com.example.to_me_from_me.R
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class ProfileImgFragment : BottomSheetDialogFragment() {
 
     private var selectedImgResId: Int = R.drawable.ic_my_01
     private var selectedImageView: ImageView? = null
+    private val firestore = FirebaseFirestore.getInstance()
+    private val auth = FirebaseAuth.getInstance()
 
     private val imageResourceMap = mapOf(
         R.id.excited_btn to R.drawable.ic_my_01,
@@ -35,6 +39,28 @@ class ProfileImgFragment : BottomSheetDialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_profileimg, container, false)
+        val uid = auth.currentUser?.uid
+
+        // Firestore에서 profileImage 필드를 가져와서 해당하는 버튼을 선택 상태로 설정
+        uid?.let {
+            firestore.collection("users").document(it)
+                .get()
+                .addOnSuccessListener { document ->
+                    if (document.exists()) {
+                        val profileImageNumber = document.getLong("profileImage")?.toInt() ?: 1
+                        val selectedButtonId = when (profileImageNumber) {
+                            2131165489 -> R.id.excited_btn
+                            2131165491 -> R.id.happy_btn
+                            2131165493 -> R.id.normal_btn
+                            2131165495 -> R.id.upset_btn
+                            2131165497 -> R.id.angry_btn
+                            else -> R.id.excited_btn // 기본값
+                        }
+                        // 초기 선택된 이미지 강조
+                        updateImageSelection(view.findViewById(selectedButtonId))
+                    }
+                }
+        }
 
         val imageViews = imageResourceMap.keys.map { view.findViewById<ImageView>(it) }
 
@@ -46,37 +72,27 @@ class ProfileImgFragment : BottomSheetDialogFragment() {
             dismiss()
         }
 
-        // 초기 이미지 설정 및 클릭 리스너
+        // 각 이미지 뷰에 클릭 리스너 추가
         imageViews.forEach { imageView ->
             imageView.setOnClickListener { updateImageSelection(imageView) }
         }
 
-        // 선택된 이미지 강조
-        updateImageSelection(view.findViewById(selectedImageView?.id ?: R.id.excited_btn))
-
         return view
     }
 
-    // 선택된 이미지를 업데이트하는 함수
     private fun updateImageSelection(newImageView: ImageView) {
-        // 선택된 이미지가 있다면 기본 상태로 되돌리기
+        // 이전에 선택된 이미지가 있다면 원래 이미지로 변경
         selectedImageView?.let {
             it.setImageResource(imageResourceMap[it.id] ?: R.drawable.ic_my_01)
-            it.visibility = View.VISIBLE // 원래 이미지를 다시 보이게 함
-
         }
 
-        // 새로운 이미지를 강조하고 숨기기
+        // 새로운 선택된 이미지 강조
         newImageView.setImageResource(selectedImageResourceMap[newImageView.id] ?: R.drawable.ic_my_01_s)
         selectedImageView = newImageView
 
-        // 현재 선택된 이미지 뷰 및 리소드 ID 업데이트
-        selectedImageView = newImageView
+        // 현재 선택된 이미지 리소스 ID 업데이트
         selectedImgResId = selectedImageResourceMap[newImageView.id] ?: R.drawable.ic_my_01_s
     }
-
-
-
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return BottomSheetDialog(requireActivity(), R.style.TransparentBottomSheetDialogTheme2).apply {
