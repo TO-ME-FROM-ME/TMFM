@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import com.example.to_me_from_me.LoginActivity
 import com.example.to_me_from_me.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -51,7 +52,13 @@ class MyPageFragment : Fragment() {
         val userDeleteAcc = view.findViewById<ImageView>(R.id.deleteacc_go)
 
         userProfile.setOnClickListener {
-            startActivity(Intent(activity, EditProfileActivity::class.java))
+            if (auth.currentUser != null) {
+                // 사용자가 로그인한 상태이면 프로필 편집 화면으로 이동
+                startActivity(Intent(activity, EditProfileActivity::class.java))
+            } else {
+                // 로그인이 되어 있지 않으면 LoginActivity로 이동
+                startActivity(Intent(activity, LoginActivity::class.java))
+            }
         }
 
         userAlarm.setOnClickListener {
