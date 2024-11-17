@@ -38,7 +38,7 @@
 
         <!-- Main Activity -->
         <activity
-            android:name=".MainActivity"
+            android:name=".Signup.SignupFinishActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.TO_ME_FROM_ME">
@@ -62,7 +62,7 @@
         <activity android:name=".SetTest.SETestFinActivity" />
         <activity android:name=".Signup.SignupNicknameActivity" />
         <activity android:name=".Signup.SignupEmailActivity" />
-        <activity android:name=".Signup.SignupFinishActivity" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".Signup.SignupPwdActivity" />
         <activity android:name=".Mypage.EditProfileActivity" />
         <activity android:name=".Mypage.DeleteAccActivity" />
@@ -74,6 +74,9 @@
             android:name=".LetterWrite.WriteLetterActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".SetTest.SETestActivity" />
+        <receiver
+            android:name=".SetTest.TestAlarmReceiver"
+            android:exported="true" />
 
     </application>
 </manifest>
