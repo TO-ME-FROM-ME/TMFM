@@ -11,6 +11,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.example.to_me_from_me.MainActivity
 import com.example.to_me_from_me.R
+import com.example.to_me_from_me.Signup.SignupFinishActivity
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -47,8 +48,13 @@ class TestAlarmReceiver : BroadcastReceiver() {
             notificationManager.createNotificationChannel(notificationChannel)
         }
 
-        val notificationIntent = Intent(context, MainActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+        val notificationIntent = Intent(context, SignupFinishActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(
+            context,
+            0,
+            notificationIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
 
         Log.d("알람", "pendingIntent : $pendingIntent")
 
@@ -56,7 +62,7 @@ class TestAlarmReceiver : BroadcastReceiver() {
         val notificationBuilder = NotificationCompat.Builder(context, "ALARM_CHANNEL")
             .setSmallIcon(R.drawable.ic_letter_alram)
             .setContentTitle("TO ME FROM ME")
-            .setContentText("테스트 알람")
+            .setContentText("이번 달 나의 자존감 확인하기!")
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)

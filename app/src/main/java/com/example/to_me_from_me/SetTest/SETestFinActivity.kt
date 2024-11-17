@@ -19,6 +19,7 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import com.example.to_me_from_me.Mypage.AlarmReceiver
+import com.example.to_me_from_me.SetTest.TestAlarmReceiver
 import java.util.Calendar
 
 class SETestFinActivity : AppCompatActivity() {
@@ -98,52 +99,44 @@ class SETestFinActivity : AppCompatActivity() {
             // 현재 날짜 형식 생성
             val testDate = SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault()).format(Date())
 
+            Log.d("Firestore", "저장할 testDate 값: $testDate")
+
             // testDate 필드에 현재 날짜 저장
             userRef.update("testDate", testDate)
                 .addOnSuccessListener {
                     Log.d("Firestore", "testDate successfully updated!")
-                }
-                .addOnFailureListener { e ->
-                    Log.w("Firestore", "Error updating testDate", e)
                 }
         }
     }
 
     @SuppressLint("ScheduleExactAlarm")
     private fun setMonthlyAlarm() {
-        val user = auth.currentUser
-        if (user != null) {
-            val userRef = firestore.collection("users").document(user.uid)
-
-            // Firestore에서 testDate 필드 가져오기
-            userRef.get().addOnSuccessListener { document ->
-                if (document != null && document.contains("testDate")) {
-                    val testDate = document.getString("testDate") ?: return@addOnSuccessListener
-                    Log.d("테스트알람", "Retrieved testDate: $testDate")
-
-                    val calendar = Calendar.getInstance().apply {
-                        timeInMillis = System.currentTimeMillis()  // 현재 시간으로 설정
-                        add(Calendar.SECOND, 30)  // 30초 후로 설정
-                    }
-
-                    val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-                    val intent = Intent(this, TestAlarmReceiver::class.java)
-                    val pendingIntent = PendingIntent.getBroadcast(
-                        this,
-                        0,
-                        intent,
-                        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-                    )
-
-                    alarmManager.setExact(
-                        AlarmManager.RTC_WAKEUP,
-                        calendar.timeInMillis,
-                        pendingIntent
-                    )
-
-                    Log.d("테스트알람", "1달 후 알람 설정 완료")
-                }
-            }
+        val calendar = Calendar.getInstance().apply {
+            timeInMillis = System.currentTimeMillis()
+            add(Calendar.SECOND, 10)  // 1달 후
         }
+
+        val intent = Intent(this, TestAlarmReceiver::class.java).apply {
+            putExtra("selected_hour", calendar.get(Calendar.HOUR_OF_DAY))
+            putExtra("selected_minute", calendar.get(Calendar.MINUTE))
+        }
+
+        val pendingIntent = PendingIntent.getBroadcast(
+            this,
+            0,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        alarmManager.setExact(
+            AlarmManager.RTC_WAKEUP,
+            calendar.timeInMillis,
+            pendingIntent
+        )
+
+        Log.d("알람", "알람 설정 완료: ${calendar.time}")
     }
+
+
 }
