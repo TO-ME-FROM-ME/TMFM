@@ -10,31 +10,31 @@
         android:maxSdkVersion="28" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
-    <!-- 포그라운드 설정 -->
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-
-    <!-- 정확한 알람 설정을 위한 권한 추가 -->
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
-
     <uses-permission android:name="android.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
+        android:enableOnBackInvokedCallback="true"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TO_ME_FROM_ME"
-        android:enableOnBackInvokedCallback="true"
         tools:targetApi="31">
+
+        <!-- MusicService 선언 (중복 제거) -->
+        <service
+            android:name=".MusicService"
+            android:enabled="true"
+            android:exported="true"></service>
 
         <!-- Main Activity -->
         <activity
@@ -47,42 +47,33 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".services.NotificationService"  android:exported="false"/>
-<!--        <receiver-->
-<!--            android:name=".MainAlarm.MainAlarmReceiver"-->
-<!--            android:exported="true">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="com.example.to_me_from_me.ACTION_ALARM" />-->
-<!--            </intent-filter>-->
-<!--        </receiver>-->
 
-        <!-- Other -->
-        <activity android:name=".Mypage.AlarmActivity"/>
-        <receiver android:name=".Mypage.AlarmReceiver" android:exported="true" />
-
-        <activity android:name=".LoginActivity"/>
-        <activity android:name=".RandomLetter.RandomLetterActivity"/>
-        <activity android:name=".FindPwdActivity"/>
-        <activity android:name=".SetTest.SETestFinActivity"/>
+        <!-- Additional Services and Activities -->
+        <service
+            android:name=".services.NotificationService"
+            android:exported="false" />
+        <activity android:name=".Mypage.AlarmActivity" />
+        <receiver
+            android:name=".Mypage.AlarmReceiver"
+            android:exported="true" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".RandomLetter.RandomLetterActivity" />
+        <activity android:name=".FindPwdActivity" />
+        <activity android:name=".SetTest.SETestFinActivity" />
         <activity android:name=".Signup.SignupNicknameActivity" />
         <activity android:name=".Signup.SignupEmailActivity" />
         <activity android:name=".Signup.SignupFinishActivity" />
-        <activity android:name=".Signup.SignupPwdActivity"/>
+        <activity android:name=".Signup.SignupPwdActivity" />
         <activity android:name=".Mypage.EditProfileActivity" />
         <activity android:name=".Mypage.DeleteAccActivity" />
         <activity android:name=".Mailbox.MailboxActivity" />
-        <activity android:name=".Mailbox.DetailMailBoxActivity"/>
-
-        <activity android:name=".MainAlarm.MainAlarmActivity"/>
-
+        <activity android:name=".Mailbox.DetailMailBoxActivity" />
+        <activity android:name=".MainAlarm.MainAlarmActivity" />
         <activity android:name=".CoachMark.CoachMarkActivity" />
         <activity
             android:name=".LetterWrite.WriteLetterActivity"
             android:windowSoftInputMode="adjustResize" />
-
         <activity android:name=".SetTest.SETestActivity" />
-
-
 
     </application>
 </manifest>

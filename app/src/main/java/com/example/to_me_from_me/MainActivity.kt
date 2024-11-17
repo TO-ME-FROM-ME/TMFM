@@ -27,11 +27,9 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     private lateinit var firestore: FirebaseFirestore
     private lateinit var binding: ActivityMainBinding
     private lateinit var overlay: View
-    var selectedEmoji: String? = null
-
     private val bottomNavigation by lazy { findViewById<BottomNavigationView>(R.id.bottom_navigation) }
 
-
+    var selectedEmoji: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,19 +38,16 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
         overlay = findViewById(R.id.overlay) // 오버레이 뷰 초기화
 
-
+        // 배경음악 재생
+        startBackgroundMusic()
         scheduleNotification()
-        Log.d("main알람", "scheduleNotification() 실행완료")
 
+        Log.d("main알람", "scheduleNotification() 실행완료")
 
         // SharedPreferences에서 이메일 불러오기
         val sharedPref = getSharedPreferences("UserPref", MODE_PRIVATE)
         val email = sharedPref.getString("userEmail", null) // 저장된 이메일 불러오기
-        if (email != null) {
-            Log.d("UserPref", "사용자 이메일: $email")
-        } else {
-            Log.d("UserPref", "저장된 이메일이 없습니다.")
-        }
+        Log.d("UserPref", if (email != null) "사용자 이메일: $email" else "저장된 이메일이 없습니다.")
 
         // 리스너 연결
         bottomNavigation.setOnNavigationItemSelectedListener(this)
@@ -62,37 +57,38 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         val colorStateList = resources.getColorStateList(R.color.navigation_item_color, theme)
         bottomNavigation.itemIconTintList = null
         bottomNavigation.itemTextColor = colorStateList
-        bottomNavigation.setOnNavigationItemSelectedListener(this)
 
         selectedEmoji = intent.getStringExtra("selectedEmoji")
         Log.d("selectedEmoji", "onCreate: $selectedEmoji")
 
-
         if (intent.getBooleanExtra("showDialog", false)) {
             showOverlayAndShowDialog()
         }
-
-
     }
+
+    private fun startBackgroundMusic() {
+        val musicServiceIntent = Intent(this, MusicService::class.java)
+        startService(musicServiceIntent)
+    }
+
+    private fun stopBackgroundMusic() {
+        val musicServiceIntent = Intent(this, MusicService::class.java)
+        stopService(musicServiceIntent)
+    }
+
     private fun showOverlayAndShowDialog() {
-        // 하얀 화면을 즉시 나타나게 함
         binding.overlay.visibility = View.VISIBLE
-        binding.overlay.alpha = 1f // 즉시 보이도록 설정
-
-        // 하얀 화면을 서서히 사라지게 함
+        binding.overlay.alpha = 1f
         binding.overlay.animate()
-            .alpha(0f) // alpha 값을 0으로 변경
-            .setDuration(2000) // 애니메이션 지속 시간
+            .alpha(0f)
+            .setDuration(2000)
             .withEndAction {
-                // 애니메이션이 끝난 후 다이얼로그 보여주기
                 showRandomDialog()
-                binding.overlay.visibility = View.GONE // 애니메이션 후 뷰 숨기기
+                binding.overlay.visibility = View.GONE
             }
-
     }
 
     private fun scheduleNotification() {
-
         val user = FirebaseAuth.getInstance().currentUser
         val uid = user?.uid
 
@@ -109,24 +105,22 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                                 val date = dateFormat.parse(reservedDateString)
                                 Log.d("main알람", "date: $date")
 
-                                // 알람 매니저 설정
                                 val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
                                 val intent = Intent(this, NotificationService::class.java).apply {
                                     putExtra("message", " ") // 알림에 사용할 메시지
                                     putExtra("reservedDate", reservedDateString)
                                 }
-                                // 고유 ID를 사용하여 PendingIntent 생성
-                                val pendingIntent = PendingIntent.getService(this, reservedDateString.hashCode(), intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
-                                // 이미 설정된 알림이 있는지 확인
+                                val pendingIntent = PendingIntent.getService(
+                                    this, reservedDateString.hashCode(), intent,
+                                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                                )
                                 if (date.time > System.currentTimeMillis()) {
-                                    // 예약된 시간에 알림 설정
                                     alarmManager.setExact(AlarmManager.RTC_WAKEUP, date.time, pendingIntent)
                                     Log.d("main알람", "알림 예약: ${date.time} (formatted: $reservedDateString)")
                                 } else {
                                     Log.d("main알람", "예약된 시간이 현재 시간보다 이전입니다. 알림을 예약하지 않습니다.")
                                 }
                             }
-                            //isNotificationScheduled = true // 알림 설정 완료 플래그 업데이트
                         }
                     } else {
                         Log.d("main알람", "Firebase : 해당 문서가 없습니다.")
@@ -134,8 +128,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 }
         }
     }
-
-
 
     private fun showRandomDialog() {
         val randomDialogFragment = RandomDialogFragment().apply {
@@ -192,26 +184,32 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         menu.findItem(R.id.profile).setIcon(R.drawable.ic_profile)
     }
 
-    // 하얀색 오버레이 보여주기
     internal fun showOverlayAndStartActivity() {
-        overlay.visibility = View.VISIBLE // 오버레이 보이기
-        fadeIn(overlay) // 오버레이 서서히 나타나기
-
-        // 일정 시간 후에 Activity 이동
+        overlay.visibility = View.VISIBLE
+        fadeIn(overlay)
         overlay.postDelayed({
             val intent = Intent(this, RandomLetterActivity::class.java)
             intent.putExtra("selectedEmoji", selectedEmoji)
             Log.d("selectedEmoji", "메인 : $selectedEmoji")
             startActivity(intent)
             overridePendingTransition(0, 0)
-            finish() // MainActivity 종료
-        }, 300) // 300ms 후에 이동
+            finish()
+        }, 300)
     }
 
     private fun fadeIn(view: View) {
         val animator = ObjectAnimator.ofFloat(view, "alpha", 0f, 1f)
-        animator.duration = 600 // 애니메이션 지속 시간 (600ms)
+        animator.duration = 600
         animator.start()
     }
-}
 
+    override fun onStop() {
+        super.onStop()
+        stopBackgroundMusic() // 사용자가 앱을 떠날 때 배경음악 중지
+    }
+
+    override fun onStart() {
+        super.onStart()
+        startBackgroundMusic() // MainActivity로 돌아오면 배경음악 재생
+    }
+}
