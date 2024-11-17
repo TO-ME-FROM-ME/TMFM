@@ -60,6 +60,7 @@ class MonthAdapter(
     override fun onBindViewHolder(holder: Month, position: Int) {
         val listLayout = holder.view.findViewById<RecyclerView>(R.id.month_recycler)
         val monthIv = holder.view.findViewById<View>(R.id.month_down_iv)
+        val titleText = holder.view.findViewById<TextView>(R.id.title)
 
         calendar.time = selectedDate // 현재 날짜 초기화
         calendar.set(Calendar.DAY_OF_MONTH, 1) // 스크롤 시 현재 월의 1일로 이동
@@ -79,7 +80,20 @@ class MonthAdapter(
         }
 
 
-        val titleText: TextView = holder.view.findViewById(R.id.title)
+        titleText.setOnClickListener {
+            val dialogFragment = MonthPickerDialogFragment(
+                selectedYear = calendar.get(Calendar.YEAR),
+                selectedMonth = calendar.get(Calendar.MONTH)
+            )
+            Log.d("MonthPicker","넘길때 -> ${calendar.get(Calendar.YEAR)}, ${calendar.get(Calendar.MONTH)+1}")
+            dialogFragment.setStyle(
+                DialogFragment.STYLE_NORMAL,
+                R.style.RoundedBottomSheetDialogTheme
+            )
+            dialogFragment.show(fragmentManager, "MonthPickerDialogFragment")
+        }
+
+
         val currentMonth = calendar.get(Calendar.MONTH) + 1
         titleText.text ="${calendar.get(Calendar.YEAR)}년 ${currentMonth}월"
 

@@ -54,7 +54,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
-        android:layout_marginTop="115dp"
         app:layout_constraintBottom_toTopOf="@id/next_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,6 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="150dp"
             android:src="@drawable/ic_deleteacc" />
 
         <TextView
@@ -71,8 +71,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
-            android:text="그동안 작성한 모든 편지가 사라져.."
             android:fontFamily="@font/notosans"
+            android:text="그동안 작성한 모든 편지가 사라져.."
             android:textColor="@color/black"
             android:textSize="20dp" />
 
@@ -80,9 +80,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="한 번만 다시 생각해보면 안 될까?"
-            android:fontFamily="@font/notosans"
             android:layout_marginTop="-20dp"
+            android:fontFamily="@font/notosans"
+            android:text="한 번만 다시 생각해보면 안 될까?"
             android:textColor="@color/black"
             android:textSize="20dp" />
     </LinearLayout>

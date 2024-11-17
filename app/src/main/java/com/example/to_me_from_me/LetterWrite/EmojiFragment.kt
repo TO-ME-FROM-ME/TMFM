@@ -44,18 +44,18 @@ class EmojiFragment : BottomSheetDialogFragment() {
 
         val buttons = listOf(excitedButton, happyButton, normalButton, upsetButton, angryButton)
         val activeDrawables = listOf(
-            R.drawable.excited_s,
-            R.drawable.happy_s,
-            R.drawable.normal_s,
-            R.drawable.upset_s,
-            R.drawable.angry_s
+            R.drawable.excited_s1,
+            R.drawable.happy_s1,
+            R.drawable.normal_s1,
+            R.drawable.upset_s1,
+            R.drawable.angry_s1
         )
         val inactiveDrawables = listOf(
-            R.drawable.excited,
-            R.drawable.happy,
-            R.drawable.normal,
-            R.drawable.upset,
-            R.drawable.angry
+            R.drawable.excited2,
+            R.drawable.happy2,
+            R.drawable.normal2,
+            R.drawable.upset2,
+            R.drawable.angry2
         )
 
         val isFromCWriteBtn = arguments?.getBoolean("isFromCWriteBtn", false) ?: false
@@ -65,11 +65,11 @@ class EmojiFragment : BottomSheetDialogFragment() {
                 val emojiResId = getResourceIdByName(emojiName)
                 if (emojiResId != 0) { // 유효한 리소스 ID인지 확인
                     val index = when (emojiResId) {
-                        R.drawable.excited_s -> 0
-                        R.drawable.happy_s -> 1
-                        R.drawable.normal_s -> 2
-                        R.drawable.upset_s -> 3
-                        R.drawable.angry_s -> 4
+                        R.drawable.excited_s1 -> 0
+                        R.drawable.happy_s1 -> 1
+                        R.drawable.normal_s1 -> 2
+                        R.drawable.upset_s1 -> 3
+                        R.drawable.angry_s1 -> 4
                         else -> -1 // 유효하지 않은 경우
                     }
                     if (index != -1) {
@@ -84,31 +84,31 @@ class EmojiFragment : BottomSheetDialogFragment() {
                         ContextCompat.getDrawable(requireContext(), R.drawable.solid_no_main)
 
                     when (emojiResId) {
-                        R.drawable.excited_s -> setActiveButton(
+                        R.drawable.excited_s1 -> setActiveButton(
                             excitedButton,
                             activeDrawables[0],
                             inactiveDrawables
                         )
 
-                        R.drawable.happy_s -> setActiveButton(
+                        R.drawable.happy_s1 -> setActiveButton(
                             happyButton,
                             activeDrawables[1],
                             inactiveDrawables
                         )
 
-                        R.drawable.normal_s -> setActiveButton(
+                        R.drawable.normal_s1 -> setActiveButton(
                             normalButton,
                             activeDrawables[2],
                             inactiveDrawables
                         )
 
-                        R.drawable.upset_s -> setActiveButton(
+                        R.drawable.upset_s1 -> setActiveButton(
                             upsetButton,
                             activeDrawables[3],
                             inactiveDrawables
                         )
 
-                        R.drawable.angry_s -> setActiveButton(
+                        R.drawable.angry_s1 -> setActiveButton(
                             angryButton,
                             activeDrawables[4],
                             inactiveDrawables

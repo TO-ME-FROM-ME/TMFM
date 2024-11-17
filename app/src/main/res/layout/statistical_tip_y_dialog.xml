@@ -82,7 +82,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" 매우 기쁨, 기쁨, 보통, 슬픔, 분노 5가지 감정 중 어떤 감정을 많이 느끼는지 알 수 있어"
+                android:text=" 매우 기쁨, 기쁨, 보통, 슬픔, 분노 5가지 감정 중 어떤 감정을 많이 느끼는지 알 수 있어."
                 android:textSize="13dp"
                 android:fontFamily="@font/notosans"
                 android:textColor="@color/black" />

@@ -44,7 +44,7 @@
                     android:layout_width="68dp"
                     android:layout_height="84dp"
                     android:layout_weight="1"
-                    android:background="@drawable/ic_my_01"
+                    android:background="@drawable/excited2"
                     android:clickable="true"
                     android:focusable="true"/>
 
@@ -54,7 +54,7 @@
                     android:layout_height="84dp"
                     android:layout_weight="1"
                     android:layout_marginLeft="10dp"
-                    android:background="@drawable/ic_my_02"
+                    android:background="@drawable/happy2"
                     android:clickable="true"
                     android:focusable="true"/>
 
@@ -64,7 +64,7 @@
                     android:layout_height="84dp"
                     android:layout_weight="1"
                     android:layout_marginLeft="10dp"
-                    android:background="@drawable/ic_my_03"
+                    android:background="@drawable/normal2"
                     android:clickable="true"
                     android:focusable="true"/>
 
@@ -74,7 +74,7 @@
                     android:layout_height="84dp"
                     android:layout_weight="1"
                     android:layout_marginLeft="10dp"
-                    android:background="@drawable/ic_my_04"
+                    android:background="@drawable/upset2"
                     android:clickable="true"
                     android:focusable="true"/>
 
@@ -84,7 +84,7 @@
                     android:layout_height="84dp"
                     android:layout_weight="1"
                     android:layout_marginLeft="10dp"
-                    android:background="@drawable/ic_my_05"
+                    android:background="@drawable/angry2"
                     android:clickable="true"
                     android:focusable="true"/>
 

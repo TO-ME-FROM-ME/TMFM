@@ -62,6 +62,7 @@
             android:textColor="@color/black"
             android:layout_marginEnd="10dp"
             android:text="감정1"
+            android:fontFamily="@font/bnotosans"
             android:textSize="12dp"
             android:visibility="gone"/>
         <Button
@@ -69,6 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingHorizontal="10dp"
+            android:fontFamily="@font/bnotosans"
             android:background="@drawable/solid_no_stroke_t"
             android:textColor="@color/black"
             android:text="감정2"

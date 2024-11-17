@@ -79,7 +79,7 @@
             android:id="@+id/frame_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="20dp">
+            android:padding="15dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -89,45 +89,41 @@
 
                 <ImageView
                     android:id="@+id/excited_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/excited"
+                    android:layout_width="80dp"
+                    android:layout_height="100dp"
+                    android:background="@drawable/excited2"
                     android:clickable="true"
                     android:focusable="true"/>
 
                 <ImageView
                     android:id="@+id/happy_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:background="@drawable/happy"
+                    android:layout_width="80dp"
+                    android:layout_height="100dp"
+                    android:background="@drawable/happy2"
                     android:clickable="true"
                     android:focusable="true"/>
 
                 <ImageView
                     android:id="@+id/normal_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:background="@drawable/normal"
+                    android:layout_width="80dp"
+                    android:layout_height="100dp"
+                    android:background="@drawable/normal2"
                     android:clickable="true"
                     android:focusable="true"/>
 
                 <ImageView
                     android:id="@+id/upset_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:background="@drawable/upset"
+                    android:layout_width="80dp"
+                    android:layout_height="100dp"
+                    android:background="@drawable/upset2"
                     android:clickable="true"
                     android:focusable="true"/>
 
                 <ImageView
                     android:id="@+id/angry_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:background="@drawable/angry"
+                    android:layout_width="80dp"
+                    android:layout_height="100dp"
+                    android:background="@drawable/angry2"
                     android:clickable="true"
                     android:focusable="true"/>
 

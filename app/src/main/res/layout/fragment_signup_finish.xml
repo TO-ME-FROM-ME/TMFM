@@ -30,12 +30,21 @@
 
 
         <ImageView
+            android:layout_width="450dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_send"/>
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_send"/>
+            android:gravity="center"
+            android:textSize="20dp"
+            android:fontFamily="@font/gangwon"
+            android:text="만나게 되어 반가워~"/>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="10dp" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

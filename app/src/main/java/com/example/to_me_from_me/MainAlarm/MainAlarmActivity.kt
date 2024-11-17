@@ -51,6 +51,7 @@ class MainAlarmActivity : AppCompatActivity() {
             loadFragment(MainNoAlarmFragment(), null, null)
         }
 
+
         // 예약 편지 알림을 통해 이동했는지 확인
         val fromNotification = intent.getBooleanExtra("fromNotification", false)
         if (fromNotification && userId != null) {

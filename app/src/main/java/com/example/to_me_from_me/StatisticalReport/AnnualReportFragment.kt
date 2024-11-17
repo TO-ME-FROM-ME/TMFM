@@ -44,9 +44,8 @@ class AnnualReportFragment : Fragment(), AnnualPickerDialogFragment.YearSelectio
     private lateinit var pb4Iv: ImageView
 
 
-    private lateinit var framelayout : FrameLayout
     private lateinit var textlayout : LinearLayout
-
+    private lateinit var annualFl : FrameLayout
 
     private lateinit var firestore: FirebaseFirestore
     private val user = FirebaseAuth.getInstance().currentUser
@@ -64,13 +63,13 @@ class AnnualReportFragment : Fragment(), AnnualPickerDialogFragment.YearSelectio
 
         firestore = FirebaseFirestore.getInstance()
 
-        framelayout = view.findViewById(R.id.annual_fl)
-
         pbLIv = view.findViewById(R.id.pb_l_iva)
         pb1Iv = view.findViewById(R.id.pb_1_iva)
         pb2Iv = view.findViewById(R.id.pb_2_iva)
         pb3Iv = view.findViewById(R.id.pb_3_iva)
         pb4Iv = view.findViewById(R.id.pb_4_iva)
+
+        annualFl  = view.findViewById(R.id.annual_fl)
 
         cardView1Tv = view.findViewById(R.id.adjective1_tva)
         cardView2Tv = view.findViewById(R.id.adjective2_tva)
@@ -279,6 +278,9 @@ class AnnualReportFragment : Fragment(), AnnualPickerDialogFragment.YearSelectio
 
         Log.d("annual", "selectedYear > $selectedYear ,displayedYear > $displayedYear ")
 
+        // annualFl을 처음에 숨김
+        annualFl.isVisible = false
+
 
         if (uid != null) {
             firestore.collection("users").document(uid).collection("letters")
@@ -335,10 +337,10 @@ class AnnualReportFragment : Fragment(), AnnualPickerDialogFragment.YearSelectio
                         // 데이터가 없으면 버튼 보여주기
                         if (totalCount == 0) {
                             Log.d("annual", "annual의 값이 없습니다.")
-                            framelayout.isVisible = false
+                            annualFl.isVisible = false
                         } else {
                             // 비율 계산 및 ProgressBar 업데이트
-                            framelayout.isVisible = true
+                            annualFl.isVisible = true
                             AnnualupdateProgressBars(emojiCounts, totalCount)
                         }
 
@@ -375,7 +377,7 @@ class AnnualReportFragment : Fragment(), AnnualPickerDialogFragment.YearSelectio
                         }
                         Log.d("annual", " $topThreeAds")
                     } else {
-                        framelayout.isEnabled =false
+
                     }
                 }
                 .addOnFailureListener { e ->

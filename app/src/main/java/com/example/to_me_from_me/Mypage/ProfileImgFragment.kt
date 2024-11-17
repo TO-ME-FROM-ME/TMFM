@@ -22,19 +22,19 @@ class ProfileImgFragment : BottomSheetDialogFragment() {
     private val auth = FirebaseAuth.getInstance()
 
     private val imageResourceMap = mapOf(
-        R.id.excited_btn to R.drawable.ic_my_01,
-        R.id.happy_btn to R.drawable.ic_my_02,
-        R.id.normal_btn to R.drawable.ic_my_03,
-        R.id.upset_btn to R.drawable.ic_my_04,
-        R.id.angry_btn to R.drawable.ic_my_05
+        R.id.excited_btn to R.drawable.excited2,
+        R.id.happy_btn to R.drawable.happy2,
+        R.id.normal_btn to R.drawable.normal2,
+        R.id.upset_btn to R.drawable.upset2,
+        R.id.angry_btn to R.drawable.angry2
     )
 
     private val selectedImageResourceMap = mapOf(
-        R.id.excited_btn to R.drawable.ic_my_01_s,
-        R.id.happy_btn to R.drawable.ic_my_02_s,
-        R.id.normal_btn to R.drawable.ic_my_03_s,
-        R.id.upset_btn to R.drawable.ic_my_04_s,
-        R.id.angry_btn to R.drawable.ic_my_05_s
+        R.id.excited_btn to R.drawable.excited_s1,
+        R.id.happy_btn to R.drawable.happy_s1,
+        R.id.normal_btn to R.drawable.normal_s1,
+        R.id.upset_btn to R.drawable.upset_s1,
+        R.id.angry_btn to R.drawable.angry_s1
     )
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
