@@ -38,8 +38,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
         overlay = findViewById(R.id.overlay) // 오버레이 뷰 초기화
 
-        // 배경음악 재생
-        startBackgroundMusic()
         scheduleNotification()
 
         Log.d("main알람", "scheduleNotification() 실행완료")
@@ -66,15 +64,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         }
     }
 
-    private fun startBackgroundMusic() {
-        val musicServiceIntent = Intent(this, MusicService::class.java)
-        startService(musicServiceIntent)
-    }
-
-    private fun stopBackgroundMusic() {
-        val musicServiceIntent = Intent(this, MusicService::class.java)
-        stopService(musicServiceIntent)
-    }
 
     private fun showOverlayAndShowDialog() {
         binding.overlay.visibility = View.VISIBLE
@@ -203,13 +192,4 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         animator.start()
     }
 
-    override fun onStop() {
-        super.onStop()
-        stopBackgroundMusic() // 사용자가 앱을 떠날 때 배경음악 중지
-    }
-
-    override fun onStart() {
-        super.onStart()
-        startBackgroundMusic() // MainActivity로 돌아오면 배경음악 재생
-    }
 }

@@ -475,11 +475,11 @@ class MailBoxFragment: BottomSheetDialogFragment()  {
 
     private fun getEmojiDrawable(emoji: String): Int {
         return when (emoji) {
-            "excited_s" -> R.drawable.excited_s2  // excited_s에 해당하는 drawable
-            "happy_s" -> R.drawable.happy_s2      // happy_s에 해당하는 drawable
-            "normal_s" -> R.drawable.normal_s2    // normal_s에 해당하는 drawable
-            "upset_s" -> R.drawable.upset_s2          // upset_s에 해당하는 drawable
-            "angry_s" -> R.drawable.angry_s2       // upset_s에 해당하는 drawable
+            "excited_s1" -> R.drawable.excited_s2  // excited_s에 해당하는 drawable
+            "happy_s1" -> R.drawable.happy_s2      // happy_s에 해당하는 drawable
+            "normal_s1" -> R.drawable.normal_s2    // normal_s에 해당하는 drawable
+            "upset_s1" -> R.drawable.upset_s2          // upset_s에 해당하는 drawable
+            "angry_s1" -> R.drawable.angry_s2       // upset_s에 해당하는 drawable
             else -> 0 // 기본 이미지
         }
     }

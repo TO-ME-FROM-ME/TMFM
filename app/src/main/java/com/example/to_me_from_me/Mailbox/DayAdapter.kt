@@ -156,11 +156,11 @@ class DayAdapter(
 
     private fun getEmojiDrawable(emoji: String): Int {
         return when (emoji) {
-            "excited_s" -> R.drawable.ic_mailbox_e
-            "happy_s" -> R.drawable.ic_mailbox_h
-            "normal_s" -> R.drawable.ic_mailbox_n
-            "upset_s" -> R.drawable.ic_mailbox_u
-            "angry_s" -> R.drawable.ic_mailbox_a
+            "excited_s1" -> R.drawable.ic_mailbox_e
+            "happy_s1" -> R.drawable.ic_mailbox_h
+            "normal_s1" -> R.drawable.ic_mailbox_n
+            "upset_s1" -> R.drawable.ic_mailbox_u
+            "angry_s1" -> R.drawable.ic_mailbox_a
             else -> R.drawable.ic_mailbox_e // 기본 이미지
         }
     }

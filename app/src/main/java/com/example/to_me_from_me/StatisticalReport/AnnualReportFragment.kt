@@ -308,11 +308,11 @@ class AnnualReportFragment : Fragment(), AnnualPickerDialogFragment.YearSelectio
                                         val emoji = document.getString("emoji")
                                         if (emoji != null) {
                                             when (emoji) {
-                                                "excited_s" -> emojiCounts[0]++ // excited
-                                                "happy_s" -> emojiCounts[1]++ // happy
-                                                "normal_s" -> emojiCounts[2]++ // normal
-                                                "upset_s" -> emojiCounts[3]++ // sad
-                                                "angry_s" -> emojiCounts[4]++ // upset
+                                                "excited_s1" -> emojiCounts[0]++ // excited
+                                                "happy_s1" -> emojiCounts[1]++ // happy
+                                                "normal_s1" -> emojiCounts[2]++ // normal
+                                                "upset_s1" -> emojiCounts[3]++ // sad
+                                                "angry_s1" -> emojiCounts[4]++ // upset
                                             }
                                             totalCount++
 
@@ -391,7 +391,7 @@ class AnnualReportFragment : Fragment(), AnnualPickerDialogFragment.YearSelectio
             emojiCounts.map { if (totalCount > 0) (it.toFloat() / totalCount) * 100 else 0f }
 
         // 이모지 순서 정의 (excited_s, happy_s, normal_s, sad_s, upset_s 순)
-        val emojiOrder = listOf("excited_s", "happy_s", "normal_s", "upset_s", "angry_s")
+        val emojiOrder = listOf("excited_s1", "happy_s1", "normal_s1", "upset_s1", "angry_s1")
 
         // 이모지 이름과 퍼센티지 값 쌍으로 만들기
         val emojiPercentagePairs = emojiOrder.zip(percentages)
@@ -439,22 +439,22 @@ class AnnualReportFragment : Fragment(), AnnualPickerDialogFragment.YearSelectio
 
             // 각 emoji에 맞는 이미지 설정
             val emojiResId = when (emojiName) {
-                "excited_s" -> R.drawable.ic_my_01_s
-                "happy_s" -> R.drawable.ic_my_02_s
-                "normal_s" -> R.drawable.ic_my_03_s
-                "upset_s" -> R.drawable.ic_my_04_s
-                "angry_s" -> R.drawable.ic_my_05_s
+                "excited_s1" -> R.drawable.ic_my_01_s
+                "happy_s1" -> R.drawable.ic_my_02_s
+                "normal_s1" -> R.drawable.ic_my_03_s
+                "upset_s1" -> R.drawable.ic_my_04_s
+                "angry_s1" -> R.drawable.ic_my_05_s
                 else -> R.drawable.ic_my_01_s
             }
             aProcessImg?.setImageResource(emojiResId)
 
             // ProgressBar의 Drawable 설정
             val aDrawableResId = when (emojiName) {
-                "excited_s" -> R.drawable.progress_exited
-                "happy_s" -> R.drawable.progress_happy
-                "normal_s" -> R.drawable.progress_normal
-                "upset_s" -> R.drawable.progress_sad
-                "angry_s" -> R.drawable.progress_upset
+                "excited_s1" -> R.drawable.progress_exited
+                "happy_s1" -> R.drawable.progress_happy
+                "normal_s1" -> R.drawable.progress_normal
+                "upset_s1" -> R.drawable.progress_sad
+                "angry_s1" -> R.drawable.progress_upset
                 else -> R.drawable.progress_exited
             }
             aProgressBar?.progressDrawable = requireContext().getDrawable(aDrawableResId)
