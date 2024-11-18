@@ -114,6 +114,7 @@ class SETestFinActivity : AppCompatActivity() {
         val calendar = Calendar.getInstance().apply {
             timeInMillis = System.currentTimeMillis()
             add(Calendar.MINUTE, 1)  // 1달 후
+            Log.d("테스트알림", "알림옴")
         }
 
         val intent = Intent(this, TestAlarmReceiver::class.java).apply {

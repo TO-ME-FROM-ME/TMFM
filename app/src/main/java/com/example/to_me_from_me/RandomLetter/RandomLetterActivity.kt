@@ -69,6 +69,7 @@ class RandomLetterActivity : AppCompatActivity() {
             }
             startActivity(intent)
             finish() // 현재 Activity 종료
+            Log.d("랜덤", "$selectedEmoji")
         }
 
 

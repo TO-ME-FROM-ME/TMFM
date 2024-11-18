@@ -81,25 +81,25 @@ class HomeDialogFragment2 : DialogFragment() {
     private fun updateEmojiView(emoji: String?) {
         // emoji 값에 따라 해당 ImageView 보이기
         when (emoji) {
-            "excited_s" -> {
+            "excited_s1" -> {
                 excitedIv.setImageResource(R.drawable.ic_main_s_01)
-                setEmojiClickListener(excitedIv, R.drawable.ic_main_s_01, R.drawable.ic_main_s_01,"excited_s")
+                setEmojiClickListener(excitedIv, R.drawable.ic_main_s_01, R.drawable.ic_main_s_01,"excited_s1")
             }
-            "happy_s" -> {
+            "happy_s1" -> {
                 happyIv.setImageResource(R.drawable.ic_main_s_02)
-                setEmojiClickListener(happyIv, R.drawable.ic_main_s_02, R.drawable.ic_main_s_02,"happy_s")
+                setEmojiClickListener(happyIv, R.drawable.ic_main_s_02, R.drawable.ic_main_s_02,"happy_s1")
             }
-            "normal_s" -> {
+            "normal_s1" -> {
                 normalIv.setImageResource(R.drawable.ic_main_s_03)
-                setEmojiClickListener(normalIv, R.drawable.ic_main_s_03, R.drawable.ic_main_s_03,"normal_s")
+                setEmojiClickListener(normalIv, R.drawable.ic_main_s_03, R.drawable.ic_main_s_03,"normal_s1")
             }
-            "upset_s" -> {
+            "upset_s1" -> {
                 sadIv.setImageResource(R.drawable.ic_main_s_04)
-                setEmojiClickListener(sadIv, R.drawable.ic_main_s_04, R.drawable.ic_main_s_04,"upset_s")
+                setEmojiClickListener(sadIv, R.drawable.ic_main_s_04, R.drawable.ic_main_s_04,"upset_s1")
             }
-            "angry_s" -> {
+            "angry_s1" -> {
                 upsetIv.setImageResource(R.drawable.ic_main_s_05)
-                setEmojiClickListener(upsetIv, R.drawable.ic_main_s_05, R.drawable.ic_main_s_05,"angry_s")
+                setEmojiClickListener(upsetIv, R.drawable.ic_main_s_05, R.drawable.ic_main_s_05,"angry_s1")
             }
             else -> Log.d("UserPref", "Unknown emoji: $emoji")
         }
