@@ -1,6 +1,7 @@
 package com.example.to_me_from_me.LetterWrite
 
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -8,9 +9,11 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import com.example.to_me_from_me.MainActivity
+import com.example.to_me_from_me.MusicService
 import com.example.to_me_from_me.R
 
 class WriteLetterActivity : AppCompatActivity() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

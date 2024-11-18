@@ -1,5 +1,7 @@
 package com.example.to_me_from_me.MainAlarm
 
+import android.app.ActivityManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,7 +11,10 @@ import androidx.fragment.app.Fragment
 import com.example.to_me_from_me.Mailbox.DetailMailBoxActivity
 import com.example.to_me_from_me.Mailbox.DetailMailBoxFragment
 import com.example.to_me_from_me.MainActivity
+import com.example.to_me_from_me.MusicService
 import com.example.to_me_from_me.R
+import com.example.to_me_from_me.startMusicService
+import com.example.to_me_from_me.stopMusicService
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
@@ -22,6 +27,8 @@ class MainAlarmActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private var userId: String? = null
     private var clickedAt: String? = null
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

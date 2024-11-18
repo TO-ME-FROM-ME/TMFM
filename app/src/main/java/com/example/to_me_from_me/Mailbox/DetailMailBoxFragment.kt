@@ -1,6 +1,8 @@
 package com.example.to_me_from_me.Mailbox
 
+import android.app.ActivityManager
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -25,7 +27,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.to_me_from_me.LetterWrite.AdjectiveQ1Adapter
 import com.example.to_me_from_me.LetterWrite.ButtonData
 import com.example.to_me_from_me.LetterWrite.ViewModel
+import com.example.to_me_from_me.MusicService
 import com.example.to_me_from_me.R
+import com.example.to_me_from_me.startMusicService
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.auth.FirebaseAuth

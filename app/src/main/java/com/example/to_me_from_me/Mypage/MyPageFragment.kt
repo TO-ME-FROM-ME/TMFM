@@ -1,5 +1,7 @@
 package com.example.to_me_from_me.Mypage
 
+import android.app.ActivityManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,10 +12,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import com.example.to_me_from_me.LoginActivity
+import com.example.to_me_from_me.MusicService
 import com.example.to_me_from_me.R
+import com.example.to_me_from_me.startMusicService
+import com.example.to_me_from_me.stopMusicService
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -24,17 +30,17 @@ class MyPageFragment : Fragment() {
     private lateinit var userNameTV: TextView
     private lateinit var profileIMG: ImageView
 
+    override fun onResume() {
+        super.onResume()
+        loadUserNickname()
+    }
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_mypage, container, false)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        // 프로필 이미지와 닉네임을 다시 불러옴
-        loadUserNickname()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -1,5 +1,7 @@
 package com.example.to_me_from_me.StatisticalReport
 
+import android.app.ActivityManager
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +10,10 @@ import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
+import com.example.to_me_from_me.MusicService
 import com.example.to_me_from_me.R
+import com.example.to_me_from_me.startMusicService
+import com.example.to_me_from_me.stopMusicService
 
 class StatisticalReportFragment : Fragment() {
 
@@ -16,6 +21,8 @@ class StatisticalReportFragment : Fragment() {
     private lateinit var switch: SwitchCompat
     private lateinit var monthTextView: TextView
     private lateinit var annualTextView: TextView
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

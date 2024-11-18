@@ -1,6 +1,8 @@
 package com.example.to_me_from_me.Mailbox
 
+import android.app.ActivityManager
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,11 +12,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.view.isEmpty
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.to_me_from_me.MusicService
 import com.example.to_me_from_me.R
+import com.example.to_me_from_me.startMusicService
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.auth.FirebaseAuth
@@ -61,6 +66,9 @@ class MailBoxFragment: BottomSheetDialogFragment()  {
     private lateinit var randomMailLl : LinearLayout
     private lateinit var randomMail : LinearLayout
 
+    private lateinit var nullMail : LinearLayout
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -89,6 +97,7 @@ class MailBoxFragment: BottomSheetDialogFragment()  {
 
         // Bundle로 전달된 selectedDate 값을 받아옴
         selectedDate = arguments?.getSerializable("selectedDate") as? Date
+
 
 
         // UI 요소 초기화
@@ -172,11 +181,8 @@ class MailBoxFragment: BottomSheetDialogFragment()  {
 
         return view
     }
-
-
-
-
     private fun initializeUI(view: View) {
+        nullMail = view.findViewById(R.id.nullmail_ll)
         sendMailLl = view.findViewById(R.id.send_ll)
         sendMail = view.findViewById(R.id.send_mail)
         receiveMailLl = view.findViewById(R.id.receiv_ll)
@@ -254,6 +260,8 @@ class MailBoxFragment: BottomSheetDialogFragment()  {
                 .get()
                 .addOnSuccessListener { documents ->
                     if (!documents.isEmpty) {
+                        nullMail.visibility = View.VISIBLE
+
                         for (document in documents) {
                             val letterData = document.data
                             val dateString = document.getString("date")
@@ -286,6 +294,7 @@ class MailBoxFragment: BottomSheetDialogFragment()  {
                         Log.d("loadLetters", "편지 데이터가 없습니다.")
                         randomMailLl.isVisible = false
                         sendMailLl.isVisible = false
+
                     }
                 }
                 .addOnFailureListener { e ->
@@ -364,6 +373,7 @@ class MailBoxFragment: BottomSheetDialogFragment()  {
         receiveAdTv2.text = ad2.toString()
         receiveMailLl.visibility = View.VISIBLE
         receiveMail.visibility = View.VISIBLE
+        nullMail.visibility=View.GONE
         receiveMail.setBackgroundResource(if (readStatus) R.drawable.rounded else R.drawable.rounded_false)
     }
 
@@ -438,6 +448,7 @@ class MailBoxFragment: BottomSheetDialogFragment()  {
         sendAdTv2.text = ad2.toString()
         sendMailLl.visibility = View.VISIBLE
         sendMail.visibility = View.VISIBLE
+        nullMail.visibility=View.GONE
         sendMail.setBackgroundResource(if (readStatus) R.drawable.rounded else R.drawable.rounded_false)
     }
 
@@ -455,6 +466,7 @@ class MailBoxFragment: BottomSheetDialogFragment()  {
         randomAdTv2.text = ad2.toString()
         randomMailLl.visibility = View.VISIBLE
         randomMail.visibility = View.VISIBLE
+        nullMail.visibility=View.GONE
         randomMail.setBackgroundResource(if (readStatus) R.drawable.rounded else R.drawable.rounded_false)
     }
 

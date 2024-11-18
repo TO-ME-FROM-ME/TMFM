@@ -1,6 +1,8 @@
 package com.example.to_me_from_me
 
 
+import android.app.ActivityManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -1,5 +1,7 @@
 package com.example.to_me_from_me.Mailbox
 
+import android.app.ActivityManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -8,9 +10,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.to_me_from_me.LetterWrite.WriteLetterActivity
 import com.example.to_me_from_me.MainActivity
+import com.example.to_me_from_me.MusicService
 import com.example.to_me_from_me.R
 import com.example.to_me_from_me.databinding.ActivityMailboxBinding
+import com.example.to_me_from_me.startMusicService
+import com.example.to_me_from_me.stopMusicService
 import java.util.Calendar
 import java.util.Date
 
@@ -28,6 +34,7 @@ class MailboxActivity : AppCompatActivity(), MonthPickerDialogFragment.MonthSele
         binding = ActivityMailboxBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initView(binding)
+
     }
 
 
@@ -42,7 +49,8 @@ class MailboxActivity : AppCompatActivity(), MonthPickerDialogFragment.MonthSele
                     nullMailboxFragment?.dismiss()
                     showNotNullMailboxFragment(clickedDate)
                 }else {
-                    showNullMailboxFragment(clickedDate)
+                    //showNullMailboxFragment(clickedDate)
+                    showNotNullMailboxFragment(clickedDate)
                 }
             },
             fragmentManager = supportFragmentManager
@@ -87,5 +95,6 @@ class MailboxActivity : AppCompatActivity(), MonthPickerDialogFragment.MonthSele
         mailboxFragment.show(supportFragmentManager, mailboxFragment.tag)
         Log.d("selectedDate", "selectedDate : $selectedDate")
     }
+
 
 }

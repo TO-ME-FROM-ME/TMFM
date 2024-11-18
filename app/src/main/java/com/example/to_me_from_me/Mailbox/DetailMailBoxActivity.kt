@@ -1,12 +1,17 @@
 package com.example.to_me_from_me.Mailbox
 
+import android.app.ActivityManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.to_me_from_me.MusicService
 import com.example.to_me_from_me.R
+import com.example.to_me_from_me.startMusicService
+import com.example.to_me_from_me.stopMusicService
 import java.util.Date
 
 class DetailMailBoxActivity : AppCompatActivity() {
@@ -14,6 +19,7 @@ class DetailMailBoxActivity : AppCompatActivity() {
 
     private lateinit var titleTextView: TextView // 텍스트뷰 초기화
     private lateinit var detailFragment: DetailMailBoxFragment
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

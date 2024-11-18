@@ -95,6 +95,7 @@ class DayAdapter(
 
                             val date = document.id
                             val reservedate = document.getString("reservedDate")
+                            val randomdate = document.getString("randomDate")
 
                             if (dateString != null) {
                                 val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
@@ -123,6 +124,7 @@ class DayAdapter(
                                         Log.d("DayAdapter", "receiveMail의 가시성을 조정하는 로직을 호출")
                                         onDayClickListener(currentDate, true) // true는 이미지를 표시하라는 의미
                                     }
+
                                 }
                             }
                         }

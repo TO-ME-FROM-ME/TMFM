@@ -15,6 +15,46 @@
         android:padding="20dp">
 
 
+
+        <LinearLayout
+            android:id="@+id/nullmail_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="25dp"
+                android:src="@drawable/upset_s"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="18dp"
+                android:fontFamily="@font/notosans"
+                android:text="작성한 편지가 없어😢"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+            <Button
+                android:id="@+id/next_btn"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center"
+                android:background="@drawable/ok_btn_main"
+                android:elevation="2dp"
+                android:textSize="17sp"
+                android:fontFamily="@font/bnotosans"
+                android:textColor="@color/white"
+                android:text="오늘 편지 작성하러 가기"/>
+        </LinearLayout>
+
         <!--보낸 편지-->
         <LinearLayout
             android:id="@+id/send_ll"
