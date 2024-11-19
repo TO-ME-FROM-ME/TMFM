@@ -1,6 +1,7 @@
 package com.example.to_me_from_me.RandomLetter
 
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -13,7 +14,8 @@ import com.example.to_me_from_me.databinding.ActivityRandomletterBinding
 
 class RandomLetterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRandomletterBinding
-
+    // MediaPlayer 선언
+    private var mediaPlayer: MediaPlayer? = null
 
     // 이미지를 저장할 리스트
     private val imageList = listOf(
@@ -50,12 +52,19 @@ class RandomLetterActivity : AppCompatActivity() {
         binding = ActivityRandomletterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // MediaPlayer 초기화 및 음악 재생
+        mediaPlayer = MediaPlayer.create(this, R.raw.random_bgm)
+        mediaPlayer?.isLooping = true // 음악 반복 재생
+        mediaPlayer?.start()
+
+
+
         // 초기 이미지 설정
         binding.imgIv.setImageResource(imageList[currentIndex])
         updateSkipButtonVisibility()
 
         // 자동으로 1초마다 이미지 변경 시작
-        handler.postDelayed(imageSwitcher, 1000)
+        handler.postDelayed(imageSwitcher, 1300)
 
         val selectedEmoji = intent.getStringExtra("selectedEmoji")
 
@@ -88,19 +97,6 @@ class RandomLetterActivity : AppCompatActivity() {
 
     }
 
-//    private fun letterClick() {
-//        if (currentIndex == 4) {
-//            binding.letterIv.visibility = ImageView.VISIBLE
-//            binding.skipIv.visibility = ImageView.GONE
-//            binding.letterIv.setOnClickListener {
-//                Log.d("letterIv", "letterIv clicked")
-//
-//            }
-//        } else {
-//            binding.letterIv.visibility = ImageView.GONE
-//        }
-//
-//    }
 
     private fun updateSkipButtonVisibility() {
         // currentIndex가 0일 때 skipIv 숨기기
@@ -115,5 +111,10 @@ class RandomLetterActivity : AppCompatActivity() {
         super.onDestroy()
         // Activity 종료 시 Handler의 작업을 중지
         handler.removeCallbacks(imageSwitcher)
+
+        // MediaPlayer 정지 및 해제
+        mediaPlayer?.stop()
+        mediaPlayer?.release()
+        mediaPlayer = null
     }
 }

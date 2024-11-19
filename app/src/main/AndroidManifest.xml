@@ -74,9 +74,8 @@
             android:name=".LetterWrite.WriteLetterActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".SetTest.SETestActivity" />
-        <receiver
-            android:name=".SetTest.TestAlarmReceiver"
-            android:exported="true" />
+        <receiver android:name=".SetTest.TestAlarmReceiver" android:enabled="true" android:exported="false" />
+
 
     </application>
 </manifest>
