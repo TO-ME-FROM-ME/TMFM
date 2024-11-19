@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
-        android:layout_marginTop="50dp">
+        android:layout_marginTop="80dp">
       <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
@@ -101,19 +101,19 @@
         android:layout_marginTop="120dp"
         android:layout_gravity="bottom">
 
-      <Button
-          android:id="@+id/test_btn"
-          android:layout_width="match_parent"
-          android:layout_height="55dp"
-          android:layout_marginTop="0dp"
-          android:layout_marginBottom="5dp"
-          android:layout_marginLeft="20dp"
-          android:layout_marginRight="20dp"
-          android:gravity="center"
-          android:background="@drawable/solid_no_main"
-          android:elevation="6dp"
-          android:textSize="17sp"
-          android:textColor="@color/white"
-          android:text="검사하러 가기"/>
+        <Button
+            android:id="@+id/test_btn"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="25dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center"
+            android:background="@drawable/solid_no_main"
+            android:elevation="6dp"
+            android:textSize="17sp"
+            android:textColor="@color/white"
+            android:text="검사하러 가기"/>
     </LinearLayout>
   </LinearLayout>
