@@ -70,11 +70,11 @@ class SETestFinActivity : AppCompatActivity() {
             val documentName = "$currentYear-$currentMonth"
 
             // 현재 날짜 형식 생성
-            val testDate = SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault()).format(Date())
+            val timestamp = Date()
 
             val scoreData = hashMapOf(
                 "score" to totalScore,
-                "date" to testDate
+                "timestamp" to timestamp
             )
 
             firestore.collection("users")
