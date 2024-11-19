@@ -273,6 +273,12 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 } else {
                     Log.d("알람", "예약된 시간이 현재 시간보다 이전입니다. 알림을 예약하지 않습니다.")
                 }
+
+                // 한 달 후에 다시 알림 예약
+                // 알림이 울린 후, 다시 한 달 뒤에 알림을 예약
+                //scheduleNextAlarm(calendar)
+                
+                
             } else {
                 Log.w("알람", "testDate를 파싱할 수 없습니다.")
             }
@@ -281,7 +287,32 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         }
     }
 
+    // 한 달 후에 다시 알림을 예약하는 함수
+    private fun scheduleNextAlarm(calendar: Calendar) {
+        // 한 달 후에 알림을 울리도록 다시 예약
+        calendar.add(Calendar.MONTH, 1) // 한 달 후로 설정
 
+        val intent = Intent(this, TestAlarmReceiver::class.java).apply {
+            putExtra("selected_hour", calendar.get(Calendar.HOUR_OF_DAY))
+            putExtra("selected_minute", calendar.get(Calendar.MINUTE))
+        }
+
+        val pendingIntent = PendingIntent.getBroadcast(
+            this,
+            0,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        alarmManager.setExact(
+            AlarmManager.RTC_WAKEUP,
+            calendar.timeInMillis,
+            pendingIntent
+        )
+
+        Log.d("알람", "다음 한 달 후 알림 예약 완료: ${calendar.time}")
+    }
 
 
 }
