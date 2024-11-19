@@ -452,7 +452,8 @@
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_marginStart="10dp"
-                                android:src="@drawable/ic_01"/>
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_04"/>
                             <TextView
                                 android:id="@+id/adjective1_tv"
                                 android:layout_width="wrap_content"
@@ -490,7 +491,8 @@
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_marginStart="10dp"
-                                android:src="@drawable/ic_02"/>
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_05"/>
                             <TextView
                                 android:id="@+id/adjective2_tv"
                                 android:layout_width="wrap_content"
@@ -528,7 +530,8 @@
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_marginStart="10dp"
-                                android:src="@drawable/ic_03"/>
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_06"/>
                             <TextView
                                 android:id="@+id/adjective3_tv"
                                 android:layout_width="wrap_content"

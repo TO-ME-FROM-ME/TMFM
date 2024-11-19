@@ -397,6 +397,7 @@
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_marginStart="10dp"
+                                android:layout_gravity="center"
                                 android:src="@drawable/ic_01"/>
                             <TextView
                                 android:id="@+id/adjective1_tva"
@@ -435,6 +436,7 @@
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_marginStart="10dp"
+                                android:layout_gravity="center"
                                 android:src="@drawable/ic_02"/>
                             <TextView
                                 android:id="@+id/adjective2_tva"
@@ -473,6 +475,7 @@
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:layout_marginStart="10dp"
+                                android:layout_gravity="center"
                                 android:src="@drawable/ic_03"/>
                             <TextView
                                 android:id="@+id/adjective3_tva"
