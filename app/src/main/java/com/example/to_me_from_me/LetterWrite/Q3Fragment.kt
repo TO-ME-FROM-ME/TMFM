@@ -26,6 +26,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class Q3Fragment : BottomSheetDialogFragment() {
 
@@ -33,6 +35,8 @@ class Q3Fragment : BottomSheetDialogFragment() {
     private lateinit var firestore: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
     private lateinit var nicknameTextView: TextView
+
+    private lateinit var dateTv1: TextView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_q3, container, false)
@@ -43,7 +47,14 @@ class Q3Fragment : BottomSheetDialogFragment() {
             textView.text = text
         }
 
+        dateTv1 = view.findViewById(R.id.date1_tv)
 
+        // 현재 날짜를 가져와 형식 지정
+        val currentDate = LocalDate.now()
+        val formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+        val formattedDate = currentDate.format(formatter)
+
+        dateTv1.text = formattedDate
 
         firestore = FirebaseFirestore.getInstance()
         auth = FirebaseAuth.getInstance()
