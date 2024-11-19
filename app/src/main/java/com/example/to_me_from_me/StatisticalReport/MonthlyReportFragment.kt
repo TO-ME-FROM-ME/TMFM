@@ -77,6 +77,12 @@ class MonthlyReportFragment : Fragment(), MonthPickerDialogFragment2.MonthSelect
     private lateinit var pb3Iv : ImageView
     private lateinit var pb4Iv : ImageView
 
+
+    // 선택된 연도와 월을 저장하는 변수
+    private var selectedYear = calendar.get(Calendar.YEAR)
+    private var selectedMonth = calendar.get(Calendar.MONTH)
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -171,6 +177,11 @@ class MonthlyReportFragment : Fragment(), MonthPickerDialogFragment2.MonthSelect
         calendar.set(Calendar.MONTH, month)
         calendar.set(Calendar.YEAR, year) // 선택한 연도 설정 추가
 
+        selectedYear = year
+        selectedMonth = month+1
+
+        Log.d("selectedMonth","selectedYear : $selectedYear, selectedMonth $selectedMonth")
+
         monthTv.text = "${calendar.get(Calendar.YEAR)}년 ${month+1}월"
         Log.d("MonthPicker","monthTv $monthTv")
         // 선택된 월에 맞는 데이터를 불러옴
@@ -187,32 +198,50 @@ class MonthlyReportFragment : Fragment(), MonthPickerDialogFragment2.MonthSelect
 
 
 //    자아존중감 검사결과
-    private fun loadUserScore() {
-        val user = auth.currentUser
+private fun loadUserScore() {
+    val user = auth.currentUser
 
     if (user != null) {
-            // Firestore에서 사용자 문서 참조
-            val userRef = firestore.collection("users").document(user.uid)
+        val dateString = "$selectedYear-$selectedMonth" // 예: 2024-11
 
-            userRef.get()
-                .addOnSuccessListener { document ->
-                    if (document != null && document.exists()) {
-                        // "totalScore" 필드를 number 타입으로 불러옴
-                        val score = document.getLong("totalScore") // 혹은 getDouble() 사용
-                        if (score != null) {
-                            updateScoreUI(score)
-                        } else {
-                            userScoreTv.text = " "
-                        }
+        firestore.collection("scores")
+            .document(dateString)
+            .get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    // 로그: 문서가 존재하는지 확인
+                    Log.d("loadUserScore", "Document exists: $document")
+
+                    // score 값을 숫자로 가져오기
+                    val score = document.getLong("score") // score 필드를 Long 형식으로 가져옵니다.
+                    // 로그: score 값 확인
+                    Log.d("loadUserScore", "Score: $score")
+
+                    if (score != null) {
+                        updateScoreUI(score)
+                    } else {
+                        userScoreTv.text = "Score not available"
+                        Log.d("loadUserScore", "Score field is missing or not a number")
                     }
+                } else {
+                    // 문서가 없는 경우 로그
+                    Log.d("loadUserScore", "Document does not exist.")
+                    userScoreTv.text = "No data available"
                 }
-                .addOnFailureListener { e ->
-                    Toast.makeText(activity, "데이터 로드 실패: ${e.message}", Toast.LENGTH_SHORT).show()
-                }
-        } else {
-            userScoreTv.text = " "
-        }
+            }
+            .addOnFailureListener { e ->
+                // 실패 시 로그
+                Log.d("loadUserScore", "Failed to load data: ${e.message}")
+                Toast.makeText(activity, "데이터 로드 실패: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+    } else {
+        userScoreTv.text = "No user found"
+        Log.d("loadUserScore", "No user is currently signed in.")
     }
+}
+
+
+
 
     private fun updateScoreUI(score: Long) {
         if(score<20){
