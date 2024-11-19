@@ -113,7 +113,7 @@ class SETestFinActivity : AppCompatActivity() {
     private fun setMonthlyAlarm() {
         val calendar = Calendar.getInstance().apply {
             timeInMillis = System.currentTimeMillis()
-            add(Calendar.MINUTE, 1)  // 1달 후
+            add(Calendar.MINUTE, 8)  // 1달 후
             Log.d("테스트알림", "알림옴")
         }
 
