@@ -55,7 +55,7 @@
           android:layout_height="wrap_content"
           android:src="@drawable/ic_test"
           android:layout_gravity="center"
-          android:layout_marginTop="20dp"
+          android:layout_marginTop="30dp"
           android:layout_marginBottom="20dp"/>
 
 
@@ -63,7 +63,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:orientation="horizontal"
-          android:layout_marginTop="20dp">
+          android:layout_marginTop="30dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -98,7 +98,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="130dp"
         android:layout_gravity="bottom">
 
         <Button
