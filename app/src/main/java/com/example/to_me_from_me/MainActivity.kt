@@ -241,11 +241,11 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
                 val calendar = Calendar.getInstance().apply {
                     time = parsedDate
-                    add(Calendar.SECOND, 10) // testDate 기준으로 3분 후로 설정
+                    add(Calendar.MINUTE, 5) // testDate 기준으로 3분 후로 설정
                 }
 
                 // 로그 추가: 예약 시간이 설정된 후
-                Log.d("알람", "예약된 시간 (10초 후): ${calendar.time}")
+                Log.d("알람", "예약된 시간 (5분 후): ${calendar.time}")
 
                 // 예약 시간이 현재 시간보다 이전이라면 알림을 예약하지 않음
                 if (calendar.timeInMillis > System.currentTimeMillis()) {

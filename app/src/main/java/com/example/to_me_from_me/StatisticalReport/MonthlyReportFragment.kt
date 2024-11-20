@@ -255,11 +255,11 @@ private fun loadUserScore() {
 
         }
         else if(score<30) {
-            reportTv.text = "보통수준"
-            report2Tv.text = "의 자존감을 갖고 있어"
+            reportTv.text = "매우 높은"
+            report2Tv.text = " 자존감을 갖고 있어"
             userScoreTv.text = "${score.toString()}점"
-            reportEmoTv.text = "\uD83D\uDE03"
-            scoreImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_graph_02))
+            reportEmoTv.text = "\uD83E\uDD70"
+            scoreImage.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_graph_03))
         }else{
             reportTv.text = "매우 높은"
             report2Tv.text = " 자존감을 갖고 있어"

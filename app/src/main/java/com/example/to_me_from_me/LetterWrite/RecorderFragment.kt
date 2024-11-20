@@ -159,9 +159,9 @@ class RecorderFragment : BottomSheetDialogFragment() {
                     prepare()
                     start()
                     isRecording = true // 녹음 상태 설정
-                    Toast.makeText(requireContext(), "녹음이 시작되었습니다.", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(requireContext(), "녹음이 시작되었습니다.", Toast.LENGTH_SHORT).show()
                 } catch (e: IOException) {
-                    Toast.makeText(requireContext(), "녹음에 실패했습니다.", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(requireContext(), "녹음에 실패했습니다.", Toast.LENGTH_SHORT).show()
                     e.printStackTrace()
                 }
             }
@@ -182,7 +182,7 @@ class RecorderFragment : BottomSheetDialogFragment() {
         }
         mediaRecorder = null
         isRecording = false
-        Toast.makeText(requireContext(), "녹음이 중지되었습니다.", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(requireContext(), "녹음이 중지되었습니다.", Toast.LENGTH_SHORT).show()
     }
 }
 
