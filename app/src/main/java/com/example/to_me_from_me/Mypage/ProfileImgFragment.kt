@@ -2,6 +2,7 @@ package com.example.to_me_from_me.Mypage
 
 import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class ProfileImgFragment : BottomSheetDialogFragment() {
 
-    private var selectedImgResId: Int = R.drawable.ic_my_01
+    private var selectedImgResId: String = ""
     private var selectedImageView: ImageView? = null
     private val firestore = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
@@ -37,6 +38,14 @@ class ProfileImgFragment : BottomSheetDialogFragment() {
         R.id.angry_btn to R.drawable.angry_s1
     )
 
+    private val imageStringMap = mapOf(
+        R.id.excited_btn to "excited",
+        R.id.happy_btn to "happy",
+        R.id.normal_btn to "normal",
+        R.id.upset_btn to "upset",
+        R.id.angry_btn to "angry"
+    )
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_profileimg, container, false)
         val uid = auth.currentUser?.uid
@@ -47,15 +56,16 @@ class ProfileImgFragment : BottomSheetDialogFragment() {
                 .get()
                 .addOnSuccessListener { document ->
                     if (document.exists()) {
-                        val profileImageNumber = document.getLong("profileImage")?.toInt() ?: 1
-                        val selectedButtonId = when (profileImageNumber) {
-                            2131165489 -> R.id.excited_btn
-                            2131165491 -> R.id.happy_btn
-                            2131165493 -> R.id.normal_btn
-                            2131165495 -> R.id.upset_btn
-                            2131165497 -> R.id.angry_btn
+                        val profileImage = document.getString("profileImage")
+                        val selectedButtonId = when (profileImage) {
+                            "excited" -> R.id.excited_btn
+                            "happy" -> R.id.happy_btn
+                            "normal" -> R.id.normal_btn
+                            "upset" -> R.id.upset_btn
+                            "angry" -> R.id.angry_btn
                             else -> R.id.excited_btn // 기본값
                         }
+                        Log.d("UserPref", "profileImage : $profileImage")
                         // 초기 선택된 이미지 강조
                         updateImageSelection(view.findViewById(selectedButtonId))
                     }
@@ -66,8 +76,9 @@ class ProfileImgFragment : BottomSheetDialogFragment() {
 
         val okButton = view.findViewById<Button>(R.id.ok_btn)
         okButton.setOnClickListener {
+            // 선택된 이미지를 전달
             setFragmentResult("profileImgKey", Bundle().apply {
-                putInt("selectedImgResId", selectedImgResId)
+                putString("selectedImgResId", selectedImgResId)
             })
             dismiss()
         }
@@ -90,8 +101,8 @@ class ProfileImgFragment : BottomSheetDialogFragment() {
         newImageView.setImageResource(selectedImageResourceMap[newImageView.id] ?: R.drawable.ic_my_01_s)
         selectedImageView = newImageView
 
-        // 현재 선택된 이미지 리소스 ID 업데이트
-        selectedImgResId = selectedImageResourceMap[newImageView.id] ?: R.drawable.ic_my_01_s
+        // 현재 선택된 이미지의 String 값 업데이트
+        selectedImgResId = imageStringMap[newImageView.id] ?: "default"
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -100,3 +111,4 @@ class ProfileImgFragment : BottomSheetDialogFragment() {
         }
     }
 }
+

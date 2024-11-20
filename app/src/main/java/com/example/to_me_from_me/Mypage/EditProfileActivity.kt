@@ -43,8 +43,8 @@ class EditProfileActivity : AppCompatActivity() {
     private var selectedProfileImage: Int = R.drawable.ic_profile_01_s
 
 
-    private var selectedProfileImageResId: Int? = null
-    private var initialProfileImageResId: Int = R.drawable.excited_s // 기본값 설정
+    private var selectedProfileImageResId: String? = null
+    private var initialProfileImageResId: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +54,6 @@ class EditProfileActivity : AppCompatActivity() {
 
         val backButton: ImageView = findViewById(R.id.back_iv)
         saveButton = findViewById(R.id.save_button)
-
 
 
         // 비밀번호 가시성 상태를 저장하는 변수
@@ -72,6 +71,17 @@ class EditProfileActivity : AppCompatActivity() {
         pwdET = findViewById(R.id.pwd_et)
         profileIMG = findViewById(R.id.profile_img)
 
+
+        // 전달받은 데이터 가져오기
+        val profileImageKey = intent.getStringExtra("profileImageKey") ?: "default"
+
+        // 프로필 이미지 키를 기반으로 UI 업데이트
+        val profileImageDrawable = getEmojiDrawable(profileImageKey)
+        profileIMG.setImageResource(profileImageDrawable)
+
+        Log.d("EditProfileActivity", "Received profileImageKey: $profileImageKey")
+
+
         loadUserProfile()
 
         val user = auth.currentUser
@@ -82,9 +92,9 @@ class EditProfileActivity : AppCompatActivity() {
             userRef.get().addOnSuccessListener { document ->
                 if (document != null) {
                     // Firestore에서 프로필 이미지 ID 가져오기
-                    initialProfileImageResId = document.getLong("profileImage")?.toInt() ?: R.drawable.excited_s
+                    //initialProfileImageResId = document.getLong("profileImage")?.toInt() ?: R.drawable.excited_s
                     // 가져온 이미지로 ImageView 설정
-                    profileIMG.setImageResource(initialProfileImageResId)
+                    //profileIMG.setImageResource(initialProfileImageResId)
                 }
             }.addOnFailureListener { e ->
                 Log.w("EditProfileFB", "사용자 데이터를 가져오는 데 실패했습니다.", e)
@@ -100,11 +110,25 @@ class EditProfileActivity : AppCompatActivity() {
 
         supportFragmentManager.setFragmentResultListener("profileImgKey", this, FragmentResultListener { requestKey, bundle ->
             if (requestKey == "profileImgKey") {
-                val selectedImgResId = bundle.getInt("selectedImgResId", R.drawable.ic_profile_01_s)
-                Log.d("이미지","profileImgKey : $selectedImgResId")
-                profileIMG.setImageResource(selectedImgResId)
+                //val selectedImgResId = bundle.getString("selectedImgResId", "happy")
+                //Log.d("이미지","profileImgKey : $selectedImgResId")
+                //profileIMG.setImageResource(selectedImgResId)
+                val selectedImgResId = bundle.getString("selectedImgResId", "default")
+                Log.d("이미지", "선택된 이미지: $selectedImgResId")
 
                 selectedProfileImageResId = selectedImgResId
+
+                // ImageView에 표시할 리소스를 결정
+                val drawableResId = when (selectedImgResId) {
+                    "excited" -> R.drawable.excited_s2
+                    "happy" -> R.drawable.happy_s2
+                    "normal" -> R.drawable.normal_s2
+                    "upset" -> R.drawable.upset_s2
+                    "angry" -> R.drawable.angry_s2
+                    else -> R.drawable.ic_my_01_s // 기본 이미지
+                }
+
+                profileIMG.setImageResource(drawableResId)
             }
         })
 
@@ -197,6 +221,16 @@ class EditProfileActivity : AppCompatActivity() {
         }
     }
 
+    private fun getEmojiDrawable(profileImage: String): Int {
+        return when (profileImage.trim().lowercase()) {
+            "excited" -> R.drawable.excited_s2
+            "happy" -> R.drawable.happy_s2
+            "normal" -> R.drawable.normal_s2
+            "upset" -> R.drawable.upset_s2
+            "angry" -> R.drawable.angry_s2
+            else -> R.drawable.ic_my_01_s
+        }
+    }
 
 
     private fun updateUserProfile() {
@@ -329,13 +363,22 @@ class EditProfileActivity : AppCompatActivity() {
                         initialNickname  = document.getString("nickname") ?: ""
                         initialEmail  = document.getString("email")?: ""
                         initialPassword = document.getString("password")?: ""
-                        initialProfileImage  = document.getLong("profileImage")?.toInt() ?: R.drawable.ic_profile_01_s
+                        //initialProfileImage  = document.getLong("profileImage")?.toInt() ?: R.drawable.ic_profile_01_s
+
+                        val profileImageKey = document.getString("profileImage") ?: "default"
+                        val profileImageDrawable = getEmojiDrawable(profileImageKey)
+
+                        // ImageView에 이미지 설정
+                        profileIMG.setImageResource(profileImageDrawable)
+
+                        Log.d("이미지", "profileImageKey 이미지 : $profileImageKey")
+
 
                         // EditText에 값 설정
                         nicknameET.setText(initialNickname)
                         emailET.setText(initialEmail)
                         pwdET.setText(initialPassword)
-                        profileIMG.setImageResource(initialProfileImage )
+                        //profileIMG.setImageResource(initialProfileImage )
 
                     }
                 }
