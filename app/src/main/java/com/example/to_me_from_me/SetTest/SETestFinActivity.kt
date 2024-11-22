@@ -18,6 +18,7 @@ import java.util.Locale
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
+import com.example.to_me_from_me.MainActivity
 import com.example.to_me_from_me.Mypage.AlarmReceiver
 import com.example.to_me_from_me.SetTest.TestAlarmReceiver
 import java.util.Calendar
@@ -61,7 +62,8 @@ class SETestFinActivity : AppCompatActivity() {
                 .addOnSuccessListener {
                     Log.d("Firestore", "totalScore successfully updated!")
                     Toast.makeText(this, "검사결과가 저장되었습니다!", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this, CoachMarkActivity::class.java))
+                    //startActivity(Intent(this, CoachMarkActivity::class.java))
+                    startActivity(Intent(this, MainActivity::class.java))
                     finish()
                 }
 
