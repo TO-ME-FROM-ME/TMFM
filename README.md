@@ -8,6 +8,6 @@
 
 
 ## Team Members
-| 신예한 | 최지은 | 하은서 | 김나영 |
+| 신예한 | 최지은 | 하은서 | 최나영 |
 |:------:|:------:|:------:|:------:|
 | Planner | Visual Designer | Front-end | Back-end |
