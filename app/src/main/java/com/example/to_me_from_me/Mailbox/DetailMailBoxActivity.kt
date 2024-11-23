@@ -40,6 +40,7 @@ class DetailMailBoxActivity : AppCompatActivity() {
 
 
         Log.d("메인알림", "sendValue : $sendValue ")
+        Log.d("IntentData", "sendValue : $sendValue ")
 
 
         // 수신한 값에 따라 TextView 업데이트 및 Fragment 설정
@@ -58,7 +59,6 @@ class DetailMailBoxActivity : AppCompatActivity() {
             }
             "random" -> {
                 titleTextView.text = "우연한 편지"
-                Log.d("sendValue", "$sendValue")
                 detailFragment = DetailMailBoxFragment()
                 val bundle = Bundle()
 

@@ -82,73 +82,41 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_detail_mailbox, container, false)
 
-        // Bundle로 전달된 selectedDate 값을 Long으로 가져와 Date로 변환
+        // 전달된 Bundle 데이터 처리
         arguments?.let { bundle ->
-            val selectedDateMillis = bundle.getLong("selectedDate", -1L)
-            if (selectedDateMillis != -1L) {
-                selectedDate = Date(selectedDateMillis) // Long을 Date로 변환
-            }
-            letter = bundle.getString("letter")
-        }
-
-        arguments?.let {
-            selectedEmoji = it.getString("selectedEmoji")
-            letter = it.getString("letter")
-
-        }
-
-
-        arguments?.let {
-            reservedate = it.getString("reservedate")
-            letter = it.getString("letter")
-            Log.d("DetailMailBoxFragment", "Reservedate received: $reservedate + $letter")
-        }
-
-
-        arguments?.let {bundle ->
-            val selectedDateMillis = bundle.getLong("selectedDate", -1L)
-            if (selectedDateMillis != -1L) {
-                selectedDate = Date(selectedDateMillis) // Long을 Date로 변환
-            }
-            situation = bundle.getString("situation")
-            emoji = bundle.getString("emoji")
-            ad1 = bundle.getString("ad1")
-            ad2 = bundle.getString("ad2")
-            letter = bundle.getString("letter")
-        }
-
-
-        arguments?.let {
-            reservedate = it.getString("reservedate")
-            letter = it.getString("letter")
-        }
-
-
-        // 전달된 Bundle에서 데이터를 받기
-        arguments?.let { bundle ->
-            selectedDate = Date(bundle.getLong("selectedDate", -1L))
+            // 공통 데이터 처리
+            selectedDate = bundle.getLong("selectedDate", -1L).takeIf { it != -1L }?.let { Date(it) }
             selectedEmoji = bundle.getString("selectedEmoji")
+            reservedate = bundle.getString("reservedate")
             letter = bundle.getString("letter")
             situation = bundle.getString("situation")
             emoji = bundle.getString("emoji")
             ad1 = bundle.getString("ad1")
             ad2 = bundle.getString("ad2")
+
+            // 디버깅 로그
+            Log.d("BundleData", "Selected Date: $selectedDate")
+            Log.d("BundleData", "Selected Emoji: $selectedEmoji")
+            Log.d("BundleData", "Reservedate: $reservedate")
+            Log.d("BundleData", "Letter: $letter")
+            Log.d("BundleData", "Situation: $situation")
+            Log.d("BundleData", "Emoji: $emoji")
+            Log.d("BundleData", "Ad1: $ad1, Ad2: $ad2")
         }
 
+        // 뷰 초기화
         dateTv1 = view.findViewById(R.id.date1_tv)
         dateTv2 = view.findViewById(R.id.date2_tv)
         dateIv = view.findViewById(R.id.date_iv)
-
-
         situationTv = view.findViewById(R.id.user_situation_tv)
         emojiIv = view.findViewById(R.id.user_emoji_iv)
-        letterTv  = view.findViewById(R.id.letter_tv)
+        letterTv = view.findViewById(R.id.letter_tv)
         ad1Tv = view.findViewById(R.id.ad1_tv)
         ad2Tv = view.findViewById(R.id.ad2_tv)
+        letterTv.movementMethod = ScrollingMovementMethod()
+        charCountTextView = view.findViewById(R.id.char_count_tv)
 
-        letterTv.movementMethod=ScrollingMovementMethod()
-
-        // 편지 로드
+        // Letter 타입에 따라 적절한 함수 호출
         when (letter) {
             "send" -> sendLetterLoad()
             "random" -> randomLetterLoad()
@@ -156,8 +124,6 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
             "receive2" -> receiveLetterLoad2()
             "randomMail" -> randomLetterUpdateUI()
         }
-
-        charCountTextView = view.findViewById<TextView>(R.id.char_count_tv)
 
         return view
     }
@@ -242,39 +208,43 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
 
-        // 오늘 날짜를 가져옵니다.
+        // 선택된 날짜를 가져옵니다 (Bundle에서 전달)
+        val selectedDateMillis = arguments?.getLong("selectedDate", -1L) ?: -1L
+        if (selectedDateMillis == -1L) {
+            Log.e("randomLetterUpdateUI", "선택된 날짜가 전달되지 않았습니다.")
+            return
+        }
+
+        // Date 객체로 변환 및 날짜 포맷 설정
+        val selectedDate = Date(selectedDateMillis)
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val displayDateFormat = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
-        val targetDate = Date() // 오늘 날짜 (Date 객체)
-        val formattedTargetDate = displayDateFormat.format(targetDate) // YYYY.MM.dd 형식으로 변환
-
-        var firstDateShown = false // 첫 번째 date가 표시되었는지 여부를 추적
+        val formattedSelectedDate = displayDateFormat.format(selectedDate)
 
         if (uid != null) {
             firestore.collection("users").document(uid).collection("letters")
                 .get()
                 .addOnSuccessListener { documents ->
                     if (!documents.isEmpty) {
-                        // randomDate와 targetDate가 일치하는 편지를 찾기
+                        // Firestore 데이터 중 클릭한 날짜와 일치하는 `randomDate`를 찾기
                         val matchingLetter = documents.firstOrNull { document ->
-                            val randomdate = document.getString("randomDate") // Firestore에서 가져온 randomDate
-
-                            // randomDate가 targetDate와 일치하는지 확인
-                            randomdate != null && formattedTargetDate == displayDateFormat.format(dateFormat.parse(randomdate))
+                            val randomdate = document.getString("randomDate")
+                            randomdate != null && formattedSelectedDate == displayDateFormat.format(dateFormat.parse(randomdate))
                         }?.data
 
                         if (matchingLetter != null) {
-                            // randomDate가 일치하는 경우 UI 업데이트 및 편지 표시
+                            // 일치하는 경우 UI 업데이트
                             dateIv.visibility = View.VISIBLE
                             dateTv2.visibility = View.VISIBLE
-                            dateTv2.text = formattedTargetDate // 포맷된 targetDate 설정
+                            dateTv2.text = formattedSelectedDate
                             dateIv.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_mail_random))
 
-                            // 일치하는 편지 내용을 UI에 업데이트
+                            // 편지 내용 업데이트
                             displayLetter(matchingLetter, dateFormat)
                         } else {
                             Log.d("random", "선택된 날짜에 해당하는 편지가 없습니다.")
-                            // 필요에 따라 UI 업데이트: 예를 들어, 빈 상태를 표시할 수 있습니다.
+                            dateIv.visibility = View.GONE
+                            dateTv2.visibility = View.GONE
                         }
                     } else {
                         Log.d("random", "편지 데이터가 없습니다.")
@@ -285,6 +255,7 @@ class DetailMailBoxFragment : BottomSheetDialogFragment() {
                 }
         }
     }
+
 
 
 
