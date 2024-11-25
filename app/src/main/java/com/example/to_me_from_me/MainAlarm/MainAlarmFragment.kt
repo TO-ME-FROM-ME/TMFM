@@ -53,31 +53,31 @@ class MainAlarmFragment : Fragment() {
     private fun fetchReservedLetters(alarmDataList: MutableList<AlarmData>, callback: (List<AlarmData>) -> Unit) {
         val currentDate = Date()
         val calendar = Calendar.getInstance()
-        calendar.time = currentDate
-        calendar.add(Calendar.DAY_OF_YEAR, 7) // 현재 날짜 기준으로 일주일 뒤 날짜
-        val oneWeekAgoDate  = calendar.time
 
-        // Firestore에서 모든 예약된 편지 가져오기
+        // 1주일 전 날짜 계산
+        calendar.time = currentDate
+        calendar.add(Calendar.DAY_OF_YEAR, -7) // 현재 날짜에서 7일 전
+        val oneWeekAgoDate = calendar.time
+
         firestore.collection("users")
             .document(userId!!)
             .collection("letters")
-            .get() // 모든 데이터를 가져옴
+            .get()
             .addOnSuccessListener { letterDocuments ->
                 if (!letterDocuments.isEmpty) {
                     for (document in letterDocuments) {
                         val reservedDate = document.getString("reservedate")
-                        val letterContent = document.getString("situation") // 편지 내용 가져오기
-                        val time = SimpleDateFormat("hh:mm", Locale.getDefault()).format(currentDate) // 예시로 현재 시간 설정
+                        val letterContent = document.getString("situation")
+                        val time = SimpleDateFormat("hh:mm", Locale.getDefault()).format(currentDate)
 
-                        // 'reservedate'가 1주일 이내인 알람만 필터링하여 표시
                         if (reservedDate != null && letterContent != null) {
-                            // 'reservedate'가 현재 날짜부터 1주일 내로 설정된 경우에만 추가
                             val reservedDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
                             val reservedDateParsed = reservedDateFormat.parse(reservedDate)
 
                             if (reservedDateParsed != null) {
+                                // 'reservedate'가 현재 날짜보다 이전이고, 1주일 전 날짜 이후인 경우 추가
                                 val isWithinOneWeek = reservedDateParsed.after(oneWeekAgoDate) && reservedDateParsed.before(currentDate)
-                                if (isWithinOneWeek || reservedDateParsed.before(currentDate)) {
+                                if (isWithinOneWeek) {
                                     alarmDataList.add(
                                         AlarmData(
                                             imgResId = R.drawable.ic_letter_alram,
@@ -97,17 +97,17 @@ class MainAlarmFragment : Fragment() {
                 // 시간 기준 내림차순으로 정렬
                 alarmDataList.sortByDescending {
                     val reservedDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
-                    reservedDateFormat.parse(it.reservedate) ?: Date(0) // 날짜를 파싱하여 내림차순 정렬
+                    reservedDateFormat.parse(it.reservedate) ?: Date(0)
                 }
 
-
-                // 콜백 호출하여 필터링된 알람 데이터 리스트 반환
+                // 필터링된 결과를 콜백으로 반환
                 callback(alarmDataList)
             }
             .addOnFailureListener { e ->
                 Log.e("MainAlarmFragment", "예약된 편지 가져오기 실패", e)
             }
     }
+
 
 
 }
