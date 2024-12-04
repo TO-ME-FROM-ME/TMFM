@@ -17,8 +17,6 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.to_me_from_me.MusicService
 import com.example.to_me_from_me.R
 import com.example.to_me_from_me.startMusicService
@@ -305,9 +303,6 @@ class MailBoxFragment: BottomSheetDialogFragment()  {
         }
     }
 
-
-
-
     private fun loadReceiveLetters() {
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
@@ -474,6 +469,7 @@ class MailBoxFragment: BottomSheetDialogFragment()  {
         nullMail.visibility=View.GONE
         randomMail.setBackgroundResource(if (readStatus) R.drawable.rounded else R.drawable.rounded_false)
     }
+
 
 
     // 두 날짜가 같은 날인지 확인하는 함수 (시간 제외)

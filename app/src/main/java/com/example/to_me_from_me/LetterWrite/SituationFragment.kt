@@ -80,8 +80,8 @@ class SituationFragment : BottomSheetDialogFragment() {
             val toastTv2 = toastLayout2.findViewById<TextView>(R.id.toast_tv)
 
             when {
-                textLength < 1 -> {
-                    //showToast(toastLayout,writeEditText,700)
+                textLength < 10 -> {
+                    showToast(toastLayout,writeEditText,700)
                     toastTv.text = "최소 10자 이상 작성해줘!"
                     writeEditText.background = ContextCompat.getDrawable(requireContext(),
                         R.drawable.solid_over_txt
@@ -89,7 +89,7 @@ class SituationFragment : BottomSheetDialogFragment() {
                 }
 
                 textLength > 30 -> {
-                    //showToast2(toastLayout2,writeEditText,700)
+                    showToast2(toastLayout2,writeEditText,700)
                     toastTv2.text = "30자 이하로 작성해줘!"
 
                 }
@@ -151,7 +151,7 @@ class SituationFragment : BottomSheetDialogFragment() {
                 charCountTextView.text = "$charCount"
 
                 // 버튼 배경 변경 로직
-                if (charCount >= 0 && charCount <= 30) {
+                if (charCount >= 10 && charCount <= 30) {
                     nextButton.background = mainColor
                     writeEditText.background = ContextCompat.getDrawable(requireContext(),
                         R.drawable.solid_stroke_q
